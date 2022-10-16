@@ -18,4 +18,5 @@
   - [조졌조_220913.pptx](https://github.com/NamKiHyeong/project_Fit_make/files/9792517/_220913.pptx)
 
 
-> 피드백 자료
+> 팀프로젝트 진행 사항 자료
+  - [팀프로젝트.docx](https://github.com/NamKiHyeong/project_Fit_make/files/9794454/default.docx)
