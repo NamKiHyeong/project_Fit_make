@@ -1,4 +1,4 @@
- ## 🐵  🐂  🐔 project_Fit_make(ANK) :muscle:
+ ## 🐔  🐂 🐵  project_Fit_make(ANK) :muscle:
 
 
 # 프로젝트 소개
