@@ -26,8 +26,9 @@
     
  일별 자료 :
    
+
 - [팀프로젝트 - 주제 발표(0913).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802627/-.0913.docx)
-- [팀프로젝트 - 팀원 역할.docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802628/-.docx)
+- [팀프로젝트 - 팀원 역할 및 DB.docx](https://github.com/NamKiHyeong/project_Fit_make/files/9867204/-.DB.docx)
 - [팀프로젝트 - PPT 컨펌 ver(0908).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802622/-.PPT.ver.0908.docx)
 - [팀프로젝트 - PPT 컨펌 ver(0913).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802623/-.PPT.ver.0913.docx)
 - [팀프로젝트 - UI 컨펌 ver(0921).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802624/-.UI.ver.0921.docx)
