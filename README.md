@@ -21,8 +21,8 @@
  ## 팀프로젝트 진행 사항 자료
 
  종합 파일 :
-   
-- [팀프로젝트.docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802621/default.docx)
+  
+- [팀프로젝트 .docx](https://github.com/NamKiHyeong/project_Fit_make/files/9867215/default.docx)
     
  일별 자료 :
    
