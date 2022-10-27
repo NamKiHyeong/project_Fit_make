@@ -35,6 +35,6 @@
 - [팀프로젝트 - UI 컨펌 ver(1004).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802625/-.UI.ver.1004.docx)
 - [팀프로젝트 - UI 컨펌 ver(1013).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802626/-.UI.ver.1013.docx)
 - [팀프로젝트 - UI 컨펌(1018).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802645/-.UI.1018.docx)
-
+- [팀프로젝트 - UI컨펌 ver(1027).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9878907/-.UI.ver.1027.docx)
 
 
