@@ -1,5 +1,5 @@
-drop user fm;
+DROP USER fm CASCADE;
 
-create user fm identified by fm1234;
+CREATE USER fm IDENTIFIED BY fm1234;
 
-grant connect, resource to fm;
+GRANT CONNECT, RESOURCE TO fm;
