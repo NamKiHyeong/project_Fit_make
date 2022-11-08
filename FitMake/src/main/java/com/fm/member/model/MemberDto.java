@@ -10,7 +10,7 @@ public class MemberDto {
 	private String password = "";
 	private String mobile = "";
 	private String zipCode = "";
-	private String address = "";
+	private String address = "";	
 	private Date createDate = null;
 	private int point = 0;
 	

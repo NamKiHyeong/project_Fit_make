@@ -28,6 +28,13 @@ public class MemberController {
 
 	@Autowired
 	private MemberService memberService;
+	
+	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
+	public String login(HttpSession session, Model model) {
+		logger.info("환영 login!!");
+		
+		return "auth/LoginForm";
+	}
 
 	
 

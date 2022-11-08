@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.fm.member.model.MemberDto;
 
 public interface MemberDao {
-	
-	
+	public List<MeberDto> memberSelectList(String searchOption,
+			String keyword, int start, int end);
+	public
 }
