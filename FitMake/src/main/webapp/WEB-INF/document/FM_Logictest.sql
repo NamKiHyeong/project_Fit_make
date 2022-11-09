@@ -1,111 +1,48 @@
--- È¸¿ø°¡ÀÔ
+-- íšŒì›ê°€ì…
 INSERT INTO FM_USER
 VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD, FM_USER_MOBILE
     , FM_USER_ZIP_CODE, FM_USER_ADDRESS, FM_USER_CRE_DATE, FM_USER_POINT)
-VALUES(5, 'psu0007', 'psu0007@naver.com', '1234', '010-1111-2222', 21938, 'ÀÎÃµ½Ã ¾îµò°¡', SYSDATE, 50000);
+VALUES(5, 'psu0007', 'psu0007@naver.com', '1234', '010-1111-2222', 21938, 'ì¸ì²œì‹œ ì–´ë”˜ê°€', SYSDATE, 50000);
 
--- ·Î±×ÀÎ
+-- ë¡œê·¸ì¸
 SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_POINT
 FROM FM_USER
 WHERE FM_USER_EMAIL = 'nkhink@naver.com'
 AND FM_USER_PASSWORD = 1234;
 
--- BMI ¿¬»ê½Ä
-SELECT b.fm_user_nickname, round(a.fm_user_bmi_weight / (a.fm_user_bmi_height * a.fm_user_bmi_height) * 10000, 2)
+-- BMI ì—°ì‚°ì‹
+SELECT b.fm_user_nickname, round(a.fm_user_weight / (a.fm_user_height * a.fm_user_height) * 10000, 2)
 FROM fm_user_bmi a, fm_user b
 where a.fm_user_no = b.fm_user_no;
 
--- BMI µî±Ş
-select c.fm_user_nickname, b.fm_bmi_grade
-from fm_user_bmi a, fm_user c, fm_bmi_standard b 
-where c.fm_user_no = a.fm_user_no
-and round(a.fm_user_bmi_weight / (a.fm_user_bmi_height * a.fm_user_bmi_height) * 10000, 2) >= b.fm_bmi_min
-and round(a.fm_user_bmi_weight / (a.fm_user_bmi_height * a.fm_user_bmi_height) * 10000, 2) < b.fm_bmi_max;
-
--- ¸ñÇ¥ BMI »êÃâ
-
-select round(a.fm_user_bmi - 1, 1) as "¸ñÇ¥BMI", 
-    case when round(a.fm_user_bmi - 1, 1) <= 2  then 2 else round(a.fm_user_bmi - 1, 1) end as "¸ñÇ¥BMIµî±Ş"
+-- BMI ë“±ê¸‰
+select b.bmi_grade
 from fm_user_bmi a, bmi_standard b
 where round(a.fm_user_weight / (a.fm_user_height * a.fm_user_height) * 10000, 2) >= b.bmi_min
 and round(a.fm_user_weight / (a.fm_user_height * a.fm_user_height) * 10000, 2) < b.bmi_max;
 
--- ¸ñÇ¥ Ç¥ÁØÃ¼Áß
+-- ëª©í‘œ BMI ì‚°ì¶œ
+
+select round(a.fm_user_bmi - 1, 1) as "ëª©í‘œBMI", 
+    case when round(a.fm_user_bmi - 1, 1) <= 2  then 2 else round(a.fm_user_bmi - 1, 1) end as "ëª©í‘œBMIë“±ê¸‰"
+from fm_user_bmi a, bmi_standard b
+where round(a.fm_user_weight / (a.fm_user_height * a.fm_user_height) * 10000, 2) >= b.bmi_min
+and round(a.fm_user_weight / (a.fm_user_height * a.fm_user_height) * 10000, 2) < b.bmi_max;
+
+-- ëª©í‘œ í‘œì¤€ì²´ì¤‘
 
 select round((a.fm_user_height * a.fm_user_height * 20.9) / 10000, 2)
 from fm_user_bmi a;
 
--- ±ÇÀå ¼·Ãë Ä®·Î¸®(ÇÑ³¢)
--- ÇÑ³¢ ½Ä»ç Ä®·Î¸®¿¡¼­ ¹ä ÇÑ°ø±â Ä®·Î¸® Á¦¿Ü ÈÄ ¹İÂù 2°³ ±âÁØÀ¸·Î ³ª´« °ªÀ» Ç¥±â
--- ÀÏÀÏ ±ÇÀå Ä®·Î¸®, ÇÑ³¢ ±ÇÀå Ä®·Î¸®
+-- ê¶Œì¥ ì„­ì·¨ ì¹¼ë¡œë¦¬(í•œë¼)
+-- í•œë¼ ì‹ì‚¬ ì¹¼ë¡œë¦¬ì—ì„œ ë°¥ í•œê³µê¸° ì¹¼ë¡œë¦¬ ì œì™¸ í›„ ë°˜ì°¬ 2ê°œ ê¸°ì¤€ìœ¼ë¡œ ë‚˜ëˆˆ ê°’ì„ í‘œê¸°
+-- ì¼ì¼ ê¶Œì¥ ì¹¼ë¡œë¦¬, í•œë¼ ê¶Œì¥ ì¹¼ë¡œë¦¬
 select (64.01 * 30),round(((64.01 * 30)) / 3), (round(((64.01 * 30)) / 3)-300)/2
 from dual;
 
--- ¸ŞÀÎ ÃßÃµ¸®½ºÆ® µî·Ï
-Insert into fm_recommand
-value(FM_ITEM_NO, FM_USER_BMI_NO)
-values((
-    select fm_item_no 
-    from fm_item i
-    where i.fm_calory_grade*100 > (select bmi.fm_user_goal_calory
-                                    from fm_user_bmi bmi
-                                    where bmi.fm_user_no = 3)
-    and (i.fm_calory_grade-1)*100 < (select bmi.fm_user_goal_calory
-                                    from fm_user_bmi bmi
-                                    where bmi.fm_user_no = 3)
-    ), 3);
 
-Insert into fm_recommand
-value(FM_ITEM_NO, FM_USER_BMI_NO)
-values((
-    select fm_item_no 
-    from fm_item i
-    where i.fm_calory_grade*100 >= (select bmi.fm_user_goal_calory
-                                    from fm_user_bmi bmi
-                                    where bmi.fm_user_no = 1)
-    and (i.fm_calory_grade-1)*100 < (select bmi.fm_user_goal_calory
-                                    from fm_user_bmi bmi
-                                    where bmi.fm_user_no = 1)
-    ), 1);
 
-Insert into fm_recommand
-value(FM_ITEM_NO, FM_USER_BMI_NO)
-values((
-    select fm_item_no 
-    from fm_item i
-    where i.fm_calory_grade*100 >= (select bmi.fm_user_goal_calory
-                                    from fm_user_bmi bmi
-                                    where bmi.fm_user_no = 2)
-    and (i.fm_calory_grade-1)*100 < (select bmi.fm_user_goal_calory
-                                    from fm_user_bmi bmi
-                                    where bmi.fm_user_no = 2)
-    ), 2);
 
---È®ÀÎ
-select *
-from fm_recommand;
 
---ÃßÃµÁ¦Ç°À» Á¶È¸ÇÏ´Â ¹æ¹ı
-select b.fm_item_no, b.fm_item_name
-from fm_recommand a inner join fm_item b
-        on b.fm_item_no = a.fm_item_no
-    inner join fm_user_bmi c
-        on c.fm_user_bmi_no = a.fm_user_bmi_no
-where c.fm_user_no = 2;
-
--- Àå¹Ù±¸´Ï
-INSERT INTO FM_CART
-VALUE(FM_CART_NO, FM_CART_COUNT, FM_CART_ITEM, FM_CART_PRICE, FM_USER_NO, FM_ITEM_NO)
-VALUES(1, 2, (select fm_item_name from fm_item where fm_item.fm_item_no = 3)
-    , (select fm_item_sellprice from fm_item where fm_item.fm_item_no = 3) * 2, 1, 3);
-
---È®ÀÎ
-select *
-from fm_cart;
-
--- ÁÖ¹®
-insert into fm_order_detail
-value(FM_ORDER_DETAIL_NO, FM_ORDER_NO, FM_ITEM_NO, FM_CART_NO)
-values(1, )
 
 

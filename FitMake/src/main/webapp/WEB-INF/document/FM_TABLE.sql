@@ -17,7 +17,7 @@ DROP TABLE FM_USER CASCADE CONSTRAINTS;
 
 
 /* Drop Sequences */
--- ½ÃÄö½º¸íÀÌ ³Ê¹« ±æ¾î »ý¼ºÀÌ ¾ÈµÇ±â ¶§¹®¿¡ Å×ÀÌºí ¸íÀ» ÀÏ°ü¼ºÀ» À§ÇØ ÀÏ°ý »èÁ¦ÇÔ
+-- ì‹œí€€ìŠ¤ëª…ì´ ê¸¸ì–´ ìƒì„±ì´ ì•ˆë˜ëŠ” ì˜¤ë¥˜ê°€ ìžˆì–´ì„œ ì¼ê´€ì„±ì„ ìœ„í•´ í…Œì´ë¸”ëª…ì„ ì¼ê´„ ì‚­ì œí•¨
 
 DROP SEQUENCE SEQ_FM_CART_NO;
 DROP SEQUENCE SEQ_FM_CATEGORY_NO;
