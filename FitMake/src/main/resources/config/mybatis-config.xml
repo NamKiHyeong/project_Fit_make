@@ -6,7 +6,9 @@
   
   <typeAliases>
   <!-- 이곳에서 타입에 등록한 클래스를 스프링에 알리아스라는 이름으로 사용하겠다고 선언한 것 -->
-  	<typeAlias type="com.fm.member.model.MemberDto" alias="memberDto"/>
+
+  	<typeAlias type="com.fm.user.model.UserDto" alias="userDto"/>
+
   </typeAliases>
   
   
