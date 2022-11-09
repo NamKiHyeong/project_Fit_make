@@ -25,6 +25,7 @@
 	
 	<insert id="userInsertOne" 
 		parameterType="com.fm.user.model.UserDto"
+		useGeneratedKeys="true" keyProperty="uNo">
 		
 		<selectKey keyProperty="uNo" resultType="int" order="BEFORE">
 			SELECT SEQ_FM_USER_FM_USER_NO.NEXTVAL FROM DUAL
