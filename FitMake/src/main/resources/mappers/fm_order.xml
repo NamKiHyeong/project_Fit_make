@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fm.order">
+	
+	<resultMap type="orderDto" id="orderResultMap">
+		<id column="FM_ORDER_NO" property="oNo"/>
+		<result column="FM_USER_NO" property="uNo"/>
+		<result column="FM_ORDER_DATE" property="createDate" javaType="java.util.Date"/>
+		<result column="FM_ORDER_STATUS" property="oStatus"/>
+		<result column="FM_USER_NICKNAME" property="uNickname"/>
+		<result column="FM_ORDER_DETAIL_PRICE" property="totalPrice"/>
+	</resultMap>
+	
+<!-- 	<select id="orderListView" parameterType="int"  -->
+<!-- 		resultMap="orderResultMap"> -->
+	<select id="orderListView" parameterType="int" 
+		resultType="map">
+		SELECT a.FM_ORDER_NO, a.FM_USER_NO, a.FM_ORDER_DATE
+			, a.FM_ORDER_STATUS, b.FM_USER_NICKNAME, c.FM_ORDER_DETAIL_PRICE, a.FM_ORDER_STATUS
+		FROM FM_ORDER a INNER JOIN FM_USER b
+			ON a.FM_USER_NO = b.FM_USER_NO 
+				INNER JOIN FM_ORDER_DETAIL c
+			ON a.FM_ORDER_NO = c.FM_ORDER_NO
+		WHERE a.FM_USER_NO = #{uNo}
+	</select>
+	
+	
+	
+</mapper>
