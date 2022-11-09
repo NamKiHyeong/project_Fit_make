@@ -37,4 +37,5 @@
 		VALUES(#{no}, #{nickName}, #{email}
 				, #{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
 	</insert>
+
 </mapper>

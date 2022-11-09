@@ -1,5 +1,9 @@
  ## 🐔  🐂 🐵  project_Fit_make(ANK) :muscle:
 
+# 팀원
+ @Jake-tt
+ @South-K-Bro
+ @Oceanos21
 
 # 프로젝트 소개
 
