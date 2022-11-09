@@ -36,6 +36,24 @@ public class MemberController {
 		return "auth/LoginForm";
 	}
 
-	
+	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
+	public String login(String email,String password, HttpSession session, Model model) {
+		logger.info("환영 loginCtr!!" + email + password);
+		
+		MemberDto memberDto = new memberService.memberExist(email, password);
+		
+		String viewUrl = null;
+		if (memberDto != null) {
+			session.setAttribute("_meberDto", memberDto);
+			
+			viewUrl = "redirect:/member/list.do"; // 요기가 main으로 가는 화면
+		} else {
+			viewUrl = "/auth/LoginFail";
+		}
+		
+		re
+		//여기에 메인으로 가는 리터문
+		return "auth/LoginForm";
+	}
 
 }

@@ -18,6 +18,25 @@ public class MemberDaoImpl implements MemberDao{
 	
 	String namespace = "com.fm.member.";
 	
+	public List<MeberDto> memberSelectList(String searchOption,
+			String keyword, int start, int end){
+		Map<String, Object> map = new HashMap<>();
+		
+		map.put("searchOption", searchOption);
+		map.put("keyword", keyword);
+		map.put("start", start);
+		map.put("end", end);
+		
+		return sqlSession.selectList(namespace + "memberSelectList",map);
+	}
+	public MemberDto memberExist(String email, String password) {
+		HashMap<String, Object> map = new HashMap<>();
+		
+	}
+	
+	public MemberDto memberSelectOne(int no);
+	public int memberInsertOne(MemeberDto memberDto);
+	int memberUpdateOne(MemberDto memberDto);
 	
 
 	
