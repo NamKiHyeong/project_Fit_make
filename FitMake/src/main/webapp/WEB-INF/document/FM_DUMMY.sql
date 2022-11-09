@@ -3,25 +3,25 @@
 INSERT INTO FM_USER
 VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD, FM_USER_MOBILE, FM_USER_ZIP_CODE
     , FM_USER_ADDRESS, FM_USER_CRE_DATE, FM_USER_POINT)
-VALUES(1, 'nkhink', 'nkhink@naver.com', '1234', '010-1234-5678', '21954', 'ÀÎÃµ±¤¿ª½Ã ¿¬¼ö±¸ Ã»·®·Î 222',
+VALUES(1, 'nkhink', 'nkhink@naver.com', '1234', '010-1234-5678', '21954', 'ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½ï¿½ 222',
     SYSDATE, 50000);
     
 INSERT INTO FM_USER
 VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD, FM_USER_MOBILE, FM_USER_ZIP_CODE
     , FM_USER_ADDRESS, FM_USER_CRE_DATE, FM_USER_POINT)
-VALUES(2, 'qudgurs', 'qudgurs@naver.com', '1234', '010-2345-6789', '21954', 'ÀÎÃµ±¤¿ª½Ã ¿¬¼ö±¸ Ã»·®·Î 222',
+VALUES(2, 'qudgurs', 'qudgurs@naver.com', '1234', '010-2345-6789', '21954', 'ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½ï¿½ 222',
     SYSDATE, 50000);
     
 INSERT INTO FM_USER
 VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD, FM_USER_MOBILE, FM_USER_ZIP_CODE
     , FM_USER_ADDRESS, FM_USER_CRE_DATE, FM_USER_POINT)
-VALUES(3, 'home4051', 'home4051@naver.com', '1234', '010-0123-4567', '21954', 'ÀÎÃµ±¤¿ª½Ã ¿¬¼ö±¸ Ã»·®·Î 222',
+VALUES(3, 'home4051', 'home4051@naver.com', '1234', '010-0123-4567', '21954', 'ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½ï¿½ 222',
     SYSDATE, 50000);
 
 INSERT INTO FM_USER
 VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD, FM_USER_MOBILE, FM_USER_ZIP_CODE
     , FM_USER_ADDRESS, FM_USER_CRE_DATE, FM_USER_POINT)
-VALUES(4, 'ogw12', 'ogw12@gmail.com', '1234', '010-3456-7890', '21954', 'ÀÎÃµ±¤¿ª½Ã ¿¬¼ö±¸ Ã»·®·Î 222',
+VALUES(4, 'ogw12', 'ogw12@gmail.com', '1234', '010-3456-7890', '21954', 'ï¿½ï¿½Ãµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã»ï¿½ï¿½ï¿½ï¿½ 222',
     SYSDATE, 50000);
     
 COMMIT;
@@ -34,23 +34,23 @@ FROM FM_USER;
 
 INSERT INTO FM_CATEGORY
 VALUE(FM_CATEGORY_NO, FM_CATEGORY_NAME, FM_PARENT_CATEGORY_NO)
-VALUES(1, 'À°·ù', null);
+VALUES(1, 'ï¿½ï¿½ï¿½ï¿½', null);
 
 INSERT INTO FM_CATEGORY
 VALUE(FM_CATEGORY_NO, FM_CATEGORY_NAME, FM_PARENT_CATEGORY_NO)
-VALUES(2, '´ß°¡½¿»ì', 1);
+VALUES(2, 'ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½', 1);
 
 INSERT INTO FM_CATEGORY
 VALUE(FM_CATEGORY_NO, FM_CATEGORY_NAME, FM_PARENT_CATEGORY_NO)
-VALUES(3, 'À¯Á¦Ç°', null);
+VALUES(3, 'ï¿½ï¿½ï¿½ï¿½Ç°', null);
 
 INSERT INTO FM_CATEGORY
 VALUE(FM_CATEGORY_NO, FM_CATEGORY_NAME, FM_PARENT_CATEGORY_NO)
-VALUES(4, 'Ä¡Áî', 3);
+VALUES(4, 'Ä¡ï¿½ï¿½', 3);
 
 INSERT INTO FM_CATEGORY
 VALUE(FM_CATEGORY_NO, FM_CATEGORY_NAME, FM_PARENT_CATEGORY_NO)
-VALUES(5, '¿ìÀ¯', 3);
+VALUES(5, 'ï¿½ï¿½ï¿½ï¿½', 3);
 
 COMMIT;
 
@@ -136,20 +136,19 @@ FROM FM_CALORY_STANDARD;
 INSERT INTO FM_ITEM
 VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
     , FM_ITEM_THUMBNAIL, FM_ITEM_DETAIL, FM_CATEGORY_NO, FM_CALORY_GRADE)
-VALUES(1, '½Å¼±ÇÑ ´ß°¡½¿»ì', 186, 500, 1300, 9999, 'chickenbreast', 'chickenbreasw2t', 2, 2);
+VALUES(1, 'ï¿½Å¼ï¿½ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ï¿½ï¿½ï¿½', 186, 500, 1300, 9999, 'chickenbreast', 'chickenbreasw2t', 2, 2);
 
 INSERT INTO FM_ITEM
 VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
     , FM_ITEM_THUMBNAIL, FM_ITEM_DETAIL, FM_CATEGORY_NO, FM_CALORY_GRADE)
-VALUES(2, '½Å¼±ÇÑ ¸ðÂ¥·¼¶ó Ä¡Áî', 340, 800, 2000, 9999, 'cheezeeee', 'cheeezzeeez', 4, 4);
+VALUES(2, 'ï¿½Å¼ï¿½ï¿½ï¿½ ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ Ä¡ï¿½ï¿½', 340, 800, 2000, 9999, 'cheezeeee', 'cheeezzeeez', 4, 4);
 
 INSERT INTO FM_ITEM
 VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
     , FM_ITEM_THUMBNAIL, FM_ITEM_DETAIL, FM_CATEGORY_NO, FM_CALORY_GRADE)
-VALUES(3, '°íÁö¹æ ¿ìÀ¯', 220, 1300, 2500, 9999, 'milkkk', 'milkkkddd', 5, 3);
-
-COMMIT;
+VALUES(3, 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½', 220, 1300, 2500, 9999, 'milkkk', 'milkkkddd', 5, 3);
 
 SELECT *
 FROM FM_ITEM;
 
+COMMIT;
