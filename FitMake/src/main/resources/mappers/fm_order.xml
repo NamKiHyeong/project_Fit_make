@@ -25,6 +25,8 @@
 		WHERE a.FM_USER_NO = #{uNo}
 	</select>
 	
-	
+	<select id="orderDetailView" parameterType="int" resultType="map">
+		
+	</select>
 	
 </mapper>

@@ -31,4 +31,14 @@ public class OrderDaoImpl implements OrderDao {
 		
 		return sqlSession.selectList(namespace + "orderListView", uNo);
 	}
+	
+	@Override
+	public Map<String, Object> orderDetailView(int oNo) {
+
+		Map<Integer, Object> putMap = new HashMap<Integer, Object>();
+		putMap.put(oNo, "oNo");
+		
+		return sqlSession.selectMap(namespace + "orderDetailView", putMap, "oNo");
+	}
+
 }

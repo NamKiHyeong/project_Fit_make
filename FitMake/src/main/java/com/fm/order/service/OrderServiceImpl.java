@@ -35,5 +35,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.orderListView(uNo);
 	}
 
+	@Override
+	public Map<String, Object> orderDetailView(int oNo) {
+		// TODO Auto-generated method stub
+		return orderDao.orderDetailView(oNo);
+	}
+
 	
 }

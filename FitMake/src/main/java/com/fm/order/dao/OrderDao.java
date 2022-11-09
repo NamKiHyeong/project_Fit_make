@@ -11,6 +11,8 @@ import com.fm.user.model.UserDto;
 public interface OrderDao {
 
 	public List<Map<String, Object>> orderListView(int uNo);
+
+	public Map<String, Object> orderDetailView(int oNo);
 	
 	
 }

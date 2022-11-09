@@ -29,10 +29,10 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@RequestMapping(value = "/order/list.do", method = RequestMethod.GET)
+	
+	@RequestMapping(value = "/order/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String OrderList(HttpSession session, Model model) {
 		logger.info("Welcome UserController login! ");
-		session.setAttribute("uNo", 1);
 		
 		List<Map<String, Object>> orderMapList = orderService.orderListView((int)session.getAttribute("uNo"));
 		
@@ -41,14 +41,11 @@ public class OrderController {
 		return "order/OrderManage";
 	}
 	
-	@RequestMapping(value = "/order/list.do", method = RequestMethod.GET)
-	public String login(HttpSession session, Model model) {
+	@RequestMapping(value = "/order/detail.do", method = RequestMethod.POST)
+	public String login(HttpSession session, Model model, int oNo) {
 		logger.info("Welcome UserController login! ");
-		session.setAttribute("uNo", 1);
 		
-		List<Map<String, Object>> orderMapList = orderService.orderListView((int)session.getAttribute("uNo"));
-		
-		model.addAttribute("orderMapList", orderMapList);
+		Map<String, Object> orderDetailMap = orderService.orderDetailView(oNo);
 		
 		return "order/OrderManage";
 	}
