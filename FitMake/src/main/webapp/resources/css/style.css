@@ -1,0 +1,123 @@
+@charset "UTF-8";
+
+body {
+	margin: auto;
+}
+
+li {
+	list-style: none;
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:active {
+	color: #000000;
+	text-decoration: none;
+}
+
+#rootDiv {
+	width: 1200px;
+	height: 130px;
+	position: fixed;
+	left: 50%;
+	margin-left: -600px;
+	margin-top: 0px;
+}
+
+#headerDiv {
+	width: 100%;
+	height: 25px;
+}
+
+#headerDiv ul {
+	position: absolute;
+	right: 0px;
+	margin: 0px;
+}
+
+#headerDiv ul li {
+	font-size: 13px;
+	float: left;
+}
+
+#headerDiv a:link {
+	width: 50px;
+}
+
+#logo_infoDiv {
+	margin-top: 22px;
+	text-align: center;
+}
+
+#infoDiv {
+	position: absolute;
+	right: -18px;
+	top: 65px;
+	width: 200px;
+	height: 34px;
+}
+
+#infoDiv ul li {
+	width: 40px;
+	float: left;
+}
+
+#menu {
+	width: 1200px;
+	height: 50px;
+	text-align: center;
+	border-bottom: 1px solid #d4d4d4;
+	border-top: 1px solid #e5e5e5;
+	margin-top: 22px;
+}
+
+#menu ul li { /* menu -> ul -> li 태그의 스타일링 */
+	background-color: white;
+	list-style: none;
+	float: left;
+	text-align: center;
+}
+
+#menu a:link {
+	width: 190px;
+	display: block;
+	color: black;
+	font-weight: bold;
+}
+
+#menu .link:hover {
+	background-color: white;
+	color: #ff42e7;
+}
+
+#kategorie_Id {
+	display: inline-block;
+	vertical-align: bottom;
+	background: #d12268;
+	height: 51px;
+	line-height: 53px;
+	width: 160px;
+	margin-top: -17px;
+	text-align: center;
+	color: #fff;
+	font-size: 0.95em;
+	letter-spacing: 0.02em;
+	border-bottom: 1px solid #c1165a;
+}
+
+#footerDiv {
+	border: 1px solid black;
+}
