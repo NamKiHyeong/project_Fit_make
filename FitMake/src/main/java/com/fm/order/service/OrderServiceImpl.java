@@ -47,5 +47,11 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.addCart(inputMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> cartListView(int uNo) {
+		
+		return orderDao.cartListView(uNo);
+	}
+
 	
 }

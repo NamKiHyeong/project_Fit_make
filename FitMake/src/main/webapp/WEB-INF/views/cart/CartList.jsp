@@ -28,23 +28,23 @@
 			</table>
 			<hr>
 		</div>
-			<c:forEach var="cartMap" items="${cartListMap}">
+			<c:forEach var="cartMap" items="${cartMapList}">
 				<table>
 					<tr>
 						<td rowspan="3">img</td>
-						<td>제품명(단품)</td>		
+						<td>${cartMap.FM_ITEM_NAME}</td>		
 						<td></td>		
 						<td></td>		
 					</tr>
 					<tr>
 						<td></td>
 						<td>단가</td>
-						<td>단가가격</td>
+						<td>${cartMap.FM_ITEM_SELLPRICE}</td>
 					</tr>
 					<tr>
-						<td><input type="range" value="숫자를 입력하세요"></td>
+						<td><input type="range" value="${cartMap.FM_CART_COUNT}"></td>
 						<td>총 금액</td>
-						<td>총 금액 가격</td>
+						<td>${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}</td>
 					</tr>
 				</table>
 					<hr>

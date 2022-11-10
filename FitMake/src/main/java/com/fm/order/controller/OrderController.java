@@ -29,11 +29,40 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	@RequestMapping(value = "/order/add.do", method = RequestMethod.POST)
-	public String addOrder(HttpSession session, Model model) {
+	/**
+	 * 장바구니 추가 기능
+	 * @param session 	세션에 있는uNo를 가지고 오기 위한 객체
+	 * @param model		화면 구성을 위한 객체
+	 * @param iNo		장바구니에 추가할 제품번호
+	 * @param iCount 	장바구니에 추가할 제품갯수
+	 * @return			화면에서 이동할 것인지 아닌지 선택한 값을 통해 다르게 리턴 
+	 */
+	@RequestMapping(value = "/cart/add.do", method = RequestMethod.POST)
+	public String addCart(HttpSession session, Model model, int iNo, int iCount) {
+		logger.info("Welcome orderCart!");
 		
+		int resultNum = 0;
 		
-		return "";
+		Map<Integer, Object> inputMap = new HashMap<Integer, Object>();
+		
+		inputMap.put(iNo, "iNo");
+		inputMap.put((int)session.getAttribute("uNo"), "uNo");
+		inputMap.put(iCount, "iCount");
+		
+		resultNum = orderService.addCart(inputMap);
+		
+		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
+		return "cart/CartList";
+	}
+	
+	@RequestMapping(value = "/cart/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String cartListView(HttpSession session, Model model) {
+		
+		List<Map<String, Object>> cartMapList = orderService.cartListView((int)session.getAttribute("uNo"));
+		
+		model.addAttribute("cartMapList", cartMapList);
+		
+		return "cart/CartList";
 	}
 	
 	
@@ -74,30 +103,4 @@ public class OrderController {
 		return "order/OrderDetail";
 	}
 	
-	/**
-	 * 장바구니 추가 기능
-	 * @param session 	세션에 있는uNo를 가지고 오기 위한 객체
-	 * @param model		화면 구성을 위한 객체
-	 * @param iNo		장바구니에 추가할 제품번호
-	 * @param iCount 	장바구니에 추가할 제품갯수
-	 * @return			화면에서 이동할 것인지 아닌지 선택한 값을 통해 다르게 리턴 
-	 */
-	@RequestMapping(value = "/order/cart.do", method = RequestMethod.POST)
-	public String addCart(HttpSession session, Model model, int iNo, int iCount) {
-		logger.info("Welcome orderCart!");
-		
-		int resultNum = 0;
-		
-		Map<Integer, Object> inputMap = new HashMap<Integer, Object>();
-		
-		inputMap.put(iNo, "iNo");
-		inputMap.put((int)session.getAttribute("uNo"), "uNo");
-		inputMap.put(iCount, "iCount");
-		
-		resultNum = orderService.addCart(inputMap);
-		
-		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
-		return "";
-	}
-
 }

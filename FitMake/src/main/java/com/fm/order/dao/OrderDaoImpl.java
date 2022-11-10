@@ -38,4 +38,10 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.insert(namespace + "addCart", inputMap);
 	}
 
+	@Override
+	public List<Map<String, Object>> cartListView(int uNo) {
+		
+		return sqlSession.selectList(namespace + "cartListView", uNo);
+	}
+
 }

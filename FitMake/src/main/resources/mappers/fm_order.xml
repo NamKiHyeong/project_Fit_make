@@ -12,6 +12,22 @@
 		<result column="FM_ORDER_DETAIL_PRICE" property="totalPrice"/>
 	</resultMap>
 	
+<!-- 	<insert id="addCart" parameterType="map"> -->
+<!-- 		INSERT INTO FM_CART -->
+<!-- 		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT) -->
+<!-- 		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount}) -->
+<!-- 	</insert> -->
+	
+<!-- 	<select id="cartListView" parameterType="int" resultType="map"> -->
+<!-- 		SELECT i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT -->
+<!-- 		FROM FM_CART C -->
+<!-- 			INNER JOIN FM_USER u -->
+<!-- 				ON c.FM_USER_NO = u.FM_USER_NO -->
+<!-- 			INNER JOIN FM_ITEM i -->
+<!-- 				ON c.FM_ITEM_NO = i.FM_ITEM_NO -->
+<!-- 		WHERE c.FM_USER_NO = #{uNo} -->
+<!-- 	</select> -->
+	
 	<select id="orderListView" parameterType="int" 
 		resultType="map">
 		SELECT a.FM_ORDER_NO, a.FM_USER_NO, a.FM_ORDER_DATE
@@ -34,16 +50,6 @@
 			INNER JOIN FM_USER u 
 				ON u.FM_USER_NO = o.FM_USER_NO 
 		where o.FM_ORDER_NO = #{oNo} 
-	</select>
-	
-	<insert id="addCart" parameterType="map">
-		insert into fm_cart
-		value(fm_cart_no, fm_item_no, fm_user_no, fm_cart_count)
-		values(seq_fm_cart_no.nextval, #{iNo}, #{uNo}, #{iCount})
-	</insert>
-	
-	<select id="" parameterType="int" resultType="map">
-		
 	</select>
 	
 </mapper>
