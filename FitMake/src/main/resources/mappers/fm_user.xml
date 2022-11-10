@@ -4,7 +4,7 @@
 <mapper namespace="com.fm.user">
 	
 	<resultMap type="userDto" id="userResultMap">
-		<id column="FM_USER_NO" property="uNo"/>
+		<id column="FM_USER_NO" property="uNo" />
 		<result column="FM_USER_NICKNAME" property="nickName"/>
 		<result column="FM_USER_EMAIL" property="email"/>
 		<result column="FM_USER_PASSWORD" property="password"/>

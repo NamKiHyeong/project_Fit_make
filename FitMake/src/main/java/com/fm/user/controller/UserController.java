@@ -27,7 +27,7 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private UserService memberService;
+	private UserService userService;
 
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
@@ -36,14 +36,19 @@ public class UserController {
 
 		return "auth/LoginForm";
 	}
+	@RequestMapping(value = "/auth/test.do", method = RequestMethod.GET)
+	public String test(HttpSession session, Model model) {
+		logger.info("Welcome UserController login! ");
 
+		return "category/diet";
+	}
 	// 로그인
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 	public String loginCtr(String email, String password
 				, HttpSession session, Model model) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
 
-		UserDto userDto = memberService.userExist(email, password);
+		UserDto userDto = userService.userExist(email, password);
 
 		String viewUrl = "";
 		if (userDto != null) {
@@ -79,7 +84,7 @@ public class UserController {
 	public String memberAdd(UserDto userDto, Model model) {
 		logger.trace("Welcome UserController memberAdd 신규등록 처리! " + userDto);
 
-		memberService.userInsertOne(userDto);
+		userService.userInsertOne(userDto);
 
 		return "redirect:/auth/login.do";
 	}

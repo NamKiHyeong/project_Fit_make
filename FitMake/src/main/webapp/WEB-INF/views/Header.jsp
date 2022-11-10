@@ -47,10 +47,10 @@
 							<img alt="목록" src="/fitmake/resources/image/Kategorie.png"> 전체
 							카테고리
 						</p></span></li>
-				<li><a href="#">다이어트</a></li>
-				<li><a href="#">식단</a></li>
-				<li><a href="#">특가</a></li>
-				<li><a href="#">베스트</a></li>
+				<li id="cDiet"><a href="category">다이어트</a></li>
+				<li id="ciet"><a href="#">식단</a></li>
+				<li id="c"><a href="#">특가</a></li>
+				<li id="cBest"><a href="#">베스트</a></li>
 			</ul>
 			</c:if>
 		</div>
