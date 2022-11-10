@@ -13,5 +13,4 @@ public interface UserDao {
 
 	public int userInsertOne(UserDto userDto);
 	
-	
 }

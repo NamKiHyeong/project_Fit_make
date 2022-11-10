@@ -27,8 +27,8 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
-	private UserService memberService;
-
+	private UserService userService;
+	
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
@@ -36,24 +36,33 @@ public class UserController {
 
 		return "auth/LoginForm";
 	}
-
+	@RequestMapping(value = "/mainpage/main.do", method = RequestMethod.GET)
+	public String main(HttpSession session, Model model) {
+		logger.info("메인로고 클릭! ");
+		
+		String viewPage = "";
+		if (session != null) {
+			viewPage = "/mainpage/main";
+		} else if (session == null) {
+			viewPage = "redirect:/auth/loginCtr.do";
+		}
+		return viewPage;
+	}
 	// 로그인
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password
-				, HttpSession session, Model model) {
+	public String loginCtr(String email, String password, HttpSession session, Model model) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
 
-		UserDto userDto = memberService.userExist(email, password);
+		UserDto userDto = userService.userExist(email, password);
 
 		String viewUrl = "";
+		// 회원 확인
 		if (userDto != null) {
 			session.setAttribute("_userDto_", userDto);
-
 			viewUrl = "/mainpage/main";
 		} else {
 			viewUrl = "/auth/LoginFail";
 		}
-
 		return viewUrl;
 	}
 
@@ -74,12 +83,13 @@ public class UserController {
 
 		return "/user/JoinForm";
 	}
+
 	// 회원가입
 	@RequestMapping(value = "/user/addCtr.do", method = RequestMethod.POST)
 	public String memberAdd(UserDto userDto, Model model) {
 		logger.trace("Welcome UserController memberAdd 신규등록 처리! " + userDto);
 
-		memberService.userInsertOne(userDto);
+		userService.userInsertOne(userDto);
 
 		return "redirect:/auth/login.do";
 	}

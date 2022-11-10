@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class UserDto {
 
-	private int no = 0;
+	private int uNo = 0;
 	private String nickName = "";
 	private String email = "";
 	private String password = "";
@@ -18,10 +18,10 @@ public class UserDto {
 		super();
 	}
 
-	public UserDto(int no, String nickName, String email, String password, String mobile, String zipCode,
+	public UserDto(int uNo, String nickName, String email, String password, String mobile, String zipCode,
 			String address, Date createDate, int point) {
 		super();
-		this.no = no;
+		this.uNo = uNo;
 		this.nickName = nickName;
 		this.email = email;
 		this.password = password;
@@ -32,12 +32,12 @@ public class UserDto {
 		this.point = point;
 	}
 
-	public int getNo() {
-		return no;
+	public int getuNo() {
+		return uNo;
 	}
 
-	public void setNo(int no) {
-		this.no = no;
+	public void setuNo(int uNo) {
+		this.uNo = uNo;
 	}
 
 	public String getNickName() {

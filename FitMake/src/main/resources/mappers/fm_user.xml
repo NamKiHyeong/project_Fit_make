@@ -4,7 +4,7 @@
 <mapper namespace="com.fm.user">
 	
 	<resultMap type="userDto" id="userResultMap">
-		<id column="FM_USER_NO" property="no"/>
+		<id column="FM_USER_NO" property="uNo"/>
 		<result column="FM_USER_NICKNAME" property="nickName"/>
 		<result column="FM_USER_EMAIL" property="email"/>
 		<result column="FM_USER_PASSWORD" property="password"/>
@@ -25,16 +25,16 @@
 	
 	<insert id="userInsertOne" 
 		parameterType="com.fm.user.model.UserDto"
-		useGeneratedKeys="true" keyProperty="no">
+		useGeneratedKeys="true" keyProperty="uNo">
 		
-		<selectKey keyProperty="no" resultType="int" order="BEFORE">
+		<selectKey keyProperty="uNo" resultType="int" order="BEFORE">
 			SELECT SEQ_FM_USER_FM_USER_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		
 		INSERT INTO FM_USER
 		VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD 
 				, FM_USER_MOBILE, FM_USER_ZIP_CODE, FM_USER_ADDRESS, FM_USER_POINT, FM_USER_CRE_DATE)
-		VALUES(#{no}, #{nickName}, #{email}
+		VALUES(#{uNo}, #{nickName}, #{email}
 				, #{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
 	</insert>
 
