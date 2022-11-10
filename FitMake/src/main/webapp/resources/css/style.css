@@ -31,7 +31,6 @@ a:active {
 #rootDiv {
 	width: 1200px;
 	height: 130px;
-	position: fixed;
 	left: 50%;
 	margin-left: -600px;
 	margin-top: 0px;

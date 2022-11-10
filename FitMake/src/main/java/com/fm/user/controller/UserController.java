@@ -28,7 +28,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-
+	
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
@@ -36,32 +36,50 @@ public class UserController {
 
 		return "auth/LoginForm";
 	}
-	@RequestMapping(value = "/auth/test.do", method = RequestMethod.GET)
-	public String test(HttpSession session, Model model) {
-		logger.info("Welcome UserController login! ");
-
-		return "category/diet";
+	@RequestMapping(value = "/mainpage/main.do", method = RequestMethod.GET)
+	public String main(HttpSession session, Model model) {
+		logger.info("메인로고 클릭! ");
+		
+		String viewPage = "";
+		if (session != null) {
+			viewPage = "/mainpage/main";
+		} else if (session == null) {
+			viewPage = "redirect:/auth/loginCtr.do";
+		}
+		return viewPage;
 	}
 	// 로그인
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password
-				, HttpSession session, Model model) {
+	public String loginCtr(String email, String password, HttpSession session, Model model) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
 
 		UserDto userDto = userService.userExist(email, password);
 
 		String viewUrl = "";
+		// 회원 확인
 		if (userDto != null) {
 			session.setAttribute("_userDto_", userDto);
-
 			viewUrl = "/mainpage/main";
+			
 		} else {
 			viewUrl = "/auth/LoginFail";
 		}
-
 		return viewUrl;
 	}
-
+//@@@@@@@@@@더미 사이트test
+	@RequestMapping(value = "/auth/categorytest.do", method = RequestMethod.GET)
+	public String categorytest(Model model) {
+		logger.info("특가 클릭 시 ");
+		
+		return "/item/category";
+	}
+//@@@@@@@@@@더미 제품등록test
+	@RequestMapping(value = "/auth/itemtest.do", method = RequestMethod.GET)
+	public String itemtest(Model model) {
+		logger.info("제품 클릭시 ");
+		return  "/item/itemAdd";
+	}
+	
 	// 로그아웃
 	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
 	public String logout(HttpSession session, Model model) {
@@ -79,6 +97,7 @@ public class UserController {
 
 		return "/user/JoinForm";
 	}
+
 	// 회원가입
 	@RequestMapping(value = "/user/addCtr.do", method = RequestMethod.POST)
 	public String memberAdd(UserDto userDto, Model model) {

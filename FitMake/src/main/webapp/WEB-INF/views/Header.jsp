@@ -23,35 +23,34 @@
 			</ul>
 		</div>
 		<div id="logo_infoDiv">
-			<a href="#"><img alt="메인로고"
-				src="/fitmake/resources/image/mainlogo.png"></a>
+		<form action="./mainpage/main.do" method="get">
+			<input type="image" src="/fitmake/resources/image/mainlogo.png" alt="메인로고">
+		</form>
 		</div>
 		<div id="infoDiv">
 			<c:if test="${_userDto_.email ne null}">
-			<ul>
-				<li><a href="#"><img alt="포인트관리"
-						src="/fitmake/resources/image/point.png"></a></li>
-				<li><a href="#"><img alt="내정보"
-						src="/fitmake/resources/image/myinfo.png"></a></li>
-				<li><a href="#"><img alt="회원관리"
-						src="/fitmake/resources/image/membermanagement.png"></a></li>
-				<li><a href="#"><img alt="장바구니"
-						src="/fitmake/resources/image/cart.png"></a></li>
-			</ul>
+				<ul>
+					<li><a href="#"><img alt="포인트관리"
+							src="/fitmake/resources/image/point.png"></a></li>
+					<li><a href="#"><img alt="내정보"
+							src="/fitmake/resources/image/myinfo.png"></a></li>
+					<li><a href="#"><img alt="회원관리"
+							src="/fitmake/resources/image/membermanagement.png"></a></li>
+					<li><a href="#"><img alt="장바구니"
+							src="/fitmake/resources/image/cart.png"></a></li>
+				</ul>
 			</c:if>
 		</div>
 		<div id="menu">
 			<c:if test="${_userDto_.email ne null}">
-			<ul>
-				<li><span><p id="kategorie_Id">
-							<img alt="목록" src="/fitmake/resources/image/Kategorie.png"> 전체
-							카테고리
-						</p></span></li>
-				<li id="cDiet"><a href="category">다이어트</a></li>
-				<li id="ciet"><a href="#">식단</a></li>
-				<li id="c"><a href="#">특가</a></li>
-				<li id="cBest"><a href="#">베스트</a></li>
-			</ul>
+				<ul>
+					<li><span><p id="kategorie_Id">
+								<img alt="목록" src="/fitmake/resources/image/Kategorie.png">
+								전체 카테고리
+							</p></span></li>
+					<li><a href="#">특가</a></li>
+					<li><a href="#">베스트</a></li>
+				</ul>
 			</c:if>
 		</div>
 	</div>
