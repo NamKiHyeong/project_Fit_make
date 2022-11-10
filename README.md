@@ -35,7 +35,8 @@
 
  @ 팀원 역할 
 - [팀프로젝트 - 팀원 역할 및 DB.docx](https://github.com/NamKiHyeong/project_Fit_make/files/9867204/-.DB.docx)
-- [팀프로젝트 - 팀원 역할 ver(1027).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9878998/-.ver.1027.docx)
+- [팀프로젝트 - 팀원 역할 ver(1027).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9978115/-.ver.1027.docx)
+
 
  @ FEEDBACK
   
