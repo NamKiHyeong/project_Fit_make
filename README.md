@@ -43,3 +43,4 @@
 - [팀프로젝트 - UI컨펌 ver(1027).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9878907/-.UI.ver.1027.docx)
 
 
+[보루.zip](https://github.com/NamKiHyeong/project_Fit_make/files/9977324/default.zip)
