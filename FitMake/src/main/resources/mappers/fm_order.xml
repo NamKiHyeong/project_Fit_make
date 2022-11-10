@@ -24,6 +24,25 @@
 	</select>
 	
 	<select id="orderDetailView" parameterType="int" resultType="map">
+		SELECT i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE 
+			, u.FM_USER_NICKNAME, u.FM_USER_MOBILE, u.FM_USER_ZIP_CODE, u.FM_USER_ADDRESS 
+		FROM FM_ORDER_DETAIL od 
+			INNER JOIN FM_ITEM i 
+				ON od.FM_ITEM_NO = i.FM_ITEM_NO 
+			INNER JOIN FM_ORDER o 
+				ON od.FM_ORDER_NO = o.FM_ORDER_NO 
+			INNER JOIN FM_USER u 
+				ON u.FM_USER_NO = o.FM_USER_NO 
+		where o.FM_ORDER_NO = #{oNo} 
+	</select>
+	
+	<insert id="addCart" parameterType="map">
+		insert into fm_cart
+		value(fm_cart_no, fm_item_no, fm_user_no, fm_cart_count)
+		values(seq_fm_cart_no.nextval, #{iNo}, #{uNo}, #{iCount})
+	</insert>
+	
+	<select id="" parameterType="int" resultType="map">
 		
 	</select>
 	

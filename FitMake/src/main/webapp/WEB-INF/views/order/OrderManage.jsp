@@ -7,11 +7,23 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>주문</title>
+<script type="text/javascript">
+	function viewDetailFnc(oNo){
+		const detailFormObj = $("#detailViewForm");
+		const orderNoObj = $("#orderNo");
+		
+		orderNoObj.val(oNo);
+		detailFormObj.attr("action", "./detail.do");
+		detailFormObj.submit();
+	}
+</script>
+<style type="text/css">
+</style>
+<title>주문관리</title>
 </head>
-<body>
+<body id="rootBody">
 
-<%-- 	<jsp:include page="/WEB-INF/views/Header.jsp" /> --%>
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
 	<div style="width: 500px; height: 400px; padding-top: 380px; text-align: center; align-items: center;">
 		<div>
@@ -34,7 +46,9 @@
 				<c:forEach var="orderMap" items="${orderListMap}">			
 					<tr>
 						<td>${orderMap.FM_ORDER_DATE}</td>
-						<td>주문1</td>		
+						<td>
+							<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">주문1</a>
+						</td>		
 						<td>${orderMap.FM_ORDER_DETAIL_PRICE}</td>		
 						<td>${orderMap.FM_USER_NICKNAME}</td>		
 						<td>1111</td>		
@@ -42,6 +56,12 @@
 					</tr>
 				</c:forEach>
 			</table>
+			
+			<form id="detailViewForm" method="post">
+				<input id="orderNo" type="hidden" value="" name="oNo">
+			</form>
+			
+			
 	</div>
 </body>
 </html>
