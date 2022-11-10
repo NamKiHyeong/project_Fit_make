@@ -12,8 +12,6 @@
 		<result column="FM_ORDER_DETAIL_PRICE" property="totalPrice"/>
 	</resultMap>
 	
-<!-- 	<select id="orderListView" parameterType="int"  -->
-<!-- 		resultMap="orderResultMap"> -->
 	<select id="orderListView" parameterType="int" 
 		resultType="map">
 		SELECT a.FM_ORDER_NO, a.FM_USER_NO, a.FM_ORDER_DATE

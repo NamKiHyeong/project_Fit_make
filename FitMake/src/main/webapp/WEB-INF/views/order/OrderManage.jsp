@@ -31,7 +31,7 @@
 					<td>주문상태</td>
 				</tr>
 				
-				<c:forEach var="orderMap" items="${orderMapList}">			
+				<c:forEach var="orderMap" items="${orderListMap}">			
 					<tr>
 						<td>${orderMap.FM_ORDER_DATE}</td>
 						<td>주문1</td>		
