@@ -19,7 +19,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.order.model.OrderDto;
 import com.fm.order.service.OrderService;
+import com.fm.util.BmiCalc;
 import com.fm.util.Paging;
+
+import javafx.beans.DefaultProperty;
 
 //어노테이션 드리븐
 @Controller
@@ -38,33 +41,53 @@ public class OrderController {
 	 * @return			화면에서 이동할 것인지 아닌지 선택한 값을 통해 다르게 리턴 
 	 */
 	@RequestMapping(value = "/cart/add.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String addCart(HttpSession session, Model model, int iNo, int iCount) {
+	public String addCart(HttpSession session, Model model, 
+			@RequestParam(defaultValue = "0") int iNo, 
+			@RequestParam(defaultValue = "0") int iCount) {
 		logger.info("Welcome orderCart!");
 		
 		session.setAttribute("uNo", 1);
 		int resultNum = 0;
+		
 		int uNo = (int)session.getAttribute("uNo"); 
 		iNo = 1;
 		iCount = 3;
 		
-		
-		
 		resultNum = orderService.addCart(uNo, iNo, iCount);
 		
 		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
-		return "cart/CartList";
+		return "redirect:/cart/list.do";
 	}
 	
+	/**
+	 * 장바구니 목록 보기 기능
+	 * @param session 	세션에 저장된 userNo(uNo)를 가져오기 위한 객체
+	 * @param model		장바구니 목록을 화면에 보내기 위한 객체
+	 * @return			CartList.jsp 호출
+	 */
 	@RequestMapping(value = "/cart/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String cartListView(HttpSession session, Model model) {
+	public String viewCartList(HttpSession session, Model model) {
 		
 		session.setAttribute("uNo", 1);
 		
-		List<Map<String, Object>> cartMapList = orderService.cartListView((int)session.getAttribute("uNo"));
+		List<Map<String, Object>> cartMapList = orderService.viewCartList((int)session.getAttribute("uNo"));
 		
 		model.addAttribute("cartMapList", cartMapList);
 		
-		return "order/OrderManage";
+		return "cart/CartList";
+	}
+	
+	@RequestMapping(value = "/cart/delete.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String deleteCart(HttpSession session, Model model, int cNo) {
+		
+		session.setAttribute("uNo", 1);
+		
+		int resultNum = 0;
+		int uNo = (int)session.getAttribute("uNo");
+		
+		resultNum = orderService.deleteCart(uNo, cNo);
+		
+		return "redirect:/cart/list.do";
 	}
 	
 	
@@ -83,7 +106,7 @@ public class OrderController {
 		List<Map<String, Object>> orderListMap = orderService.orderListView((int)session.getAttribute("uNo"));
 		
 		model.addAttribute("orderListMap", orderListMap);
-		
+			
 		return "order/OrderManage";
 	}
 

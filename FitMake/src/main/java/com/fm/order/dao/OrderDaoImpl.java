@@ -35,19 +35,32 @@ public class OrderDaoImpl implements OrderDao {
 	@Override
 	public int addCart(int uNo, int iNo, int iCount) {
 		
-		Map<Integer, Object> inputMap = new HashMap<Integer, Object>();
+		Map<String, Object> inputMap = new HashMap<String, Object>();
 		
-		inputMap.put(iNo, "iNo");
-		inputMap.put(uNo, "uNo");
-		inputMap.put(iCount, "iCount");
+		inputMap.put("iNo", iNo);
+		inputMap.put("uNo", uNo);
+		inputMap.put("iCount", iCount);
+		
+		inputMap.toString();
 		
 		return sqlSession.insert(namespace + "addCart", inputMap);
 	}
 
 	@Override
-	public List<Map<String, Object>> cartListView(int uNo) {
+	public List<Map<String, Object>> viewCartList(int uNo) {
 		
-		return sqlSession.selectList(namespace + "cartListView", uNo);
+		return sqlSession.selectList(namespace + "viewCartList", uNo);
+	}
+
+	@Override
+	public int deleteCart(int uNo, int cNo) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		
+		inputMap.put("uNo", uNo);
+		inputMap.put("cNo", cNo);
+				
+		return sqlSession.delete(namespace + "deleteCart", inputMap);
 	}
 
 }

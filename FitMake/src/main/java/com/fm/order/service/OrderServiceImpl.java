@@ -43,14 +43,20 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public int addCart(int uNo, int iNo, int iCount) {
-		
+		log.debug("uNo: " + uNo, " iNo : " + iNo, "icount : " + iCount);
 		return orderDao.addCart(uNo, iNo, iCount);
 	}
 
 	@Override
-	public List<Map<String, Object>> cartListView(int uNo) {
+	public List<Map<String, Object>> viewCartList(int uNo) {
 		
-		return orderDao.cartListView(uNo);
+		return orderDao.viewCartList(uNo);
+	}
+
+	@Override
+	public int deleteCart(int uNo, int cNo) {
+		
+		return orderDao.deleteCart(uNo, cNo);
 	}
 
 	

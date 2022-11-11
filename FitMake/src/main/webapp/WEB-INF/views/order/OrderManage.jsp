@@ -21,7 +21,7 @@
 </style>
 <title>주문관리</title>
 </head>
-<body id="rootBody">
+<body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	

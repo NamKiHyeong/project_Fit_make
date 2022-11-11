@@ -15,11 +15,11 @@
 	<insert id="addCart" parameterType="map">
 		INSERT INTO FM_CART
 		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT)
-		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount})
+		VALUES(7, #{iNo}, #{uNo}, #{iCount})
 	</insert>
 	
-	<select id="cartListView" parameterType="int" resultType="map">
-		SELECT i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
+	<select id="viewCartList" parameterType="int" resultType="map">
+		SELECT c.FM_CART_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
 		FROM FM_CART C
 			INNER JOIN FM_USER u
 				ON c.FM_USER_NO = u.FM_USER_NO
@@ -27,6 +27,12 @@
 				ON c.FM_ITEM_NO = i.FM_ITEM_NO
 		WHERE c.FM_USER_NO = #{uNo}
 	</select>
+	
+	<delete id="deleteCart" parameterType="map">
+		DELETE FROM FM_CART
+		WHERE FM_USER_NO = #{uNo}
+		AND FM_CART_NO = #{cNo}
+	</delete>
 	
 	<select id="orderListView" parameterType="int" 
 		resultType="map">
