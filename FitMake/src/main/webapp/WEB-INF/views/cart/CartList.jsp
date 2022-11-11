@@ -21,7 +21,13 @@
 	function deleteCartFnc(cartNo){
 		location.href = "./delete.do?cNo=" + cartNo;
 	}
+	
+	$(document).ready(function() {
+		$("#buyBtn").on("click", function() {
+			$("#addForm").submit();
+		});
 		
+	});
 </script>
 <style type="text/css">
 	
@@ -41,12 +47,13 @@
 			</table>
 			<hr>
 		</div>
+		<form id="addForm" action="../order/add.do" method="post">
 			<c:forEach var="cartMap" items="${cartMapList}">
 				<table>
 					<tr>
 						<td rowspan="3">img</td>
 						<td>${cartMap.FM_ITEM_NAME}</td>		
-						<td></td>		
+						<td></td>
 						<td><input type="button" value="X" onclick="deleteCartFnc(${cartMap.FM_CART_NO});"></td>		
 					</tr>
 					<tr>
@@ -56,24 +63,25 @@
 					</tr>
 					<tr>
 						<td>
-							<input id="iCountUp${cartMap.FM_CART_NO}" type="button" value="∨" onclick="countDownFnc(${cartMap.FM_CART_NO});">
-							<input id="iCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" readonly="readonly">
-							<input id="iCountDown${cartMap.FM_CART_NO}" type="button" value="∧" onclick="countUpFnc(${cartMap.FM_CART_NO});">
+							<input id="iCountUp${cartMap.FM_CART_NO}" type="button" value="∨" 
+								onclick="countDownFnc(${cartMap.FM_CART_NO});">
+							<input id="iCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" 
+								name="iCount" readonly="readonly">
+							<input id="iCountDown${cartMap.FM_CART_NO}" type="button" value="∧" 
+								onclick="countUpFnc(${cartMap.FM_CART_NO});">
 						</td>
 						<td>총 금액</td>
 						<td>${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}</td>
 					</tr>
 				</table>
+				<input type="hidden" name="iNo" value="${cartMap.FM_ITEM_NO}">
+				<input type="hidden" name="iPrice" value="${cartMap.FM_ITEM_SELLPRICE}">
 					<hr>
 			</c:forEach>
 			
-			<input type="button" value="구매하기">
+			<input type="button" id="buyBtn" value="구매하기">
 			<input type="button" value="이전페이지">
-			
-			<form id="detailViewForm" method="post">
-				<input id="orderNo" type="hidden" value="" name="oNo">
-			</form>
-			
+		</form>			
 			
 	</div>
 </body>

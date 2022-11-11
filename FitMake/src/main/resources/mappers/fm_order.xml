@@ -19,7 +19,7 @@
 	</insert>
 	
 	<select id="viewCartList" parameterType="int" resultType="map">
-		SELECT c.FM_CART_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
+		SELECT c.FM_CART_NO, c.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
 		FROM FM_CART C
 			INNER JOIN FM_USER u
 				ON c.FM_USER_NO = u.FM_USER_NO
