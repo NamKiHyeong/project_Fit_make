@@ -8,7 +8,12 @@
 <meta charset="UTF-8">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<title>주문</title>
+<style type="text/css">
+	.orderDetail{
+		padding: 30px;
+	}
+</style>
+<title>주문상세</title>
 </head>
 <body>
 
@@ -25,33 +30,31 @@
 		<div>
 			<h4>주문내역 이름(ex: 건강한 닭가슴살 샐러드 외 2개)</h4>
 			<table>
-<%-- 				<c:forEach var="orderMap" items="${orderMapList}"> --%>
 					<tr>
-						<td>제품명</td>
-						<td>갯수</td>
-						<td>가격</td>
+						<td class="orderDetail">${orderDetailMap.FM_ITEM_NAME}</td>
+						<td class="orderDetail">${orderDetailMap.FM_ORDER_DETAIL_COUNT}</td>
+						<td class="orderDetail">${orderDetailMap.FM_ORDER_DETAIL_PRICE}</td>
 					</tr>
-<%-- 				</c:forEach> --%>
 			</table>
 		</div>
 		
 		<div>
 			<h4>구매자정보</h4>
-			이름			<input value="" readonly="readonly"><br>
-			연락처 		<input value="" readonly="readonly"><br>
+			이름			<input value="${orderDetailMap.FM_USER_NICKNAME}" readonly="readonly"><br>
+			연락처 		<input value="${orderDetailMap.FM_USER_MOBILE}" readonly="readonly"><br>
 		</div>
 		
 		<div>
 			<h4>배송정보</h4>
-			이름			<input value="" readonly="readonly"><br>
-			주소 		<input value="" readonly="readonly"><br>
-				 		<input value="" readonly="readonly"><br>
-			연락처		<input value="" readonly="readonly"><br>
+			이름			<input value="${orderDetailMap.FM_USER_NICKNAME}" readonly="readonly"><br>
+			주소 		<input value="${orderDetailMap.FM_USER_ZIP_CODE}" readonly="readonly"><br>
+				 		<input value="${orderDetailMap.FM_USER_ADDRESS}" readonly="readonly"><br>
+			연락처		<input value="${orderDetailMap.FM_USER_MOBILE}" readonly="readonly"><br>
 		</div>
-		
+		<br>
 		<div>
 			<span>주문이름</span><br>
-			<p>총금액</p>
+			<p>${orderDetailMap.FM_ORDER_DETAIL_PRICE}</p>
 		</div>
 		
 </body>
