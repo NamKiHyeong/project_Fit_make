@@ -5,8 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <style type="text/css">
+#login_Root_Div {
+	width: 1200px;
+	margin: 0 auto;
+}
+
 #loginDiv {
-	padding-top: 300px;
 	text-align: center;
 }
 
@@ -29,18 +33,20 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<div id="loginDiv">
-		<p class="login_fir_Tag">로그인</p>
-		<p class="login_sec_Tag">Fit_Make!</p>
+	<div id="login_Root_Div">
+		<div id="loginDiv">
+			<p class="login_fir_Tag">로그인</p>
+			<p class="login_sec_Tag">Fit_Make!</p>
 
-		<form action="./loginCtr.do" method="post" id="loginFormDiv">
-			<input type="text" name="email" placeholder="이메일 입력"><br>
-			<input type="password" name="password" placeholder="비밀번호 입력"><br>
-			<input type="submit" value="로그인">
-		</form>
-		<p>
-			<a href="../user/add.do">회원가입</a>
-		</p>
+			<form action="./loginCtr.do" method="post" id="loginFormDiv">
+				<input type="text" name="email" placeholder="이메일 입력"><br>
+				<input type="password" name="password" placeholder="비밀번호 입력"><br>
+				<input type="submit" value="로그인">
+			</form>
+			<p>
+				<a href="../user/add.do">회원가입</a>
+			</p>
+		</div>
 	</div>
 </body>
 </html>

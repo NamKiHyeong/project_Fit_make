@@ -90,6 +90,7 @@ public class UserController {
 		logger.trace("Welcome UserController memberAdd 신규등록 처리! " + userDto);
 
 		userService.userInsertOne(userDto);
+		
 
 		return "redirect:/auth/login.do";
 	}
