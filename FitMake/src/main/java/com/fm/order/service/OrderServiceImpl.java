@@ -37,8 +37,20 @@ public class OrderServiceImpl implements OrderService {
 
 	@Override
 	public Map<String, Object> orderDetailView(int oNo) {
-		// TODO Auto-generated method stub
+		
 		return orderDao.orderDetailView(oNo);
+	}
+
+	@Override
+	public int addCart(int uNo, int iNo, int iCount) {
+		
+		return orderDao.addCart(uNo, iNo, iCount);
+	}
+
+	@Override
+	public List<Map<String, Object>> cartListView(int uNo) {
+		
+		return orderDao.cartListView(uNo);
 	}
 
 	

@@ -60,26 +60,12 @@ public class UserController {
 		if (userDto != null) {
 			session.setAttribute("_userDto_", userDto);
 			viewUrl = "/mainpage/main";
-			
 		} else {
 			viewUrl = "/auth/LoginFail";
 		}
 		return viewUrl;
 	}
-//@@@@@@@@@@더미 사이트test
-	@RequestMapping(value = "/auth/categorytest.do", method = RequestMethod.GET)
-	public String categorytest(Model model) {
-		logger.info("특가 클릭 시 ");
-		
-		return "/item/category";
-	}
-//@@@@@@@@@@더미 제품등록test
-	@RequestMapping(value = "/auth/itemtest.do", method = RequestMethod.GET)
-	public String itemtest(Model model) {
-		logger.info("제품 클릭시 ");
-		return  "/item/itemAdd";
-	}
-	
+
 	// 로그아웃
 	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
 	public String logout(HttpSession session, Model model) {
@@ -104,6 +90,7 @@ public class UserController {
 		logger.trace("Welcome UserController memberAdd 신규등록 처리! " + userDto);
 
 		userService.userInsertOne(userDto);
+		
 
 		return "redirect:/auth/login.do";
 	}

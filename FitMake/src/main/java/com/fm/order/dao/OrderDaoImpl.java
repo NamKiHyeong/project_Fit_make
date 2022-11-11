@@ -20,12 +20,6 @@ public class OrderDaoImpl implements OrderDao {
 
 	String namespace = "com.fm.order.";
 
-//	@Override
-//	public List<OrderDto> orderListView(int uNo) {
-//		
-//		return sqlSession.selectList(namespace + "orderListView", uNo);
-//	}
-	
 	@Override
 	public List<Map<String, Object>> orderListView(int uNo) {
 		
@@ -34,11 +28,26 @@ public class OrderDaoImpl implements OrderDao {
 	
 	@Override
 	public Map<String, Object> orderDetailView(int oNo) {
-
-		Map<Integer, Object> putMap = new HashMap<Integer, Object>();
-		putMap.put(oNo, "oNo");
 		
-		return sqlSession.selectMap(namespace + "orderDetailView", putMap, "oNo");
+		return sqlSession.selectOne(namespace + "orderDetailView", oNo);
+	}
+
+	@Override
+	public int addCart(int uNo, int iNo, int iCount) {
+		
+		Map<Integer, Object> inputMap = new HashMap<Integer, Object>();
+		
+		inputMap.put(iNo, "iNo");
+		inputMap.put(uNo, "uNo");
+		inputMap.put(iCount, "iCount");
+		
+		return sqlSession.insert(namespace + "addCart", inputMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> cartListView(int uNo) {
+		
+		return sqlSession.selectList(namespace + "cartListView", uNo);
 	}
 
 }
