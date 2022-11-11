@@ -42,9 +42,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int addCart(Map<Integer, Object> inputMap) {
+	public int addCart(int uNo, int iNo, int iCount) {
 		
-		return orderDao.addCart(inputMap);
+		return orderDao.addCart(uNo, iNo, iCount);
 	}
 
 	@Override

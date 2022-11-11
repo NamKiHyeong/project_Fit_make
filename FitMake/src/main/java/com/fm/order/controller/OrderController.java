@@ -37,19 +37,19 @@ public class OrderController {
 	 * @param iCount 	장바구니에 추가할 제품갯수
 	 * @return			화면에서 이동할 것인지 아닌지 선택한 값을 통해 다르게 리턴 
 	 */
-	@RequestMapping(value = "/cart/add.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/cart/add.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String addCart(HttpSession session, Model model, int iNo, int iCount) {
 		logger.info("Welcome orderCart!");
 		
+		session.setAttribute("uNo", 1);
 		int resultNum = 0;
+		int uNo = (int)session.getAttribute("uNo"); 
+		iNo = 1;
+		iCount = 3;
 		
-		Map<Integer, Object> inputMap = new HashMap<Integer, Object>();
 		
-		inputMap.put(iNo, "iNo");
-		inputMap.put((int)session.getAttribute("uNo"), "uNo");
-		inputMap.put(iCount, "iCount");
 		
-		resultNum = orderService.addCart(inputMap);
+		resultNum = orderService.addCart(uNo, iNo, iCount);
 		
 		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
 		return "cart/CartList";
@@ -58,11 +58,13 @@ public class OrderController {
 	@RequestMapping(value = "/cart/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String cartListView(HttpSession session, Model model) {
 		
+		session.setAttribute("uNo", 1);
+		
 		List<Map<String, Object>> cartMapList = orderService.cartListView((int)session.getAttribute("uNo"));
 		
 		model.addAttribute("cartMapList", cartMapList);
 		
-		return "cart/CartList";
+		return "order/OrderManage";
 	}
 	
 	

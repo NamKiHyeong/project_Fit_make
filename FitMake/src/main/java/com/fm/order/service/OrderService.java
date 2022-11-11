@@ -14,7 +14,7 @@ public interface OrderService {
 
 	public Map<String, Object> orderDetailView(int oNo);
 
-	public int addCart(Map<Integer, Object> inputMap);
+	public int addCart(int uNo, int iNo, int iCount);
 
 	public List<Map<String, Object>> cartListView(int uNo);
 	

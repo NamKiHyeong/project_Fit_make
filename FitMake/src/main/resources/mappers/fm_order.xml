@@ -12,21 +12,21 @@
 		<result column="FM_ORDER_DETAIL_PRICE" property="totalPrice"/>
 	</resultMap>
 	
-<!-- 	<insert id="addCart" parameterType="map"> -->
-<!-- 		INSERT INTO FM_CART -->
-<!-- 		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT) -->
-<!-- 		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount}) -->
-<!-- 	</insert> -->
+	<insert id="addCart" parameterType="map">
+		INSERT INTO FM_CART
+		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT)
+		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount})
+	</insert>
 	
-<!-- 	<select id="cartListView" parameterType="int" resultType="map"> -->
-<!-- 		SELECT i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT -->
-<!-- 		FROM FM_CART C -->
-<!-- 			INNER JOIN FM_USER u -->
-<!-- 				ON c.FM_USER_NO = u.FM_USER_NO -->
-<!-- 			INNER JOIN FM_ITEM i -->
-<!-- 				ON c.FM_ITEM_NO = i.FM_ITEM_NO -->
-<!-- 		WHERE c.FM_USER_NO = #{uNo} -->
-<!-- 	</select> -->
+	<select id="cartListView" parameterType="int" resultType="map">
+		SELECT i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
+		FROM FM_CART C
+			INNER JOIN FM_USER u
+				ON c.FM_USER_NO = u.FM_USER_NO
+			INNER JOIN FM_ITEM i
+				ON c.FM_ITEM_NO = i.FM_ITEM_NO
+		WHERE c.FM_USER_NO = #{uNo}
+	</select>
 	
 	<select id="orderListView" parameterType="int" 
 		resultType="map">

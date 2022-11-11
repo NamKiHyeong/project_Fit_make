@@ -33,7 +33,13 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public int addCart(Map<Integer, Object> inputMap) {
+	public int addCart(int uNo, int iNo, int iCount) {
+		
+		Map<Integer, Object> inputMap = new HashMap<Integer, Object>();
+		
+		inputMap.put(iNo, "iNo");
+		inputMap.put(uNo, "uNo");
+		inputMap.put(iCount, "iCount");
 		
 		return sqlSession.insert(namespace + "addCart", inputMap);
 	}
