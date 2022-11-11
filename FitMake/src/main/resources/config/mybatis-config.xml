@@ -9,6 +9,7 @@
 
   	<typeAlias type="com.fm.user.model.UserDto" alias="userDto"/>
   	<typeAlias type="com.fm.order.model.OrderDto" alias="orderDto"/>
+<!--   	<typeAlias type="com.fm.order.model.ItemDto" alias="itemDto"/> -->
 
   </typeAliases>
   

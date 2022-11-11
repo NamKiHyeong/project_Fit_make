@@ -19,6 +19,10 @@ public interface OrderService {
 	public List<Map<String, Object>> viewCartList(int uNo);
 
 	public int deleteCart(int uNo, int cNo);
+
+	public int addOrder(int uNo);
+
+	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
 	
 
 }

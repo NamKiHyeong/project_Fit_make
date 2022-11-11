@@ -34,6 +34,12 @@
 		AND FM_CART_NO = #{cNo}
 	</delete>
 	
+	<insert id="addOrder" parameterType="int">
+		INSERT INTO FM_ORDER
+		VALUE(FM_ORDER_NO, FM_USER_NO, FM_ORDER_DATE, FM_ORDER_STATUS)
+		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, '대기')
+	</insert>
+	
 	<select id="orderListView" parameterType="int" 
 		resultType="map">
 		SELECT a.FM_ORDER_NO, a.FM_USER_NO, a.FM_ORDER_DATE
@@ -44,6 +50,12 @@
 			ON a.FM_ORDER_NO = c.FM_ORDER_NO
 		WHERE a.FM_USER_NO = #{uNo}
 	</select>
+	
+	<insert id="addOrderDetail" parameterType="map">
+		INSERT INTO FM_ORDER_DETAIL
+		VALUE(FM_ORDER_DETAIL_NO, FM_ORDER_NO, FM_ITEM_NO, FM_ORDER_DETAIL_COUNT, FM_ORDER_DETAIL_PRICE)
+		VALUES(FM_ORDER_DETAIL_NO.NEXTVAL,SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
+	</insert>
 	
 	<select id="orderDetailView" parameterType="int" resultType="map">
 		SELECT i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE 

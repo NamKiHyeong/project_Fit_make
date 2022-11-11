@@ -63,4 +63,25 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.delete(namespace + "deleteCart", inputMap);
 	}
 
+	@Override
+	public int addOrder(int uNo) {
+		
+//		
+		
+		return sqlSession.insert(namespace + "addOrder", uNo);
+	}
+
+	@Override
+	public int addOrderDetail(int uNo, int iNo, int iCount, int price) {
+			
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		
+		inputMap.put("uNo", uNo);
+		inputMap.put("iNo", iNo);
+		inputMap.put("iCount", iCount);
+		inputMap.put("price", price);
+		
+		return sqlSession.insert(namespace + "addOrderDetail", inputMap);
+	}
+
 }

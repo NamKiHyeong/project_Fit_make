@@ -59,5 +59,17 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.deleteCart(uNo, cNo);
 	}
 
+	@Override
+	public int addOrder(int uNo) {
+		
+		return orderDao.addOrder(uNo);
+	}
+
+	@Override
+	public int addOrderDetail(int uNo, int iNo, int iCount, int price) {
+		
+		return orderDao.addOrderDetail(uNo, iNo, iCount, price);
+	}
+
 	
 }

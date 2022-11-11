@@ -32,7 +32,7 @@ public class OrderController {
 	@Autowired
 	private OrderService orderService;
 	
-	/**
+	/** 유효성 검사 추가 필요
 	 * 장바구니 추가 기능
 	 * @param session 	세션에 있는uNo를 가지고 오기 위한 객체
 	 * @param model		화면 구성을 위한 객체
@@ -59,7 +59,7 @@ public class OrderController {
 		return "redirect:/cart/list.do";
 	}
 	
-	/**
+	/** 유효성 검사 추가 필요
 	 * 장바구니 목록 보기 기능
 	 * @param session 	세션에 저장된 userNo(uNo)를 가져오기 위한 객체
 	 * @param model		장바구니 목록을 화면에 보내기 위한 객체
@@ -77,6 +77,12 @@ public class OrderController {
 		return "cart/CartList";
 	}
 	
+	/**	유효성 검사 추가 필요 / cno와 ino를 통해 장바구니 번호를 검색해야하는 지의 여부는 생각해 볼것
+	 * 장바구니에 있는 물품을 지우는 기능
+	 * @param session 	세션에 저장된 uNo를 가져오기 위한 객체
+	 * @param cNo		장바구니 물품의 고유 값	
+	 * @return	장바구니리스트 페이지 호출
+	 */
 	@RequestMapping(value = "/cart/delete.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String deleteCart(HttpSession session, Model model, int cNo) {
 		
@@ -90,6 +96,35 @@ public class OrderController {
 		return "redirect:/cart/list.do";
 	}
 	
+	@RequestMapping(value= "/order/add.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String addOrder(HttpSession session, Model model, 
+				@RequestParam(defaultValue = "1") int iNo,
+				@RequestParam(defaultValue = "5") int iCount,
+				@RequestParam(defaultValue = "3000") int price) {
+		
+		session.setAttribute("uNo", 1);
+		
+		// 장바구니에서 오는 경로
+ 
+		// 주문의 생성과 동시에 주문내역(제품리스트) 생성을 해야함
+		
+		int resultOrder = 0;
+		int resultOrderDetail = 0; 
+		
+		int uNo = (int)session.getAttribute("uNo");
+		
+		// 제품에서 바로 주문으로 가는 경로
+		
+		resultOrder = orderService.addOrder(uNo);
+		
+		resultOrderDetail = orderService.addOrderDetail(uNo, iNo, iCount, price);
+//		resultOrder = orderService.addOrder(uNo, , iNo, iCount, totalPrice);
+		
+		
+		
+		
+		return "redirect:/order/list.do";
+	}
 	
 	/**
 	 * 주문관리 페이지 리스트를 호출 할 때 사용하는 메서드 
