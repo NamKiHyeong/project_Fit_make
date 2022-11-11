@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
+import com.fm.util.BmiCalc;
 import com.fm.util.Paging;
 
 //어노테이션 드리븐
@@ -41,11 +42,11 @@ public class UserController {
 		logger.info("메인로고 클릭! ");
 		
 		String viewPage = "";
-		if (session != null) {
+		if (session.getAttribute("_userDto_") != null) {
 			viewPage = "/mainpage/main";
-		} else if (session == null) {
-			viewPage = "redirect:/auth/loginCtr.do";
-		}
+		} else if (session.getAttribute("_userDto_") == null) {
+			viewPage = "redirect:/auth/login.do";
+		} 
 		return viewPage;
 	}
 	// 로그인
@@ -75,23 +76,29 @@ public class UserController {
 
 		return "redirect:/auth/login.do";
 	}
-
-	// 회원가입 페이지로 이동
+	
+	/** 회원가입 페이지로 이동
+	 * 
+	 * @param model
+	 * @return
+	 */
+	
 	@RequestMapping(value = "/user/add.do", method = RequestMethod.GET)
 	public String userAdd(Model model) {
 		logger.debug("Welcome UserController memberAdd! ");
-
+		
 		return "/user/JoinForm";
 	}
 
 	// 회원가입
 	@RequestMapping(value = "/user/addCtr.do", method = RequestMethod.POST)
-	public String memberAdd(UserDto userDto, Model model) {
+	public String memberAdd(UserDto userDto, Model model
+			, BmiCalc bmiCalc) {
 		logger.trace("Welcome UserController memberAdd 신규등록 처리! " + userDto);
-
-		userService.userInsertOne(userDto);
 		
-
+		
+		userService.bmiInsertOne(bmiCalc);
+		userService.userInsertOne(userDto);
 		return "redirect:/auth/login.do";
 	}
 }

@@ -3,26 +3,27 @@ package com.fm.util;
 public class BmiCalc {
 	private int bNo = 0;
 	private int uNo = 0;
-	private int weight = 0;
-	private int height = 0;
+	private double weight = 0;
+	private double height = 0;
 	private String gender = "";
-	private int bRaw = 0;
-	private int goalBmi = 0;
-	private int goalCalory = 0;
+	private double bRaw = 0;
+	private double goalBmi = 0;
+	private double goalCalory = 0;
 
 	public BmiCalc() {
 		super();
 	}
 
-	public BmiCalc(int bNo, int uNo, int weight, int height, String gender, int bRaw, int goalBmi, int goalCalory) {
+	public BmiCalc(int bNo, int uNo, double weight, double height, String gender, double bRaw, double goalBmi,
+			double goalCalory) {
 		super();
 		this.bNo = bNo;
 		this.uNo = uNo;
 		this.weight = weight;
 		this.height = height;
 		this.gender = gender;
-		this.bRaw = bRaw;
-		this.goalBmi = goalBmi;
+		this.bRaw = Math.round((weight / (height*height)) * 100000) / 10d;
+		this.goalBmi = (Math.round((weight / (height*height)) * 100000) / 10d)-1;
 		this.goalCalory = goalCalory;
 	}
 
@@ -42,19 +43,19 @@ public class BmiCalc {
 		this.uNo = uNo;
 	}
 
-	public int getWeight() {
+	public double getWeight() {
 		return weight;
 	}
 
-	public void setWeight(int weight) {
+	public void setWeight(double weight) {
 		this.weight = weight;
 	}
 
-	public int getHeight() {
+	public double getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight(double height) {
 		this.height = height;
 	}
 
@@ -66,29 +67,28 @@ public class BmiCalc {
 		this.gender = gender;
 	}
 
-	public int getbRaw() {
+	public double getbRaw() {
 		return bRaw;
 	}
 
-	public void setbRaw(int bRaw) {
+	public void setbRaw(double bRaw) {
 		this.bRaw = bRaw;
 	}
 
-	public int getGoalBmi() {
+	public double getGoalBmi() {
 		return goalBmi;
 	}
 
-	public void setGoalBmi(int goalBmi) {
+	public void setGoalBmi(double goalBmi) {
 		this.goalBmi = goalBmi;
 	}
 
-	public int getGoalCalory() {
+	public double getGoalCalory() {
 		return goalCalory;
 	}
 
-	public void setGoalCalory(int goalCalory) {
+	public void setGoalCalory(double goalCalory) {
 		this.goalCalory = goalCalory;
 	}
 
-		
 }

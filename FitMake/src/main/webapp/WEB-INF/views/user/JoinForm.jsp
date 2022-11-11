@@ -34,13 +34,17 @@
 				비밀번호
 				 <input	type='password' name='password'><br>
 				휴대폰
-				 <input type='text' name='mobile'><br>
+				 <input type='tel' name='mobile'><br>
 				우편번호
 				 <input	type='text' name='zipCode'><br>
 				주소
 				 <input type='text'	name='address'><br>
-				신체정보
-				 <input type="text" name="">
+				신체정보 <br>
+				성별 <br>
+				 <input type="checkbox">남자 &nbsp;
+				 <input type="checkbox">여자 <br>
+				 키 <input type="text" name="">
+				 몸무게 <input type="text" name=""> <br>
 				<input type='submit' value='회원가입'>
 			</form>
 		</div>

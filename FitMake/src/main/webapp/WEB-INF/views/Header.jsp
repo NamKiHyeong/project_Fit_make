@@ -26,8 +26,9 @@
 			<div id="logo_infoDiv">
 				<div id="logo">
 					<form action="./mainpage/main.do" method="get">
-						<input type="image" src="/fitmake/resources/image/mainlogo.png"
-							alt="메인로고">
+
+						<a href="${pageContext.request.contextPath}/mainpage/main.do"><img
+							alt="메인로고" src="/fitmake/resources/image/mainlogo.png"></a>
 					</form>
 				</div>
 				<div id="infoDiv">

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.user.dao.UserDao;
 import com.fm.user.model.UserDto;
+import com.fm.util.BmiCalc;
 import com.fm.util.FileUtils;
 
 @Service
@@ -27,18 +28,25 @@ public class UserServiceImpl implements UserService {
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	public UserDao memberDao;
+	public UserDao UserDao;
 
 	@Override
 	public UserDto userExist(String email, String password) {
 		// TODO Auto-generated method stub
-		return memberDao.userExist(email, password);
+		return UserDao.userExist(email, password);
 	}
 
 	@Override
 	public void userInsertOne(UserDto userDto) {
 
-		memberDao.userInsertOne(userDto);
+		UserDao.userInsertOne(userDto);
+	}
+
+	@Override
+	public void bmiInsertOne(BmiCalc bmiCalc) {
+		
+		UserDao.bmiInsertOne(bmiCalc);
+		
 	}
 
 }

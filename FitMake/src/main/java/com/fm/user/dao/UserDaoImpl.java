@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fm.user.model.UserDto;
+import com.fm.util.BmiCalc;
 
 //DB와 관련된 작업을 저장하는 곳이라 레파지토리라는 어노테이션을 붙여야 한다.
 @Repository
@@ -36,6 +37,14 @@ public class UserDaoImpl implements UserDao {
 	public int userInsertOne(UserDto userDto) {
 
 		return sqlSession.insert(namespace +"userInsertOne", userDto);
+	}
+
+	@Override
+	public int bmiInsertOne(BmiCalc bmiCalc) {
+		
+		
+		
+		return sqlSession.insert(namespace + "bmiInsertOne", null);
 	}
 
 }

@@ -2,40 +2,53 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.user">
-	
+
 	<resultMap type="userDto" id="userResultMap">
-		<id column="FM_USER_NO" property="uNo"/>
-		<result column="FM_USER_NICKNAME" property="nickName"/>
-		<result column="FM_USER_EMAIL" property="email"/>
-		<result column="FM_USER_PASSWORD" property="password"/>
-		<result column="FM_USER_MOBILE" property="mobile"/>
-		<result column="FM_USER_ZIP_CODE" property="zipCode"/>
-		<result column="FM_USER_ADDRESS" property="address"/>
-		<result column="FM_USER_POINT" property="point"/>
+		<id column="FM_USER_NO" property="uNo" />
+		<result column="FM_USER_NICKNAME" property="nickName" />
+		<result column="FM_USER_EMAIL" property="email" />
+		<result column="FM_USER_PASSWORD" property="password" />
+		<result column="FM_USER_MOBILE" property="mobile" />
+		<result column="FM_USER_ZIP_CODE" property="zipCode" />
+		<result column="FM_USER_ADDRESS" property="address" />
+		<result column="FM_USER_POINT" property="point" />
 		<result column="FM_USER_CRE_DATE" property="createDate"
-			javaType="java.util.Date"/>
+			javaType="java.util.Date" />
 	</resultMap>
-	
-	<select id="userExist" parameterType="map" 
+
+	<select id="userExist" parameterType="map"
 		resultMap="userResultMap">
-		SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_POINT
+		SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
+		FM_USER_POINT
 		FROM FM_USER
-		WHERE FM_USER_EMAIL = #{email} AND FM_USER_PASSWORD = #{password}
+		WHERE FM_USER_EMAIL = #{email} AND
+		FM_USER_PASSWORD = #{password}
 	</select>
-	
-	<insert id="userInsertOne" 
-		parameterType="com.fm.user.model.UserDto"
-		useGeneratedKeys="true" keyProperty="uNo">
-		
+
+	<insert id="userInsertOne"
+		parameterType="com.fm.user.model.UserDto" useGeneratedKeys="true"
+		keyProperty="uNo">
+
 		<selectKey keyProperty="uNo" resultType="int" order="BEFORE">
-			SELECT SEQ_FM_USER_NO.NEXTVAL FROM DUAL
+			SELECT
+			SEQ_FM_USER_NO.NEXTVAL FROM DUAL
 		</selectKey>
-		
+
 		INSERT INTO FM_USER
-		VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL, FM_USER_PASSWORD 
-				, FM_USER_MOBILE, FM_USER_ZIP_CODE, FM_USER_ADDRESS, FM_USER_POINT, FM_USER_CRE_DATE)
+		VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
+		FM_USER_PASSWORD
+		, FM_USER_MOBILE, FM_USER_ZIP_CODE, FM_USER_ADDRESS, FM_USER_POINT,
+		FM_USER_CRE_DATE)
 		VALUES(#{uNo}, #{nickName}, #{email}
-				, #{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
+		, #{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
+	</insert>
+
+	<insert id="bmiInsertOne" parameterType="com.fm.util.BmiCalc"
+		useGeneratedKeys="true" keyProperty="uNo">
+		INSERT INTO FM_USER_BMI
+		VALUE(FM_USER_BMI_NO, FM_USER_NO, FM_USER_BMI_WEIGHT
+		, FM_USER_BMI_HEIGHT, FM_USER_BMI_GENDER, FM_USER_BMI_RAW
+		, FM_USER_GOAL_BMI, FM_USER_GOAL_CALORY)
 	</insert>
 
 </mapper>
