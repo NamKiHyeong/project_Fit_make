@@ -28,7 +28,7 @@
 		useGeneratedKeys="true" keyProperty="uNo">
 		
 		<selectKey keyProperty="uNo" resultType="int" order="BEFORE">
-			SELECT SEQ_FM_USER_FM_USER_NO.NEXTVAL FROM DUAL
+			SELECT SEQ_FM_USER_NO.NEXTVAL FROM DUAL
 		</selectKey>
 		
 		INSERT INTO FM_USER

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  
+  <typeAliases>
+  <!-- 이곳에서 타입에 등록한 클래스를 스프링에 알리아스라는 이름으로 사용하겠다고 선언한 것 -->
+
+  	<typeAlias type="com.fm.user.model.UserDto" alias="userDto"/>
+  	<typeAlias type="com.fm.order.model.OrderDto" alias="orderDto"/>
+
+  </typeAliases>
+  
+  
+</configuration>
