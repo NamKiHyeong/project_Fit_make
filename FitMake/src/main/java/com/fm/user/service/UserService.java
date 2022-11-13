@@ -16,7 +16,7 @@ public interface UserService {
 
 	public void bmiInsertOne(BmiCalc bmiCalc);
 
-	public Map<String, Object> userSelectInfo(int no);
+	public Map<String, Object> userSelectInfo(int uNo);
 	
 	
 

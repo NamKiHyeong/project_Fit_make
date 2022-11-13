@@ -50,9 +50,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Map<String, Object> userSelectInfo(int no) {
+	public Map<String, Object> userSelectInfo(int uNo) {
 		
-		return UserDao.userSelectInfo(no);
+		return UserDao.userSelectInfo(uNo);
 	}
 
 }

@@ -110,10 +110,11 @@ public class UserController {
 	 * @return 
 	 */
 	@RequestMapping(value = "/user/Info.do")
-		public String userInfo(int no, Model model) {
-			logger.info("Welcome UserController userInfo enter! - {}" ,no);
+		public String userInfo(int uNo, Model model) {
+			logger.info("Welcome UserController userInfo enter! - {}" ,uNo);
 			
-			Map<String, Object> map = userService.userSelectInfo(no);
+			Map<String, Object> map = userService.userSelectInfo(uNo);
+			map.put("uNo", uNo);
 			
 			
 			return "/user/UserMyInfo";

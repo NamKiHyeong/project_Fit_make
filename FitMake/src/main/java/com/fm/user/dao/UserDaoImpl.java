@@ -51,10 +51,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public Map<String, Object> userSelectInfo(int no) {
+	public Map<String, Object> userSelectInfo(int uNo) {
 		
 		
-		return sqlSession.selectOne(namespaceuser + "userSelectInfo", no);
+		return sqlSession.selectOne(namespaceuser + "userSelectInfo", uNo);
 	}
 
 }

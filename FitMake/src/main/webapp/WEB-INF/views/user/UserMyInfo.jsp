@@ -21,24 +21,33 @@
 	<h1>내정보</h1>
 
 	이메일
-	<input type='text' name='email'>
+	<input type='text' value="${userDto.email}">
 	<br> 닉네임
-	<input type='text' name='nickName'>
+	<input type='text' value="${userDto.nickName}">
 	<br> 비밀번호
-	<input type='password' name='password'>
+	<input type='password' value="${userDto.password}">
 	<br> 휴대폰
-	<input type='tel' name='mobile'>
+	<input type='tel' value="${userDto.mobile}">
 	<br> 우편번호
-	<input type='text' name='zipCode'>
+	<input type='text' value="${userDto.zipCode}">
 	<br> 주소
-	<input type='text' name='address'>
+	<input type='text' value="${userDto.address}">
+	<br> 가입일
+	<input type='text' value="${userDto.createDate}">
+	
 	<br> 신체정보
 	<br> 성별
-	<br>
-	<input type="text" name="gender"> 몸무게
-	<input type="text" name="weight">
+	<input type="text" value="${bmiCalc.gender}"> 
+	몸무게
+	<input type="text" value="${bmiCalc.weight}">
 	<br> 키
-	<input type="text" name="height">
+	<input type="text" value="${bmiCalc.height}">
+	<br> BMI
+	<input type="text" value="${bmiCalc.bRaw}">
+	<br> 목표 BMI
+	<input type="text" value="${bmiCalc.goalBmi}">
+	<br> 한끼 권장 칼로리
+	<input type="text" value="${bmiCalc.goalCalory}">
 </body>
 
 </html>

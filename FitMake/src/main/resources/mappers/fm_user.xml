@@ -77,6 +77,6 @@
 		SELECT U.FM_USER_NICKNAME, B.*
 		FROM FM_USER U INNER JOIN FM_USER_BMI B
 		ON U.FM_USER_NO = B.FM_USER_BMI_NO
-		where U.FM_USER_NICKNAME = '#{nickName}'
+		where U.FM_USER_NO = '#{uNo}'
 	</select>
 </mapper>

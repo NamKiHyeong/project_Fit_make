@@ -5,7 +5,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <link rel="stylesheet" href="/fitmake/resources/css/reset.css"> -->
 <link rel="stylesheet" href="/fitmake/resources/css/style.css">
 <title>헤더</title>
 
@@ -16,7 +15,7 @@
 			<div id="headerDiv">
 				<ul>
 					<c:if test="${_userDto_.email ne null}">
-						<li><strong>${_userDto_.nickName}님</strong>&nbsp;&nbsp;</li>
+						<li><strong>${_userDto_.nickName}</strong>님&nbsp;&nbsp;</li>
 						<li><strong>${_userDto_.point}원</strong>&nbsp;&nbsp;</li>
 						<li><a
 							href="${pageContext.request.contextPath}/auth/logout.do">로그아웃</a></li>
