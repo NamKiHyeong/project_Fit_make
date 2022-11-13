@@ -15,5 +15,7 @@ public interface UserDao {
 	public int userInsertOne(UserDto userDto);
 
 	public int bmiInsertOne(BmiCalc bmiCalc);
+
+	public Map<String, Object> userSelectInfo(int no);
 	
 }

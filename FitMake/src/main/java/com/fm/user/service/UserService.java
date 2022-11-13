@@ -15,6 +15,8 @@ public interface UserService {
 	public void userInsertOne(UserDto userDto);
 
 	public void bmiInsertOne(BmiCalc bmiCalc);
+
+	public Map<String, Object> userSelectInfo(int no);
 	
 	
 

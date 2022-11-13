@@ -18,7 +18,8 @@ public class UserDaoImpl implements UserDao {
 	@Autowired
 	SqlSessionTemplate sqlSession;
 
-	String namespace = "com.fm.user.";
+	String namespaceuser = "com.fm.user.";
+	String namespaceutil = "com.fm.user.";
 
 	@Override
 	public UserDto userExist(String email, String password) {
@@ -26,25 +27,34 @@ public class UserDaoImpl implements UserDao {
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("email", email);
 		paramMap.put("password", password);
-		
-		UserDto userDto
-			= sqlSession.selectOne(namespace+ "userExist", paramMap);
-		
+
+		UserDto userDto = sqlSession.selectOne(namespaceuser + "userExist", paramMap);
+
 		return userDto;
 	}
 
 	@Override
 	public int userInsertOne(UserDto userDto) {
 
-		return sqlSession.insert(namespace +"userInsertOne", userDto);
+		return sqlSession.insert(namespaceuser + "userInsertOne", userDto);
 	}
 
 	@Override
 	public int bmiInsertOne(BmiCalc bmiCalc) {
+
+		bmiCalc.setbRaw(Math.round((bmiCalc.getWeight() / (bmiCalc.getHeight() * bmiCalc.getHeight())) * 100000) / 10d);
+		bmiCalc.setGoalBmi(
+				(Math.round((bmiCalc.getWeight() / (bmiCalc.getHeight() * bmiCalc.getHeight())) * 100000) / 10d) - 1);
+		bmiCalc.setGoalCalory((Math.round((bmiCalc.getWeight() * 30) / 3) - 300) / 2);
+
+		return sqlSession.insert(namespaceutil + "bmiInsertOne", bmiCalc);
+	}
+
+	@Override
+	public Map<String, Object> userSelectInfo(int no) {
 		
 		
-		
-		return sqlSession.insert(namespace + "bmiInsertOne", null);
+		return sqlSession.selectOne(namespaceuser + "userSelectInfo", no);
 	}
 
 }

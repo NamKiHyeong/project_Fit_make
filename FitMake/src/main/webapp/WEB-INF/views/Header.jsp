@@ -36,7 +36,7 @@
 						<ul>
 							<li><a href="#"><img alt="포인트관리"
 									src="/fitmake/resources/image/point.png"></a></li>
-							<li><a href="#"><img alt="내정보"
+							<li><a href="${pageContext.request.contextPath}/user/Info.do"><img alt="내정보"
 									src="/fitmake/resources/image/myinfo.png"></a></li>
 							<li><a href="#"><img alt="회원관리"
 									src="/fitmake/resources/image/membermanagement.png"></a></li>

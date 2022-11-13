@@ -41,10 +41,9 @@
 				 <input type='text'	name='address'><br>
 				신체정보 <br>
 				성별 <br>
-				 <input type="checkbox">남자 &nbsp;
-				 <input type="checkbox">여자 <br>
-				 키 <input type="text" name="">
-				 몸무게 <input type="text" name=""> <br>
+						<input type="text" name="gender">
+				 몸무게 <input type="text" name="weight"> <br>
+				 키 <input type="text" name="height">
 				<input type='submit' value='회원가입'>
 			</form>
 		</div>

@@ -1,10 +1,8 @@
 package com.fm.user.controller;
 
-import java.util.HashMap;
-import java.util.List;
+
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -14,13 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
 import com.fm.util.BmiCalc;
-import com.fm.util.Paging;
 
 //어노테이션 드리븐
 @Controller
@@ -29,7 +24,7 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	// 로그인 페이지 이동
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login(HttpSession session, Model model) {
@@ -37,18 +32,20 @@ public class UserController {
 
 		return "auth/LoginForm";
 	}
+
 	@RequestMapping(value = "/mainpage/main.do", method = RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
 		logger.info("메인로고 클릭! ");
-		
+
 		String viewPage = "";
 		if (session.getAttribute("_userDto_") != null) {
 			viewPage = "/mainpage/main";
 		} else if (session.getAttribute("_userDto_") == null) {
 			viewPage = "redirect:/auth/login.do";
-		} 
+		}
 		return viewPage;
 	}
+
 	// 로그인
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 	public String loginCtr(String email, String password, HttpSession session, Model model) {
@@ -76,29 +73,49 @@ public class UserController {
 
 		return "redirect:/auth/login.do";
 	}
-	
-	/** 회원가입 페이지로 이동
+
+	/**
+	 * 회원가입 페이지로 이동
 	 * 
 	 * @param model
 	 * @return
 	 */
-	
+
 	@RequestMapping(value = "/user/add.do", method = RequestMethod.GET)
 	public String userAdd(Model model) {
 		logger.debug("Welcome UserController memberAdd! ");
-		
+
 		return "/user/JoinForm";
 	}
 
-	// 회원가입
-	@RequestMapping(value = "/user/addCtr.do", method = RequestMethod.POST)
-	public String memberAdd(UserDto userDto, Model model
-			, BmiCalc bmiCalc) {
-		logger.trace("Welcome UserController memberAdd 신규등록 처리! " + userDto);
-		
-		
-		userService.bmiInsertOne(bmiCalc);
+	/**
+	 * 
+	 * @param userDto
+	 * @param model
+	 * @param bmiCalc
+	 * @return 회원가입 userDto정보와 bmiCalc정보 DB에 기입
+	 */
+	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc) {
+		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
+
 		userService.userInsertOne(userDto);
+		userService.bmiInsertOne(bmiCalc);
 		return "redirect:/auth/login.do";
 	}
+	
+	/**
+	 * 
+	 * @param model
+	 * @return 
+	 */
+	@RequestMapping(value = "/user/Info.do")
+		public String userInfo(int no, Model model) {
+			logger.info("Welcome UserController userInfo enter! - {}" ,no);
+			
+			Map<String, Object> map = userService.userSelectInfo(no);
+			
+			
+			return "/user/UserMyInfo";
+		}
 }

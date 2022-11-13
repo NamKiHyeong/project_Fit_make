@@ -49,4 +49,10 @@ public class UserServiceImpl implements UserService {
 		
 	}
 
+	@Override
+	public Map<String, Object> userSelectInfo(int no) {
+		
+		return UserDao.userSelectInfo(no);
+	}
+
 }

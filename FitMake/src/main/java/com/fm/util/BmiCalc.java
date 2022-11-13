@@ -22,8 +22,8 @@ public class BmiCalc {
 		this.weight = weight;
 		this.height = height;
 		this.gender = gender;
-		this.bRaw = Math.round((weight / (height*height)) * 100000) / 10d;
-		this.goalBmi = (Math.round((weight / (height*height)) * 100000) / 10d)-1;
+		this.bRaw = bRaw;
+		this.goalBmi = goalBmi;
 		this.goalCalory = goalCalory;
 	}
 

@@ -15,7 +15,7 @@
 		<result column="FM_USER_CRE_DATE" property="createDate"
 			javaType="java.util.Date" />
 	</resultMap>
-
+	<!-- //회원확인 -->
 	<select id="userExist" parameterType="map"
 		resultMap="userResultMap">
 		SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
@@ -24,7 +24,9 @@
 		WHERE FM_USER_EMAIL = #{email} AND
 		FM_USER_PASSWORD = #{password}
 	</select>
+	<!-- 회원확인// -->
 
+	<!-- // 회원가입 -->
 	<insert id="userInsertOne"
 		parameterType="com.fm.user.model.UserDto" useGeneratedKeys="true"
 		keyProperty="uNo">
@@ -37,18 +39,44 @@
 		INSERT INTO FM_USER
 		VALUE(FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
 		FM_USER_PASSWORD
-		, FM_USER_MOBILE, FM_USER_ZIP_CODE, FM_USER_ADDRESS, FM_USER_POINT,
+		, FM_USER_MOBILE, FM_USER_ZIP_CODE, FM_USER_ADDRESS,
+		FM_USER_POINT,
 		FM_USER_CRE_DATE)
 		VALUES(#{uNo}, #{nickName}, #{email}
-		, #{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
+		,
+		#{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
 	</insert>
+
 
 	<insert id="bmiInsertOne" parameterType="com.fm.util.BmiCalc"
-		useGeneratedKeys="true" keyProperty="uNo">
-		INSERT INTO FM_USER_BMI
-		VALUE(FM_USER_BMI_NO, FM_USER_NO, FM_USER_BMI_WEIGHT
-		, FM_USER_BMI_HEIGHT, FM_USER_BMI_GENDER, FM_USER_BMI_RAW
-		, FM_USER_GOAL_BMI, FM_USER_GOAL_CALORY)
-	</insert>
+		keyProperty="uNo">
 
+		<selectKey keyProperty="bNo" resultType="int" order="BEFORE">
+			SELECT
+			SEQ_FM_USER_BMI_NO.NEXTVAL FROM DUAL
+		</selectKey>
+
+		INSERT INTO FM_USER_BMI
+		VALUE(FM_USER_BMI_NO, FM_USER_NO,
+		FM_USER_BMI_WEIGHT, FM_USER_BMI_HEIGHT
+		, FM_USER_BMI_GENDER,
+		FM_USER_BMI_RAW, FM_USER_GOAL_BMI,
+		FM_USER_GOAL_CALORY)
+		VALUES(#{bNo},
+		SEQ_FM_USER_NO.CURRVAL, #{weight},
+		#{height}, #{gender},
+		#{bRaw},
+		#{goalBmi}, #{goalCalory})
+
+	</insert>
+	<!-- 회원가입 // -->
+
+	<!-- //내정보조회 -->
+	<select id="userSelectInfo" parameterType="map"
+		resultMap="userResultMap">
+		SELECT U.FM_USER_NICKNAME, B.*
+		FROM FM_USER U INNER JOIN FM_USER_BMI B
+		ON U.FM_USER_NO = B.FM_USER_BMI_NO
+		where U.FM_USER_NICKNAME = '#{nickName}'
+	</select>
 </mapper>
