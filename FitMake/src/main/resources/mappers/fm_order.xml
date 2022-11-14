@@ -12,12 +12,6 @@
 		<result column="FM_ORDER_DETAIL_PRICE" property="totalPrice"/>
 	</resultMap>
 	
-	<insert id="addCart" parameterType="map">
-		INSERT INTO FM_CART
-		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT)
-		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount})
-	</insert>
-	
 	<select id="viewCartList" parameterType="int" resultType="map">
 		SELECT c.FM_CART_NO, c.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
 		FROM FM_CART C
@@ -28,11 +22,30 @@
 		WHERE c.FM_USER_NO = #{uNo}
 	</select>
 	
+	<insert id="addCart" parameterType="map">
+		INSERT INTO FM_CART
+		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT)
+		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount})
+	</insert>
+	
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM FM_CART
 		WHERE FM_USER_NO = #{uNo}
 		AND FM_CART_NO = #{cNo}
 	</delete>
+	
+	<select id="viewOrderList" parameterType="int" 
+		resultType="map">
+		SELECT o.FM_ORDER_NO, o.FM_ORDER_DATE, o.FM_ORDER_STATUS, i.FM_ITEM_NAME
+			, od.FM_ORDER_DETAIL_COUNT, COUNT(*) OVER(PARTITION BY o.FM_ORDER_NO) AS "oCount"
+			, ROW_NUMBER() OVER(PARTITION BY o.FM_ORDER_NO ORDER BY i.FM_ITEM_NAME) AS "oRownum"
+			, SUM(od.FM_ORDER_DETAIL_PRICE * od.FM_ORDER_DETAIL_COUNT) OVER(PARTITION BY o.FM_ORDER_NO) AS "totalPrice"
+		FROM FM_ORDER o INNER JOIN FM_ORDER_DETAIL od
+			ON o.FM_ORDER_NO = od.FM_ORDER_NO
+				INNER JOIN FM_ITEM i
+			ON od.FM_ITEM_NO = i.FM_ITEM_NO
+		WHERE o.FM_USER_NO = #{uNo}
+	</select>
 	
 	<insert id="addOrder" parameterType="int">
 		INSERT INTO FM_ORDER
@@ -40,25 +53,8 @@
 		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, '대기')
 	</insert>
 	
-	<select id="orderListView" parameterType="int" 
-		resultType="map">
-		SELECT a.FM_ORDER_NO, a.FM_USER_NO, a.FM_ORDER_DATE
-			, a.FM_ORDER_STATUS, b.FM_USER_NICKNAME, c.FM_ORDER_DETAIL_PRICE, a.FM_ORDER_STATUS
-		FROM FM_ORDER a INNER JOIN FM_USER b
-			ON a.FM_USER_NO = b.FM_USER_NO 
-				INNER JOIN FM_ORDER_DETAIL c
-			ON a.FM_ORDER_NO = c.FM_ORDER_NO
-		WHERE a.FM_USER_NO = #{uNo}
-	</select>
-	
-	<insert id="addOrderDetail" parameterType="map">
-		INSERT INTO FM_ORDER_DETAIL
-		VALUE(FM_ORDER_DETAIL_NO, FM_ORDER_NO, FM_ITEM_NO, FM_ORDER_DETAIL_COUNT, FM_ORDER_DETAIL_PRICE)
-		VALUES(SEQ_FM_ORDER_DETAIL_NO.NEXTVAL, SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
-	</insert>
-	
-	<select id="orderDetailItemView" parameterType="int" resultType="map">
-		SELECT i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE 
+	<select id="viewOrderDetailItem" parameterType="int" resultType="map">
+		SELECT od.FM_ORDER_DETAIL_NO, i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE 
 		FROM FM_ORDER_DETAIL od 
 			INNER JOIN FM_ITEM i 
 				ON od.FM_ITEM_NO = i.FM_ITEM_NO 
@@ -66,5 +62,11 @@
 				ON od.FM_ORDER_NO = o.FM_ORDER_NO  
 		where o.FM_ORDER_NO = #{oNo} 
 	</select>
+	
+	<insert id="addOrderDetail" parameterType="map">
+		INSERT INTO FM_ORDER_DETAIL
+		VALUE(FM_ORDER_DETAIL_NO, FM_ORDER_NO, FM_ITEM_NO, FM_ORDER_DETAIL_COUNT, FM_ORDER_DETAIL_PRICE)
+		VALUES(SEQ_FM_ORDER_DETAIL_NO.NEXTVAL, SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
+	</insert>
 	
 </mapper>
