@@ -112,19 +112,19 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value = "/order/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addOrder(HttpSession session, Model model, @RequestParam(defaultValue = "0") int[] iNo,
-			@RequestParam(defaultValue = "5") int iCount, @RequestParam(defaultValue = "3000") int iPrice,
-			@RequestParam(defaultValue = "0") int cNo) {
+			@RequestParam(defaultValue = "5") int[] iCount, @RequestParam(defaultValue = "3000") int[] iPrice,
+			@RequestParam(defaultValue = "0") int[] cNo) {
 		// 주문의 생성과 동시에 주문내역(제품리스트) 생성을 해야함
 
 		session.setAttribute("uNo", 1);
 
 		// 제품에서 바로 주문으로 가는 경로
 		
-			if(cNo == 0) {
+			if(cNo[0] == 0) {
 				
 				int uNo = (int) session.getAttribute("uNo");
 				orderService.addOrder(uNo);
-				orderService.addOrderDetail(uNo, iNo[0], iCount, iPrice);
+				orderService.addOrderDetail(uNo, iNo[0], iCount[0], iPrice[0]);
 				
 			} else {
 				
@@ -133,11 +133,12 @@ public class OrderController {
 				orderService.addOrder(uNo);
 				
 				for(int i = 0; i < iNo.length ; i++) {
-					orderService.addOrderDetail(uNo, iNo[i], iCount, iPrice);
+					orderService.addOrderDetail(uNo, iNo[i], iCount[i], iPrice[i]);
 				}
 				
-				orderService.deleteCart(uNo, cNo);
-				
+//				for(int i = 0; i < cNo.length ; i++) {
+//					orderService.deleteCart(uNo, cNo);
+//				}
 			}
 			
 			return "redirect:/order/list.do";
