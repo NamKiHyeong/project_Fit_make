@@ -8,6 +8,6 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	<a href="./itemtest.do"><h4>제품을 등록해주세요</h4></a>
+	<a href="./addCtr.do"><h4>제품을 등록해주세요</h4></a>
 </body>
 </html>
