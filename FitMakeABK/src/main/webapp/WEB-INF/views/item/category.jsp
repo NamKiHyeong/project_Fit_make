@@ -4,10 +4,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>특가 더미 사이트야!!</title>
+<title>특가 더미 사이트(Item list 사이트)</title>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	<a href="./addCtr.do"><h4>제품을 등록해주세요</h4></a>
+	<a href="./add.do"><h4>제품을 등록해주세요</h4></a>
+	
 </body>
 </html>

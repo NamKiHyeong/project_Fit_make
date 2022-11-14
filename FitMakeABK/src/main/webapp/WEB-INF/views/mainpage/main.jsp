@@ -9,6 +9,6 @@
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
 	
-	<a href="../item/add.do"><h3> 다이어트</h3></a>
+	<a href="../item/list.do"><h3> 다이어트</h3></a>
 </body>
 </html>

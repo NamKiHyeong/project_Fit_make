@@ -7,7 +7,7 @@
 <title>아이템을 추가해줘</title>
 <script type="text/javascript">
 	function pageMoveListFnc() {
-		location.href = '.category.do'
+		location.href = '.add.do'
 	}
 </script>
 </head>

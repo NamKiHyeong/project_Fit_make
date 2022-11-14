@@ -9,5 +9,5 @@ import com.fm.item.model.ItemDto;
 
 public interface ItemService {
 //	public void itemInsertOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest) throws Exception;
-	public void itemInsertOne(ItemDto itemDto) throws Exception;
+	public void itemInsertOne(ItemDto itemDto, HttpServletRequest hRequest) throws Exception;
 }

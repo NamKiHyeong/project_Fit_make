@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,8 +29,8 @@ public class ItemServicempl implements ItemService{
 	private FileUtils fileUtiles;
 	
 	@Override
-//	public void itemInsertOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest) throws Exception {
-	public void itemInsertOne(ItemDto itemDto) throws Exception {
+	public void itemInsertOne(ItemDto itemDto, HttpServletRequest mulRequest) throws Exception {
+//	public void itemInsertOne(ItemDto itemDto) throws Exception {
 		itemDao.itemInsertOne(itemDto);
 		
 //		Iterator<String> iterator = mulRequest.getFileNames();
@@ -50,7 +51,7 @@ public class ItemServicempl implements ItemService{
 //		int parentSql = itemDto.getiNo();
 //		
 //		List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(parentSql, mulRequest);
-		
+//		아이템  등록이 확인되면 파일도 C도 추가해서 multi C로 바꾸기
 //		for (int i = 0; i < list.size(); i++) {
 //			itemDao.insertFile(list.get(i));
 //		}
