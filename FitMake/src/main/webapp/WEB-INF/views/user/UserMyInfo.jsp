@@ -18,7 +18,7 @@
 
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<h1>내정보</h1>
+	<h1>내정보조회</h1>
 	<input type="hidden" name="uNo" value="${myInfomap.FM_USER_NO}">
 	이메일
 	<input type='text' value="${myInfomap.FM_USER_EMAIL}" name="email">

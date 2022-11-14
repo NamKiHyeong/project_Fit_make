@@ -74,10 +74,10 @@
 	<!-- //내정보조회 -->
 	<select id="userSelectInfo" parameterType="int"
 		resultType="map">
-		SELECT U.*, B.*
-		FROM FM_USER U INNER JOIN FM_USER_BMI B
-		ON U.FM_USER_NO = B.FM_USER_BMI_NO
-		where U.FM_USER_NO = #{uNo}
+		SELECT u.*, b.*
+		FROM FM_USER u INNER JOIN FM_USER_BMI b
+		ON u.FM_USER_NO = b.FM_USER_BMI_NO
+		where u.FM_USER_NO = #{uNo}
 	</select>
 	<!-- 내정보조회// -->
 </mapper>
