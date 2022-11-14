@@ -19,19 +19,13 @@ public class OrderDaoImpl implements OrderDao {
 	SqlSessionTemplate sqlSession;
 
 	String namespace = "com.fm.order.";
-
-	@Override
-	public List<Map<String, Object>> orderListView(int uNo) {
-		
-		return sqlSession.selectList(namespace + "orderListView", uNo);
-	}
 	
 	@Override
-	public List<Map<String, Object>> orderDetailItemView(int oNo) {
+	public List<Map<String, Object>> viewCartList(int uNo) {
 		
-		return sqlSession.selectList(namespace + "orderDetailItemView", oNo);
+		return sqlSession.selectList(namespace + "viewCartList", uNo);
 	}
-
+	
 	@Override
 	public int addCart(int uNo, int iNo, int iCount) {
 		
@@ -45,13 +39,7 @@ public class OrderDaoImpl implements OrderDao {
 		
 		return sqlSession.insert(namespace + "addCart", inputMap);
 	}
-
-	@Override
-	public List<Map<String, Object>> viewCartList(int uNo) {
-		
-		return sqlSession.selectList(namespace + "viewCartList", uNo);
-	}
-
+	
 	@Override
 	public int deleteCart(int uNo, int cNo) {
 		
@@ -62,13 +50,29 @@ public class OrderDaoImpl implements OrderDao {
 				
 		return sqlSession.delete(namespace + "deleteCart", inputMap);
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> viewOrderList(int uNo) {
+		
+		return sqlSession.selectList(namespace + "viewOrderList", uNo);
+	}
+	
 	@Override
 	public int addOrder(int uNo) {
 		
-//		
-		
 		return sqlSession.insert(namespace + "addOrder", uNo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo) {
+		
+		return sqlSession.selectList(namespace + "viewOrderDetailItem", oNo);
+	}
+
+	@Override
+	public Map<String, Object> viewOrderDetailMyInfo(int uNo) {
+		
+		return sqlSession.selectOne("com.fm.user.userSelectInfo", uNo);
 	}
 
 	@Override
@@ -82,12 +86,6 @@ public class OrderDaoImpl implements OrderDao {
 		inputMap.put("price", price);
 		
 		return sqlSession.insert(namespace + "addOrderDetail", inputMap);
-	}
-
-	@Override
-	public Map<String, Object> orderDetailMyInfo(int uNo) {
-		
-		return sqlSession.selectOne("com.fm.user.userSelectInfo", uNo);
 	}
 
 }

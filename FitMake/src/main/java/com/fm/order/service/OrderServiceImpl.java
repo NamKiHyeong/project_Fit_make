@@ -30,35 +30,29 @@ public class OrderServiceImpl implements OrderService {
 	public OrderDao orderDao;
 
 	@Override
-	public List<Map<String, Object>> orderListView(int uNo) {
+	public List<Map<String, Object>> viewCartList(int uNo) {
 		
-		return orderDao.orderListView(uNo);
+		return orderDao.viewCartList(uNo);
 	}
-
-	@Override
-	public List<Map<String, Object>> orderDetailItemView(int oNo) {
-		
-		return orderDao.orderDetailItemView(oNo);
-	}
-
+	
 	@Override
 	public int addCart(int uNo, int iNo, int iCount) {
 		log.debug("uNo: " + uNo, " iNo : " + iNo, "icount : " + iCount);
 		return orderDao.addCart(uNo, iNo, iCount);
 	}
-
-	@Override
-	public List<Map<String, Object>> viewCartList(int uNo) {
-		
-		return orderDao.viewCartList(uNo);
-	}
-
+	
 	@Override
 	public int deleteCart(int uNo, int cNo) {
 		
 		return orderDao.deleteCart(uNo, cNo);
 	}
-
+	
+	@Override
+	public List<Map<String, Object>> viewOrderList(int uNo) {
+		
+		return orderDao.viewOrderList(uNo);
+	}
+	
 	@Override
 	public int addOrder(int uNo) {
 		
@@ -66,15 +60,20 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo) {
+		
+		return orderDao.viewOrderDetailItem(oNo);
+	}
+
+	@Override
+	public Map<String, Object> viewOrderDetailMyInfo(int uNo) {
+		return orderDao.viewOrderDetailMyInfo(uNo);
+	}
+	
+	@Override
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price) {
 		
 		return orderDao.addOrderDetail(uNo, iNo, iCount, price);
 	}
 
-	@Override
-	public Map<String, Object> orderDetailMyInfo(int uNo) {
-		return orderDao.orderDetailMyInfo(uNo);
-	}
-
-	
 }

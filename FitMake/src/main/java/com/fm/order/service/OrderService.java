@@ -10,21 +10,20 @@ import com.fm.user.model.UserDto;
 
 public interface OrderService {
 
-	public List<Map<String, Object>> orderListView(int uNo);
-
-	public List<Map<String, Object>> orderDetailItemView(int oNo);
+	public List<Map<String, Object>> viewCartList(int uNo);
 
 	public int addCart(int uNo, int iNo, int iCount);
 
-	public List<Map<String, Object>> viewCartList(int uNo);
-
 	public int deleteCart(int uNo, int cNo);
 
+	public List<Map<String, Object>> viewOrderList(int uNo);
+	
 	public int addOrder(int uNo);
+	
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo);
+
+	public Map<String, Object> viewOrderDetailMyInfo(int uNo);
 
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
-
-	public Map<String, Object> orderDetailMyInfo(int uNo);
-	
 
 }
