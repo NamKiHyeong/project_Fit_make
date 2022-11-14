@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/fitmake/resources/css/style.css">
+<link rel="stylesheet" href="/fitmake/resources/css/header.css">
 <title>헤더</title>
 
 </head>

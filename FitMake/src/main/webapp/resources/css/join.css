@@ -1,0 +1,52 @@
+@charset "UTF-8";
+
+#container {
+	width: 1200px;
+	margin: 0 auto;
+}
+
+#joinDiv {
+	width: 400px;
+	margin: 0px auto;
+}
+
+.join_Tag {
+	font-weight: bold;
+	font-size: 40px;
+}
+
+.join_em_Cl {
+	color: #d7266d;
+}
+
+.input_Css {
+	width: 400px;
+	padding: 15px 0px;
+	background: #fff;
+	color: #000;
+	font-size: 1.2em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+	vertical-align: middle;
+	outline: medium none;
+	font-weight: normal;
+}
+
+.input_p_Css input:hover {
+	border-radius: 5px;
+	border: 1px solid #d7266d
+}
+
+#joinSubmit {
+	width: 400px;
+	background: #d7266d;
+	margin-top: 30px;
+	padding: 17px 0px;
+	border: 1px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	font-size: 1.35em;
+	border-radius: 3px;
+}
