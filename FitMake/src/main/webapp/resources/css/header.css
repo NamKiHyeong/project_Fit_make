@@ -29,9 +29,14 @@ a:active {
 }
 
 #rootDiv {
+	top: 0px;
+	position: fixed;
 	width: 100%;
+	background-color: white;
 }
-
+#padding_Div {
+	height: 200px;
+}
 #logoInfo_Wrap {
 	width: 100%;
 	/* 	display: flex; */
