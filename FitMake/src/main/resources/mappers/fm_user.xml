@@ -72,11 +72,12 @@
 	<!-- 회원가입 // -->
 
 	<!-- //내정보조회 -->
-	<select id="userSelectInfo" parameterType="map"
-		resultMap="userResultMap">
-		SELECT U.FM_USER_NICKNAME, B.*
+	<select id="userSelectInfo" parameterType="int"
+		resultType="map">
+		SELECT U.*, B.*
 		FROM FM_USER U INNER JOIN FM_USER_BMI B
 		ON U.FM_USER_NO = B.FM_USER_BMI_NO
-		where U.FM_USER_NO = '#{uNo}'
+		where U.FM_USER_NO = #{uNo}
 	</select>
+	<!-- 내정보조회// -->
 </mapper>

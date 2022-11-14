@@ -110,12 +110,13 @@ public class UserController {
 	 * @return 
 	 */
 	@RequestMapping(value = "/user/Info.do")
-		public String userInfo(int uNo, Model model) {
-			logger.info("Welcome UserController userInfo enter! - {}" ,uNo);
+		public String userInfo(Model model, HttpSession session) {
+			logger.info("Welcome UserController userInfo enter! - {}");
 			
-			Map<String, Object> map = userService.userSelectInfo(uNo);
-			map.put("uNo", uNo);
-			
+			UserDto userdto = new UserDto();
+			userdto = (UserDto) session.getAttribute("_userDto_");
+			Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
+			model.addAttribute("myInfomap", myInfomap);
 			
 			return "/user/UserMyInfo";
 		}

@@ -95,8 +95,6 @@ a:active {
 	height: 55px;
 	border-bottom: 1px solid #d4d4d4;
 	border-top: 1px solid #e5e5e5;
-	/* 	display: flex; */
-	/* 	justify-content: center; */
 }
 
 #navDiv {
@@ -112,11 +110,9 @@ a:active {
 	background-color: white;
 	list-style: none;
 	margin-right: 70px;
-	/* 	text-align: center; */
 }
 
 #menu a:link {
-	/* 	display: block; */
 	color: black;
 	font-weight: bold;
 }
@@ -126,10 +122,6 @@ a:active {
 	color: #ff42e7;
 }
 
-/* #kategorie_Id { */
-/* 	vertical-align: bottom; */
-/* 	background: #d12268; */
-/* } */
 #footerDiv {
 	border: 1px solid black;
 }

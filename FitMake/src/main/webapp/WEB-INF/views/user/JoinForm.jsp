@@ -19,6 +19,14 @@
 	font-size: 40px;
 }
 </style>
+<script type="text/javascript">
+window.onload(function () {
+	var addFormObj = document.getElementById("addctrForm");
+	var joinInput = document.getElementById("joinSubmit");
+	
+	
+})
+</script>
 <title>회원가입 페이지</title>
 </head>
 <body>
@@ -26,7 +34,7 @@
 	<div id="container">
 		<div id="joinDiv">
 			<p class="join_Tag">회원가입</p>
-			<form action='./addCtr.do' method='post'>
+			<form action='./addCtr.do' method='post' id="addctrForm">
 				이메일
 				 <input type='text' name='email'><br>
 				닉네임
@@ -36,15 +44,15 @@
 				휴대폰
 				 <input type='tel' name='mobile'><br>
 				우편번호
-				 <input	type='text' name='zipCode'><br>
+				 <input	type='text' name='zipCode'><br> 
 				주소
 				 <input type='text'	name='address'><br>
-				신체정보 <br>
-				성별 <br>
-						<input type="text" name="gender">
-				 몸무게 <input type="text" name="weight"> <br>
-				 키 <input type="text" name="height">
-				<input type='submit' value='회원가입'>
+				신체정보 <br> 
+				성별 
+				<input type="text" name="gender">
+				몸무게 <input type="text" name="weight"> <br>
+				키 <input type="text" name="height"> <br>
+				<input type="button" value='회원가입' id="joinSubmit">
 			</form>
 		</div>
 	</div>
