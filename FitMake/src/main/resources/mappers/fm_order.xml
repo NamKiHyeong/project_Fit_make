@@ -15,7 +15,7 @@
 	<insert id="addCart" parameterType="map">
 		INSERT INTO FM_CART
 		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT)
-		VALUES(7, #{iNo}, #{uNo}, #{iCount})
+		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount})
 	</insert>
 	
 	<select id="viewCartList" parameterType="int" resultType="map">
@@ -54,19 +54,16 @@
 	<insert id="addOrderDetail" parameterType="map">
 		INSERT INTO FM_ORDER_DETAIL
 		VALUE(FM_ORDER_DETAIL_NO, FM_ORDER_NO, FM_ITEM_NO, FM_ORDER_DETAIL_COUNT, FM_ORDER_DETAIL_PRICE)
-		VALUES(FM_ORDER_DETAIL_NO.NEXTVAL,SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
+		VALUES(SEQ_FM_ORDER_DETAIL_NO.NEXTVAL, SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
 	</insert>
 	
-	<select id="orderDetailView" parameterType="int" resultType="map">
+	<select id="orderDetailItemView" parameterType="int" resultType="map">
 		SELECT i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE 
-			, u.FM_USER_NICKNAME, u.FM_USER_MOBILE, u.FM_USER_ZIP_CODE, u.FM_USER_ADDRESS 
 		FROM FM_ORDER_DETAIL od 
 			INNER JOIN FM_ITEM i 
 				ON od.FM_ITEM_NO = i.FM_ITEM_NO 
 			INNER JOIN FM_ORDER o 
-				ON od.FM_ORDER_NO = o.FM_ORDER_NO 
-			INNER JOIN FM_USER u 
-				ON u.FM_USER_NO = o.FM_USER_NO 
+				ON od.FM_ORDER_NO = o.FM_ORDER_NO  
 		where o.FM_ORDER_NO = #{oNo} 
 	</select>
 	

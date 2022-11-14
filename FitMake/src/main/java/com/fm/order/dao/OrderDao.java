@@ -12,7 +12,7 @@ public interface OrderDao {
 
 	public List<Map<String, Object>> orderListView(int uNo);
 
-	public Map<String, Object> orderDetailView(int oNo);
+	public List<Map<String, Object>> orderDetailItemView(int oNo);
 
 	public int addCart(int uNo, int iNo, int iCount);
 
@@ -23,6 +23,8 @@ public interface OrderDao {
 	public int addOrder(int uNo);
 
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
+
+	public Map<String, Object> orderDetailMyInfo(int uNo);
 	
 	
 }

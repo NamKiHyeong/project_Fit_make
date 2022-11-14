@@ -36,9 +36,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Map<String, Object> orderDetailView(int oNo) {
+	public List<Map<String, Object>> orderDetailItemView(int oNo) {
 		
-		return orderDao.orderDetailView(oNo);
+		return orderDao.orderDetailItemView(oNo);
 	}
 
 	@Override
@@ -69,6 +69,11 @@ public class OrderServiceImpl implements OrderService {
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price) {
 		
 		return orderDao.addOrderDetail(uNo, iNo, iCount, price);
+	}
+
+	@Override
+	public Map<String, Object> orderDetailMyInfo(int uNo) {
+		return orderDao.orderDetailMyInfo(uNo);
 	}
 
 	

@@ -1,6 +1,7 @@
 package com.fm.order.controller;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,6 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -70,7 +72,7 @@ public class OrderController {
 	public String viewCartList(HttpSession session, Model model) {
 
 		session.setAttribute("uNo", 1);
-
+		
 		List<Map<String, Object>> cartMapList = orderService.viewCartList((int) session.getAttribute("uNo"));
 
 		model.addAttribute("cartMapList", cartMapList);
@@ -80,16 +82,15 @@ public class OrderController {
 
 	/**
 	 * 유효성 검사 추가 필요 / cno와 ino를 통해 장바구니 번호를 검색해야하는 지의 여부는 생각해 볼것 장바구니에 있는 물품을 지우는 기능
-	 * 
-	 * @param session 세션에 저장된 uNo를 가져오기 위한 객체
-	 * @param cNo     장바구니 물품의 고유 값
-	 * @return 장바구니리스트 페이지 호출
+	 * @param session	세션에 저장된 uNo를 가져오기 위한 객체
+	 * @param cNo     	장바구니 물품의 고유 값
+	 * @return 			장바구니리스트 페이지 호출
 	 */
 	@RequestMapping(value = "/cart/delete.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String deleteCart(HttpSession session, Model model, int cNo) {
 
 		session.setAttribute("uNo", 1);
-
+		
 		int resultNum = 0;
 		int uNo = (int) session.getAttribute("uNo");
 		
@@ -97,34 +98,49 @@ public class OrderController {
 		
 		return "redirect:/cart/list.do";
 	}
-
+	
+	/** 
+	 * 주문하기 기능(장바구니에서 오는 경로 / 제품에서 바로 오는 경로 구현 완료)
+	 * @param session	세션에 저장된 uNo를 가져오기 위한 객체
+	 * @param model		화면 구성을 위한 객체
+	 * @param iNo		제품번호
+	 * @param iCount	구매하고자 하는 제품 갯수
+	 * @param iPrice	제품 가격
+	 * @param cNo		장바구니 번호
+	 * @return			주문이 완료 된 후 주문 리스트 jsp를 호출한다
+	 */
+	@Transactional
 	@RequestMapping(value = "/order/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addOrder(HttpSession session, Model model, @RequestParam(defaultValue = "0") int[] iNo,
-			@RequestParam(defaultValue = "5") int iCount, @RequestParam(defaultValue = "3000") int iPrice) {
+			@RequestParam(defaultValue = "5") int iCount, @RequestParam(defaultValue = "3000") int iPrice,
+			@RequestParam(defaultValue = "0") int cNo) {
 		// 주문의 생성과 동시에 주문내역(제품리스트) 생성을 해야함
 
 		session.setAttribute("uNo", 1);
 
 		// 제품에서 바로 주문으로 가는 경로
 		
-			
-			int uNo = (int) session.getAttribute("uNo");
-			int resultOrder = orderService.addOrder(uNo);
-			int resultOrderDetail = orderService.addOrderDetail(uNo, iNo[0], iCount, iPrice);
-			
-			
-		
-
-//			int uNo = (int) session.getAttribute("uNo");
-//			int resultOrder = orderService.addOrder(uNo);
-//			int resultOrderDetail = orderService.addOrderDetail(uNo, iNo, iCount, iPrice);
-//		
+			if(cNo == 0) {
+				
+				int uNo = (int) session.getAttribute("uNo");
+				orderService.addOrder(uNo);
+				orderService.addOrderDetail(uNo, iNo[0], iCount, iPrice);
+				
+			} else {
+				
+				int uNo = (int) session.getAttribute("uNo");
+				
+				orderService.addOrder(uNo);
+				
+				for(int i = 0; i < iNo.length ; i++) {
+					orderService.addOrderDetail(uNo, iNo[i], iCount, iPrice);
+				}
+				
+				orderService.deleteCart(uNo, cNo);
+				
+			}
 			
 			return "redirect:/order/list.do";
-		
-
-		// 장바구니에서 오는 경로
-
 	}
 
 	/**
@@ -146,7 +162,7 @@ public class OrderController {
 
 		return "order/OrderManage";
 	}
-
+	
 	/**
 	 * 주문상세페이지를 호출하는 메서드
 	 * 
@@ -158,11 +174,17 @@ public class OrderController {
 	@RequestMapping(value = "/order/detail.do", method = RequestMethod.POST)
 	public String orderDetail(HttpSession session, Model model, int oNo) {
 		logger.info("Welcome orderDetail!");
-
-		Map<String, Object> orderDetailMap = orderService.orderDetailView(oNo);
-
-		model.addAttribute("orderDetailMap", orderDetailMap);
-
+		
+		session.setAttribute("uNo", 1);
+		
+		int uNo = (int)session.getAttribute("uNo");
+		List<Map<String, Object>> orderDetailItemList = orderService.orderDetailItemView(oNo);
+		Map<String, Object> orderDetailMyInfo = orderService.orderDetailMyInfo(uNo);
+		
+		
+		model.addAttribute("orderDetailItemList", orderDetailItemList);
+		model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
+		
 		return "order/OrderDetail";
 	}
 

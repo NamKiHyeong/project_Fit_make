@@ -27,9 +27,9 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public Map<String, Object> orderDetailView(int oNo) {
+	public List<Map<String, Object>> orderDetailItemView(int oNo) {
 		
-		return sqlSession.selectOne(namespace + "orderDetailView", oNo);
+		return sqlSession.selectList(namespace + "orderDetailItemView", oNo);
 	}
 
 	@Override
@@ -82,6 +82,12 @@ public class OrderDaoImpl implements OrderDao {
 		inputMap.put("price", price);
 		
 		return sqlSession.insert(namespace + "addOrderDetail", inputMap);
+	}
+
+	@Override
+	public Map<String, Object> orderDetailMyInfo(int uNo) {
+		
+		return sqlSession.selectOne("com.fm.user.userSelectInfo", uNo);
 	}
 
 }
