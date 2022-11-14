@@ -8,6 +8,6 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
-
+	<h3><a href="../item/list.do">다이어트</a></h3>
 </body>
 </html>

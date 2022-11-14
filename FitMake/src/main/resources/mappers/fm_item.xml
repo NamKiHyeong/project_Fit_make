@@ -15,8 +15,7 @@
 		<result column="FM_CALORY_GRADE" property=	"iCGrade"/>
 	</resultMap>
 	
-	<insert id="itemInsertOne"
-		parameterType= "itemDto"
+	<insert id="itemInsertOne" parameterType= "itemDto"
 		useGeneratedKeys="true" keyProperty="iNo">
 		<selectKey keyProperty="iNo" resultType="int" order="BEFORE">
 			SELECT SEQ_FM_ITEM_NO.NEXTVAL FROM DUAL
@@ -26,7 +25,20 @@
 				FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CALORY_GRADE)
 			VALUES(#{iNo}, 2, #{iName}, 250,
 				500, #{iSellprice}, #{iCount}, 2)
-<!-- 			VALUES(#{iNo}, #{cNo}, #{iName}, #{iCalory}, -->
-<!--     			#{iRawprice}, #{iSellprice}, #{iCount}, #{iCGroade}) -->
+
 	</insert>
+	
+	<select id="itemSelectList" parameterType="itemDto"
+		resultMap="itemResultMap">
+		
+		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
+		FROM FM_ITEM
+	</select>
+	
+	<select id="itemSelectOne" parameterType="int"
+		resultMap="itemResultMap">
+		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
+		FROM FM_ITEM
+		WHERE FM_ITEM_NO=#{iNo}
+		</select>
 </mapper>

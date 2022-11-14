@@ -1,6 +1,6 @@
 package com.fm.item.service;
 
-import java.util.Iterator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,8 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.item.dao.ItemDao;
 import com.fm.item.model.ItemDto;
@@ -58,4 +56,18 @@ public class ItemServicempl implements ItemService{
 		
 	}
 	
+	@Override
+	public List<ItemDto> itemSelectList(){
+		return itemDao.itemSelectList();
+		
+	}
+	
+	public Map<String, Object> itemSelectOne(int no){
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+		ItemDto itemDto = itemDao.itemSelectOne(no);
+		resultMap.put("itemDto", itemDto);
+		
+		return resultMap;
+		
+	}
 }
