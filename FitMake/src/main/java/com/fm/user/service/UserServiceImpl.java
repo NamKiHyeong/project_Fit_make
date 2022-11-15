@@ -37,9 +37,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void userInsertOne(UserDto userDto) {
+	public void userInsertOne(UserDto userDto , String address) {
 
-		UserDao.userInsertOne(userDto);
+		UserDao.userInsertOne(userDto, address);
 	}
 
 	@Override

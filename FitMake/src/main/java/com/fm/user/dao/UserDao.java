@@ -12,7 +12,7 @@ public interface UserDao {
 
 	public UserDto userExist(String email, String password);
 
-	public int userInsertOne(UserDto userDto);
+	public int userInsertOne(UserDto userDto, String address);
 
 	public int bmiInsertOne(BmiCalc bmiCalc);
 

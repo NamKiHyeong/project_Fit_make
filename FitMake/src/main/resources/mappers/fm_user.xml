@@ -76,7 +76,7 @@
 		resultType="map">
 		SELECT u.*, b.*
 		FROM FM_USER u INNER JOIN FM_USER_BMI b
-		ON u.FM_USER_NO = b.FM_USER_BMI_NO
+		ON u.FM_USER_NO = b.FM_USER_NO
 		where u.FM_USER_NO = #{uNo}
 	</select>
 	<!-- 내정보조회// -->

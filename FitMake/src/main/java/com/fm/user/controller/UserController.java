@@ -96,10 +96,12 @@ public class UserController {
 	 * @return 회원가입 userDto정보와 bmiCalc정보 DB에 기입
 	 */
 	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc) {
+	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st, String add_Extra, String add_Detail) {
 		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
-
-		userService.userInsertOne(userDto);
+		
+		String address = add_1st + add_Extra + add_Detail;
+		
+		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
 		return "redirect:/auth/login.do";
 	}
@@ -115,6 +117,7 @@ public class UserController {
 			
 			UserDto userdto = new UserDto();
 			userdto = (UserDto) session.getAttribute("_userDto_");
+			logger.info("Welcome UserController userInfo enter! - {}", userdto.getuNo());
 			Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
 			model.addAttribute("myInfomap", myInfomap);
 			

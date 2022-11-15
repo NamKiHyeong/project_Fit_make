@@ -19,7 +19,6 @@ public class UserDaoImpl implements UserDao {
 	SqlSessionTemplate sqlSession;
 
 	String namespaceuser = "com.fm.user.";
-	String namespaceutil = "com.fm.user.";
 
 	@Override
 	public UserDto userExist(String email, String password) {
@@ -34,7 +33,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int userInsertOne(UserDto userDto) {
+	public int userInsertOne(UserDto userDto, String address) {
+		
+		userDto.setAddress(address);
 
 		return sqlSession.insert(namespaceuser + "userInsertOne", userDto);
 	}
@@ -47,7 +48,7 @@ public class UserDaoImpl implements UserDao {
 				(Math.round((bmiCalc.getWeight() / (bmiCalc.getHeight() * bmiCalc.getHeight())) * 100000) / 10d) - 1);
 		bmiCalc.setGoalCalory((Math.round((bmiCalc.getWeight() * 30) / 3) - 300) / 2);
 
-		return sqlSession.insert(namespaceutil + "bmiInsertOne", bmiCalc);
+		return sqlSession.insert(namespaceuser + "bmiInsertOne", bmiCalc);
 	}
 
 	@Override

@@ -8,10 +8,8 @@
 <script type="text/javascript" src="/fitmake/resources/js/join.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script>
-	function sample6_execDaumPostcode() {
+	function kakaoAddressFnc() {
 		new daum.Postcode(
 				{
 					oncomplete : function(data) {
@@ -48,17 +46,17 @@
 								extraAddr = ' (' + extraAddr + ')';
 							}
 							// 조합된 참고항목을 해당 필드에 넣는다.
-							document.getElementById("sample6_extraAddress").value = extraAddr;
+							document.getElementById("add_Extra").value = extraAddr;
 
 						} else {
-							document.getElementById("sample6_extraAddress").value = '';
+							document.getElementById("add_Extra").value = '';
 						}
 
 						// 우편번호와 주소 정보를 해당 필드에 넣는다.
-						document.getElementById('sample6_postcode').value = data.zonecode;
-						document.getElementById("sample6_address").value = addr;
+						document.getElementById('zipcode_Id').value = data.zonecode;
+						document.getElementById("add_1st").value = addr;
 						// 커서를 상세주소 필드로 이동한다.
-						document.getElementById("sample6_detailAddress")
+						document.getElementById("add_Detail")
 								.focus();
 					}
 				}).open();
@@ -106,23 +104,14 @@
 				</div>
 				<div class="input_p_Css">
 					<p>
-						우편번호<em class="join_em_Cl">*</em>
-					</p>
-					<input type='text' name='zipCode' id="zipChk" class="input_Css">
-				</div>
-				<div class="input_p_Css">
-					<p>
 						주소<em class="join_em_Cl">*</em>
 					</p>
-					<input type='text' name='address' id="addressChk" class="input_Css">
-					<input type="text" id="sample6_postcode" placeholder="우편번호">
-					<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
-					<input type="text" id="sample6_address" placeholder="주소"><br>
-					<input type="text" id="sample6_detailAddress" placeholder="상세주소">
-					<input type="text" id="sample6_extraAddress" placeholder="참고항목">
-				</div>
-				<div class="input_p_Css">
-					<p>신체정보</p>
+					<input type="text" id="zipcode_Id" name="zipCode" placeholder="우편번호">
+					<input type="button" onclick="kakaoAddressFnc();"
+						value="우편번호 찾기"><br> <input type="text"
+						id="add_1st" name="add_1st" placeholder="주소"><br> <input
+						type="text" id="add_Detail" name="add_Detail" placeholder="상세주소">
+					<input type="text" id="add_Extra" name="add_Extra" placeholder="참고항목">
 				</div>
 				<div class="input_p_Css">
 					<p>
