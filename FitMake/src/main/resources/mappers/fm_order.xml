@@ -50,7 +50,7 @@
 	<insert id="addOrder" parameterType="int">
 		INSERT INTO FM_ORDER
 		VALUE(FM_ORDER_NO, FM_USER_NO, FM_ORDER_DATE, FM_ORDER_STATUS)
-		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, '대기')
+		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, '보류')
 	</insert>
 	
 	<select id="viewOrderDetailItem" parameterType="int" resultType="map">

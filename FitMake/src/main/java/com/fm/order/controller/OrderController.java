@@ -1,11 +1,8 @@
 package com.fm.order.controller;
 
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -17,14 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fm.order.model.OrderDto;
 import com.fm.order.service.OrderService;
-import com.fm.util.BmiCalc;
-import com.fm.util.Paging;
-
-import javafx.beans.DefaultProperty;
+import com.fm.user.model.UserDto;
 
 //어노테이션 드리븐
 @Controller
@@ -44,8 +36,11 @@ public class OrderController {
 	@RequestMapping(value = "/cart/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String viewCartList(HttpSession session, Model model) {
 		logger.debug("Welcome CartList");
-
-		List<Map<String, Object>> cartMapList = orderService.viewCartList((int) session.getAttribute("uNo"));
+		
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+		
+		List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
 
 		model.addAttribute("cartMapList", cartMapList);
 		
@@ -67,7 +62,8 @@ public class OrderController {
 			@RequestParam(defaultValue = "0") int iCount) {
 		logger.info("Welcome addCart!");
 
-		int uNo = (int) session.getAttribute("uNo");
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
 		iNo = 1;
 		iCount = 3;
 
@@ -88,7 +84,8 @@ public class OrderController {
 	public String deleteCart(HttpSession session, Model model, int cNo) {
 		logger.debug("welcome cartDelete");
 		
-		int uNo = (int) session.getAttribute("uNo");
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
 
 		orderService.deleteCart(uNo, cNo);
 
@@ -108,7 +105,8 @@ public class OrderController {
 		logger.info("Welcome orderList!");
 		// 세션의 사용자 번호를 임시로 1로 지정
 		
-		int uNo = (int) session.getAttribute("uNo");
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
 		
 		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo);
 		Map<String, Object> orderDetailMyInfo = orderService.viewOrderDetailMyInfo(uNo);
@@ -133,20 +131,22 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value = "/order/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addOrder(HttpSession session, Model model, @RequestParam(defaultValue = "0") int[] iNo,
-			@RequestParam(defaultValue = "5") int[] iCount, @RequestParam(defaultValue = "3000") int[] iPrice,
+			@RequestParam(defaultValue = "0") int[] iCount, @RequestParam(defaultValue = "0") int[] iPrice,
 			@RequestParam(defaultValue = "0") int[] cNo) {
-		// 주문의 생성과 동시에 주문내역(제품리스트) 생성을 해야함
 		logger.debug("welcome orderAdd");
 		
+		String viewUrl = "";
+		// 바로 주문 혹은 주문하기 버튼을 눌렀을 때 주문 확인 페이지를 보여줘야 함 and 주문 성공 페이지 
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+		
 		if (cNo[0] == 0) {
-
-			int uNo = (int) session.getAttribute("uNo");
+			
 			orderService.addOrder(uNo);
 			orderService.addOrderDetail(uNo, iNo[0], iCount[0], iPrice[0]);
-
-		} else {
-
-			int uNo = (int) session.getAttribute("uNo");
+			
+			viewUrl = "redirect:/order/detail.do";
+		} else if(cNo.length > 0){
 
 			orderService.addOrder(uNo);
 
@@ -157,13 +157,17 @@ public class OrderController {
 			for (int i = 0; i < cNo.length; i++) {
 				orderService.deleteCart(uNo, cNo[i]);
 			}
+			
+			viewUrl = "redirect:/order/detail.do";
+		} else {
+			viewUrl = "redirect:/main/MainPage";
 		}
 
-		return "redirect:/order/list.do";
+		return viewUrl;
 	}
 	
 	/**
-	 *  제작 중
+	 * 제작 중
 	 * @param session
 	 * @param model
 	 * @param oNo
@@ -190,7 +194,9 @@ public class OrderController {
 	public String viewOrderDetail(HttpSession session, Model model, int oNo) {
 		logger.info("Welcome orderDetail!");
 		
-		int uNo = (int) session.getAttribute("uNo");
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+		
 		List<Map<String, Object>> orderDetailItemList = orderService.viewOrderDetailItem(oNo);
 		Map<String, Object> orderDetailMyInfo = orderService.viewOrderDetailMyInfo(uNo);
 		
