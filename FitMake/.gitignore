@@ -1,7 +1,9 @@
 /build/
 /.settings/
 /target/
-
+*.class
+.classpath
+.project
 
 # Created by https://www.toptal.com/developers/gitignore/api/windows,java,eclipse
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,java,eclipse
