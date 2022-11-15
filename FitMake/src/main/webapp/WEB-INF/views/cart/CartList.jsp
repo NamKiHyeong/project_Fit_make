@@ -49,7 +49,7 @@
 		</div>
 		<form id="addForm" action="../order/add.do" method="post">
 			<c:choose>
-				<c:when test="${cartMapList ne null}">
+				<c:when test="${cartMapList.size() > 0}">
 					<c:forEach var="cartMap" items="${cartMapList}">
 						<input type="hidden" value="${cartMap.FM_CART_NO}" name="cNo">
 						<table>

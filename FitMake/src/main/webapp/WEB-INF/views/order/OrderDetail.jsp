@@ -79,6 +79,7 @@
 			</c:choose>
 			<br>
 			<p>${orderDetailItemList[0].totalPrice}</p>
+			<input type="button" onclick="./list.do">
 		</div>
 		
 </body>
