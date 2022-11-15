@@ -43,8 +43,7 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/cart/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String viewCartList(HttpSession session, Model model) {
-
-		session.setAttribute("uNo", 1);
+		logger.debug("Welcome CartList");
 
 		List<Map<String, Object>> cartMapList = orderService.viewCartList((int) session.getAttribute("uNo"));
 
@@ -62,19 +61,17 @@ public class OrderController {
 	 * @param iCount  장바구니에 추가할 제품갯수
 	 * @return 화면에서 이동할 것인지 아닌지 선택한 값을 통해 다르게 리턴
 	 */
+	@Transactional
 	@RequestMapping(value = "/cart/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addCart(HttpSession session, Model model, @RequestParam(defaultValue = "0") int iNo,
 			@RequestParam(defaultValue = "0") int iCount) {
-		logger.info("Welcome orderCart!");
+		logger.info("Welcome addCart!");
 
-		session.setAttribute("uNo", 1);
-		int resultNum = 0;
-		
 		int uNo = (int) session.getAttribute("uNo");
 		iNo = 1;
 		iCount = 3;
 
-		resultNum = orderService.addCart(uNo, iNo, iCount);
+		orderService.addCart(uNo, iNo, iCount);
 		
 		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
 		return "redirect:/cart/list.do";
@@ -89,13 +86,11 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/cart/delete.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String deleteCart(HttpSession session, Model model, int cNo) {
-
-		session.setAttribute("uNo", 1);
-
-		int resultNum = 0;
+		logger.debug("welcome cartDelete");
+		
 		int uNo = (int) session.getAttribute("uNo");
 
-		resultNum = orderService.deleteCart(uNo, cNo);
+		orderService.deleteCart(uNo, cNo);
 
 		return "redirect:/cart/list.do";
 	}
@@ -107,11 +102,11 @@ public class OrderController {
 	 * @param model   화면 구성을 위해 DB 정보를 받아와 전송하기 위한 변수
 	 * @return 여러 테이블에서 데이터를 가져오므로 Map에 담아서 반환함
 	 */
+	@Transactional
 	@RequestMapping(value = "/order/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String viewOrderList(HttpSession session, Model model) {
 		logger.info("Welcome orderList!");
 		// 세션의 사용자 번호를 임시로 1로 지정
-		session.setAttribute("uNo", 1);
 		
 		int uNo = (int) session.getAttribute("uNo");
 		
@@ -141,9 +136,8 @@ public class OrderController {
 			@RequestParam(defaultValue = "5") int[] iCount, @RequestParam(defaultValue = "3000") int[] iPrice,
 			@RequestParam(defaultValue = "0") int[] cNo) {
 		// 주문의 생성과 동시에 주문내역(제품리스트) 생성을 해야함
-
-		session.setAttribute("uNo", 1);
-
+		logger.debug("welcome orderAdd");
+		
 		if (cNo[0] == 0) {
 
 			int uNo = (int) session.getAttribute("uNo");
@@ -192,16 +186,14 @@ public class OrderController {
 	 * @param oNo     주문목록 화면에서 주문 번호를 받아와 DB에 매개변수로 넣음
 	 * @return DB에서 Map으로 받은 값을 OrderDetail.jsp 페이지로 전송
 	 */
-	@RequestMapping(value = "/order/detail.do", method = RequestMethod.POST)
+	@RequestMapping(value = "/order/detail.do", method = {RequestMethod.POST, RequestMethod.GET})
 	public String viewOrderDetail(HttpSession session, Model model, int oNo) {
 		logger.info("Welcome orderDetail!");
-
-		session.setAttribute("uNo", 1);
-
+		
 		int uNo = (int) session.getAttribute("uNo");
 		List<Map<String, Object>> orderDetailItemList = orderService.viewOrderDetailItem(oNo);
 		Map<String, Object> orderDetailMyInfo = orderService.viewOrderDetailMyInfo(uNo);
-
+		
 		model.addAttribute("orderDetailItemList", orderDetailItemList);
 		model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
 

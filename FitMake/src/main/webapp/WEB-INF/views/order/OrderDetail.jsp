@@ -9,19 +9,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-	window.onload = function(){
-		
-		var orderDetailPriceObj = document.getElementsByClassName("orderDetailPrice");
-		
-		var totalSum = 0;
-		
-		for(var i = 0; i < orderDetailPriceObj.length; i++){
-			totalSum += parseInt(orderDetailPriceObj[i].value);
-		}
-		
-		var totalSumObj = document.getElementById("totalSum");
-		totalSumObj.innerHTML = totalSum;
-	}
 </script>
 <style type="text/css">
 	.orderDetail, .orderDetailPrice{
@@ -33,7 +20,7 @@
 <body>
 
 		<jsp:include page="/WEB-INF/views/Header.jsp" />
-
+		
 		<div>
 			<table>
 				<tr>
@@ -41,25 +28,31 @@
 				</tr>
 			</table>
 		</div>
-		
-		<div>
-			<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size()-1}개</h4>
+			<c:choose>
+				<c:when test="${orderDetailItemList.size() > 1}">
+					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
+				</c:when>
+				<c:otherwise>
+					<h4>${orderDetailItemList[0].FM_ITEM_NAME}</h4>
+				</c:otherwise>
+			</c:choose>
 			<c:forEach var="orderDetailItem" items="${orderDetailItemList}">
-				<table>
-						<tr>
-							<td class="orderDetail">${orderDetailItem.FM_ITEM_NAME}</td>
-							<td class="orderDetail">
-								<input type="text" value="${orderDetailItem.FM_ORDER_DETAIL_COUNT}" readonly="readonly">개
-							</td>
-							<td class="orderDetail">
-								<input class="orderDetailPrice" type="hidden" 
-									value="${orderDetailItem.FM_ORDER_DETAIL_PRICE * orderDetailItem.FM_ORDER_DETAIL_COUNT}">							
-								가격 ${orderDetailItem.FM_ORDER_DETAIL_PRICE * orderDetailItem.FM_ORDER_DETAIL_COUNT}
-							</td>
-						</tr>
-				</table>
+				<div>
+					<table>
+							<tr>
+								<td class="orderDetail">${orderDetailItem.FM_ITEM_NAME}</td>
+								<td class="orderDetail">
+									<input type="text" value="${orderDetailItem.FM_ORDER_DETAIL_COUNT}" readonly="readonly">개
+								</td>
+								<td class="orderDetail">
+									<input class="orderDetailPrice" type="hidden" 
+										value="${orderDetailItem.FM_ORDER_DETAIL_PRICE * orderDetailItem.FM_ORDER_DETAIL_COUNT}">							
+									가격 ${orderDetailItem.FM_ORDER_DETAIL_PRICE * orderDetailItem.FM_ORDER_DETAIL_COUNT}
+								</td>
+							</tr>
+					</table>
+				</div>
 			</c:forEach>
-		</div>
 		
 		<div>
 			<h4>구매자정보</h4>
@@ -76,9 +69,16 @@
 		</div>
 		<br>
 		<div>
-			<span>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size()-1}개</span>
+			<c:choose>
+				<c:when test="${orderDetailItemList.size() > 1}">
+					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
+				</c:when>
+				<c:otherwise>
+					<h4>${orderDetailItemList[0].FM_ITEM_NAME}</h4>
+				</c:otherwise>
+			</c:choose>
 			<br>
-			<p id="totalSum">총가격</p>
+			<p>${orderDetailItemList[0].totalPrice}</p>
 		</div>
 		
 </body>

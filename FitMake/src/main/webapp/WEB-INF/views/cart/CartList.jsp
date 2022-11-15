@@ -38,7 +38,7 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<div style="width: 500px; height: 400px; padding-top: 380px; text-align: center; align-items: center;">
+	<div>
 		<div>
 			<table>
 				<tr>

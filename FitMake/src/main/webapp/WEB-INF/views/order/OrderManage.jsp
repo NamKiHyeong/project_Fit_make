@@ -9,27 +9,28 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
-	function viewDetailFnc(oNo){
-		const detailFormObj = $('#detailViewForm');
-		const orderNoObj = $('#orderNo');
-		
-		orderNoObj.val(oNo);
-		detailFormObj.attr('action', './detail.do');
-		detailFormObj.submit();
-	}
-	
-	
-	
 	$(document).ready(function(){
+		
 		for(var i = 0; i < ${orderMapList.size()}; i++){
-			$('#oStatus'+ i).val($('#orderStatus'+i).val());
+			$('#oStatus'+ i).val($('#orderStatus'+ i).val());
 		}
 		
 		$('#orderUpdateBtn').on('click', function(){
-			$('#OrderListForm').attr('action', './update.do');
-			$('#OrderListForm').submit();
-		});
+			$('#orderListForm').attr('action', './update.do');
+			$('#orderListForm').submit();
+		})
+		
 	});
+	
+	function viewDetailFnc(oNo){
+		var orderDetailFormObj = $('#orderDetailForm');
+		var orderNoObj = $('#orderNo');
+		
+		orderNoObj.val(oNo);
+		orderDetailFormObj.attr('action', './detail.do');
+		orderDetailFormObj.submit();
+	}
+	
 </script>
 <style type="text/css">
 table {
@@ -67,7 +68,7 @@ td {
 			</tr>
 		</table>
 		
-		<form id="OrderListForm" method="post">
+		<form id="orderListForm" method="post">
 			<c:forEach var="orderMap" items="${orderMapList}">
 				<table>
 					<c:if test="${orderMap.oRownum eq '1'}">
@@ -75,14 +76,13 @@ td {
 							<td><input type="checkbox"></td>
 							<td>${orderMap.FM_ORDER_DATE}</td>
 							<td>
-								<a id="orderName"
-									onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
+								<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
 									<c:choose>
 											<c:when test="${orderMap.oCount == 1}">
 													${orderMap.FM_ITEM_NAME}
 											</c:when>
 											<c:otherwise>
-													${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
+												${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
 											</c:otherwise>
 									</c:choose>
 								</a>
@@ -99,11 +99,9 @@ td {
 								</select>
 							</td>
 						</tr>
-						<input type="hidden" value="${orderMap.FM_ORDER_NO}" name="oNo">
-						<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}"
-							value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
 					</c:if>
 				</table>
+				<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
 			</c:forEach>
 			<div>
 				<input id="orderUpdateBtn" type="button" value="수정하기">
@@ -111,5 +109,8 @@ td {
 			</div>
 		</form>
 	</div>
+		<form id="orderDetailForm" method="post">
+			<input type="hidden" id="orderNo" value="${orderMap.FM_ORDER_NO}" name="oNo">
+		</form>
 </body>
 </html>
