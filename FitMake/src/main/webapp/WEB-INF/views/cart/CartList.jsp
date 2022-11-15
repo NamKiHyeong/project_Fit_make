@@ -93,6 +93,7 @@
 			
 			<input type="button" id="buyBtn" value="구매하기">
 			<input type="button" value="이전페이지">
+			<input type="button" value="이전페이지">
 		</form>			
 			
 	</div>
