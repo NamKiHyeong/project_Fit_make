@@ -37,9 +37,9 @@
 									src="/fitmake/resources/image/point.png"></a></li>
 							<li><a href="${pageContext.request.contextPath}/user/Info.do"><img alt="내정보"
 									src="/fitmake/resources/image/myinfo.png"></a></li>
-							<li><a href="#"><img alt="회원관리"
+							<li><a href="${pageContext.request.contextPath}/order/list.do"><img alt="주문관리"
 									src="/fitmake/resources/image/membermanagement.png"></a></li>
-							<li><a href="#"><img alt="장바구니"
+							<li><a href="${pageContext.request.contextPath}/cart/list.do"><img alt="장바구니"
 									src="/fitmake/resources/image/cart.png"></a></li>
 						</ul>
 					</c:if>
