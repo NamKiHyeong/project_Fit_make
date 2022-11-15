@@ -26,7 +26,7 @@
 				<div id="logo">
 					<form action="./mainpage/main.do" method="get">
 
-						<a href="${pageContext.request.contextPath}/mainpage/main.do"><img
+						<a href="${pageContext.request.contextPath}/main/main.do"><img
 							alt="메인로고" src="/fitmake/resources/image/mainlogo.png"></a>
 					</form>
 				</div>
@@ -52,7 +52,7 @@
 					<ul>
 						<li><img alt="목록"
 							src="/fitmake/resources/image/Kategorie.png"> 전체 카테고리</li>
-						<li><a href="#">다이어트</a></li>
+						<li><a href="${pageContext.request.contextPath}/item/list.do">다이어트</a></li>
 						<li><a href="#">식단</a></li>
 						<li><a href="#">특가</a></li>
 						<li><a href="#">베스트</a></li>

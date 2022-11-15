@@ -33,13 +33,13 @@ public class UserController {
 		return "auth/LoginForm";
 	}
 
-	@RequestMapping(value = "/mainpage/main.do", method = RequestMethod.GET)
+	@RequestMapping(value = "/main/main.do", method = RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
 		logger.info("메인로고 클릭! ");
 
 		String viewPage = "";
 		if (session.getAttribute("_userDto_") != null) {
-			viewPage = "/mainpage/main";
+			viewPage = "main/MainPage";
 		} else if (session.getAttribute("_userDto_") == null) {
 			viewPage = "redirect:/auth/login.do";
 		}
@@ -57,7 +57,7 @@ public class UserController {
 		// 회원 확인
 		if (userDto != null) {
 			session.setAttribute("_userDto_", userDto);
-			viewUrl = "/mainpage/main";
+			viewUrl = "main/MainPage";
 		} else {
 			viewUrl = "/auth/LoginFail";
 		}

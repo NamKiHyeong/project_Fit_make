@@ -6,8 +6,26 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/fitmake/resources/css/join.css">
 <script type="text/javascript" src="/fitmake/resources/js/join.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-{SDK-최신버전}.js"></script>
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+//IMP.certification(param, callback) 호출
+IMP.certification({ // param
+  popup : true // PC환경에서는 popup 파라메터가 무시되고 항상 true 로 적용됨
+}, function (rsp) { // callback
+  if (rsp.success) {
+    ...,
+    // 인증 성공 시 로직,
+    ...
+  } else {
+    ...,
+    // 인증 실패 시 로직,
+    ...
+  }
+});
+</script>
 <script>
 	function kakaoAddressFnc() {
 		new daum.Postcode(
