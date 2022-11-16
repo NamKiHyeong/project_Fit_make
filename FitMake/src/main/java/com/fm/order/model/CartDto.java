@@ -50,6 +50,11 @@ public class CartDto {
 	public void setcCount(int cCount) {
 		this.cCount = cCount;
 	}
+
+	@Override
+	public String toString() {
+		return "CartDto [cNo=" + cNo + ", uNo=" + uNo + ", iNo=" + iNo + ", cCount=" + cCount + "]";
+	}
 	
 	
 }

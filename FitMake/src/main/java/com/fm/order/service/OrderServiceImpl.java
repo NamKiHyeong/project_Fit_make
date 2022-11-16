@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.order.dao.OrderDao;
+import com.fm.order.model.CartDto;
 import com.fm.order.model.OrderDto;
 import com.fm.util.FileUtils;
 
@@ -74,6 +75,12 @@ public class OrderServiceImpl implements OrderService {
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price) {
 		
 		return orderDao.addOrderDetail(uNo, iNo, iCount, price);
+	}
+
+	@Override
+	public int updateCart(CartDto cartDto) {
+		
+		return orderDao.updateCart(cartDto);
 	}
 
 }

@@ -24,7 +24,7 @@
 		<div>
 			<table>
 				<tr>
-					<td><h1>주문내역 확인</h1></td>
+					<td><h1>주문상세</h1></td>
 				</tr>
 			</table>
 		</div>

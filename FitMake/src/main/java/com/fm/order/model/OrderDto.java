@@ -72,5 +72,12 @@ public class OrderDto {
 	public void setTotalPrice(int totalPrice) {
 		this.totalPrice = totalPrice;
 	}
+
+	@Override
+	public String toString() {
+		return "OrderDto [oNo=" + oNo + ", uNo=" + uNo + ", createDate=" + createDate + ", oStatus=" + oStatus
+				+ ", uNickname=" + uNickname + ", totalPrice=" + totalPrice + "]";
+	}
+	
 	
 }

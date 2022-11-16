@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fm.order.model.CartDto;
 import com.fm.order.model.OrderDto;
 import com.fm.user.model.UserDto;
 
@@ -86,6 +87,12 @@ public class OrderDaoImpl implements OrderDao {
 	public Map<String, Object> viewOrderDetailMyInfo(int uNo) {
 		
 		return sqlSession.selectOne("com.fm.user.userSelectInfo", uNo);
+	}
+
+	@Override
+	public int updateCart(CartDto cartDto) {
+		
+		return sqlSession.update(namespace + "updateCart", cartDto);
 	}
 
 }

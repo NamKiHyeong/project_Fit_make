@@ -11,10 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fm.order.model.CartDto;
 import com.fm.order.service.OrderService;
 import com.fm.user.model.UserDto;
 
@@ -64,15 +67,29 @@ public class OrderController {
 
 		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
-		iNo = 1;
-		iCount = 3;
-
+		
 		orderService.addCart(uNo, iNo, iCount);
 		
 		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
 		return "redirect:/cart/list.do";
 	}
-
+	
+	
+	@PostMapping(value="/cart/update.do")
+	public String updateCart(HttpSession session, CartDto cartDto, Model model) throws Exception{
+		logger.debug("Welcome cartUpdate" + cartDto.getcNo() + "" + cartDto.getcCount());
+		
+		int count = 0;
+		
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		
+		cartDto.setuNo(userDto.getuNo());
+		
+		count = orderService.updateCart(cartDto);
+		
+		return "redirect:/cart/list.do";
+	}
+	
 	/**
 	 * 유효성 검사 추가 필요 / cno와 ino를 통해 장바구니 번호를 검색해야하는 지의 여부는 생각해 볼것 장바구니에 있는 물품을 지우는 기능
 	 * 
@@ -103,7 +120,6 @@ public class OrderController {
 	@RequestMapping(value = "/order/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String viewOrderList(HttpSession session, Model model) {
 		logger.info("Welcome orderList!");
-		// 세션의 사용자 번호를 임시로 1로 지정
 		
 		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();

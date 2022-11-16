@@ -15,7 +15,7 @@
 		padding: 30px;
 	}
 </style>
-<title>주문상세</title>
+<title>주문 상세</title>
 </head>
 <body>
 

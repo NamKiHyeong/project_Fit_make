@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fm.order.model.CartDto;
 import com.fm.order.model.OrderDto;
 import com.fm.user.model.UserDto;
 
@@ -25,5 +26,7 @@ public interface OrderDao {
 	public Map<String, Object> viewOrderDetailMyInfo(int uNo);
 
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
+
+	public int updateCart(CartDto cartDto);
 	
 }

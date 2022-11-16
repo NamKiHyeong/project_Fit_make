@@ -71,4 +71,9 @@
 		VALUES(SEQ_FM_ORDER_DETAIL_NO.NEXTVAL, SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
 	</insert>
 	
+	<update id="updateCart" parameterType="cartDto">
+		UPDATE FM_CART
+		SET FM_CART_COUNT = #{cCount}
+		WHERE FM_CART_NO = #{cNo}
+	</update>
 </mapper>
