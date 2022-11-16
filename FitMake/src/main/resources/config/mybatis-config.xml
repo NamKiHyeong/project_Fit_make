@@ -11,7 +11,7 @@
   	<typeAlias type="com.fm.order.model.OrderDto" alias="orderDto"/>
   	<typeAlias type="com.fm.util.BmiCalc" alias="bmiCalc"/>
   	<typeAlias type="com.fm.item.model.ItemDto" alias="itemDto"/>
-
+  	<typeAlias type="com.fm.order.model.CartDto" alias="cartDto"/>
   </typeAliases>
   
   
