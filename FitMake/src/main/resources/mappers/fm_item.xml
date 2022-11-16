@@ -6,12 +6,13 @@
 	<resultMap type="itemDto" id="itemResultMap">
 		<id column="FM_ITEM_NO" property="iNo"/>
 		
-		<result column="FM_CATEGORY_NO" property=	"cNo"/>
+		
 		<result column="FM_ITEM_NAME" property=		"iName"/>
 		<result column="FM_ITEM_CALORY" property=	"iCalory"/>
 		<result column="FM_ITEM_RAWPRICE" property=	"iRawprice"/>
 		<result column="FM_ITEM_SELLPRICE" property="iSellprice"/>
 		<result column="FM_ITEM_COUNT" property=	"iCount"/>
+		<result column="FM_CATEGORY_NO" property=	"cNo"/>
 		<result column="FM_CALORY_GRADE" property=	"iCGrade"/>
 	</resultMap>
 	
@@ -21,11 +22,9 @@
 			SELECT SEQ_FM_ITEM_NO.NEXTVAL FROM DUAL
 		</selectKey>
 			INSERT INTO FM_ITEM
-			VALUE(FM_ITEM_NO, FM_CATEGORY_NO, FM_ITEM_NAME, FM_ITEM_CALORY,
-				FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CALORY_GRADE)
-			VALUES(#{iNo}, 2, #{iName}, 250,
-				500, #{iSellprice}, #{iCount}, 2)
-
+			VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
+   				, FM_CATEGORY_NO, FM_CALORY_GRADE)
+			VALUES(5, #{iName}, 186, 500, #{iSellprice}, #{iCount}, 2, 2)
 	</insert>
 	
 	<select id="itemSelectList" parameterType="itemDto"

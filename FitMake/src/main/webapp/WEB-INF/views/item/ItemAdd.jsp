@@ -27,7 +27,7 @@
 				<textarea required name="oneDetail">
 					아무거나 한번 처본다
 				</textarea>
-				$("#oneDetail").val("test");
+				
 				<input type="submit" value="작성">
 				<input type="button" onclick="pageMoveListFnc();" value="이전페이지로">
 			</div>

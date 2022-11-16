@@ -9,7 +9,7 @@
 <title>특가 더미 사이트(Item list 사이트)</title>
 <script type="text/javascript">
 	function itemOneFnc(){
-		var itemOneFormObj = document.getElementById("itemOne");
+		var itemOneFormObj = document.getElementById("itemOneForm");
 		
 		itemOneFormObj.submit();
 	}
@@ -19,6 +19,7 @@
 	<jsp:include page="../Header.jsp"/>
 	
 	<h3>다이어트</h3>
+	<h4><a href="./add.do">제품을 추가</a></h4>
 	<c:choose>
 		<c:when test="${itemList[0] eq null}">
 			<h4><a href="./add.do">제품을 추가</a></h4>
@@ -28,11 +29,11 @@
 			<c:forEach var="itemDto" items="${itemList}" >
 				<c:if test="${itemDto.cNo == 2}">
 					<div>
-						<form id="itemOne" action="./one.do" method="get">
+						<form id="itemOneForm" action="./one.do" method="get">
 							<a href="#" onclick="itemOneFnc();">
 							${itemDto.iName}
 							</a>
-							<input type="hidden" name="no" value="itemDto.iNo">
+							<input type="hidden" name="no" value="${itemDto.iNo}">
 						</form>					
 						가격 : ${itemDto.iSellprice}
 						리뷰 : 아직 없음

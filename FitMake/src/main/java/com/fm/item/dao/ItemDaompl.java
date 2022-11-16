@@ -27,7 +27,7 @@ public class ItemDaompl implements ItemDao{
 	}
 	
 	public ItemDto itemSelectOne(int no) {
-		return sqlSession.selectOne(namespace + "itemSelectOne");
+		return sqlSession.selectOne(namespace + "itemSelectOne", no);
 	}
 
 			
