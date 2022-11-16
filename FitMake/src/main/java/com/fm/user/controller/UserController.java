@@ -25,16 +25,24 @@ public class UserController {
 	@Autowired
 	private UserService userService;
 
-	// 로그인 페이지 이동
+	/**
+	 * index.jsp에서 로그인 페이지로 이동 나중에 없앨듯
+	 * @return LoginForm.jsp로 이동
+	 */
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
-	public String login(HttpSession session, Model model) {
+	public String login() {
 		logger.info("Welcome UserController login! ");
 
 		return "auth/LoginForm";
 	}
-
+	
+	/**
+	 * 헤더 메인로고 클릭 시 로그인 상태 -> 메인페이지, 비로그인 상태 -> 로그인페이지
+	 * @param session 회원정보 유무상태를 확인
+	 * @return 로그인상태 -> MainPage.jsp, 비로그인 상태 -> LoginForm.jsp
+	 */
 	@RequestMapping(value = "/main/main.do", method = RequestMethod.GET)
-	public String main(HttpSession session, Model model) {
+	public String main(HttpSession session) {
 		logger.info("메인로고 클릭! ");
 
 		String viewPage = "";
@@ -76,7 +84,6 @@ public class UserController {
 
 	/**
 	 * 회원가입 페이지로 이동
-	 * 
 	 * @param model
 	 * @return
 	 */

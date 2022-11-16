@@ -39,9 +39,6 @@ a:active {
 }
 #logoInfo_Wrap {
 	width: 100%;
-	/* 	display: flex; */
-	/* 	flex-direction: column; */
-	/* 	align-items: center; */
 }
 
 #logo_infoDiv {
@@ -65,7 +62,6 @@ a:active {
 }
 
 #headerDiv ul {
-	/* 	margin: 0 auto; */
 	margin: 0px;
 	float: right;
 }
