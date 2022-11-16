@@ -24,7 +24,7 @@
 			INSERT INTO FM_ITEM
 			VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
    				, FM_CATEGORY_NO, FM_CALORY_GRADE)
-			VALUES(5, #{iName}, 186, 500, #{iSellprice}, #{iCount}, 2, 2)
+			VALUES(5, #{iName}, 186, 1000, #{iSellprice}, #{iCount}, 2, 2)
 	</insert>
 	
 	<select id="itemSelectList" parameterType="itemDto"
@@ -38,6 +38,20 @@
 		resultMap="itemResultMap">
 		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
 		FROM FM_ITEM
-		WHERE FM_ITEM_NO=#{iNo}
-		</select>
+		WHERE FM_ITEM_NO = #{iNo}
+	</select>
+	
+	<update id="itemUpdateOne" parameterType="itemDto">
+		UPDATE FM_ITEM
+		<set>
+			<if test="iName != ''">FM_ITEM_NAME = #{iName}</if>
+			<if test="iSellprice != ''">FM_ITEM_SELLPRICE = #{iSellprice}</if>
+			<if test="iCount != ''">FM_ITEM_COUNT = #{iCount}</if>
+		</set>
+		WHERE FM_ITEM_NO = #{iNo}
+	</update>
+	
+	<delete id="itemDeleteOne" parameterType="int">
+		 DELETE FROM FM_ITEM WHERE FM_ITEM_NO = 1
+	</delete>
 </mapper>

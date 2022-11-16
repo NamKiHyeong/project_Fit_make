@@ -15,20 +15,31 @@ public class ItemDaompl implements ItemDao{
 	SqlSessionTemplate sqlSession;
 	
 	String namespace = "com.fm.item.";
-	
+//	C
 	@Override
 	public int itemInsertOne(ItemDto itemDto) {
 		return sqlSession.insert(namespace + "itemInsertOne", itemDto);
 	}
-	
+//	R
 	@Override
 	public List<ItemDto> itemSelectList(){
 		return sqlSession.selectList(namespace + "itemSelectList");
 	}
 	
+	@Override
 	public ItemDto itemSelectOne(int no) {
 		return sqlSession.selectOne(namespace + "itemSelectOne", no);
 	}
-
-			
+	
+//	U
+	@Override
+	public int itemUpdateOne(ItemDto itemDto) {
+		return sqlSession.selectOne(namespace + "itemUpdateOne", itemDto);
+	}
+	
+	@Override
+	public void itemDeleteOne(int no){
+		sqlSession.delete(namespace + "itemDeleteOne", no);
+				
+	}
 }

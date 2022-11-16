@@ -31,13 +31,13 @@
 					<div>
 						<form id="itemOneForm" action="./one.do" method="get">
 							<a href="#" onclick="itemOneFnc();">
-							${itemDto.iName}
+								${itemDto.iName}
 							</a>
 							<input type="hidden" name="no" value="${itemDto.iNo}">
 						</form>					
 						가격 : ${itemDto.iSellprice}
 						리뷰 : 아직 없음
-						<form id='itemDetailForm' method="get">
+						<form id="itemDetailForm" method="get">
 						</form>
 					</div>
 				</c:if>

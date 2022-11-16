@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -90,4 +91,63 @@ public class ItemController {
 	}
 	
 	
+	/**
+	 * Update!!!!!!!
+	 * @param iNo를 Service랑 Dao는 안해도 되는데 왜 여기만 꼭 마바티스에서 바꿔준 걸로 써야할까? 
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value="/item/update.do", method = RequestMethod.GET)
+	public String itemUpdate(int iNo, Model model) {
+		logger.trace("수정하는 DB에 접속"+ iNo);
+		
+		Map<String, Object> map = itemService.itemSelectOne(iNo);
+		
+		ItemDto itemDto = (ItemDto)map.get("itemDto");
+		
+		model.addAttribute("itemDto", itemDto);
+		
+		return "item/ItemUpdate";
+	}
+	
+	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
+	public String itemUpdateCtr(HttpSession session, ItemDto itemDto, Model model) {
+		logger.trace("수정하기"+itemDto);
+		
+		int resultNum = 0;
+		
+		try {
+			resultNum = itemService.itemUpdateOne(itemDto);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		ItemDto sessionItemDto = (ItemDto)session.getAttribute("itemDto");
+		if(sessionItemDto != null) {
+			if(sessionItemDto.getiNo() == itemDto.getiNo() ) {
+				
+				ItemDto newItemDto = new ItemDto();
+				
+				newItemDto.setiNo(itemDto.getiNo());
+				newItemDto.setiName(itemDto.getiName());
+				newItemDto.setiSellprice(itemDto.getiSellprice());
+				newItemDto.setiCount(itemDto.getiCount());
+				
+				session.removeAttribute("itemDto");
+				session.setAttribute("itemDto", newItemDto);
+			}
+		}
+	
+		return "redirect:/item/list.do";
+	}
+	
+	
+	@RequestMapping(value="/item/deleteOne.do", method = RequestMethod.GET)
+	public String itemDelete(int iNo, Model model) {
+		logger.info("삭제기능" + iNo);
+		
+		itemService.itemDeleteOne(iNo);
+		
+		return "redirect:/item/list.do";
+		
+	}
 }

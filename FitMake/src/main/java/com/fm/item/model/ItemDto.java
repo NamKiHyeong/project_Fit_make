@@ -1,9 +1,9 @@
 package com.fm.item.model;
 
 public class ItemDto {
-
-	private int cNo = 0;
+	
 	private int iNo = 0;
+	private int cNo = 0;
 	private String iName = "";
 	private int iCalory = 0;
 	private int iRawprice = 0;

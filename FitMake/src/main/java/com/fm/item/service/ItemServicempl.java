@@ -70,4 +70,22 @@ public class ItemServicempl implements ItemService{
 		return resultMap;
 		
 	}
+	
+	public int itemUpdateOne(ItemDto itemDto) throws Exception{
+		
+		int resultNum = 0;
+		
+		try {
+			resultNum = itemDao.itemUpdateOne(itemDto);
+		} catch (Exception e) {
+			
+			// TODO: handle exception
+		}
+		return resultNum;
+	}
+	
+	public void itemDeleteOne(int no) {
+		itemDao.itemDeleteOne(no);
+	}
+	
 }
