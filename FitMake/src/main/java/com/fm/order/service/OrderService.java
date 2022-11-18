@@ -29,4 +29,6 @@ public interface OrderService {
 
 	public int updateCart(CartDto cartDto);
 
+	public int viewOrderNo(int uNo);
+
 }

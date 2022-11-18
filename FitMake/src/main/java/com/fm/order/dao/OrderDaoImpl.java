@@ -95,4 +95,10 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.update(namespace + "updateCart", cartDto);
 	}
 
+	@Override
+	public int viewOrderNo(int uNo) {
+		
+		return sqlSession.selectOne(namespace + "viewOrderNo", uNo);
+	}
+
 }

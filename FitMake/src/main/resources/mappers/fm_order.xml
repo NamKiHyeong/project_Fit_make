@@ -76,4 +76,14 @@
 		SET FM_CART_COUNT = #{cCount}
 		WHERE FM_CART_NO = #{cNo}
 	</update>
+	
+	<select id="viewOrderNo" parameterType="int" resultType="int">
+		SELECT o.FM_ORDER_NO
+		FROM FM_ORDER o 
+			INNER JOIN FM_USER u
+			ON o.FM_USER_NO = u.FM_USER_NO
+		WHERE u.FM_USER_NO = #{uNo}
+		AND ROWNUM = 1
+		ORDER BY o.FM_ORDER_DATE DESC 
+	</select>
 </mapper>

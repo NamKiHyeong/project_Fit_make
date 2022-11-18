@@ -83,4 +83,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.updateCart(cartDto);
 	}
 
+	@Override
+	public int viewOrderNo(int uNo) {
+		
+		return orderDao.viewOrderNo(uNo);
+	}
+
 }

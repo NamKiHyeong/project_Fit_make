@@ -132,7 +132,33 @@ public class OrderController {
 
 		return "order/OrderManage";
 	}
+	
+	@RequestMapping(value="/order/confirm.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String viewOrderConfirm(HttpSession session, Model model) {
+		logger.info("Welcome orderconfirm!");
+		
+		String viewUrl = "";
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+		int uNo = (int)userDto.getuNo();
+		
+		if(uNo > 0) {
+			
+			int oNo = orderService.viewOrderNo(uNo);
+			
+			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderDetailItem(oNo);
+			Map<String, Object> orderConfirmMyInfo = orderService.viewOrderDetailMyInfo(uNo);
+			
+			model.addAttribute("orderConfirmItemList", orderConfirmItemList);
+			model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
+			
+			viewUrl = "/order/OrderConfirm";
+		} else {
+			viewUrl = "/main/MainPage";
+		}
 
+		return viewUrl;
+	}
+	
 	/**
 	 * 주문하기 기능
 	 * 
@@ -147,7 +173,7 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value = "/order/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addOrder(HttpSession session, Model model, @RequestParam(defaultValue = "0") int[] iNo,
-			@RequestParam(defaultValue = "0") int[] iCount, @RequestParam(defaultValue = "0") int[] iPrice,
+			@RequestParam(defaultValue = "0") int[] cCount, @RequestParam(defaultValue = "0") int[] iPrice,
 			@RequestParam(defaultValue = "0") int[] cNo) {
 		logger.debug("welcome orderAdd");
 		
@@ -159,24 +185,24 @@ public class OrderController {
 		if (cNo[0] == 0) {
 			
 			orderService.addOrder(uNo);
-			orderService.addOrderDetail(uNo, iNo[0], iCount[0], iPrice[0]);
+			orderService.addOrderDetail(uNo, iNo[0], cCount[0], iPrice[0]);
 			
-			viewUrl = "redirect:/order/detail.do";
+			viewUrl = "redirect:/order/confirm.do";
 		} else if(cNo.length > 0){
 
 			orderService.addOrder(uNo);
 
 			for (int i = 0; i < iNo.length; i++) {
-				orderService.addOrderDetail(uNo, iNo[i], iCount[i], iPrice[i]);
+				orderService.addOrderDetail(uNo, iNo[i], cCount[i], iPrice[i]);
 			}
 
 			for (int i = 0; i < cNo.length; i++) {
 				orderService.deleteCart(uNo, cNo[i]);
 			}
 			
-			viewUrl = "redirect:/order/detail.do";
+			viewUrl = "redirect:/order/confirm.do";
 		} else {
-			viewUrl = "redirect:/main/MainPage";
+			viewUrl = "/main/MainPage";
 		}
 
 		return viewUrl;

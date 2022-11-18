@@ -15,7 +15,7 @@
 		padding: 30px;
 	}
 </style>
-<title>주문 상세</title>
+<title>주문내역 확인</title>
 </head>
 <body>
 
@@ -29,25 +29,25 @@
 			</table>
 		</div>
 			<c:choose>
-				<c:when test="${orderDetailItemList.size() > 1}">
-					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
+				<c:when test="${orderConfirmItemList.size() > 1}">
+					<h4>${orderConfirmItemList[0].FM_ITEM_NAME} 외 ${orderConfirmItemList.size() - 1}개</h4>
 				</c:when>
 				<c:otherwise>
-					<h4>${orderDetailItemList[0].FM_ITEM_NAME}</h4>
+					<h4>${orderConfirmItemList[0].FM_ITEM_NAME}</h4>
 				</c:otherwise>
 			</c:choose>
-			<c:forEach var="orderDetailItem" items="${orderDetailItemList}">
+			<c:forEach var="orderConfirmItem" items="${orderConfirmItemList}">
 				<div>
 					<table>
 							<tr>
-								<td class="orderDetail">${orderDetailItem.FM_ITEM_NAME}</td>
+								<td class="orderDetail">${orderConfirmItem.FM_ITEM_NAME}</td>
 								<td class="orderDetail">
-									<input type="text" value="${orderDetailItem.FM_ORDER_DETAIL_COUNT}" readonly="readonly">개
+									<input type="text" value="${orderConfirmItem.FM_ORDER_DETAIL_COUNT}" readonly="readonly">개
 								</td>
 								<td class="orderDetail">
 									<input class="orderDetailPrice" type="hidden" 
-										value="${orderDetailItem.FM_ORDER_DETAIL_PRICE * orderDetailItem.FM_ORDER_DETAIL_COUNT}">							
-									가격 ${orderDetailItem.FM_ORDER_DETAIL_PRICE * orderDetailItem.FM_ORDER_DETAIL_COUNT}
+										value="${orderConfirmItem.FM_ORDER_DETAIL_PRICE * orderConfirmItem.FM_ORDER_DETAIL_COUNT}">							
+									가격 ${orderConfirmItem.FM_ORDER_DETAIL_PRICE * orderConfirmItem.FM_ORDER_DETAIL_COUNT}
 								</td>
 							</tr>
 					</table>
@@ -56,29 +56,29 @@
 		
 		<div>
 			<h4>구매자정보</h4>
-			이름			<input value="${orderDetailMyInfo.FM_USER_NICKNAME}" readonly="readonly"><br>
-			연락처 		<input value="${orderDetailMyInfo.FM_USER_MOBILE}" readonly="readonly"><br>
+			이름			<input value="${orderConfirmMyInfo.FM_USER_NICKNAME}" readonly="readonly"><br>
+			연락처 		<input value="${orderConfirmMyInfo.FM_USER_MOBILE}" readonly="readonly"><br>
 		</div>
 		
 		<div>
 			<h4>배송정보</h4>
-			이름			<input value="${orderDetailMyInfo.FM_USER_NICKNAME}" readonly="readonly"><br>
-			주소 		<input value="${orderDetailMyInfo.FM_USER_ZIP_CODE}" readonly="readonly"><br>
-				 		<input value="${orderDetailMyInfo.FM_USER_ADDRESS}" readonly="readonly"><br>
-			연락처		<input value="${orderDetailMyInfo.FM_USER_MOBILE}" readonly="readonly"><br>
+			이름			<input value="${orderConfirmMyInfo.FM_USER_NICKNAME}" readonly="readonly"><br>
+			주소 		<input value="${orderConfirmMyInfo.FM_USER_ZIP_CODE}" readonly="readonly"><br>
+				 		<input value="${orderConfirmMyInfo.FM_USER_ADDRESS}" readonly="readonly"><br>
+			연락처		<input value="${orderConfirmMyInfo.FM_USER_MOBILE}" readonly="readonly"><br>
 		</div>
 		<br>
 		<div>
 			<c:choose>
-				<c:when test="${orderDetailItemList.size() > 1}">
-					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
+				<c:when test="${orderConfirmItemList.size() > 1}">
+					<h4>${orderConfirmItemList[0].FM_ITEM_NAME} 외 ${orderConfirmItemList.size() - 1}개</h4>
 				</c:when>
 				<c:otherwise>
-					<h4>${orderDetailItemList[0].FM_ITEM_NAME}</h4>
+					<h4>${orderConfirmItemList[0].FM_ITEM_NAME}</h4>
 				</c:otherwise>
 			</c:choose>
 			<br>
-			<p>${orderDetailItemList[0].totalPrice}</p>
+			<p>${orderConfirmItemList[0].totalPrice}</p>
 			<input type="button" onclick="./list.do">
 		</div>
 		

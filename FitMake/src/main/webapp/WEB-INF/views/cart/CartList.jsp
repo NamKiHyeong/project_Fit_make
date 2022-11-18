@@ -10,14 +10,31 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#buyBtn").on("click", function() {
-			var buyCheck = confirm("구매하시겠습니까?");
-			if(buyCheck == true){
-				$("#addForm").submit();
-			} else {
+			
+			var countCheck = $('#itemClassCount').val();
+			
+			if(countCheck > 0){
+				var buyCheck = confirm("구매하시겠습니까?");
+				
+				if(buyCheck == true){
+					$("#addForm").submit();
+				} else {
+					return false;
+				}
+			} else{
+				alert("장바구니가 비어있습니다.");
 				return false;
 			}
 		});
 		
+		
+// 		var cartTotalPrice = 0;
+		
+// 		for(var i = 0; i < $(".countOuput").length ; i++){
+// 			cartTotalPrice += parseInt($(".countOuput").val());
+// 		}
+		
+// 		$("#cartTotalPrice").innerHTML = "총 금액 " + cartTotalPrice;
 	});
 	
 	function countUpFnc(cartNo){
@@ -56,17 +73,20 @@
 </script>
 <style type="text/css">
 	#headHr {
-		width: 80%;
+		margin-left: 6.5%;
 		margin-top: 3%
 	}
 	#addForm {
+		padding-left: 5%; 
+		padding-right 0%;
 		width: 80%;
 	}
-	/* #titleDivObj {
-		align-content: center;
-		text-align: center;
- 		align-items: center; 
-	} */
+	#rootDivObj{
+		width : 80%;
+		align-content: left;
+		text-align: right;
+ 		align-items: left; 
+	}
 	#headTable {
 		width: 80%;
 		margin-top: 5%;
@@ -81,6 +101,36 @@
 		width: 80%;
 		height: 15%;
 		margin-left: 5%;
+		padding: 0px;
+	}
+	.cartBtn {
+		align-content: right;
+	}
+	.hiddenInfo{
+		width: 100px;
+	}
+	#imgArea {
+		text-align: center;
+		width : 150px;
+		height: 150px;
+		padding-left: 1.5%;
+	}
+	#tailHr {
+		margin-left: 6.5%;
+		margin-top: 3%
+	}
+	#CartItemName {
+		text-align: left;
+	}
+	.countModifyBtn{
+		text-align: center;
+	}
+	.countOuput{
+		width: 50px;
+		text-align: center;
+	}
+	#cartCountArea {
+		text-align: left;
 	}
 </style>
 <title>장바구니</title>
@@ -90,23 +140,24 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
 	<div id="rootDivObj">
-		<div  id="titleDivObj">
+		<div id="titleDivObj">
 			<table id="headTable">
 				<tr>
 					<th id="headTitle">장바구니</th>
 				</tr>
 			</table>
-			<hr id="headHr">
+			
 		</div>
 		<form id="addForm" action="../order/add.do" method="post">
+		<hr id="headHr">
 			<c:choose>
 				<c:when test="${cartMapList.size() > 0}">
 					<c:forEach var="cartMap" items="${cartMapList}">
-						<input type="hidden" id="cNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="cNo">
+						<input class="hiddenInfo" type="hidden" id="cNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="cNo">
 						<table id="cartItemTable">
 							<tr>
-								<td rowspan="3">img</td>
-								<td>${cartMap.FM_ITEM_NAME}</td>		
+								<td id="imgArea" rowspan="3">img</td>
+								<td id="CartItemName">${cartMap.FM_ITEM_NAME}</td>		
 								<td></td>
 								<td><input type="button" value="X" onclick="deleteCartFnc(${cartMap.FM_CART_NO});"></td>		
 							</tr>
@@ -116,21 +167,21 @@
 								<td>${cartMap.FM_ITEM_SELLPRICE}</td>
 							</tr>
 							<tr>
-								<td>
-									<input id="cCountUp${cartMap.FM_CART_NO}" type="button" value="∨" 
+								<td id="cartCountArea">
+									<input class="countModifyBtn" id="cCountUp${cartMap.FM_CART_NO}" type="button" value="∨" 
 										onclick="countDownFnc(${cartMap.FM_CART_NO});">
-									<input id="cCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" 
+									<input class="countOuput" id="cCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" 
 										name="cCount" readonly="readonly">
-									<input id="cCountDown${cartMap.FM_CART_NO}" type="button" value="∧" 
+									<input class="countModifyBtn" id="cCountDown${cartMap.FM_CART_NO}" type="button" value="∧" 
 										onclick="countUpFnc(${cartMap.FM_CART_NO});">
 								</td>
 								<td>총 금액</td>
 								<td>${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}</td>
 							</tr>
 						</table>
-						<input type="hidden" name="iNo" value="${cartMap.FM_ITEM_NO}">
-						<input type="hidden" name="iPrice" value="${cartMap.FM_ITEM_SELLPRICE}">
-							<hr>
+						<input class="hiddenInfo"  type="hidden" name="iNo" value="${cartMap.FM_ITEM_NO}">
+						<input class="hiddenInfo"  type="hidden" name="iPrice" value="${cartMap.FM_ITEM_SELLPRICE}">
+						<hr id="tailHr">
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
@@ -141,9 +192,11 @@
 					</table>
 				</c:otherwise>
 			</c:choose>
+			<span id="cartTotalPrice"></span>  
+			<input type="hidden" id="itemClassCount" value="${cartMapList.size()}">
+			<input class="cartBtn" type="button" id="buyBtn" value="구매하기">
+			<input class="cartBtn" type="button" value="이전페이지">
 		</form>			
-			<input type="button" id="buyBtn" value="구매하기">
-			<input type="button" value="이전페이지">
 	</div>
 	<div>
 		<form id="cartUpdateForm" action="./update.do" method="post">

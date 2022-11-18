@@ -28,5 +28,7 @@ public interface OrderDao {
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
 
 	public int updateCart(CartDto cartDto);
+
+	public int viewOrderNo(int uNo);
 	
 }
