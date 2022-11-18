@@ -28,11 +28,20 @@
 	}
 	
 	function countDownFnc(cartNo){
-		$("#cCount" + cartNo).val(parseInt($("#cCount" + cartNo).val().valueOf())-1);
-		$("#cNoVal").val($("#cNo" + cartNo).val());
-		$("#cCountVal").val($("#cCount" + cartNo).val());
-		$("#cartUpdateForm").submit();
-		// 수량이 1 미만이 되면 알람을 띄워 삭제 or 0은 될 수 없다는 유효성 검사를 넣는다
+		if($("#cCount" + cartNo).val() > 1){
+			$("#cCount" + cartNo).val(parseInt($("#cCount" + cartNo).val().valueOf())-1);
+			$("#cNoVal").val($("#cNo" + cartNo).val());
+			$("#cCountVal").val($("#cCount" + cartNo).val());
+			$("#cartUpdateForm").submit();
+		} else {
+			var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
+			
+			if(deletecheck == true){
+				location.href = "./delete.do?cNo=" + cartNo;
+			} else {
+				return false;
+			}
+		}
 	}
 	
 	function deleteCartFnc(cartNo){
@@ -46,29 +55,55 @@
 	}
 </script>
 <style type="text/css">
-	
+	#headHr {
+		width: 80%;
+		margin-top: 3%
+	}
+	#addForm {
+		width: 80%;
+	}
+	/* #titleDivObj {
+		align-content: center;
+		text-align: center;
+ 		align-items: center; 
+	} */
+	#headTable {
+		width: 80%;
+		margin-top: 5%;
+		margin-left: 3%;
+		padding-left: 6.5%;
+		text-align: left;
+	}
+	#headTitle {
+		font-size: 40px;
+	}
+	#cartItemTable, #addForm {
+		width: 80%;
+		height: 15%;
+		margin-left: 5%;
+	}
 </style>
 <title>장바구니</title>
 </head>
 <body>
-
+	
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<div>
-		<div>
-			<table>
+	<div id="rootDivObj">
+		<div  id="titleDivObj">
+			<table id="headTable">
 				<tr>
-					<th>장바구니</th>
+					<th id="headTitle">장바구니</th>
 				</tr>
 			</table>
-			<hr>
+			<hr id="headHr">
 		</div>
 		<form id="addForm" action="../order/add.do" method="post">
 			<c:choose>
 				<c:when test="${cartMapList.size() > 0}">
 					<c:forEach var="cartMap" items="${cartMapList}">
 						<input type="hidden" id="cNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="cNo">
-						<table>
+						<table id="cartItemTable">
 							<tr>
 								<td rowspan="3">img</td>
 								<td>${cartMap.FM_ITEM_NAME}</td>		
