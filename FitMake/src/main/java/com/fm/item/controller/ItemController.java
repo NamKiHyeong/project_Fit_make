@@ -3,7 +3,6 @@ package com.fm.item.controller;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.item.model.ItemDto;
 import com.fm.item.service.ItemService;
@@ -35,15 +35,15 @@ public class ItemController {
  *  나중에 sub을 사용할 때 사용하기
  */
 	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST})
-	public String itemAdd(ItemDto itemDto, Model model) {
-		logger.trace("제품 추가해봅시다!" + itemDto);
+	public String itemAdd(Model model) {
+		logger.trace("제품 추가해봅시다!" + model);
 //		return "redirect:/item/list.do"; mapping 한 주소로
 		return "/item/ItemAdd"; // jsp 주소로
 	}
 	
 	@RequestMapping(value = "/item/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST})
 	public String itemAddCtr(ItemDto itemDto, Model model,
-			HttpServletRequest mulRequest) {
+			MultipartHttpServletRequest mulRequest) {
 		logger.trace("제품 추가합니다!" + itemDto);
 		try {
 			itemService.itemInsertOne(itemDto, mulRequest);

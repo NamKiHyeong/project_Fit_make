@@ -25,10 +25,21 @@
 			<h4><a href="./add.do">제품을 추가</a></h4>
 		</c:when>
 		
+		
 		<c:otherwise>
-			<c:forEach var="itemDto" items="${itemList}" >
-				<c:if test="${itemDto.cNo == 2}">
-					<div>
+			<c:if test="${itemDto.cNo == 2}">
+				<c:when test="${empty fileList}">
+					첨부파일이 없습니다.<br>
+				</c:when>
+				<c:otherwise>
+					<c:forEach var="row" items="${fileList}" >
+						<input type="button" value="이미지" name="file">
+						${row.ORIGINAL_FILE_NAME}<br>
+						<img alt="image not found" src="<c:url value='/image/${row.${row.STORED_FILE_NAME}}'/>"/><br>
+					</c:forEach>
+				</c:otherwise>
+				
+				<div>
 						<form id="itemOneForm" action="./one.do" method="get">
 							<a href="#" onclick="itemOneFnc();">
 								${itemDto.iName}
@@ -40,9 +51,7 @@
 						<form id="itemDetailForm" method="get">
 						</form>
 					</div>
-				</c:if>
-			</c:forEach>
-			
+			</c:if>
 		</c:otherwise>
 		
 	</c:choose>

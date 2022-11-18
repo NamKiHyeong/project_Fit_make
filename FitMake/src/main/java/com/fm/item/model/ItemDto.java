@@ -15,10 +15,10 @@ public class ItemDto {
 		super();
 	}
 
-	public ItemDto(int cNo,int iNo, String iName, int iCalory, int iRawprice, int iSellprice, int iCount, int iCGrade) {
+	public ItemDto(int iNo, int cNo, String iName, int iCalory, int iRawprice, int iSellprice, int iCount, int iCGrade) {
 		super();
-		this.cNo = cNo;
 		this.iNo = iNo;
+		this.cNo = cNo;
 		this.iName = iName;
 		this.iCalory = iCalory;
 		this.iRawprice = iRawprice;

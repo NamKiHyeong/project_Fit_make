@@ -24,7 +24,7 @@
 			INSERT INTO FM_ITEM
 			VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
    				, FM_CATEGORY_NO, FM_CALORY_GRADE)
-			VALUES(5, #{iName}, 186, 1000, #{iSellprice}, #{iCount}, 2, 2)
+			VALUES(7, #{iName}, 186, 1000, #{iSellprice}, #{iCount}, 2, 2)
 	</insert>
 	
 	<select id="itemSelectList" parameterType="itemDto"
@@ -54,4 +54,15 @@
 	<delete id="itemDeleteOne" parameterType="int">
 		 DELETE FROM FM_ITEM WHERE FM_ITEM_NO = 1
 	</delete>
+	
+	
+	
+	
+	
+	<insert id="insertFile">
+		INSERT INTO FM_ITEM_IMG
+		(FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME)
+		values
+		(7, 7, #{original_file_name}, #{stored_file_name})
+	</insert>
 </mapper>

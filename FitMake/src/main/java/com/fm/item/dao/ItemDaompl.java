@@ -1,6 +1,7 @@
 package com.fm.item.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,14 @@ public class ItemDaompl implements ItemDao{
 	@Override
 	public void itemDeleteOne(int no){
 		sqlSession.delete(namespace + "itemDeleteOne", no);
-				
+	
+	}
+	
+	//----------------------------------------------------------
+	
+	@Override
+	public void insertFile(Map<String, Object> map) {
+		
+		sqlSession.insert(namespace + "insertFile", map);
 	}
 }

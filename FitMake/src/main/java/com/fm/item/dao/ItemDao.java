@@ -1,6 +1,7 @@
 package com.fm.item.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fm.item.model.ItemDto;
 
@@ -14,4 +15,6 @@ public interface ItemDao {
 	
 	public void itemDeleteOne(int no);
 
+	
+	public void insertFile(Map<String, Object> map);
 }
