@@ -27,7 +27,7 @@
 					<form action="./mainpage/main.do" method="get">
 
 						<a href="${pageContext.request.contextPath}/main/main.do"><img
-							alt="메인로고" src="/fitmake/resources/image/mainlogo.png"></a>
+							alt="메인로고" src="/fitmake/resources/image/mainlogo.jpg"></a>
 					</form>
 				</div>
 				<div id="infoDiv">
