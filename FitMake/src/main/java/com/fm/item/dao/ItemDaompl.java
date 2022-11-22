@@ -23,8 +23,8 @@ public class ItemDaompl implements ItemDao{
 	}
 //	R
 	@Override
-	public List<ItemDto> itemSelectList(){
-		return sqlSession.selectList(namespace + "itemSelectList");
+	public List<ItemDto> itemSelectList(int cNo){
+		return sqlSession.selectList(namespace + "itemSelectList", cNo);
 	}
 	
 	@Override
@@ -50,5 +50,16 @@ public class ItemDaompl implements ItemDao{
 	public void insertFile(Map<String, Object> map) {
 		
 		sqlSession.insert(namespace + "insertFile", map);
+	}
+	
+	@Override
+	public List<Map<String, Object>> fileSelectList(int no){
+		
+		return sqlSession.selectList(namespace + "fileSelectList", no);
+	}
+	@Override
+	public Map<String, Object> fileSelectOne(int iNo) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace + "fileSelectOne", iNo);
 	}
 }

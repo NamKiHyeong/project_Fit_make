@@ -1,5 +1,6 @@
 package com.fm.item.service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -59,16 +60,38 @@ public class ItemServicempl implements ItemService {
 	}
 
 	@Override
-	public List<ItemDto> itemSelectList() {
-		return itemDao.itemSelectList();
+	public List<Map<String, Object>> itemSelectList(int cNo) {
+		List<ItemDto> itemList = itemDao.itemSelectList(cNo);
+		
+		List<Map<String, Object>> list = new ArrayList<>();
+		for (ItemDto itemDto : itemList) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			int iNo = itemDto.getiNo();
+			
+			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
+			
+			System.out.println("sk ckwdk" + itemDto);
+			
+			map.put("fileMap", fileMap);
+			map.put("itemDto", itemDto);
+			
+			list.add(map);
+		}
+		
+		return list;
 
 	}
 
 	public Map<String, Object> itemSelectOne(int no) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
+		
 		ItemDto itemDto = itemDao.itemSelectOne(no);
 		resultMap.put("itemDto", itemDto);
 
+		
+		List<Map<String, Object>> fileList = itemDao.fileSelectList(no);
+		resultMap.put("fileList", fileList);
+		
 		return resultMap;
 
 	}
@@ -89,5 +112,6 @@ public class ItemServicempl implements ItemService {
 	public void itemDeleteOne(int no) {
 		itemDao.itemDeleteOne(no);
 	}
+
 
 }

@@ -16,44 +16,39 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../Header.jsp"/>
+<%-- 	<jsp:include page="../Header.jsp"/> --%>
 	
 	<h3>다이어트</h3>
 	<h4><a href="./add.do">제품을 추가</a></h4>
 	<c:choose>
-		<c:when test="${itemList[0] eq null}">
-			<h4><a href="./add.do">제품을 추가</a></h4>
+		<c:when test="${empty itemList}">
+			<h4><a href="./add.do">제품을 등록해주세요</a></h4>
 		</c:when>
-		
-		
 		<c:otherwise>
-			<c:if test="${itemDto.cNo == 2}">
-				<c:when test="${empty fileList}">
-					첨부파일이 없습니다.<br>
-				</c:when>
-				<c:otherwise>
-					<c:forEach var="row" items="${fileList}" >
-						<input type="button" value="이미지" name="file">
-						${row.ORIGINAL_FILE_NAME}<br>
-						<img alt="image not found" src="<c:url value='/image/${row.${row.STORED_FILE_NAME}}'/>"/><br>
-					</c:forEach>
-				</c:otherwise>
-				
-				<div>
-						<form id="itemOneForm" action="./one.do" method="get">
-							<a href="#" onclick="itemOneFnc();">
-								${itemDto.iName}
-							</a>
-							<input type="hidden" name="no" value="${itemDto.iNo}">
-						</form>					
-						가격 : ${itemDto.iSellprice}
-						리뷰 : 아직 없음
-						<form id="itemDetailForm" method="get">
-						</form>
-					</div>
-			</c:if>
-		</c:otherwise>
 		
+			<c:forEach var="item" items = "${itemList}">
+			<div>
+				<form id="itemOneForm" action="./one.do" method="get">
+					<input type="checkbox">
+					${item.fileMap.FM_ITEM_IMG_NAME} <br>
+					<img alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+				</form>
+			</div>
+			<a href="#" onclick="itemOneFnc();">
+				${item.itemDto.iName}
+			</a>
+			<input type="hidden" name="no" value="${item.itemDto.iNo}">
+			가격 : ${item.itemDto.iSellprice}<br>
+			리뷰 : 아직 없음<br>
+			</c:forEach>
+			
+			
+						
+			<form id="itemDetailForm" method="get">
+			</form>
+		</c:otherwise>
 	</c:choose>
+		
 </body>
 </html>
+

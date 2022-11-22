@@ -26,8 +26,8 @@ public class FileUtils {
 	 * @throws Exception
 	 */
 	public List<Map<String, Object>> parseInsertFileInfo(int parentSeq, 
-			MultipartHttpServletRequest multipartHttpServletRequest) throws Exception{
-		Iterator<String> iterator = multipartHttpServletRequest.getFileNames();
+			MultipartHttpServletRequest mulRequest) throws Exception{
+		Iterator<String> iterator = mulRequest.getFileNames();
 		MultipartFile multipartFile = null;
 		String originalFileName = null;			//파일 이름
 		String originalFileExtension = null; 	//파일 확장자
@@ -44,7 +44,7 @@ public class FileUtils {
 		} 
 		
 		while(iterator.hasNext()) {
-			multipartFile = multipartHttpServletRequest.getFile(iterator.next());
+			multipartFile = mulRequest.getFile(iterator.next());
 			
 			if(multipartFile.isEmpty() == false) {
 				originalFileName = multipartFile.getOriginalFilename();
@@ -58,7 +58,7 @@ public class FileUtils {
 				fileInfoMap.put("parentSeq", parentSeq);
 				fileInfoMap.put("original_file_name", originalFileName);
 				fileInfoMap.put("stored_file_name", storedFileName);
-				fileInfoMap.put("file_size", multipartFile.getSize());
+//				fileInfoMap.put("file_size", multipartFile.getSize());
 				
 				fileList.add(fileInfoMap);
 			}
@@ -75,7 +75,7 @@ public class FileUtils {
 	public void parseUpdateFileInfo(Map<String, Object> tempFileMap) 
 		throws Exception{
 		
-		String storedFileName = (String)tempFileMap.get("STORED_FILE_NAME"); 
+		String storedFileName = (String)tempFileMap.get("storedFileName"); 
 		
 		File file = new File(filePath + "/" + storedFileName);
 		
