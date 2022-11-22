@@ -28,10 +28,11 @@ public class ItemServicempl implements ItemService {
 
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtiles;
-
+/**
+ * 
+ */
 	@Override
 	public void itemInsertOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest) throws Exception {
-//	public void itemInsertOne(ItemDto itemDto) throws Exception {
 		itemDao.itemInsertOne(itemDto);
 
 		Iterator<String> iterator = mulRequest.getFileNames();

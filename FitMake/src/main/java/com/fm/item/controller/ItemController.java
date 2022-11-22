@@ -52,7 +52,7 @@ public class ItemController {
 			System.out.println("예외임");
 			e.printStackTrace();
 		}
-		return "redirect:/item/list.do";
+		return "redirect:/item/list.do?cNo=2";
 	}
 	
 	/**
@@ -64,25 +64,6 @@ public class ItemController {
 	 * 2단계 검색 기능 넣고서 나오는지 확인
 	 * 3단계 페이징 확인
 	 */
-//	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String itemList(int iNo, Model model) {
-//		logger.trace("제품 리스트로 옴" + model);
-//		
-//		Map<String, Object> map = itemService.itemSelectOne(itemDto.getiNo());
-//		List<ItemDto> itemList = itemService.itemSelectList();
-//		
-//		ItemDto itemDto2 = (ItemDto) map.get("itemDto");
-//		
-//		List<Map<String, Object>> fileList 
-//			= (List<Map<String, Object>>) map.get("fileList");
-//		
-//		model.addAttribute("itemDto", itemDto2);
-//		model.addAttribute("itemList", itemList);
-//		model.addAttribute("fileList", fileList);
-//		
-//		return "/item/Category";
-//	}
-	
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String itemList(int cNo, Model model) {
 		logger.trace("제품 리스트로 옴" + model);
