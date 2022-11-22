@@ -16,6 +16,8 @@ public interface ItemDao {
 
 	public void itemDeleteOne(int no);
 
+	
+	
 	public void insertFile(Map<String, Object> map);
 
 	public List<Map<String, Object>> fileSelectList(int no);

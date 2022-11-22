@@ -24,7 +24,8 @@
 				<h3>가격 : <input type="number" name="iSellprice"></h3>
 				<h3>재고 : <input type="number" name="iCount"></h3>
 				<h3>제품상세정보</h3>
-				<textarea required name="oneDetail">
+<!-- 				<input type="text" name="iOneDetail"> -->
+				<textarea name="iOneDetail">
 					아무거나 한번 처본다
 				</textarea>
 				

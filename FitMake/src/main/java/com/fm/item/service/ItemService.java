@@ -13,7 +13,7 @@ public interface ItemService {
 	
 	public Map<String, Object> itemSelectOne(int no);
 	
-	public int itemUpdateOne(ItemDto itemDto) throws Exception;
+	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest, int fileIdx) throws Exception;
 	
 	public void itemDeleteOne(int no);
 

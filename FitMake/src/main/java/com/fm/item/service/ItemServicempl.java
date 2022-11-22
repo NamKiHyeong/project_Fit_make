@@ -97,12 +97,35 @@ public class ItemServicempl implements ItemService {
 
 	}
 
-	public int itemUpdateOne(ItemDto itemDto) throws Exception {
+	public int itemUpdateOne(ItemDto itemDto,MultipartHttpServletRequest mulRequest, int fileIdx) throws Exception {
 
 		int resultNum = 0;
 
 		try {
 			resultNum = itemDao.itemUpdateOne(itemDto);
+			
+			int parentSeq = itemDto.getiNo();
+			
+			Map<String, Object> tempFileMap = itemDao.fileSelectOne(parentSeq);
+			
+			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(parentSeq, mulRequest);
+			
+			if(list.isEmpty() == false) {
+//				if(tempFileMap != null) {
+//					itemDao.fileDelete(parentSeq);
+//					fileUtiles.parseUpdateFileInfo(tempFileMap);
+//				}
+				for(Map<String, Object> map : list) {
+					itemDao.insertFile(map);
+				}
+			} else if(fileIdx == -1){
+//				if{tempFileMap != null){
+//					itemDao.fileDelete(parentSeq);
+//					fileUtiles.parseUpdateFileInfo(tempFileMap);
+//				}
+			}
+			
+			
 		} catch (Exception e) {
 
 			// TODO: handle exception

@@ -12,17 +12,19 @@
 		<result column="FM_ITEM_SELLPRICE" property="iSellprice"/>
 		<result column="FM_ITEM_COUNT" property=	"iCount"/>
 		<result column="FM_CALORY_GRADE" property=	"iCGrade"/>
+		<result column="FM_ITEM_DETAIL" property=	"iOneDetail"/>
 	</resultMap>
 	
 	<insert id="itemInsertOne" parameterType= "itemDto"
 		useGeneratedKeys="true" keyProperty="iNo">
 		<selectKey keyProperty="iNo" resultType="int" order="BEFORE">
-			SELECT SEQ_FM_ITEM_NO.NEXTVAL FROM DUAL
+			SELECT SEQ_FM_ITEM_NO.NEXTVAL
+			FROM DUAL
 		</selectKey>
 			INSERT INTO FM_ITEM
 			VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
-   				, FM_CATEGORY_NO, FM_CALORY_GRADE)
-			VALUES(12, #{iName}, 186, 1000, #{iSellprice}, #{iCount}, 2, 2)
+   				, FM_CATEGORY_NO, FM_CALORY_GRADE, FM_ITEM_DETAIL)
+			VALUES(${iNo}, #{iName}, 186, 1000, #{iSellprice}, #{iCount}, 2, 2, #{iOneDetail})
 	</insert>
 	
 	<select id="itemSelectList" parameterType="int"	resultMap="itemResultMap">
@@ -33,7 +35,7 @@
 	
 	<select id="itemSelectOne" parameterType="int"
 		resultMap="itemResultMap">
-		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
+		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO, FM_ITEM_DETAIL
 		FROM FM_ITEM
 		WHERE FM_ITEM_NO = #{iNo}
 	</select>
@@ -58,7 +60,7 @@
 		INSERT INTO FM_ITEM_IMG
 		(FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME)
 		VALUES
-		(12, 12, #{original_file_name}, #{stored_file_name})
+		(SEQ_FM_ITEM_IMG_NO.NEXTVAL, SEQ_FM_ITEM_NO.CURRVAL, #{original_file_name}, #{stored_file_name})
 	</insert>
 	
 	<select id="fileSelectList" parameterType="int" resultType="map">
@@ -72,5 +74,10 @@
 		FROM FM_ITEM_IMG
 		WHERE FM_ITEM_IMG_NO = #{iNo}
 	</select>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM FM_ITEM_IMG
+		WHERE FM_ITEM_IMG_NO = ${iNo}
+	</delete>
 	
 </mapper>

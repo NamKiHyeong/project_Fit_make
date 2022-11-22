@@ -10,12 +10,10 @@ public class ItemDto {
 	private int iSellprice = 0;
 	private int iCount = 0;
 	private int iCGrade = 0;
+	private String iOneDetail = "";
 	
-	public ItemDto() {
-		super();
-	}
-
-	public ItemDto(int iNo, int cNo, String iName, int iCalory, int iRawprice, int iSellprice, int iCount, int iCGrade) {
+	public ItemDto(int iNo, int cNo, String iName, int iCalory, int iRawprice, int iSellprice, int iCount, int iCGrade,
+			String iOneDetail) {
 		super();
 		this.iNo = iNo;
 		this.cNo = cNo;
@@ -25,6 +23,10 @@ public class ItemDto {
 		this.iSellprice = iSellprice;
 		this.iCount = iCount;
 		this.iCGrade = iCGrade;
+		this.iOneDetail = iOneDetail;
+	}
+	public ItemDto() {
+		super();
 	}
 	
 	
@@ -91,11 +93,20 @@ public class ItemDto {
 	public void setiCGrade(int iCGrade) {
 		this.iCGrade = iCGrade;
 	}
-
+	
+	public String getiOneDetail() {
+		return iOneDetail;
+	}
+	
+	public void setiOneDetail(String iOneDetail) {
+		this.iOneDetail = iOneDetail;
+	}
+	
 	@Override
 	public String toString() {
-		return "ItemDto [cNo=" + cNo + ", iName=" + iName + ", iCalory=" + iCalory + ", iRawprice=" + iRawprice
-				+ ", iSellprice=" + iSellprice + ", iCount=" + iCount + ", iCGrade=" + iCGrade + "]";
+		return "ItemDto [iNo=" + iNo + ", cNo=" + cNo + ", iName=" + iName + ", iCalory=" + iCalory + ", iRawprice="
+				+ iRawprice + ", iSellprice=" + iSellprice + ", iCount=" + iCount + ", iCGrade=" + iCGrade
+				+ ", iOneDetail=" + iOneDetail + "]";
 	}
 
 

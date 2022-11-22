@@ -30,16 +30,21 @@
 			<div>
 				<form id="itemOneForm" action="./one.do" method="get">
 					<input type="checkbox">
+					<input type="hidden" name="no" value="${item.itemDto.iNo}">
+					
 					${item.fileMap.FM_ITEM_IMG_NAME} <br>
 					<img alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+					
+					
+					<a href="#" onclick="itemOneFnc();">
+						${item.itemDto.iName}
+					</a><br>
+					가격 : ${item.itemDto.iSellprice}<br>
+					리뷰 : 아직 없음<br>
 				</form>
 			</div>
-			<a href="#" onclick="itemOneFnc();">
-				${item.itemDto.iName}
-			</a>
-			<input type="hidden" name="no" value="${item.itemDto.iNo}">
-			가격 : ${item.itemDto.iSellprice}<br>
-			리뷰 : 아직 없음<br>
+			
+			
 			</c:forEach>
 			
 			

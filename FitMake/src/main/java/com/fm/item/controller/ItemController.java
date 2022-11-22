@@ -1,5 +1,6 @@
 package com.fm.item.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.item.model.ItemDto;
@@ -55,15 +57,15 @@ public class ItemController {
 		return "redirect:/item/list.do?cNo=2";
 	}
 	
-	/**
-	 * Read!!!
-	 * @param itemDto
-	 * @param model spirng에서 지원해준 화면 구성을 위해서 받아온 객체
-	 * @return
-	 * 1단계 리스트 나오는지 확인
-	 * 2단계 검색 기능 넣고서 나오는지 확인
-	 * 3단계 페이징 확인
-	 */
+/**
+ * Read!!!
+ * @param itemDto
+ * @param model spirng에서 지원해준 화면 구성을 위해서 받아온 객체
+ * @return
+ * 1단계 리스트 나오는지 확인
+ * 2단계 검색 기능 넣고서 나오는지 확인
+ * 3단계 페이징 확인
+ */
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String itemList(int cNo, Model model) {
 		logger.trace("제품 리스트로 옴" + model);
@@ -83,21 +85,26 @@ public class ItemController {
 		Map<String, Object> map = itemService.itemSelectOne(no);
 		
 		ItemDto itemDto = (ItemDto) map.get("itemDto");
-//		List<Map<String, Object>> fileList
+		List<Map<String, Object>> fileList =(List<Map<String,Object>>)map.get("fileList");
+		
+		
+//		Map<String, Object>prevMap = new HashMap<>();
+//		prevMap.put(null, prevMap)
+		
 		
 		model.addAttribute("itemDto", itemDto);
-		
+		model.addAttribute("fileList", fileList);
 		return "/item/ItemOne";
 		
 	}
 	
 	
-	/**
-	 * Update!!!!!!!
-	 * @param iNo를 Service랑 Dao는 안해도 되는데 왜 여기만 꼭 마바티스에서 바꿔준 걸로 써야할까? 
-	 * @param model
-	 * @return
-	 */
+/**
+ * Update!!!!!!!
+ * @param iNo를 Service랑 Dao는 안해도 되는데 왜 여기만 꼭 마바티스에서 바꿔준 걸로 써야할까? 
+ * @param model
+ * @return
+ */
 	@RequestMapping(value="/item/update.do", method = RequestMethod.GET)
 	public String itemUpdate(int iNo, Model model) {
 		logger.trace("수정하는 DB에 접속"+ iNo);
@@ -106,19 +113,24 @@ public class ItemController {
 		
 		ItemDto itemDto = (ItemDto)map.get("itemDto");
 		
+		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
+		
+		
 		model.addAttribute("itemDto", itemDto);
+		model.addAttribute("fileList", fileList);
 		
 		return "item/ItemUpdate";
 	}
 	
 	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
-	public String itemUpdateCtr(HttpSession session, ItemDto itemDto, Model model) {
-		logger.trace("수정하기"+itemDto);
+	public String itemUpdateCtr(HttpSession session, ItemDto itemDto,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
+			, MultipartHttpServletRequest mulRequest, Model model) {
+		logger.trace("수정하기"+itemDto, fileIdx);
 		
 		int resultNum = 0;
 		
 		try {
-			resultNum = itemService.itemUpdateOne(itemDto);
+			resultNum = itemService.itemUpdateOne(itemDto,mulRequest,fileIdx);
 		} catch (Exception e) {
 			// TODO: handle exception
 		}
@@ -141,7 +153,12 @@ public class ItemController {
 		return "redirect:/item/list.do";
 	}
 	
-	
+/**Delete
+ * 
+ * @param iNo
+ * @param model
+ * @return
+ */
 	@RequestMapping(value="/item/deleteOne.do", method = RequestMethod.GET)
 	public String itemDelete(int iNo, Model model) {
 		logger.info("삭제기능" + iNo);
