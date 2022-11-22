@@ -33,13 +33,56 @@
 	
 </script>
 <style type="text/css">
-table {
-	width: 1200px;
-}
-
-td {
-	width: 200px;
-}
+	#rootDivObj {
+		width : 80%;
+		align-content: left;
+		text-align: right;
+ 		align-items: left; 
+	}
+	#headTitle {
+		font-size: 40px;
+	}
+	#headTable {
+		width: 80%;
+		margin-top: 5%;
+		margin-left: 3%;
+		padding-left: 6.5%;
+		text-align: left;
+	}
+	#headHr {
+		width: 75%;
+		margin-left: 10%;
+		margin-top: 2.4%
+	}
+	#titleTable{
+		height: 15%;
+		margin-left: 6%;
+		padding: 0px;
+	}
+	.titleTd{
+		width: 10%;
+	}
+	#orderListForm{
+		width: 80%;
+		height: 15%;
+		margin-left: 5%;
+		padding: 0px;
+	}
+	#orderManageTable{
+		height: 15%;
+		margin-left: 6%;
+		padding: 0px;
+	}
+	#titleCheckArea{
+		width: 5%;
+	}
+	#orderCheckArea{
+		width: 3%;
+	}
+	#orderDate{
+		width: 15%;
+		text-align: center;
+	}
 </style>
 <title>주문관리</title>
 </head>
@@ -47,34 +90,34 @@ td {
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 
-	<div style="width: 1500px; height: 1000px;">
-		<div>
-			<table>
+	<div id="rootDivObj">
+		<div id="titleDiv">
+			<table id="headTable">
 				<tr>
-					<th>주문관리</th>
+					<th id="headTitle">주문관리</th>
 				</tr>
 			</table>
+			<hr id="headHr">
 		</div>
-
-		<table>
-			<tr>
-				<td></td>
-				<td>주문날짜</td>
-				<td>주문명</td>
-				<td>주문금액</td>
-				<td>주문자</td>
-				<td>운송장</td>
-				<td>주문상태</td>
-			</tr>
-		</table>
 		
 		<form id="orderListForm" method="post">
+			<table id="titleTable">
+				<tr>
+					<td id="titleCheckArea" class="titleTd"></td>
+					<td class="titleTd">주문날짜</td>
+					<td class="titleTd">주문명</td>
+					<td class="titleTd">주문금액</td>
+					<td class="titleTd">주문자</td>
+					<td class="titleTd">운송장</td>
+					<td class="titleTd">주문상태</td>
+				</tr>
+			</table>
 			<c:forEach var="orderMap" items="${orderMapList}">
-				<table>
+				<table id="orderManageTable">
 					<c:if test="${orderMap.oRownum eq '1'}">
 						<tr>
-							<td><input type="checkbox"></td>
-							<td>${orderMap.FM_ORDER_DATE}</td>
+							<td id="orderCheckArea"><input type="checkbox"></td>
+							<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
 							<td>
 								<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
 									<c:choose>

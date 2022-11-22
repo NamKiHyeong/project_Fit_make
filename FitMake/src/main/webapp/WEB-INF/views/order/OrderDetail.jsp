@@ -14,20 +14,43 @@
 	.orderDetail, .orderDetailPrice{
 		padding: 30px;
 	}
+	#rootDivObj{
+		width : 80%;
+		align-content: left;
+		text-align: right;
+ 		align-items: left; 
+	}
+	#headTitle {
+		font-size: 40px;
+	}
+	#headTable {
+		width: 80%;
+		margin-top: 5%;
+		margin-left: 3%;
+		padding-left: 6.5%;
+		text-align: left;
+	}
+	#headHr {
+		margin-left: 6.5%;
+		margin-top: 3%
+	}
 </style>
 <title>주문상세</title>
 </head>
 <body>
 
-		<jsp:include page="/WEB-INF/views/Header.jsp" />
-		
-		<div>
-			<table>
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	
+	<div id="rootDivObj">
+		<div id="titleDiv">
+			<table id="headTable">
 				<tr>
-					<td><h1>주문상세</h1></td>
+					<th id="headTitle">주문상세</th>
 				</tr>
 			</table>
+			<hr id="headHr">
 		</div>
+		
 			<c:choose>
 				<c:when test="${orderDetailItemList.size() > 1}">
 					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
@@ -81,6 +104,6 @@
 			<p>${orderDetailItemList[0].totalPrice}</p>
 			<input type="button" onclick="location href = './list.do'">
 		</div>
-		
+	</div>
 </body>
 </html>

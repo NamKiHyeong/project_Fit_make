@@ -133,8 +133,9 @@ public class OrderController {
 		return "order/OrderManage";
 	}
 	
+	@Transactional
 	@RequestMapping(value="/order/confirm.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String viewOrderConfirm(HttpSession session, Model model) {
+	public String viewOrderConfirm(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo) {
 		logger.info("Welcome orderconfirm!");
 		
 		String viewUrl = "";
@@ -143,7 +144,9 @@ public class OrderController {
 		
 		if(uNo > 0) {
 			
-			int oNo = orderService.viewOrderNo(uNo);
+			if(oNo == 0) {
+				oNo = orderService.viewOrderNo(uNo);
+			}
 			
 			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderDetailItem(oNo);
 			Map<String, Object> orderConfirmMyInfo = orderService.viewOrderDetailMyInfo(uNo);

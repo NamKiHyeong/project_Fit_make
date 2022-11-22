@@ -76,11 +76,6 @@
 		margin-left: 6.5%;
 		margin-top: 3%
 	}
-	#addForm {
-		padding-left: 5%; 
-		padding-right 0%;
-		width: 80%;
-	}
 	#rootDivObj{
 		width : 80%;
 		align-content: left;
@@ -131,6 +126,14 @@
 	}
 	#cartCountArea {
 		text-align: left;
+	}
+	#emptyTable{
+		width: 80%;
+		height: 15%;
+		padding: 0px;
+	}
+	#emptyRow{
+		text-align: center;
 	}
 </style>
 <title>장바구니</title>
@@ -185,9 +188,9 @@
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
-					<table>
+					<table id="emptyTable">
 							<tr>
-								<td rowspan="3">장바구니에 담긴 물품이 없습니다</td>
+								<td id="emptyRow" rowspan="3">장바구니에 담긴 물품이 없습니다</td>
 							</tr>
 					</table>
 				</c:otherwise>
