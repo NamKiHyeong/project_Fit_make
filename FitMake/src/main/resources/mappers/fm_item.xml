@@ -43,41 +43,43 @@
 	<update id="itemUpdateOne" parameterType="itemDto">
 		UPDATE FM_ITEM
 		<set>
-			<if test="iName != ''">FM_ITEM_NAME = #{iName}</if>
-			<if test="iSellprice != ''">FM_ITEM_SELLPRICE = #{iSellprice}</if>
+			<if test="iName != ''">FM_ITEM_NAME = #{iName},</if>
+			<if test="iSellprice != ''">FM_ITEM_SELLPRICE = #{iSellprice},</if>
 			<if test="iCount != ''">FM_ITEM_COUNT = #{iCount}</if>
 		</set>
 		WHERE FM_ITEM_NO = #{iNo}
 	</update>
 	
 	<delete id="itemDeleteOne" parameterType="int">
-		 DELETE FROM FM_ITEM WHERE FM_ITEM_NO = 1
+		 DELETE FROM FM_ITEM
+		 WHERE FM_ITEM_NO = #{value}
 	</delete>
 	
 	
 	
-	<insert id="insertFile">
+	
+	<insert id="insertFile" parameterType="map">
 		INSERT INTO FM_ITEM_IMG
 		(FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME)
 		VALUES
-		(SEQ_FM_ITEM_IMG_NO.NEXTVAL, SEQ_FM_ITEM_NO.CURRVAL, #{original_file_name}, #{stored_file_name})
+		(SEQ_FM_ITEM_IMG_NO.NEXTVAL, ${parentSeq}, #{original_file_name}, #{stored_file_name})
 	</insert>
 	
 	<select id="fileSelectList" parameterType="int" resultType="map">
 		SELECT FM_ITEM_IMG_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM_IMG
-		WHERE FM_ITEM_IMG_NO = #{parentSeq}
+		WHERE FM_ITEM_NO = #{parentSeq}
 	</select>
 	
 	<select id="fileSelectOne" parameterType="int" resultType="map">
 		SELECT FM_ITEM_IMG_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM_IMG
-		WHERE FM_ITEM_IMG_NO = #{iNo}
+		WHERE FM_ITEM_NO = #{value}
 	</select>
 	
 	<delete id="fileDelete" parameterType="int">
 		DELETE FROM FM_ITEM_IMG
-		WHERE FM_ITEM_IMG_NO = ${iNo}
+		WHERE FM_ITEM_IMG_NO = ${value}
 	</delete>
 	
 </mapper>

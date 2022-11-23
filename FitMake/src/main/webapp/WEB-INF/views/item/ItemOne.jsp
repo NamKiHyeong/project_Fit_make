@@ -7,9 +7,10 @@
 <head>
 <meta charset="UTF-8">
 <title>제품 상세정보</title>
+	
 </head>
 <body>
-	
+	<jsp:include page="../Header.jsp"/>
 	
 	<form action="./update.do" method="get">
 		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
@@ -24,7 +25,8 @@
 <%-- 		<input name="iOneDetail" value="${itemDto.iOneDetail}"> --%>
 		<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
 		<br>
-
+		
+		
 		<input type="submit" value="수정하기">
 	</form>
 </body>

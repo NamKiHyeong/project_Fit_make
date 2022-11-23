@@ -79,14 +79,13 @@ public class ItemController {
 	
 	
 	@RequestMapping(value="/item/one.do")
-	public String itemOne(int no, Model model) {
+	public String itemOne(int iNo, Model model) {
 		logger.trace("제품 상세정보" + model);
 		
-		Map<String, Object> map = itemService.itemSelectOne(no);
+		Map<String, Object> map = itemService.itemSelectOne(iNo);
 		
 		ItemDto itemDto = (ItemDto) map.get("itemDto");
 		List<Map<String, Object>> fileList =(List<Map<String,Object>>)map.get("fileList");
-		
 		
 //		Map<String, Object>prevMap = new HashMap<>();
 //		prevMap.put(null, prevMap)
@@ -117,42 +116,29 @@ public class ItemController {
 		
 		
 		model.addAttribute("itemDto", itemDto);
-		model.addAttribute("fileList", fileList);
+		model.addAttribute("img", fileList.get(0));
 		
 		return "item/ItemUpdate";
 	}
 	
 	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
-	public String itemUpdateCtr(HttpSession session, ItemDto itemDto,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
+	public String itemUpdateCtr(HttpSession session, ItemDto itemDto
+			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
 			, MultipartHttpServletRequest mulRequest, Model model) {
-		logger.trace("수정하기"+itemDto, fileIdx);
 		
-		int resultNum = 0;
+		int cNo = itemDto.getcNo();
 		
 		try {
-			resultNum = itemService.itemUpdateOne(itemDto,mulRequest,fileIdx);
+			
+			itemService.itemUpdateOne(itemDto,mulRequest,fileIdx);
+			
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
-		ItemDto sessionItemDto = (ItemDto)session.getAttribute("itemDto");
-		if(sessionItemDto != null) {
-			if(sessionItemDto.getiNo() == itemDto.getiNo() ) {
-				
-				ItemDto newItemDto = new ItemDto();
-				
-				newItemDto.setiNo(itemDto.getiNo());
-				newItemDto.setiName(itemDto.getiName());
-				newItemDto.setiSellprice(itemDto.getiSellprice());
-				newItemDto.setiCount(itemDto.getiCount());
-				
-				session.removeAttribute("itemDto");
-				session.setAttribute("itemDto", newItemDto);
-			}
-		}
+		
+		return "redirect:/item/list.do?cNo=" + cNo;
 	
-		return "redirect:/item/list.do";
 	}
-	
 /**Delete
  * 
  * @param iNo
@@ -160,12 +146,11 @@ public class ItemController {
  * @return
  */
 	@RequestMapping(value="/item/deleteOne.do", method = RequestMethod.GET)
-	public String itemDelete(int iNo, Model model) {
+	public String itemDelete(int iNo,int cNo , Model model) {
 		logger.info("삭제기능" + iNo);
-		
-		itemService.itemDeleteOne(iNo);
-		
-		return "redirect:/item/list.do";
+			itemService.itemDeleteOne(iNo);
+		logger.info("삭제기능");
+		return "redirect:/item/list.do?cNo=" + cNo;
 		
 	}
 }

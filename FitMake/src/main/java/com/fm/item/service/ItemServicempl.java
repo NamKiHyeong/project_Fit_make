@@ -8,10 +8,13 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -83,6 +86,7 @@ public class ItemServicempl implements ItemService {
 
 	}
 
+	@Override
 	public Map<String, Object> itemSelectOne(int no) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
@@ -97,42 +101,63 @@ public class ItemServicempl implements ItemService {
 
 	}
 
-	public int itemUpdateOne(ItemDto itemDto,MultipartHttpServletRequest mulRequest, int fileIdx) throws Exception {
+	@Transactional(rollbackFor = Exception.class)
+	@Override
+	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest, int fileIdx) throws Exception {
 
 		int resultNum = 0;
 
 		try {
 			resultNum = itemDao.itemUpdateOne(itemDto);
 			
-			int parentSeq = itemDto.getiNo();
+			int iNo = itemDto.getiNo();
 			
-			Map<String, Object> tempFileMap = itemDao.fileSelectOne(parentSeq);
+			Map<String, Object> tempFileMap = itemDao.fileSelectOne(iNo);
 			
-			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(parentSeq, mulRequest);
+			// 실제 드라이브 파일을 추가하고 정보를 반환함 ex)이름 사이즈 번호
+			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(iNo, mulRequest);
 			
+			log.debug("수정되는 것 확인1", itemDto.getiName());
+			// 리스트가 존재 할 경우 수행			
 			if(list.isEmpty() == false) {
-//				if(tempFileMap != null) {
-//					itemDao.fileDelete(parentSeq);
-//					fileUtiles.parseUpdateFileInfo(tempFileMap);
-//				}
-				for(Map<String, Object> map : list) {
-					itemDao.insertFile(map);
+				
+				//item_img테이블에 파일정보가 존재 할 경우
+				if(tempFileMap != null) {
+					//db에서 파일정보 삭제
+					itemDao.fileDelete(iNo);
+					//실제 드라이브에 파일을 삭제
+					fileUtiles.parseUpdateFileInfo(tempFileMap);
 				}
+				
+				for(Map<String, Object> map : list) {
+					//db에 파일정보를 추가
+					itemDao.insertFile(map);
+					
+				}
+			// 이미지를 삭제해서 존재하지 않을 때
 			} else if(fileIdx == -1){
-//				if{tempFileMap != null){
-//					itemDao.fileDelete(parentSeq);
-//					fileUtiles.parseUpdateFileInfo(tempFileMap);
-//				}
+				log.debug("수정되는 것 확인4", itemDto.getiName());
+				
+				if(tempFileMap != null){
+					//db에서 파일정보 삭제
+					itemDao.fileDelete(iNo);
+					log.debug("수정되는 것 확인5", itemDto.getiName());
+					//실제 드라이브에 파일을 삭제
+					fileUtiles.parseUpdateFileInfo(tempFileMap);
+				}
 			}
 			
-			
 		} catch (Exception e) {
-
-			// TODO: handle exception
+			log.debug("수정되는 것 확인6", itemDto.getiName());
+			TransactionAspectSupport.currentTransactionStatus()
+			.setRollbackOnly();
 		}
+		log.debug("수정되는 것 확인7", itemDto.getiName());
+		
 		return resultNum;
 	}
 
+	@Override
 	public void itemDeleteOne(int no) {
 		itemDao.itemDeleteOne(no);
 	}
