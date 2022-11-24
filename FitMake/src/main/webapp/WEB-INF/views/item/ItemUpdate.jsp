@@ -74,8 +74,9 @@
 	<jsp:include page="../Header.jsp" />
 	<div>
 		<form action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
-		<input type="hidden" name="iNo" value="${itemDto.iNo}">
-		<input type="hidden" name="cNo" value="${itemDto.cNo}">
+		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
+		<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
+		<input type="hidden" name="curPage" value="${prevMap.curPage}">
 			<c:choose>
 				<c:when test="${empty img.FM_ITEM_IMG_NO}">
 					<input type="file" id="file" name="file">
@@ -113,7 +114,7 @@
 			<input type="button" value="뒤로가기" onclick="pageMoveBefore(${itemDto.iNo});">
 			<input type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
 			<input type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo},${itemDto.cNo});'>
-			
+			<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
 		</form>
 		
 	</div>

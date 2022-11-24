@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,6 +19,9 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.item.model.ItemDto;
 import com.fm.item.service.ItemService;
+import com.fm.util.Paging;
+
+import javafx.scene.control.Alert;
 
 @Controller
 public class ItemController {
@@ -54,7 +58,8 @@ public class ItemController {
 			System.out.println("예외임");
 			e.printStackTrace();
 		}
-		return "redirect:/item/list.do?cNo=2";
+		logger.info("카테고리 번호 있나?", itemDto.getcNo());
+		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 	
 /**
@@ -67,32 +72,77 @@ public class ItemController {
  * 3단계 페이징 확인
  */
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String itemList(int cNo, Model model) {
-		logger.trace("제품 리스트로 옴" + model);
+	public String itemList(int cNo, @RequestParam(defaultValue = "1") int curPage
+//			@RequestParam(defaultValue = "all") String searchOPtion
+//			@RequestParam(defaultValue = "") String keyword
+			, Model model) {
+		logger.info("제품 리스트로 옴 {}" + model);
+		logger.info("curPage {} " , curPage);
+		logger.info("cNo {} " , cNo);
+//		logger.info("keyword: {} ,searchOPtion{}", keyword, searchOption);
 		
-		List<Map<String, Object>> itemList = itemService.itemSelectList(cNo);
+//		처음에 DB컬럼명을 잘못 구성했을 때 도입부
+//		if("iName".equals("searchOption")){
+//			searchOption="FM_ITEM_NAME";
+//		}
+//		System.out.println("searchOption");
+		
+//		int totalItemCount = itemService.itemSelectTotalItemCount(searchOption, keyword);
+//		Paging itemPaging = new Paging(totalItemCount, curPage);
+		Paging itemPaging = new Paging(8, curPage);
+		int start = itemPaging.getPageBegin();
+		int end = itemPaging.getPageEnd();
+		
+		List<Map<String, Object>> itemList = itemService.itemSelectList(cNo, start, end);
+
+		
+//		처음에 DB컬럼명을 잘못 구성했을 때 마무리
+//		if("FM_ITEM_NAME".equals("searchOption")){
+//			searchOption="iName";
+//		}
+		
+//		Map<String, Object> searchMap = new HashMap<>();
+//		searchMap.put("searchOption", searchOption);
+//		searchMap.put("keyword", keyword);
+		
+		Map<String, Object> pagingMap = new HashMap<>();
+//		pagingMap.put("totalItemCount", totalItemCount);
+		pagingMap.put("totalItemCount", 8);
+		pagingMap.put("itemPaging", itemPaging);
+		
 		
 		model.addAttribute("itemList", itemList);
+		model.addAttribute("pagingMap", pagingMap);
+//		model.addAttribute("searchMap", searchMap);
 		
 		return "/item/Category";
 	}
 	
 	
 	@RequestMapping(value="/item/one.do")
-	public String itemOne(int iNo, Model model) {
+	public String itemOne(int curPage, int cNo, int iNo, Model model) {
 		logger.trace("제품 상세정보" + model);
+		Map<String, Object>prevMap = new HashMap<>();
+		prevMap.put("cNo", cNo);
+		prevMap.put("curPage", curPage);
 		
 		Map<String, Object> map = itemService.itemSelectOne(iNo);
 		
 		ItemDto itemDto = (ItemDto) map.get("itemDto");
+		
 		List<Map<String, Object>> fileList =(List<Map<String,Object>>)map.get("fileList");
 		
-//		Map<String, Object>prevMap = new HashMap<>();
-//		prevMap.put(null, prevMap)
+		System.out.println("Oen.do에서 " + iNo);
 		
+//		prevMap.put("searchOption", searchOption);
+//		PREVMAP.put("keyword", keyword);
 		
+		logger.info("one.do에서 iNo확인해본다 {}", itemDto.getiName());
+		logger.info("one.do에서 cNo 확인해본다 {}", itemDto.getcNo());
+		logger.info("one.do에서 curPage확인해본다 {}", curPage);
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("fileList", fileList);
+		model.addAttribute("prevMap", prevMap);
 		return "/item/ItemOne";
 		
 	}
@@ -104,9 +154,14 @@ public class ItemController {
  * @param model
  * @return
  */
+	@Transactional
 	@RequestMapping(value="/item/update.do", method = RequestMethod.GET)
-	public String itemUpdate(int iNo, Model model) {
-		logger.trace("수정하는 DB에 접속"+ iNo);
+	public String itemUpdate(int curPage, int cNo, int iNo, Model model) {
+		logger.trace("수정하는 DB에 접속"+ curPage);
+		
+		Map<String, Object>prevMap = new HashMap<>();
+		prevMap.put("cNo", cNo);
+		prevMap.put("curPage", curPage);
 		
 		Map<String, Object> map = itemService.itemSelectOne(iNo);
 		
@@ -114,22 +169,23 @@ public class ItemController {
 		
 		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
 		
+		System.out.println("update.do에서 " + iNo);
 		
 		model.addAttribute("itemDto", itemDto);
+		model.addAttribute("prevMap", prevMap);
 		model.addAttribute("img", fileList.get(0));
 		
 		return "item/ItemUpdate";
 	}
-	
+	@Transactional
 	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
-	public String itemUpdateCtr(HttpSession session, ItemDto itemDto
+	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto
 			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
 			, MultipartHttpServletRequest mulRequest, Model model) {
 		
 		int cNo = itemDto.getcNo();
 		
 		try {
-			
 			itemService.itemUpdateOne(itemDto,mulRequest,fileIdx);
 			
 		} catch (Exception e) {

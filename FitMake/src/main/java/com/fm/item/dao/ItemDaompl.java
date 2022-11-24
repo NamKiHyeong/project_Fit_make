@@ -1,5 +1,6 @@
 package com.fm.item.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,8 +24,16 @@ public class ItemDaompl implements ItemDao{
 	}
 //	R
 	@Override
-	public List<ItemDto> itemSelectList(int cNo){
-		return sqlSession.selectList(namespace + "itemSelectList", cNo);
+	public List<ItemDto> itemSelectList(int cNo, int start, int end){
+		Map<String, Object>map = new HashMap<String, Object>();
+		
+//		map.put("SearchOption", SearchOptionmap);
+//		map.put("keyword", keyword);
+		map.put("start", start);
+		map.put("end", end);
+		map.put("cNo", cNo);
+		return sqlSession.selectList(namespace + "itemSelectList", map);
+//		return sqlSession.selectList(namespace + "itemSelectList", cNo);
 	}
 	
 	@Override
@@ -59,8 +68,11 @@ public class ItemDaompl implements ItemDao{
 	}
 	@Override
 	public Map<String, Object> fileSelectOne(int no) {
+//	public List<Map<String, Object>> fileSelectOne(int no) {
 		// TODO Auto-generated method stub
+		System.out.println(no);
 		return sqlSession.selectOne(namespace + "fileSelectOne", no);
+//		return sqlSession.selectList(namespace + "fileSelectOne", no);
 	}
 	
 	@Override

@@ -8,7 +8,6 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
-import org.apache.ibatis.logging.Log;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +30,8 @@ public class ItemServicempl implements ItemService {
 
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtiles;
-/**
+	
+/**Crdate
  * 
  */
 	@Override
@@ -62,10 +62,12 @@ public class ItemServicempl implements ItemService {
 		}
 
 	}
-
+/** Read
+ * 
+ */
 	@Override
-	public List<Map<String, Object>> itemSelectList(int cNo) {
-		List<ItemDto> itemList = itemDao.itemSelectList(cNo);
+	public List<Map<String, Object>> itemSelectList(int cNo, int start, int end) {
+		List<ItemDto> itemList = itemDao.itemSelectList(cNo, start, end);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (ItemDto itemDto : itemList) {
@@ -73,7 +75,7 @@ public class ItemServicempl implements ItemService {
 			int iNo = itemDto.getiNo();
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
-			
+//			List<Map<String, Object>> fileMap = itemDao.fileSelectOne(iNo);
 			System.out.println("sk ckwdk" + itemDto);
 			
 			map.put("fileMap", fileMap);
@@ -112,12 +114,13 @@ public class ItemServicempl implements ItemService {
 			
 			int iNo = itemDto.getiNo();
 			
+//			List<Map<String, Object>> tempFileMap = itemDao.fileSelectOne(iNo);
 			Map<String, Object> tempFileMap = itemDao.fileSelectOne(iNo);
-			
 			// 실제 드라이브 파일을 추가하고 정보를 반환함 ex)이름 사이즈 번호
 			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(iNo, mulRequest);
 			
 			log.debug("수정되는 것 확인1", itemDto.getiName());
+			
 			// 리스트가 존재 할 경우 수행			
 			if(list.isEmpty() == false) {
 				
@@ -141,9 +144,10 @@ public class ItemServicempl implements ItemService {
 				if(tempFileMap != null){
 					//db에서 파일정보 삭제
 					itemDao.fileDelete(iNo);
-					log.debug("수정되는 것 확인5", itemDto.getiName());
 					//실제 드라이브에 파일을 삭제
 					fileUtiles.parseUpdateFileInfo(tempFileMap);
+					
+					log.debug("수정되는 것 확인5", itemDto.getiName());
 				}
 			}
 			

@@ -28,9 +28,17 @@
 	</insert>
 	
 	<select id="itemSelectList" parameterType="int"	resultMap="itemResultMap">
-		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
-		FROM FM_ITEM
-		WHERE FM_CATEGORY_NO = #{cNo}
+		SELECT PI.FM_ITEM_NO, PI.FM_ITEM_NAME, PI.FM_ITEM_SELLPRICE, PI.FM_ITEM_COUNT, PI.FM_CATEGORY_NO
+		FROM(
+			SELECT ROWNUM AS RNUM, I.FM_ITEM_NO, I.FM_ITEM_NAME, I.FM_ITEM_SELLPRICE, I.FM_ITEM_COUNT, I.FM_CATEGORY_NO
+			FROM(
+				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
+				FROM FM_ITEM
+				WHERE FM_CATEGORY_NO = #{cNo}
+			)I
+		)PI
+		WHERE PI.RNUM BETWEEN #{start} AND #{end}
+		
 	</select>
 	
 	<select id="itemSelectOne" parameterType="int"
@@ -75,6 +83,7 @@
 		SELECT FM_ITEM_IMG_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM_IMG
 		WHERE FM_ITEM_NO = #{value}
+		
 	</select>
 	
 	<delete id="fileDelete" parameterType="int">
