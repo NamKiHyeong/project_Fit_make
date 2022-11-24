@@ -20,13 +20,15 @@
 		</c:forEach>
 		제품명 : <input type="text" name="iName" id="iName" value="${itemDto.iName}"><br>
 		가격 : <input type="number" name="iSellprice" value="${itemDto.iSellprice}"><br>
-		제고 : <input type="number" name="iCount" value="${itemDto.iCount}"><br>
+<%-- 		개수 : <input type="number" name="iCount" value="${itemDto.iCount}"><br> --%>
+		개수 : <input type="number" name="iCount" value="">
 		제품상세정보 :
 <%-- 		<input name="iOneDetail" value="${itemDto.iOneDetail}"> --%>
 		<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
 		<br>
 		
 		
+		<input type="button" value="장바구니">
 		<input type="submit" value="수정하기">
 	</form>
 </body>
