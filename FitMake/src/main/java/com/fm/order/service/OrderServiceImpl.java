@@ -89,4 +89,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.viewOrderNo(uNo);
 	}
 
+	@Override
+	public int deleteOrder(int uNo, int oNo) {
+		
+		return orderDao.deleteOrder(uNo, oNo);
+	}
+
 }

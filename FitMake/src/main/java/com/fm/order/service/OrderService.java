@@ -31,4 +31,6 @@ public interface OrderService {
 
 	public int viewOrderNo(int uNo);
 
+	public int deleteOrder(int uNo, int oNo);
+
 }

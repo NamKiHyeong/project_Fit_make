@@ -9,6 +9,38 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script type="text/javascript">
+	$(document).ready(function(){
+
+		$("#orderConfirmBtn").on("click", function(){
+			var checkOrderConfirm = confirm("구매 하시겠습니까?");
+			
+			if(checkOrderConfirm == true){
+				$("#confirmForm").attr("action", "./confirm.do");
+				$("#confirmForm").attr("method", "post");
+				$("#confirmForm").submit();
+			} else {
+				return false;
+			}
+		})
+		
+		$("#orderCancelBtn").on("click", function() {
+			var checkOrderCancel = confirm("구매를 취소 하시겠습니까?");
+			
+			if(checkOrderCancel == true){
+				$("#confirmForm").attr("action", "./cancel.do");
+				$("#confirmForm").attr("method", "post");
+				$("#confirmForm").submit();
+			}
+		})
+	})
+	
+	function backToOrderListFnc(){
+		location.href = './list.do';
+	}
+	
+	function backToCartListFnc(){
+		location.href = '../cart/list.do';
+	}
 </script>
 <style type="text/css">
 	.orderDetail, .orderDetailPrice{
@@ -16,9 +48,10 @@
 	}
 	#rootDivObj{
 		width : 80%;
-		align-content: left;
-		text-align: right;
- 		align-items: left; 
+/* 		padding: 5%; */ /* 나중에 이걸로 중앙으로 조정한다 */
+		align-content: center;
+		text-align: left;
+ 		align-items: left;
 	}
 	#headTitle {
 		font-size: 40px;
@@ -31,8 +64,40 @@
 		text-align: left;
 	}
 	#headHr {
-		margin-left: 6.5%;
-		margin-top: 3%
+		width: 80%;
+		margin-left: 10%;
+		margin-top: 2.4%
+	}
+	#orderSummaryDiv {
+		width: 75%;
+		margin-top: 3%;
+		margin-left: 10%;
+		padding: 3%;
+		border: 1px solid black;
+	}
+	#buyerInfoDiv {
+		width: 75%;
+		margin-top: 3%;
+		margin-left: 10%;
+		padding: 3%;
+		border: 1px solid black;
+	}
+	#deliveryInfoDiv {
+		width: 75%;
+		margin-top: 3%;
+		margin-left: 10%;
+		padding: 3%;
+		border: 1px solid black;
+	}
+	#totalSummaryDiv {
+		width: 75%;
+		margin-top: 3%;
+		margin-left: 10%;
+		padding: 3%;
+		border: 1px solid black;
+	}
+	.orderSummaryTitle {
+		
 	}
 </style>
 <title>주문상세</title>
@@ -50,13 +115,13 @@
 			</table>
 			<hr id="headHr">
 		</div>
-		
+		<div id="orderSummaryDiv">
 			<c:choose>
 				<c:when test="${orderDetailItemList.size() > 1}">
-					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
+					<h4 class="orderSummaryTitle">${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
 				</c:when>
 				<c:otherwise>
-					<h4>${orderDetailItemList[0].FM_ITEM_NAME}</h4>
+					<h4 class="orderSummaryTitle">${orderDetailItemList[0].FM_ITEM_NAME}</h4>
 				</c:otherwise>
 			</c:choose>
 			<c:forEach var="orderDetailItem" items="${orderDetailItemList}">
@@ -76,14 +141,14 @@
 					</table>
 				</div>
 			</c:forEach>
-		
-		<div>
+		</div>
+		<div id="buyerInfoDiv">
 			<h4>구매자정보</h4>
 			이름			<input value="${orderDetailMyInfo.FM_USER_NICKNAME}" readonly="readonly"><br>
 			연락처 		<input value="${orderDetailMyInfo.FM_USER_MOBILE}" readonly="readonly"><br>
 		</div>
 		
-		<div>
+		<div id="deliveryInfoDiv">
 			<h4>배송정보</h4>
 			이름			<input value="${orderDetailMyInfo.FM_USER_NICKNAME}" readonly="readonly"><br>
 			주소 		<input value="${orderDetailMyInfo.FM_USER_ZIP_CODE}" readonly="readonly"><br>
@@ -91,7 +156,7 @@
 			연락처		<input value="${orderDetailMyInfo.FM_USER_MOBILE}" readonly="readonly"><br>
 		</div>
 		<br>
-		<div>
+		<div id="totalSummaryDiv">
 			<c:choose>
 				<c:when test="${orderDetailItemList.size() > 1}">
 					<h4>${orderDetailItemList[0].FM_ITEM_NAME} 외 ${orderDetailItemList.size() - 1}개</h4>
@@ -102,8 +167,18 @@
 			</c:choose>
 			<br>
 			<p>${orderDetailItemList[0].totalPrice}</p>
-			<input type="button" onclick="location href = './list.do'">
 		</div>
+			<form id="confirmForm">
+				<c:if test="${cNo[0] != 0}">
+					<input type="button" id="orderConfirmBtn" value="구매하기">
+					<input type="button" id="orderCancelBtn" value="취소">
+				</c:if>
+				<input type="hidden" name="oNo" value="${oNo}">
+				<c:forEach var="cNo" items="${cNo}">
+					<input type="hidden" name="cNo" value="${cNo}">
+				</c:forEach>
+			</form>
+			<input type="button" value="주문리스트로" onclick="backToOrderListFnc();">
 	</div>
 </body>
 </html>

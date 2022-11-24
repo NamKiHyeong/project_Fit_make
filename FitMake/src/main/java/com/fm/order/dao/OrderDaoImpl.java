@@ -101,4 +101,15 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(namespace + "viewOrderNo", uNo);
 	}
 
+	@Override
+	public int deleteOrder(int uNo, int oNo) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		
+		inputMap.put("uNo", uNo);
+		inputMap.put("oNo", oNo);
+		
+		return sqlSession.delete(namespace + "deleteOrder", inputMap);
+	}
+
 }

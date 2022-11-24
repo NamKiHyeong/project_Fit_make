@@ -25,10 +25,12 @@ public interface OrderDao {
 
 	public Map<String, Object> viewOrderDetailMyInfo(int uNo);
 
-	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
+	public int addOrderDetail(int uNo, int iNo,int iCount, int price);
 
 	public int updateCart(CartDto cartDto);
 
 	public int viewOrderNo(int uNo);
+
+	public int deleteOrder(int uNo, int oNo);
 	
 }

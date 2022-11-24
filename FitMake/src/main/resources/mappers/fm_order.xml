@@ -78,12 +78,20 @@
 	</update>
 	
 	<select id="viewOrderNo" parameterType="int" resultType="int">
-		SELECT o.FM_ORDER_NO
-		FROM FM_ORDER o 
-			INNER JOIN FM_USER u
-			ON o.FM_USER_NO = u.FM_USER_NO
-		WHERE u.FM_USER_NO = #{uNo}
-		AND ROWNUM = 1
-		ORDER BY o.FM_ORDER_DATE DESC 
+		SELECT *
+		FROM (SELECT o.FM_ORDER_NO 
+				from FM_ORDER o 
+					INNER JOIN FM_USER u
+					ON o.FM_USER_NO = u.FM_USER_NO
+				WHERE u.FM_USER_NO = #{uNo}
+				ORDER BY o.FM_ORDER_DATE DESC)
+		WHERE ROWNUM = 1
+<!-- 		SELECT SEQ_FM_ORDER_NO.CURRVAL -->
+<!-- 		from dual -->
 	</select>
+	<delete id="deleteOrder" parameterType="map">
+		DELETE FROM FM_ORDER 
+		WHERE FM_ORDER_NO = #{oNo}
+		AND FM_USER_NO = #{uNo}
+	</delete>
 </mapper>
