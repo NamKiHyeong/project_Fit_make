@@ -169,7 +169,7 @@
 			<p>${orderDetailItemList[0].totalPrice}</p>
 		</div>
 			<form id="confirmForm">
-				<c:if test="${cNo[0] != 0}">
+				<c:if test="${cNo[0] != -1}">
 					<input type="button" id="orderConfirmBtn" value="구매하기">
 					<input type="button" id="orderCancelBtn" value="취소">
 				</c:if>

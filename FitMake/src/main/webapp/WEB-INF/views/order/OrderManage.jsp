@@ -83,6 +83,9 @@
 		width: 15%;
 		text-align: center;
 	}
+	#btnDiv{
+		margin-top: 2%;
+	}
 </style>
 <title>주문관리</title>
 </head>
@@ -146,7 +149,7 @@
 				</table>
 				<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
 			</c:forEach>
-			<div>
+			<div id="btnDiv">
 				<input id="orderUpdateBtn" type="button" value="수정하기">
 				<input id="orderDeleteBtn" type="button" value="삭제하기">
 			</div>

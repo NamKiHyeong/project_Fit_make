@@ -205,7 +205,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/update.do", method = RequestMethod.POST)
 	public String updateOrder(HttpSession session, Model model, int[] oNo) {
 		logger.debug("welcome orderUpdate");
-
+		
 		return "redirect:/order/list.do";
 	}
 
@@ -220,7 +220,7 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
-			@RequestParam(value="cNo", defaultValue = "0") int[] cNo) {
+			@RequestParam(value="cNo", defaultValue = "-1") int[] cNo) {
 		logger.info("Welcome orderDetail!");
 
 		String viewUrl = "";

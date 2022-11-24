@@ -4,12 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>주문성공</title>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#orderListBtn").on("click", function() {
+			location.href = "./list.do"
+		})
+		
+		$("#itemListBtn").on("click", function() {
+			location.href = "../item/list.do"
+		})
+	})
+</script>
 </head>
 <body>
-	주문에 성공하셨습니다.
+	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	
+	<span>주문에 성공하셨습니다.</span>
 	<br>
-	<input type="button" value="주문목록으로">
-	<input type="button" value="제품목록으로">
+	<input id="orderListBtn" type="button" value="주문목록으로">
+	<input id="itemListBtn" type="button" value="제품목록으로">
 </body>
 </html>
