@@ -12,7 +12,6 @@ import com.fm.order.model.CartDto;
 import com.fm.order.model.OrderDto;
 import com.fm.user.model.UserDto;
 
-//DB와 관련된 작업을 저장하는 곳이라 레파지토리라는 어노테이션을 붙여야 한다.
 @Repository
 public class OrderDaoImpl implements OrderDao {
 
@@ -110,6 +109,22 @@ public class OrderDaoImpl implements OrderDao {
 		inputMap.put("oNo", oNo);
 		
 		return sqlSession.delete(namespace + "deleteOrder", inputMap);
+	}
+
+	@Override
+	public void updateOrder(int oNo, String oStatus) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("oNo", oNo);
+		inputMap.put("oStatus", oStatus);
+		
+		sqlSession.update(namespace + "updateOrder" , inputMap);
+	}
+
+	@Override
+	public int getOrderTotalCount() {
+		
+		return sqlSession.selectOne(namespace + "getOrderTotalCount");
 	}
 
 }

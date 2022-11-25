@@ -3,6 +3,20 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.order">
 	
+	<!-- <sql id="search">
+		<choose>
+		검색옵션이 전체 검색일 경우
+			<when test="catName == 'nande'">
+				WHERE MNAME LIKE '%' || #{searchText} || '%'
+                OR EMAIL LIKE '%' || #{searchText} || '%'
+			</when>
+			전체 검색이 아닌 경우
+			<otherwise>
+				WHERE ${catName} LIKE '%' || #{searchText} || '%'
+			</otherwise>
+		</choose>
+	</sql> -->
+	
 	<resultMap type="orderDto" id="orderResultMap">
 		<id column="FM_ORDER_NO" property="oNo"/>
 		<result column="FM_USER_NO" property="uNo"/>
@@ -36,6 +50,7 @@
 	
 	<select id="viewOrderList" parameterType="int" 
 		resultType="map">
+<!-- 		<include refid="search"></include> -->
 		SELECT o.FM_ORDER_NO, o.FM_ORDER_DATE, o.FM_ORDER_STATUS, i.FM_ITEM_NAME
 			, od.FM_ORDER_DETAIL_COUNT, COUNT(*) OVER(PARTITION BY o.FM_ORDER_NO) AS "oCount"
 			, ROW_NUMBER() OVER(PARTITION BY o.FM_ORDER_NO ORDER BY i.FM_ITEM_NAME) AS "oRownum"
@@ -50,7 +65,7 @@
 	<insert id="addOrder" parameterType="int">
 		INSERT INTO FM_ORDER
 		VALUE(FM_ORDER_NO, FM_USER_NO, FM_ORDER_DATE, FM_ORDER_STATUS)
-		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, '보류')
+		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, 'pending')
 	</insert>
 	
 	<select id="viewOrderDetailItem" parameterType="int" resultType="map">
@@ -94,4 +109,15 @@
 		WHERE FM_ORDER_NO = #{oNo}
 		AND FM_USER_NO = #{uNo}
 	</delete>
+	
+	<update id="updateOrder" parameterType="map">
+		UPDATE FM_ORDER
+		SET FM_ORDER_STATUS = #{oStatus}
+		WHERE FM_ORDER_NO = #{oNo}
+	</update>
+	
+	<select id="getOrderTotalCount" resultType="int">
+		SELECT COUNT(FM_ORDER_NO)
+		FROM FM_ORDER
+	</select>
 </mapper>

@@ -1,7 +1,6 @@
 package com.fm.order.service;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -20,7 +19,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.fm.order.dao.OrderDao;
 import com.fm.order.model.CartDto;
 import com.fm.order.model.OrderDto;
-import com.fm.util.FileUtils;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -93,6 +91,18 @@ public class OrderServiceImpl implements OrderService {
 	public int deleteOrder(int uNo, int oNo) {
 		
 		return orderDao.deleteOrder(uNo, oNo);
+	}
+
+	@Override
+	public void updateOrder(int oNo, String oStatus) {
+		
+		orderDao.updateOrder(oNo, oStatus);
+	}
+
+	@Override
+	public int getOrderTotalCount() {
+		
+		return orderDao.getOrderTotalCount();
 	}
 
 }

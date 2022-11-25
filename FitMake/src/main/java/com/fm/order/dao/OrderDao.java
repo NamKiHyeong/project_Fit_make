@@ -32,5 +32,9 @@ public interface OrderDao {
 	public int viewOrderNo(int uNo);
 
 	public int deleteOrder(int uNo, int oNo);
+
+	public void updateOrder(int oNo, String oStatus);
+
+	public int getOrderTotalCount();
 	
 }

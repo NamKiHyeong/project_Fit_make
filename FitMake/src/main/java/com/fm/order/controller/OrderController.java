@@ -1,5 +1,6 @@
 package com.fm.order.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fm.util.Paging;
 import com.fm.order.model.CartDto;
 import com.fm.order.service.OrderService;
 import com.fm.user.model.UserDto;
@@ -126,17 +128,35 @@ public class OrderController {
 	 */
 	@Transactional
 	@RequestMapping(value = "/order/list.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String viewOrderList(HttpSession session, Model model) {
+	public String viewOrderList(HttpSession session, Model model,@RequestParam(defaultValue = "1") int curPage) {
 		logger.info("Welcome orderList!");
-
+		
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
-
+		
+		int totalCount = orderService.getOrderTotalCount();
+		Paging orderPaging = new Paging(totalCount, curPage);
+		
+		int start = orderPaging.getPageBegin();
+		int end = orderPaging.getPageEnd();
+		
 		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo);
 		Map<String, Object> orderDetailMyInfo = orderService.viewOrderDetailMyInfo(uNo);
-
+		
+		/*
+		 * Map<String, Object> oPagingMap = new HashMap<String, Object>();\
+		 * oPagingMap.put("oPagingMap", oPagingMap); oPagingMap.put("totalCount",
+		 * totalCount);
+		 */
+		
+		/*Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("searchText", searchText);
+		searchMap.put("catName", catName);*/
+		
 		model.addAttribute("orderMapList", orderMapList);
 		model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
+		/*model.addAttribute("oPagingMap", oPagingMap);
+		model.addAttribute("searchMap", searchMap);*/
 
 		return "order/OrderManage";
 	}
@@ -195,16 +215,22 @@ public class OrderController {
 	}
 
 	/**
-	 * 제작 중
-	 * 
+	 * 주문 상태를 업데이트 하는 기능
 	 * @param session
 	 * @param model
-	 * @param oNo
+	 * @param oNoArr		업데이트 하고자 하는 주문번호의 집합
+	 * @param oStatusArr	업데이트 하고자 하는 주문상태
 	 * @return
 	 */
+	@Transactional
 	@RequestMapping(value = "/order/update.do", method = RequestMethod.POST)
-	public String updateOrder(HttpSession session, Model model, int[] oNo) {
+	public String updateOrder(HttpSession session, Model model, @RequestParam(defaultValue = "0") int[] oNoArr,
+			@RequestParam(defaultValue = "0") String[] oStatusArr) {
 		logger.debug("welcome orderUpdate");
+		
+		for(int i = 0; i < oNoArr.length ; i++) {
+			orderService.updateOrder(oNoArr[i], oStatusArr[i]);
+		}
 		
 		return "redirect:/order/list.do";
 	}

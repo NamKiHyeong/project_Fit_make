@@ -19,10 +19,11 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	
-	<span>주문에 성공하셨습니다.</span>
-	<br>
-	<input id="orderListBtn" type="button" value="주문목록으로">
-	<input id="itemListBtn" type="button" value="제품목록으로">
+	<div>
+		<span>주문에 성공하셨습니다.</span>
+		
+		<input id="orderListBtn" type="button" value="주문목록으로">
+		<input id="itemListBtn" type="button" value="제품목록으로">
+	</div>
 </body>
 </html>

@@ -33,4 +33,8 @@ public interface OrderService {
 
 	public int deleteOrder(int uNo, int oNo);
 
+	public void updateOrder(int oNo, String oStatus);
+
+	public int getOrderTotalCount();
+
 }

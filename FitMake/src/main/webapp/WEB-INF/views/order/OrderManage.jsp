@@ -17,8 +17,34 @@
 		
 		$('#orderUpdateBtn').on('click', function(){
 			$('#orderListForm').attr('action', './update.do');
+			$('#orderListForm').attr('method', 'post');
+			
+			var oNoArr = [];
+			var oStatusArr = [];
+			
+			$('input:checkbox[name="orderCheckbox"]').each(function() {
+				
+				if(this.checked == true){
+					oNoArr.push(this.value);
+					oStatusArr.push($('#oStatus'+ this.value).val());					
+				}
+			});
+			
+			$('#oNoArr').val(oNoArr);
+			$('#oStatusArr').val(oStatusArr);
+			
 			$('#orderListForm').submit();
-		})
+		});
+				
+		$('#checkAll').on('click', function(){			
+			
+			$('input:checkbox[name="orderCheckbox"]').each(function() {
+				
+				this.checked = $('#checkAll').is(':checked');
+				
+			});
+			
+		});
 		
 	});
 	
@@ -36,7 +62,6 @@
 	#rootDivObj {
 		width : 80%;
 		align-content: left;
-		text-align: right;
  		align-items: left; 
 	}
 	#headTitle {
@@ -54,11 +79,6 @@
 		margin-left: 10%;
 		margin-top: 2.4%
 	}
-	#titleTable{
-		height: 15%;
-		margin-left: 6%;
-		padding: 0px;
-	}
 	.titleTd{
 		width: 10%;
 	}
@@ -70,6 +90,7 @@
 	}
 	#orderManageTable{
 		height: 15%;
+		text-align: center;
 		margin-left: 6%;
 		padding: 0px;
 	}
@@ -84,6 +105,7 @@
 		text-align: center;
 	}
 	#btnDiv{
+		text-align: right;
 		margin-top: 2%;
 	}
 </style>
@@ -103,10 +125,12 @@
 			<hr id="headHr">
 		</div>
 		
-		<form id="orderListForm" method="post">
-			<table id="titleTable">
+		<form id="orderListForm">
+			<table id="orderManageTable">
 				<tr>
-					<td id="titleCheckArea" class="titleTd"></td>
+					<td id="titleCheckArea" class="titleTd">
+						<input type="checkbox" id="checkAll" value="">
+					</td>
 					<td class="titleTd">주문날짜</td>
 					<td class="titleTd">주문명</td>
 					<td class="titleTd">주문금액</td>
@@ -114,12 +138,12 @@
 					<td class="titleTd">운송장</td>
 					<td class="titleTd">주문상태</td>
 				</tr>
-			</table>
 			<c:forEach var="orderMap" items="${orderMapList}">
-				<table id="orderManageTable">
 					<c:if test="${orderMap.oRownum eq '1'}">
 						<tr>
-							<td id="orderCheckArea"><input type="checkbox"></td>
+							<td id="orderCheckArea">
+								<input type="checkbox" id="cbNo${orderMap.FM_ORDER_NO}" name="orderCheckbox" value="${orderMap.FM_ORDER_NO}">
+							</td>
 							<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
 							<td>
 								<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
@@ -139,22 +163,35 @@
 							<td>
 								<select id="oStatus${orderMap.FM_ORDER_NO}"
 									name="oStatus">
-										<option value="wait">대기</option>
+										<option value="pending">대기</option>
 										<option value="confirm">승인</option>
 										<option value="cancel">취소</option>
 								</select>
 							</td>
 						</tr>
+						<tr>
+							<td>
+								<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
+								
+							</td>
+						</tr>
 					</c:if>
+					</c:forEach>
+					<tr>
+						<td>
+							<input type="hidden" id="oNoArr" value="" name="oNoArr">
+							<input type="hidden" id="oStatusArr" value="" name="oStatusArr">
+						</td>
+					</tr>
 				</table>
-				<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
-			</c:forEach>
 			<div id="btnDiv">
 				<input id="orderUpdateBtn" type="button" value="수정하기">
-				<input id="orderDeleteBtn" type="button" value="삭제하기">
 			</div>
 		</form>
 	</div>
+	
+<%-- 	<jsp:include page="./OrderPaging.jsp"/>	 --%>
+	
 		<form id="orderDetailForm" method="post">
 			<input type="hidden" id="orderNo" value="${orderMap.FM_ORDER_NO}" name="oNo">
 		</form>
