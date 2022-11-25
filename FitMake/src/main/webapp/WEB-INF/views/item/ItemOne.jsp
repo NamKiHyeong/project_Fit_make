@@ -29,7 +29,7 @@
 		제품명 : <input type="text" name="iName" id="iName" value="${itemDto.iName}"><br>
 		가격 : <input type="number" name="iSellprice" value="${itemDto.iSellprice}"><br>
 <%-- 		개수 : <input type="number" name="iCount" value="${itemDto.iCount}"><br> --%>
-		개수 : <input type="number" name="iCount" value="">
+		개수 : <input type="number" name="iCount" value=""><br>
 		제품상세정보 :
 		<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
 		<br>

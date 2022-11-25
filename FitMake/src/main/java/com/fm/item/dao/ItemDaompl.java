@@ -24,16 +24,23 @@ public class ItemDaompl implements ItemDao{
 	}
 //	R
 	@Override
-	public List<ItemDto> itemSelectList(int cNo, int start, int end){
+	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older){
 		Map<String, Object>map = new HashMap<String, Object>();
 		
-//		map.put("SearchOption", SearchOptionmap);
-//		map.put("keyword", keyword);
+		map.put("cNo", cNo);
+		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
-		map.put("cNo", cNo);
-		return sqlSession.selectList(namespace + "itemSelectList", map);
-//		return sqlSession.selectList(namespace + "itemSelectList", cNo);
+		
+		
+		if(older==1) {
+			return sqlSession.selectList(namespace + "itemSelectListGold", map);
+		} else if(older==2) {
+			return sqlSession.selectList(namespace + "itemSelectListReview", map);
+		} else {
+			return sqlSession.selectList(namespace + "itemSelectList", map);
+		}
+		
 	}
 	
 	@Override
@@ -46,14 +53,14 @@ public class ItemDaompl implements ItemDao{
 	public int itemUpdateOne(ItemDto itemDto) {
 		return sqlSession.update(namespace + "itemUpdateOne", itemDto);
 	}
-	
+//	D
 	@Override
 	public void itemDeleteOne(int no){
 		sqlSession.delete(namespace + "itemDeleteOne", no);
 	
 	}
 	
-	//----------------------------------------------------------
+	//---------------------------------------------------------- 제품 이미지
 	
 	@Override
 	public void insertFile(Map<String, Object> map) {
@@ -68,15 +75,22 @@ public class ItemDaompl implements ItemDao{
 	}
 	@Override
 	public Map<String, Object> fileSelectOne(int no) {
-//	public List<Map<String, Object>> fileSelectOne(int no) {
 		// TODO Auto-generated method stub
 		System.out.println(no);
 		return sqlSession.selectOne(namespace + "fileSelectOne", no);
-//		return sqlSession.selectList(namespace + "fileSelectOne", no);
 	}
 	
 	@Override
 	public int fileDelete(int no) {
 		return sqlSession.delete(namespace + "fileDelete", no);
+	}
+	
+	
+	//---------------------------------------------------------- 카테고리의 제품 수
+	public int itemSelectTotalItemCount(int cNo, String keyword) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("cNo", cNo);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne(namespace + "itemSelectTotalItemCount", map);
 	}
 }

@@ -21,8 +21,6 @@ import com.fm.item.model.ItemDto;
 import com.fm.item.service.ItemService;
 import com.fm.util.Paging;
 
-import javafx.scene.control.Alert;
-
 @Controller
 public class ItemController {
 	private static final Logger logger
@@ -72,48 +70,41 @@ public class ItemController {
  * 3단계 페이징 확인
  */
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String itemList(int cNo, @RequestParam(defaultValue = "1") int curPage
-//			@RequestParam(defaultValue = "all") String searchOPtion
-//			@RequestParam(defaultValue = "") String keyword
+	public String itemList(@RequestParam int cNo, @RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "0") int older
 			, Model model) {
+		
+		
 		logger.info("제품 리스트로 옴 {}" + model);
 		logger.info("curPage {} " , curPage);
 		logger.info("cNo {} " , cNo);
-//		logger.info("keyword: {} ,searchOPtion{}", keyword, searchOption);
+		logger.info("older {} " , older);
+		logger.info("keyword: {} ", keyword);
 		
-//		처음에 DB컬럼명을 잘못 구성했을 때 도입부
-//		if("iName".equals("searchOption")){
-//			searchOption="FM_ITEM_NAME";
-//		}
-//		System.out.println("searchOption");
 		
-//		int totalItemCount = itemService.itemSelectTotalItemCount(searchOption, keyword);
-//		Paging itemPaging = new Paging(totalItemCount, curPage);
-		Paging itemPaging = new Paging(8, curPage);
+		int totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword);
+		Paging itemPaging = new Paging(totalItemCount, curPage);
 		int start = itemPaging.getPageBegin();
 		int end = itemPaging.getPageEnd();
 		
-		List<Map<String, Object>> itemList = itemService.itemSelectList(cNo, start, end);
-
+		List<Map<String, Object>> itemList = itemService.itemSelectList(cNo, keyword, start, end, older);
+		logger.info("itemlList에 cNo {} " , cNo);
 		
-//		처음에 DB컬럼명을 잘못 구성했을 때 마무리
-//		if("FM_ITEM_NAME".equals("searchOption")){
-//			searchOption="iName";
-//		}
-		
-//		Map<String, Object> searchMap = new HashMap<>();
-//		searchMap.put("searchOption", searchOption);
-//		searchMap.put("keyword", keyword);
+		Map<String, Object> searchMap = new HashMap<>();
+		searchMap.put("keyword", keyword);
 		
 		Map<String, Object> pagingMap = new HashMap<>();
-//		pagingMap.put("totalItemCount", totalItemCount);
-		pagingMap.put("totalItemCount", 8);
 		pagingMap.put("itemPaging", itemPaging);
+		pagingMap.put("totalItemCount", totalItemCount);
+		pagingMap.put("older", older);
+		pagingMap.put("cNo", cNo);
 		
+		logger.info("itemlList에 cNo {} " , cNo);
 		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("pagingMap", pagingMap);
-//		model.addAttribute("searchMap", searchMap);
+		model.addAttribute("searchMap", searchMap);
 		
 		return "/item/Category";
 	}

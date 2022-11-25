@@ -66,8 +66,8 @@ public class ItemServicempl implements ItemService {
  * 
  */
 	@Override
-	public List<Map<String, Object>> itemSelectList(int cNo, int start, int end) {
-		List<ItemDto> itemList = itemDao.itemSelectList(cNo, start, end);
+	public List<Map<String, Object>> itemSelectList(int cNo, String keyword, int start, int end, int older) {
+		List<ItemDto> itemList = itemDao.itemSelectList(cNo, keyword, start, end, older);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		for (ItemDto itemDto : itemList) {
@@ -76,7 +76,6 @@ public class ItemServicempl implements ItemService {
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
 //			List<Map<String, Object>> fileMap = itemDao.fileSelectOne(iNo);
-			System.out.println("sk ckwdk" + itemDto);
 			
 			map.put("fileMap", fileMap);
 			map.put("itemDto", itemDto);
@@ -88,6 +87,11 @@ public class ItemServicempl implements ItemService {
 
 	}
 
+	@Override
+	public int itemSelectTotalItemCount(int cNo, String keyword) {
+		
+		return itemDao.itemSelectTotalItemCount(cNo, keyword);
+	}
 	@Override
 	public Map<String, Object> itemSelectOne(int no) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();

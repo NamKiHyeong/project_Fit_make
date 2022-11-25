@@ -2,7 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.item">
-
+	
+<sql id="search">
+	WHERE FM_ITEM_NAME LIKE '%'||#{keyword}||'%' 
+	AND FM_CATEGORY_NO = #{cNo}
+</sql>
 	<resultMap type="itemDto" id="itemResultMap">
 		<id column="FM_ITEM_NO" property="iNo"/>
 		<result column="FM_CATEGORY_NO" property=	"cNo"/>
@@ -25,22 +29,52 @@
 			VALUE(FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_CALORY, FM_ITEM_RAWPRICE, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
    				, FM_CATEGORY_NO, FM_CALORY_GRADE, FM_ITEM_DETAIL)
 			VALUES(${iNo}, #{iName}, 186, 1000, #{iSellprice}, #{iCount}, 2, 2, #{iOneDetail})
+			
 	</insert>
 	
-	<select id="itemSelectList" parameterType="int"	resultMap="itemResultMap">
+	<select id="itemSelectList" parameterType="map"	resultMap="itemResultMap">
 		SELECT PI.FM_ITEM_NO, PI.FM_ITEM_NAME, PI.FM_ITEM_SELLPRICE, PI.FM_ITEM_COUNT, PI.FM_CATEGORY_NO
 		FROM(
 			SELECT ROWNUM AS RNUM, I.FM_ITEM_NO, I.FM_ITEM_NAME, I.FM_ITEM_SELLPRICE, I.FM_ITEM_COUNT, I.FM_CATEGORY_NO
 			FROM(
 				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
 				FROM FM_ITEM
-				WHERE FM_CATEGORY_NO = #{cNo}
+				<include refid="search"></include>
+			)I
+		)PI
+		WHERE PI.RNUM BETWEEN #{start} AND #{end}
+	</select>
+	
+	<select id="itemSelectListGold" parameterType="map"	resultMap="itemResultMap">
+		SELECT PI.FM_ITEM_NO, PI.FM_ITEM_NAME, PI.FM_ITEM_SELLPRICE, PI.FM_ITEM_COUNT, PI.FM_CATEGORY_NO
+		FROM(
+			SELECT ROWNUM AS RNUM, I.FM_ITEM_NO, I.FM_ITEM_NAME, I.FM_ITEM_SELLPRICE, I.FM_ITEM_COUNT, I.FM_CATEGORY_NO
+			FROM(
+				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
+				FROM FM_ITEM
+				<include refid="search"></include>
+				ORDER BY FM_ITEM_SELLPRICE
 			)I
 		)PI
 		WHERE PI.RNUM BETWEEN #{start} AND #{end}
 		
 	</select>
 	
+	<select id="itemSelectListReview" parameterType="map" resultMap="itemResultMap">
+		SELECT PI.FM_ITEM_NO, PI.FM_ITEM_NAME, PI.FM_ITEM_SELLPRICE, PI.FM_ITEM_COUNT, PI.FM_CATEGORY_NO
+		FROM(
+			SELECT ROWNUM AS RNUM, I.FM_ITEM_NO, I.FM_ITEM_NAME, I.FM_ITEM_SELLPRICE, I.FM_ITEM_COUNT, I.FM_CATEGORY_NO
+			FROM(
+				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
+				FROM FM_ITEM
+				<include refid="search"></include>
+				ORDER BY FM_ITEM_COUNT DESC
+			)I
+		)PI
+		WHERE PI.RNUM BETWEEN #{start} AND #{end}
+		
+		
+	</select>
 	<select id="itemSelectOne" parameterType="int"
 		resultMap="itemResultMap">
 		SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO, FM_ITEM_DETAIL
@@ -91,4 +125,11 @@
 		WHERE FM_ITEM_IMG_NO = ${value}
 	</delete>
 	
+	
+	
+	<select id="itemSelectTotalItemCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM FM_ITEM
+		<include refid="search"></include>
+	</select>
 </mapper>
