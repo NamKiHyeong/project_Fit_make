@@ -92,7 +92,7 @@ public class OrderServiceImpl implements OrderService {
 		
 		return orderDao.deleteOrder(uNo, oNo);
 	}
-
+	
 	@Override
 	public void updateOrder(int oNo, String oStatus) {
 		
@@ -103,6 +103,12 @@ public class OrderServiceImpl implements OrderService {
 	public int getOrderTotalCount() {
 		
 		return orderDao.getOrderTotalCount();
+	}
+
+	@Override
+	public int checkCart(int uNo, int iNo) {
+		
+		return orderDao.checkCart(uNo, iNo);
 	}
 
 }

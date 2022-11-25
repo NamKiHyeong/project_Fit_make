@@ -120,4 +120,11 @@
 		SELECT COUNT(FM_ORDER_NO)
 		FROM FM_ORDER
 	</select>
+	
+	<select id="checkCart" parameterType="map" resultType="int">
+		SELECT COUNT(FM_USER_NO)
+		FROM FM_CART
+		WHERE FM_ITEM_NO = #{iNo}
+		AND FM_USER_NO = #{uNo}
+	</select>
 </mapper>

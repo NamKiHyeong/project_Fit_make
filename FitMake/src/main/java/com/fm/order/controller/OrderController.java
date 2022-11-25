@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -324,4 +325,32 @@ public class OrderController {
 		
 		return viewUrl;
 	}
+	
+	/**
+	 * 비동기 장바구니 추가 기능
+	 * @param session 	세션에 저장된 유저넘버를 받기 위한 객체
+	 * @param model		필요 없음 지금은
+	 * @param iNo		장바구니에 등록하고자 하는 제품 번호
+	 * @param iCount	장바구니에 등록하고자 하는 제품 갯수
+	 * @return			장바구니에 이미 있다면 2 / 성공했다면 1을 반환
+	 * @throws Exception
+	 */
+	  @ResponseBody
+	  @RequestMapping(value = "/cart/addex.do", method = {RequestMethod.GET , RequestMethod.POST})
+	  public int cart(HttpSession session, Model model, @RequestParam(value="iNo", defaultValue = "0") int iNo
+			  , @RequestParam(value="iCount", defaultValue = "0") int iCount) throws Exception {
+		  logger.debug("ino = " + iNo);
+		  logger.debug("iCount = " + iCount);
+		  
+	      UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+	      int uNo = (int)userDto.getuNo();
+	      
+	      if(orderService.checkCart(uNo, iNo) != 0) {
+	    	  return 2;
+	      }
+	      
+	      orderService.addCart(uNo, iNo, iCount);
+	     
+	    return 1;
+	  }
 }

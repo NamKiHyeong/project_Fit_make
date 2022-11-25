@@ -37,4 +37,6 @@ public interface OrderService {
 
 	public int getOrderTotalCount();
 
+	public int checkCart(int uNo, int iNo);
+
 }

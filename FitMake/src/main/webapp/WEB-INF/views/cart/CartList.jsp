@@ -7,6 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#buyBtn").on("click", function() {
@@ -27,14 +28,48 @@
 			}
 		});
 		
+		$("#testbtn").on("click", function(){
+			
+			var testArr = { 
+					"iNo" : $("#testiNo").val(),
+					"iCount" : 3
+			};
+			
+			$.ajax({
+				type : "POST",
+				url : "../cart/addex.do",
+				dataType : "json",
+				data : testArr,
+				error : function(request, status, error) {
+					alert("code:"
+							+ request.status
+							+ "\n"
+							+ "message:"
+							+ request.responseText
+							+ "\n"
+							+ "error:"
+							+ error);
+				},
+				success : function(data) {
+
+					if (data == 1) {
+						//팝업으로 띄우는 방법을 알아볼 것
+// 						cartHeaderView();
+						// toastr css를 사용해도 되는지 알아볼 것
+// 						toastr.options.preventDuplicates = true;
+// 						toastr.success("예시");
+
+						alert("장바구니 추가완료");
+					} else if (data == 2) {
+
+						alert("이미 추가 된 상품입니다");
+					}
+
+				}
+			});
+			
+		});
 		
-// 		var cartTotalPrice = 0;
-		
-// 		for(var i = 0; i < $(".countOuput").length ; i++){
-// 			cartTotalPrice += parseInt($(".countOuput").val());
-// 		}
-		
-// 		$("#cartTotalPrice").innerHTML = "총 금액 " + cartTotalPrice;
 	});
 	
 	function countUpFnc(cartNo){
@@ -201,6 +236,10 @@
 			<input class="cartBtn" type="button" value="이전페이지">
 		</form>			
 	</div>
+	
+	<input type="button" id="testbtn" value="카트테스트">
+	<input type="hidden" id="testiNo" value="3">
+	
 	<div>
 		<form id="cartUpdateForm" action="./update.do" method="post">
 			<input type="hidden" name="cNo" id="cNoVal" value="">

@@ -36,5 +36,7 @@ public interface OrderDao {
 	public void updateOrder(int oNo, String oStatus);
 
 	public int getOrderTotalCount();
+
+	public int checkCart(int uNo, int iNo);
 	
 }

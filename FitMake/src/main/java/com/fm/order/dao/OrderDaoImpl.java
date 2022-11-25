@@ -127,4 +127,14 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(namespace + "getOrderTotalCount");
 	}
 
+	@Override
+	public int checkCart(int uNo, int iNo) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("iNo", iNo);
+		
+		return sqlSession.selectOne(namespace + "checkCart", inputMap);
+	}
+
 }
