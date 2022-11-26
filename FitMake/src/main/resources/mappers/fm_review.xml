@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fm.review">
+
+	<resultMap type="reviewDto" id="reviewResultMap">
+		<id column="FM_REVIEW_NO" property="rNo"/>
+			<result column="FM_ITEM_NO" property="iNo"/>	
+			<result column="FM_USER_NO" property="uNo"/>
+			<result column="FM_REVIEW_TITLE" property="rTitle"/>
+			<result column="FM_REVIEW_CONTENT" property="rContent"/>
+			<result column="FM_REVIEW_CRE_DATE" property="rCreDate" javaType="java.util.Date"/>
+			<result column="FM_REVIEW_MOD_DATE" property="rModDate" javaType="java.util.Date"/>
+			
+	</resultMap>
+
+	<insert id="reviewInsert" parameterType="reviewDto" useGeneratedKeys="true" keyProperty="rNo"> 
+		<selectKey keyProperty="rNo" resultType="int" order="BEFORE">
+			SELECT SEQ_FM_REVIEW_NO.NEXTVAL
+			FROM DUAL
+		</selectKey>
+		
+		INSERT INTO FM_REVIEW
+		VALUE(FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT, FM_REVIEW_CRE_DATE, FM_REVIEW_MOD_DATE)
+		VALUES(SEQ_FM_REVIEW_NO.CURRVAL, #{iNo}, #{uNo}, #{rTitle}, #{rContent})
+	</insert>
+	
+	
+	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
+		SELECT r.FM_REVIEW_NO, r.FM_ITEM_NO, r.FM_USER_NO, r.FM_REVIEW_TITLE, r.FM_REVIEW_CONTENT, r.FM_REVIEW_CRE_DATE
+		FRIM FM_REVIEW r
+			
+			INNER JOIN FM_ITEN_NO i
+				ON r.FM_REVIEW_NO = i.FM_ITEN_NO
+				
+			INNER JOIN FM_USER u
+				ON r.FM_REVIEW_NO = u.FM_USER_NO
+
+		WHERE r.FM_REVIEW_NO = #{uNo}
+	</select>
+</mapper>

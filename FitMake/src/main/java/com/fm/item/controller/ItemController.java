@@ -41,7 +41,6 @@ public class ItemController {
 	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST})
 	public String itemAdd(Model model) {
 		logger.trace("제품 추가해봅시다!" + model);
-//		return "redirect:/item/list.do"; mapping 한 주소로
 		return "/item/ItemAdd"; // jsp 주소로
 	}
 	
@@ -124,9 +123,6 @@ public class ItemController {
 		List<Map<String, Object>> fileList =(List<Map<String,Object>>)map.get("fileList");
 		
 		System.out.println("Oen.do에서 " + iNo);
-		
-//		prevMap.put("searchOption", searchOption);
-//		PREVMAP.put("keyword", keyword);
 		
 		logger.info("one.do에서 iNo확인해본다 {}", itemDto.getiName());
 		logger.info("one.do에서 cNo 확인해본다 {}", itemDto.getcNo());
