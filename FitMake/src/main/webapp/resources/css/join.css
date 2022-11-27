@@ -1,22 +1,30 @@
 @charset "UTF-8";
 
+/* 전체 div */
 #container {
 	width: 1200px;
 	margin: 0 auto;
 }
-
+/* 회원 div */
 #joinDiv {
 	width: 400px;
 	margin: 0px auto;
 }
-
+/* 회원가입 글자 */
 .join_Tag {
+	text-align: center;
 	font-weight: bold;
 	font-size: 40px;
 }
 
+/* p태그 뒤에 따라오는 em태그 컬러 */
 .join_em_Cl {
 	color: #d7266d;
+}
+
+/*  */
+.join_P {
+	font-weight: bold;
 }
 
 .input_Css {
@@ -24,14 +32,15 @@
 	padding: 15px 0px;
 	background: #fff;
 	color: #000;
-	font-size: 1.2em;
+	font-size: 1em;
 	border: 1px solid #e1e1e1;
 	border-radius: 5px;
 	text-align: left;
 	text-indent: 12px;
-	vertical-align: middle;
-	outline: medium none;
-	font-weight: normal;
+}
+
+.input_p_Css {
+	margin: 0px 0px 30px 0px;
 }
 
 .input_p_Css input:hover {
@@ -39,15 +48,126 @@
 	border: 1px solid #d7266d
 }
 
+#pwdChk{
+	margin-bottom: 10px;	
+}
+
+.doubleChk {
+	float: right;
+	background-color: white;
+	padding: 0px 20px;
+	font-size: 14px;
+	color: #555;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	height: 50px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.mobile_first {
+	width: 245px;
+	padding: 15px 0px;
+	background: #fff;
+	color: #000;
+	font-size: 1em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+	margin-bottom: 10px;
+}
+
+.mobile_second {
+	width: 290px;
+	padding: 15px 0px;
+	color: #000;
+	font-size: 1em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+}
+
+
+.zipCode {
+	width: 260px;
+	padding: 15px 0px;
+	background: #fff;
+	color: #000;
+	font-size: 1em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+	margin-bottom: 10px;
+}
+
+.seach_add {
+	float: right;
+	background-color: white;
+	padding: 0px 20px;
+	font-size: 14px;
+	color: #555;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	height: 50px;
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.add_1st {
+	width: 399px;
+	padding: 15px 0px;
+	background: #fff;
+	color: #000;
+	font-size: 1em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+	margin-bottom: 10px;
+}
+.add_Detail {
+	width: 140px;
+	padding: 15px 0px;
+	background: #fff;
+	color: #000;
+	font-size: 1em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+	margin-bottom: 10px;
+}
+
+.add_Extra{
+	width: 250px;
+	padding: 15px 0px;
+	background: #fff;
+	color: #000;
+	font-size: 1em;
+	border: 1px solid #e1e1e1;
+	border-radius: 5px;
+	text-align: left;
+	text-indent: 12px;
+	margin-bottom: 10px;
+}
+
+
+
+
+
 #joinSubmit {
 	width: 400px;
 	background: #d7266d;
 	margin-top: 30px;
 	margin-bottom: 70px;
-	padding: 17px 0px;
+	padding: 10px 0px;
 	border: 1px solid #d7266d;
 	color: #fff;
 	text-align: center;
-	font-size: 1.35em;
+	font-size: 1em;
 	border-radius: 3px;
+	cursor: pointer;
 }

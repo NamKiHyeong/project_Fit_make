@@ -2,7 +2,6 @@ package com.fm.user.service;
 
 import java.util.Map;
 
-
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
 
@@ -16,7 +15,8 @@ public interface UserService {
 
 	public Map<String, Object> userSelectInfo(int uNo);
 
-	
-	
+	public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber);
+
+	public int checkEmail(String email);
 
 }

@@ -17,5 +17,7 @@ public interface UserDao {
 	public int bmiInsertOne(BmiCalc bmiCalc);
 
 	public Map<String, Object> userSelectInfo(int uNo);
-	
+
+	public int checkEmail(String email);
+
 }

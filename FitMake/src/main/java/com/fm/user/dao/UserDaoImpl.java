@@ -34,7 +34,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int userInsertOne(UserDto userDto, String address) {
-		
+
 		userDto.setAddress(address);
 
 		return sqlSession.insert(namespaceuser + "userInsertOne", userDto);
@@ -53,9 +53,14 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public Map<String, Object> userSelectInfo(int uNo) {
-		
-		
+
 		return sqlSession.selectOne(namespaceuser + "userSelectInfo", uNo);
+	}
+
+	@Override
+	public int checkEmail(String email) {
+
+		return sqlSession.selectOne(namespaceuser + "checkEmail", email);
 	}
 
 }

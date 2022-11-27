@@ -80,4 +80,11 @@
 		where u.FM_USER_NO = #{uNo}
 	</select>
 	<!-- 내정보조회// -->
+	
+	<!-- 이메일 중복체크 -->
+	<select id="checkEmail" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM FM_USER
+		WHERE FM_USER_EMAIL = #{email}
+	</select>
 </mapper>

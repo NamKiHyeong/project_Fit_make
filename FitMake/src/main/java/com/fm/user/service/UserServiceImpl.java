@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.ibatis.transaction.Transaction;
+import org.json.simple.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,9 @@ import com.fm.user.dao.UserDao;
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
 import com.fm.util.FileUtils;
+
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -37,22 +41,56 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void userInsertOne(UserDto userDto , String address) {
+	public void userInsertOne(UserDto userDto, String address) {
 
 		UserDao.userInsertOne(userDto, address);
 	}
 
 	@Override
 	public void bmiInsertOne(BmiCalc bmiCalc) {
-		
+
 		UserDao.bmiInsertOne(bmiCalc);
-		
+
 	}
 
 	@Override
 	public Map<String, Object> userSelectInfo(int uNo) {
-		
+
 		return UserDao.userSelectInfo(uNo);
+	}
+
+	@Override
+	public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber) {
+		String api_key = "NCSEYAU3GAKDFC8B";
+		String api_secret = "FLLPTMWHSAIBTGGJTP5OYFQ75WN7MT48";
+		Message coolsms = new Message(api_key, api_secret);
+
+		// 4 params(to, from, type, text) are mandatory. must be filled
+		HashMap<String, String> params = new HashMap<String, String>();
+		params.put("to", userPhoneNumber); // 수신전화번호
+		params.put("from", "01033729219"); // 발신전화번호. 테스트시에는 발신,수신 둘다 본인 번호로 하면 됨
+		params.put("type", "SMS");
+		params.put("text", "[FitMake] 인증번호는" + "[" + randomNumber + "]" + "입니다."); // 문자 내용 입력
+		params.put("app_version", "test app 1.2"); // application name and version
+
+		try {
+			JSONObject obj = (JSONObject) coolsms.send(params);
+			System.out.println(obj.toString());
+		} catch (CoolsmsException e) {
+			System.out.println(e.getMessage());
+			System.out.println(e.getCode());
+		}
+
+	}
+
+	@Override
+	public int checkEmail(String email) {
+
+		int result = 0;
+
+		result = UserDao.checkEmail(email);
+
+		return result;
 	}
 
 }

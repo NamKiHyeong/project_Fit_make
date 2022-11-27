@@ -10,8 +10,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
@@ -54,9 +57,15 @@ public class UserController {
 		return viewPage;
 	}
 
-	// 로그인
+	/**
+	 * 
+	 * @param email 사용자가 입력한 email값
+	 * @param password 사용자가 입력한 password값
+	 * @param session 세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
+	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 페이지(이동후 다시 로그인페이지)
+	 */
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password, HttpSession session, Model model) {
+	public String loginCtr(String email, String password, HttpSession session) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
 
 		UserDto userDto = userService.userExist(email, password);
@@ -72,9 +81,13 @@ public class UserController {
 		return viewUrl;
 	}
 
-	// 로그아웃
+	/**
+	 * 
+	 * @param session.invalidate() 를 사용해서 세션 종료
+	 * @return 로그인페이지로 다시 이동
+	 */
 	@RequestMapping(value = "/auth/logout.do", method = RequestMethod.GET)
-	public String logout(HttpSession session, Model model) {
+	public String logout(HttpSession session) {
 		logger.info("Welcome UserController logout! ");
 
 		session.invalidate();
@@ -87,14 +100,49 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
-
 	@RequestMapping(value = "/user/add.do", method = RequestMethod.GET)
 	public String userAdd(Model model) {
 		logger.debug("Welcome UserController memberAdd! ");
 
 		return "/user/JoinForm";
 	}
+	
+	/**
+	 * 
+	 * @param email 이메일 중복체크를 위한 밸류값
+	 * @ResponseBody View 페이지가 아닌 응답값 그대로 반환하기 위해 사용
+	 * @return
+	 */
+	@RequestMapping(value = "/user/emailCheck.do", method = RequestMethod.POST)
+	@ResponseBody 
+		public String checkEmail(@RequestParam("emailChk") String email) {
+		
+			String result = "N";
+			int flag = userService.checkEmail(email);
+			//이메일이 있을시 Y 없을시 N 으로 회원가입페이지로 보냄
+			if (flag == 1) result = "Y";
+			
+			return result;
+		}
+	
+	/**
+	 * 
+	 * @param userPhoneNumber 수신번호
+	 * @ResponseBody View 페이지가 아닌 응답값 그대로 반환하기 위해 사용
+	 * @return
+	 */
+	@RequestMapping(value = "/user/phoneCheck.do", method = RequestMethod.GET)
+//	@GetMapping("/user/phoneCheck.do")
+	@ResponseBody
+	public String sendSMS(@RequestParam("phone") String userPhoneNumber) { // 휴대폰 문자보내기
+		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
 
+		userService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
+		
+		System.out.println(randomNumber);
+		return Integer.toString(randomNumber);
+	}
+	
 	/**
 	 * 
 	 * @param userDto
@@ -102,10 +150,11 @@ public class UserController {
 	 * @param bmiCalc
 	 * @return 회원가입 userDto정보와 bmiCalc정보 DB에 기입
 	 */
+	@ResponseBody
 	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st, String add_Extra, String add_Detail) {
+	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st,
+			String add_Extra, String add_Detail) {
 		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
-		
 		String address = add_1st + add_Extra + add_Detail;
 		
 		userService.userInsertOne(userDto, address);

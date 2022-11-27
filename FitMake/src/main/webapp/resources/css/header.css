@@ -34,9 +34,11 @@ a:active {
 	width: 100%;
 	background-color: white;
 }
+
 #padding_Div {
 	height: 200px;
 }
+
 #logoInfo_Wrap {
 	width: 100%;
 }
@@ -111,6 +113,8 @@ a:active {
 	background-color: white;
 	list-style: none;
 	margin-right: 70px;
+	font-weight: bold;
+	font-size: 1.2em;
 }
 
 #menu a:link {
