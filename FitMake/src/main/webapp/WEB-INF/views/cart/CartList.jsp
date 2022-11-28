@@ -70,6 +70,8 @@
 			
 		});
 		
+		viewCartSummaryFnc();
+		
 	});
 	
 	function countUpFnc(cartNo){
@@ -105,6 +107,7 @@
 			return false;
 		}
 	}
+	
 </script>
 <style type="text/css">
 	#headHr {
@@ -176,6 +179,7 @@
 <body>
 	
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+<%-- 	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" /> --%>
 	
 	<div id="rootDivObj">
 		<div id="titleDivObj">
