@@ -34,6 +34,7 @@
 			INNER JOIN FM_ITEM i
 				ON c.FM_ITEM_NO = i.FM_ITEM_NO
 		WHERE c.FM_USER_NO = #{uNo}
+		ORDER BY c.FM_CART_NO DESC
 	</select>
 	
 	<insert id="addCart" parameterType="map">

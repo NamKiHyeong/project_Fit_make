@@ -98,10 +98,9 @@
 			},
 			success : function(data) {
 
-				if (data == 1) {
-					viewCartSummaryFnc();
-					alert("장바구니 업데이트 완료");
-				}
+				viewCartSummaryFnc();
+				alert("장바구니 업데이트 완료");
+				
 
 			}
 		});
@@ -109,10 +108,34 @@
 	
 	function countDownFnc(cartNo){
 		if($("#ctCount" + cartNo).val() > 1){
-			$("#ctCount" + cartNo).val(parseInt($("#ctCount" + cartNo).val().valueOf())-1);
-			$("#ctNoVal").val($("#ctNo" + cartNo).val());
-			$("#ctCountVal").val($("#ctCount" + cartNo).val());
-			$("#cartUpdateForm").submit();
+			var ctNo = $("#ctNo" + cartNo).val();
+			var ModifiedCtCount = parseInt($("#ctCount" + cartNo).val()) - 1;
+			
+			$.ajax({
+				type : "POST",
+				url : "../cart/updateex.do",
+				dataType : "json",
+				data : {
+					"ctCount" : ModifiedCtCount,
+					"ctNo" : ctNo
+				},
+				error : function(request, status, error) {
+					alert("code:"
+							+ request.status
+							+ "\n"
+							+ "message:"
+							+ request.responseText
+							+ "\n"
+							+ "error:"
+							+ error);
+				},
+				success : function(data) {
+			
+					viewCartSummaryFnc();
+					alert("장바구니 업데이트 완료");
+
+				}
+			});
 		} else {
 			var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
 			
@@ -216,6 +239,7 @@
 <body>
 	
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	
 	<div id="rootDivObj">
 		<div id="titleDivObj">
