@@ -22,22 +22,25 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
-	@RequestMapping(value="./add.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAdd(Model model) {
+		logger.info("리플을 달아보자", model);
 		
 		return "/review/ReviewAdd";
 	}
 	
-	@RequestMapping(value="./addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAddCtr(ReviewDto reviewDto, Model model, HttpServletRequest request) {
+		logger.info("리플을 작성합니다." + reviewDto);
 		try {
 			reviewService.reviewInsert(reviewDto, request);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
+			System.out.println("예외 발생");
 			e.printStackTrace();
 		}
 		
-		return "redirect:/review/list.do?cNo=2";
+		return "redirect:/item/list.do?cNo=2";
 	}
 }

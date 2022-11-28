@@ -29,7 +29,7 @@ public class ReviewServicempl implements ReviewService {
 //		Iterator<String> iterator = mulRequest.get
 		
 		
-		int parentSql = reviewDto.getrNo();
+//		int parentSql = reviewDto.getrNo();
 		
 	}
 }

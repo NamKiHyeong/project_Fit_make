@@ -14,20 +14,13 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp" />
-	
-	<form action="./addCtr.do" method="post" enctype="multipart/form-data">
-	
+<!-- 	 enctype="multipart/form-data" -->
+	<form action="./addCtr.do" method="post">
 		<div>
-		<h3>제목</h3>
-		<input type="text">
+		<h3>제목</h3>	 <input type="text" name="rTitle">
 		
-		<h3>내용</h3>
-		<textarea rows="400px;" cols="400px;">
-		
-		</textarea>
+		<h3>내용</h3> <textarea rows="40px;" cols="40px;" name="rContent"></textarea>
 		</div>
-		
-		
 		
 		<div>파일</div>
 		

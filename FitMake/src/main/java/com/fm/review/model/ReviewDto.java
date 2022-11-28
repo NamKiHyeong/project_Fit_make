@@ -1,7 +1,6 @@
 package com.fm.review.model;
 
 import java.util.Date;
-import java.util.Objects;
 
 public class ReviewDto {
 
@@ -9,10 +8,20 @@ public class ReviewDto {
 	private int iNo = 0;
 	private int uNo = 0;
 	private String rTitle = "";
-	private int rContent = 0;
+	private String rContent = "";
 	private Date rCreDate = null;
 	private Date rModDate = null;
-	
+
+	public ReviewDto(int rNo, int iNo, int uNo, String rTitle, String rContent, Date rCreDate, Date rModDate) {
+		super();
+		this.rNo = rNo;
+		this.iNo = iNo;
+		this.uNo = uNo;
+		this.rTitle = rTitle;
+		this.rContent = rContent;
+		this.rCreDate = rCreDate;
+		this.rModDate = rModDate;
+	}
 	
 	public int getrNo() {
 		return rNo;
@@ -54,12 +63,12 @@ public class ReviewDto {
 	}
 
 
-	public int getrContent() {
+	public String getrContent() {
 		return rContent;
 	}
 
 
-	public void setrContent(int rContent) {
+	public void setrContent(String rContent) {
 		this.rContent = rContent;
 	}
 
@@ -84,16 +93,6 @@ public class ReviewDto {
 	}
 
 
-	public ReviewDto(int rNo, int iNo, int uNo, String rTitle, int rContent, Date rCreDate, Date rModDate) {
-		super();
-		this.rNo = rNo;
-		this.iNo = iNo;
-		this.uNo = uNo;
-		this.rTitle = rTitle;
-		this.rContent = rContent;
-		this.rCreDate = rCreDate;
-		this.rModDate = rModDate;
-	}
 
 
 	@Override
