@@ -95,7 +95,7 @@
 			success : function(data) {
 
 				viewCartSummaryFnc();
-				
+				location.reload();
 
 			}
 		});
@@ -127,7 +127,7 @@
 				success : function(data) {
 			
 					viewCartSummaryFnc();
-
+					location.reload();
 				}
 			});
 		} else {
@@ -154,6 +154,7 @@
 				success : function(data){
 					alert("삭제완료");
 					viewCartSummaryFnc();
+					location.reload();
 				}
 			})
 
@@ -231,7 +232,6 @@
 <body>
 	
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	
 <div id="cartListRootDiv" align="center">
 	<div id="textDivObj" >

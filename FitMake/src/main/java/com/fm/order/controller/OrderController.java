@@ -43,12 +43,12 @@ public class OrderController {
 	@RequestMapping(value = "/cart/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String viewCartList(HttpSession session, Model model) {
 		logger.debug("Welcome CartList");
-
+		
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 
 		List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
-
+		
 		model.addAttribute("cartMapList", cartMapList);
 
 		return "cart/CartList";

@@ -9,7 +9,105 @@
 <title>헤더</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	viewCartSummaryFnc();
+});
+
+function viewCartSummaryFnc() {
+	$
+			.ajax({
+				url : "../cart/summary.do",
+				type : "get",
+				dataType : "json",
+				success : function(cartList) {
+					var str = '';
+					var cartTotal = 0;
+
+					if (cartList < 1) {
+						str += '<div style="text-align:center">장바구니가 비었습니다</div>';
+					}
+
+					$
+							.each(
+									cartList,
+									function(key, value) {
+										var iPriceRaw = parseInt(value.FM_ITEM_SELLPRICE);
+										var ctCount = parseInt(value.FM_CART_COUNT);
+										var iPrice = new Intl.NumberFormat(
+												'ko-KR', {
+													style : 'currency',
+													currency : 'KRW'
+												}).format(iPriceRaw * ctCount);
+
+										var ctNo = parseInt(value.FM_CART_NO);
+
+										str += '<tr><td rowspan="3", style="width:20px">';
+										str += '<a href="/item/list.do?iNo='
+												+ value.FM_ITEM_NO
+												+ '"></a></td>';
+										//				str += '<img src="/img/'+value.itemVO.item_imgmain+'">';
+										str += '<td style="vertical-align : bottom; font-size:13px;">';
+										str += '<a href="/item/list.do?iNo='
+												+ value.FM_ITEM_NO
+												+ '">'
+												+ value.FM_ITEM_NAME;
+										str += '<td style="text-align:right;"><a onclick="deleteCartFnc('
+												+ ctNo
+												+ ');" style="font-size:6px" href="#">';
+										str += '<u>삭제하기</u></a></td></tr>';
+										str += '<tr><td style="width: 20px ;vertical-align : bottom; font-size:13px;"><p>'
+												+ iPriceRaw + '원</p></td>'
+										str += '<td style="width: 15% ;vertical-align : bottom; font-size:13px; text-align:right;">';
+										str += '<p>' + value.FM_CART_COUNT
+												+ '개</p></td></tr>';
+										str += '<tr><td colspan="2" style="width:10px;vertical-align:middle;font-size:13px;text-align:right;">';
+										str += '<p>' + (iPrice) + '원</p></td></tr>';
+
+										cartTotal = cartTotal
+												+ (parseInt(iPriceRaw) * ctCount);
+									});
+
+					var cartTotal = new Intl.NumberFormat('ko-KR', {
+						style : 'currency',
+						currency : 'KRW'
+					}).format(cartTotal);
+
+					$("#cartPrice").html(cartTotal);
+					$("#cartView").html(str);
+
+				}
+			});
+}
+
+function deleteCartFnc(cartNo) {
+	var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
+
+	if (deletecheck == true) {
+
+		$.ajax({
+			url : "../cart/deleteex.do",
+			type : "post",
+			dataType : "json",
+			data : {
+				"ctNo" : cartNo
+			},
+			success : function(data) {
+				alert("삭제완료");
+				viewCartSummaryFnc();
+			}
+		})
+
+	} else {
+		return false;
+	}
+}
 </script>
+<style type="text/css">
+	#cartList{
+		position : relative;
+  		display : inline-block;
+	}
+</style>
 </head>
 <body>
 	<div id="rootDiv">
@@ -43,7 +141,25 @@
 									src="/fitmake/resources/image/membermanagement.png"></a></li>
 							<li><a href="${pageContext.request.contextPath}/cart/list.do">
 									<img alt="장바구니" src="/fitmake/resources/image/cart.png">
+									
 								</a>
+							</li>
+							<li class="dropdown" style="font-size:15px;" id="cartList">
+								<a class="dropdown-toggle" href="../cart/list.do"  data-toggle="dropdown">
+									<span class="icon-basket" aria-hidden="true"></span>
+								</a>
+               		 			<ul class="dropdown-menu"></ul>
+               		 				<li class="dropdown" id="cartHeaderIcon"> 
+										<a class="rightNavArea" href="../cart/list.do" data-toggle="dropdown">
+										</a>
+							
+										
+									</li>
+									<li style="font-size: 15px; text-align: right;" aria-hidden="true">
+										<a href="../cart/list.do" style="color: black">장바구니 보기</a>
+									</li>
+								</ul>
+							</li>	
 						</ul>
 					</c:if>
 				</div>
