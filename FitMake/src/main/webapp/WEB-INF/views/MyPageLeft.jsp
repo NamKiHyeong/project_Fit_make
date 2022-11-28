@@ -7,9 +7,25 @@
 <title>Insert title here</title>
 
 <style type="text/css">
-ol{
-	margin: 0;
-	padding: 0;
+#container_Nav ol {
+	margin: 6px;
+	padding: 10px;
+	border-bottom: 1px solid;
+	text-align: left;
+	font-size: small;
+	line-height: 1.8em;
+}
+
+#firstDiv_Nav {
+	height: 100px;
+	text-align: center;
+	background-color: #d12268;
+}
+
+#mypageAtag {
+	color: #fff;
+	font-size: 18px;
+	font-weight: bold;
 }
 </style>
 
@@ -22,7 +38,7 @@ ol{
 <body>
 	<div id="container_Nav">
 		<div id="firstDiv_Nav">
-			<a href="#">마이페이지</a>
+			<a id="mypageAtag" href="#">마이페이지</a>
 		</div>
 		<div>
 			<ol>

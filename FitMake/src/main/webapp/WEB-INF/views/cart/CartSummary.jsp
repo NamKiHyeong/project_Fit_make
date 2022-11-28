@@ -104,8 +104,6 @@
 <style type="text/css">
 	#rightNav{
 		float :right;
-		flex : auto;
-		justify-content : center;
 		width: (window.innerWidth - 1230px) / 2; 
 		height: 100%;
 		border: 1px solid black;

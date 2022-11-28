@@ -45,9 +45,18 @@ th{
 }
 
 </style>
-
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-      
+      $(document).ready(function () {
+		var infoGender = $("#infoGender").val();
+		
+		if (infoGender == "M") {
+			$("#infoGender").val("남성");
+		} else if (infoGender == "W") {
+			$("#infoGender").val("여성");
+		}
+	});
 </script>
 
 </head>
@@ -63,35 +72,35 @@ th{
 				<table>
 					<tr>
 						<th>계정</th>
-						<td>이메일</td>
+						<td><input type="text" value="${_userDto_.email}" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th>닉네임</th>
-						<td><input type="text" value="닉네임"></td>
+						<td><input type="text" value="${_userDto_.nickName}"></td>
 					</tr>
 					<tr>
 						<th>휴대폰 번호</th>
-						<td><input type="text" value="휴대폰 번호"><input type="button" value="변경"></td>
+						<td><input type="text" value="${myInfomap.FM_USER_MOBILE}"><input type="button" value="변경"></td>
 					</tr>
 					<tr>
 						<th>현재 비밀번호</th>
-						<td><input type="text" value="비밀번호 입력"><a>비밀번호 변경</a></td>
+						<td><input type="text" value=""><a>비밀번호 변경</a></td>
 					</tr>
 					<tr>
 						<th>신규 비밀번호</th>
-						<td><input type="password" value="신규 비밀번호 입력"></td>
+						<td><input type="password" value="" placeholder="비밀번호를 입력하세요"></td>
 					</tr>
 					<tr>
 						<th>신규 비밀번호 확인</th>
-						<td><input type="password" value="비밀번호 확인"></td>
+						<td><input type="password" value="" placeholder="비밀번호를 한번더 입력하세요"></td>
 					</tr>
 					<tr>
 						<th>구매 포인트</th>
-						<td>보유금액 <input type="text">원 <input type="button" value="충전"></td>
+						<td>보유금액 <input type="text" value="${_userDto_.point}">원 <input type="button" value="충전"></td>
 					</tr>
 					<tr>
 						<th>상세 정보</th>
-						<td>나이 <input type="text"> 키<input type="text"> 몸무게<input type="text"></td>
+						<td>성별 <input type="text" id="infoGender" value="${myInfomap.FM_USER_BMI_GENDER}"> 키<input type="text" value="${myInfomap.FM_USER_BMI_HEIGHT}"> 몸무게<input type="text" value="${myInfomap.FM_USER_BMI_WEIGHT}"></td>
 					</tr>
 				</table>
 				<div id="infoBtn">

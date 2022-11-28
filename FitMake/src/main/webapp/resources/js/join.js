@@ -63,7 +63,7 @@ function joinSunFnc() {
 		return false;
 	}
 
-	if (add_Detail.value == '' || add_Detail.value == null) {
+	if (add_Detail == '' || add_Detail == null) {
 		$("#result_check_add").html("· 상세주소를 입력해주세요").css("color", "red");
 		$("#add_Detail").focus();
 		return false;
