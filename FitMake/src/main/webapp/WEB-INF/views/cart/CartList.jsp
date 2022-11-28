@@ -53,11 +53,7 @@
 				success : function(data) {
 
 					if (data == 1) {
-						//팝업으로 띄우는 방법을 알아볼 것
 						viewCartSummaryFnc();
-						// toastr css를 사용해도 되는지 알아볼 것
-// 						toastr.options.preventDuplicates = true;
-// 						toastr.success("예시");
 
 						alert("장바구니 추가완료");
 					} else if (data == 2) {
@@ -298,8 +294,6 @@
 		</form>			
 	</div>
 	
-	<input type="button" id="testbtn" value="카트테스트">
-	<input type="hidden" id="testiNo" value="3">
 </div>
 </body>
 </html>

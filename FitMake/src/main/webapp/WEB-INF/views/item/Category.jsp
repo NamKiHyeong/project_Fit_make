@@ -8,16 +8,64 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/fitmake/resources/css/item.css">
 <title>특가 더미 사이트(Item list 사이트)</title>
-<style type="text/css">
- 
-</style>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
+$(document).ready(function() {
+	
+	$("#addCartBtn").on("click", function(){
+		
+		var iNo = [];
+		
+		$('input:checkbox[name="iCkBox"]').each(function() {
+			
+			if(this.checked == true){
+				iNo.push(this.value);
+			}
+		});
+		
+		var itemCart = { 
+				"iNo" : iNo,
+				"iCount" : 1
+		};
+		
+		$.ajax({
+			type : "POST",
+			url : "../cart/addex.do",
+			dataType : "json",
+			data : itemCart,
+			error : function(request, status, error) {
+				alert("code:"
+						+ request.status
+						+ "\n"
+						+ "message:"
+						+ request.responseText
+						+ "\n"
+						+ "error:"
+						+ error);
+			},
+			success : function(data) {
 
+				if (data == 1) {
+					viewCartSummaryFnc();
+
+					alert("장바구니 추가완료");
+				} else if (data == 2) {
+
+					alert("이미 추가 된 상품입니다");
+				}
+
+			}
+		});
+		
+	});
+	
+	viewCartSummaryFnc();
+	
+});
 	function itemOneFnc(no){
 		//pagingForm에 curPage
 		
-		var idStr = 'itemOneForm' + no
+		var idStr = 'itemOneForm' + no;
 		var itemOneFormObj = document.getElementById(idStr);
 		
 		itemOneFormObj.submit();
@@ -28,6 +76,8 @@
 		itemOneFormObj.submit();
 	}
 </script>
+<style type="text/css">
+</style>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
@@ -53,7 +103,7 @@
 					<c:forEach var="item" items = "${itemList}">
 						<div class="CategoryItem">
 							<form id="itemOneForm${item.itemDto.iNo}" action="./one.do" method="get">
-	<!-- 							<input type="checkbox"> -->
+								<input type="checkbox" name="iCkBox" value="${item.itemDto.iNo}">
 								<input type="hidden" name="iNo" value="${item.itemDto.iNo}">
 								<input type="hidden" name="cNo" value="${item.itemDto.cNo}">
 								<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
@@ -70,10 +120,11 @@
 						</div>
 					</c:forEach>
 				</div>
-			</div>
-		</c:otherwise>
-		
-	</c:choose>
+				</c:otherwise>
+				
+			</c:choose>
+		</div>
+		<input type="button" id="addCartBtn" value="장바구니 추가">
 	
 	<form action="./list.do">
 		<input type="hidden" name="cNo" value="${pagingMap.cNo}">

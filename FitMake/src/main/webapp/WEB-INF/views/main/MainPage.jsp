@@ -8,6 +8,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp"/>
+	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	<h3><a href="../item/list.do?cNo=2">다이어트</a></h3>
 </body>
 </html>

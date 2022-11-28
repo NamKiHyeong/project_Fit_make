@@ -337,7 +337,7 @@ public class OrderController {
 	 */
 	  @ResponseBody
 	  @RequestMapping(value = "/cart/addex.do", method = RequestMethod.POST)
-	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo", defaultValue = "0") int iNo
+	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo[]", defaultValue = "0") int[] iNo
 			  , @RequestParam(value="iCount", defaultValue = "0") int iCount) throws Exception {
 		  logger.debug("ino = " + iNo);
 		  logger.debug("iCount = " + iCount);
@@ -345,12 +345,16 @@ public class OrderController {
 	      UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 	      int uNo = (int)userDto.getuNo();
 	      
-	      if(orderService.checkCart(uNo, iNo) != 0) {
-	    	  return 2;
+	      for(int i = 0; i < iNo.length; i++) {
+		      if(orderService.checkCart(uNo, iNo[i]) != 0) {
+		    	  return 2;
+		      }
 	      }
 	      
-	      orderService.addCart(uNo, iNo, iCount);
-	     
+	      for(int i = 0; i < iNo.length; i++) {
+	    	  orderService.addCart(uNo, iNo[i], iCount);
+	      }
+	      
 	    return 1;
 	  }
 	  
