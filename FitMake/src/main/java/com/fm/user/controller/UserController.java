@@ -179,4 +179,11 @@ public class UserController {
 			
 			return "/user/UserMyInfo";
 		}
+	
+	@RequestMapping(value = "/user/point.do")
+		public String pointView() {;
+			logger.info("포인트 페이지로 갑니다");
+			
+		return "/user/PointPopup";
+	}
 }

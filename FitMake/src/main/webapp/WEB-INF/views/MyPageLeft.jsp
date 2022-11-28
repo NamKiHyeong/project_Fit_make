@@ -42,26 +42,26 @@
 		</div>
 		<div>
 			<ol>
-				<li>주문관리</li>
-				<li>주문/배송조회</li> 
-				<li>주문취소/반품조회</li> 
+				<li><strong>주문관리</strong></li>
+				<li><a href="#">주문/배송조회</a></li>
+				<li><a href="#">주문취소/반품조회</a></li>
 			</ol>
 		</div>
 		<div>
 			<ol>
-				<li>활동 관리</li>
-				<li>리얼후기</li>
-				<li>상품문의</li>
-				<li>1:1 문의</li>
-				<li>찜한 상품</li>
-				<li>최근 본 상품</li>
+				<li><strong>활동 관리</strong></li>
+				<li><a href="#">리얼후기</a></li>
+				<li><a href="#">상품문의</a></li>
+				<li><a href="#">1:1 문의</a></li>
+				<li><a href="#">찜한 상품</a></li>
+				<li><a href="#">최근 본 상품</a></li>
 			</ol>
 		</div>
 		<div>
 			<ol>
-				<li>정보 관리</li>
-				<li>내정보 수정</li>
-				<li>충전내역</li>
+				<li><strong>정보 관리</strong></li>
+				<li><a href="#">내정보 수정</a></li>
+				<li><a href="#">충전내역</a></li>
 			</ol>
 		</div>
 	</div>

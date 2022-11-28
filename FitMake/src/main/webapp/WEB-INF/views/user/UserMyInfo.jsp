@@ -40,8 +40,12 @@ th{
 	flex-direction: column;
 	align-items: center;
 }
-#infoBtn {
 
+#pwdView {
+	cursor: pointer;
+}
+.btnClass {
+	
 }
 
 </style>
@@ -56,7 +60,22 @@ th{
 		} else if (infoGender == "W") {
 			$("#infoGender").val("여성");
 		}
+	
 	});
+      function viewPwdChange(){
+  		if($("#trpwd1").is(':visible') == false ){
+  			$("#trpwd1").show();
+  			$("#trpwd2").show();
+  		}else{
+  			$("#trpwd1").hide();
+  			$("#trpwd2").hide();
+  			$("#new_user_pwd").val("");
+  			$("#new_user_pwd_check").val("");
+  		}
+  	}
+      function showPopup() {
+		window.open("/fitmake/user/point.do", "point", "width=500px, height=400px, left=100px, top=50px");
+	}
 </script>
 
 </head>
@@ -84,19 +103,19 @@ th{
 					</tr>
 					<tr>
 						<th>현재 비밀번호</th>
-						<td><input type="text" value=""><a>비밀번호 변경</a></td>
+						<td><input type="text" value=""><a id="pwdView" onclick="viewPwdChange();">비밀번호 변경</a></td>
 					</tr>
-					<tr>
+					<tr id="trpwd1">
 						<th>신규 비밀번호</th>
-						<td><input type="password" value="" placeholder="비밀번호를 입력하세요"></td>
+						<td><input type="password" id="new_user_pwd" value="" placeholder="비밀번호를 입력하세요"></td>
 					</tr>
-					<tr>
+					<tr id="trpwd2">
 						<th>신규 비밀번호 확인</th>
-						<td><input type="password" value="" placeholder="비밀번호를 한번더 입력하세요"></td>
+						<td><input type="password" id="new_user_pwd_check" value="" placeholder="비밀번호를 한번더 입력하세요"></td>
 					</tr>
 					<tr>
 						<th>구매 포인트</th>
-						<td>보유금액 <input type="text" value="${_userDto_.point}">원 <input type="button" value="충전"></td>
+						<td>보유금액 <input type="text" value="${_userDto_.point}">원 <input type="button" value="충전" onclick="showPopup();"></td>
 					</tr>
 					<tr>
 						<th>상세 정보</th>
@@ -104,7 +123,7 @@ th{
 					</tr>
 				</table>
 				<div id="infoBtn">
-					<input type="button" value="확인"> <input type="button" value="취소">
+					<input class="btnClass" type="button" value="확인"> <input class="btnClass" type="button" value="취소">
 				</div>
 			</div>
 		</div>
