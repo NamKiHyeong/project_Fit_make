@@ -41,17 +41,17 @@ function viewCartSummaryFnc() {
 
 										var ctNo = parseInt(value.FM_CART_NO);
 
-										str += '<tr><td rowspan="3", style="width:20px">';
+										str += '<tr><td rowspan="3", style="width:40px">';
 										str += '<a href="/item/list.do?iNo='
 												+ value.FM_ITEM_NO
 												+ '"></a></td>';
 										//				str += '<img src="/img/'+value.itemVO.item_imgmain+'">';
-										str += '<td style="vertical-align : bottom; font-size:13px;">';
+										str += '<td style="width:40px;vertical-align : bottom; font-size:13px;">';
 										str += '<a href="/item/list.do?iNo='
 												+ value.FM_ITEM_NO
 												+ '">'
 												+ value.FM_ITEM_NAME;
-										str += '<td style="text-align:right;"><a onclick="deleteCartFnc('
+										str += '<td style="width: 40px;text-align:right;"><a onclick="deleteCartFnc('
 												+ ctNo
 												+ ');" style="font-size:6px" href="#">';
 										str += '<u>삭제하기</u></a></td></tr>';
@@ -103,9 +103,34 @@ function deleteCartFnc(cartNo) {
 }
 </script>
 <style type="text/css">
-	#cartList{
-		position : relative;
-  		display : inline-block;
+ 	#cartList{ 
+ 		position : relative; 
+   		display : inline-block; 
+ 	} 
+	
+	#cartList {
+    min-width: 280px;
+    max-width: 280px;
+    min-height: 100px;
+    background: white;
+    border : 1px solid;
+    padding: 5px;
+    border-radius : 3px;
+    transition: 0.5s all;
+	}
+
+	#cartList ul li a {
+	    padding: 10px 15px;
+	    font-size: 1.1em;
+	    display: block;
+	    color: black;
+	}
+	
+	#cartList.active {
+    margin-left: -250px;
+	}
+	a[data-toggle="collapse"] {
+	    position: relative;
 	}
 </style>
 </head>
@@ -139,27 +164,23 @@ function deleteCartFnc(cartNo) {
 									src="/fitmake/resources/image/myinfo.png"></a></li>
 							<li><a href="${pageContext.request.contextPath}/order/list.do"><img alt="주문관리"
 									src="/fitmake/resources/image/membermanagement.png"></a></li>
-							<li><a href="${pageContext.request.contextPath}/cart/list.do">
+							<li class="dropdown" style="font-size:15px;">
+								<a href="${pageContext.request.contextPath}/cart/list.do" data-toggle="collaspe">
 									<img alt="장바구니" src="/fitmake/resources/image/cart.png">
-									
 								</a>
+								<span class="" aria-hidden="true"></span>
+								<div id="cartList">
+									<table style="width: 100%" aria-hidden="true">
+										<tbody id="cartView" aria-hidden="true">
+											
+										</tbody>
+									</table>
+									<hr />
+									<div style="text-align: right">
+										<span style="font-size: 22px;"> total : <span id="cartPrice"></span></span>
+									</div>
+								</div>
 							</li>
-							<li class="dropdown" style="font-size:15px;" id="cartList">
-								<a class="dropdown-toggle" href="../cart/list.do"  data-toggle="dropdown">
-									<span class="icon-basket" aria-hidden="true"></span>
-								</a>
-               		 			<ul class="dropdown-menu"></ul>
-               		 				<li class="dropdown" id="cartHeaderIcon"> 
-										<a class="rightNavArea" href="../cart/list.do" data-toggle="dropdown">
-										</a>
-							
-										
-									</li>
-									<li style="font-size: 15px; text-align: right;" aria-hidden="true">
-										<a href="../cart/list.do" style="color: black">장바구니 보기</a>
-									</li>
-								</ul>
-							</li>	
 						</ul>
 					</c:if>
 				</div>
