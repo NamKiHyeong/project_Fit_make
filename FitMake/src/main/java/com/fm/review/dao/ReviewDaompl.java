@@ -19,11 +19,29 @@ public class ReviewDaompl implements ReviewDao {
 	@Override
 	public int reviewInsert(ReviewDto reviewDto) {
 		return sqlSession.insert(namespace + "reviewInsert", reviewDto);
+		
 	}
 	@Override
 	public void insertFile(Map<String, Object> map) {
 		sqlSession.insert(namespace + "insertFile", map);
 	}
 	
+////	R
+//	@Override
+//	public List<ReviewDto> reviewSelectList(int cNo){
+//		Map<String, Object>map = new HashMap<String, Object>();
+//		
+//		map.put("cNo", cNo);
+//		
+//		return sqlSession.selectList(namespace + "reviewSelect", map);
+//	}
+//	
+//	
+//	@Override
+//	public Map<String, Object> fileSelectOne(int no){
+//		
+//		return sqlSession.selectOne(namespace + "fileSelectOne", no);
+//		
+//	}
 	
 }

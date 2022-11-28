@@ -19,7 +19,7 @@
 			<li><a>리뷰 낮은 순</a></li>
 		</ul>
 	</div>
-	
+<%-- 	<a href="./add.do?cNo=${pagingMap.cNo}"></a> --%>
 	<div>
 		<c:forEach var="review" items="${reviewList}">
 			<div>

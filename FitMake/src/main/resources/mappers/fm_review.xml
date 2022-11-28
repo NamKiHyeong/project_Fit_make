@@ -26,23 +26,9 @@
 	
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO FM_REVIEW_IMAGE
-		VALUE(FM_REVIEW_IMAGE_NO, FM_REVIEW_NO, FM_REVIEW_IMAGE_STORED_IMAGE_NAME)
+		VALUE(FM_REVIEW_IMAGE_NO, FM_REVIEW_NO, FM_REVIEW_IMG_STORED_IMAGE_NAME)
 		VALUES(SEQ_FM_REVIEW_IMAGE_NO.NEXTVAL, ${parentSeq}, ${original_file_name}, #{stored_file_name})
 	</insert>
 	
 	
-	
-	
-	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
-		SELECT r.FM_REVIEW_NO, r.FM_ITEM_NO, r.FM_USER_NO, r.FM_REVIEW_TITLE, r.FM_REVIEW_CONTENT, r.FM_REVIEW_CRE_DATE
-		FRIM FM_REVIEW r
-			
-			INNER JOIN FM_ITEN_NO i
-				ON r.FM_REVIEW_NO = i.FM_ITEN_NO
-				
-			INNER JOIN FM_USER u
-				ON r.FM_REVIEW_NO = u.FM_USER_NO
-
-		WHERE r.FM_REVIEW_NO = #{uNo}
-	</select>
 </mapper>

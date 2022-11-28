@@ -13,9 +13,9 @@
 	</script>
 </head>
 <body>
-	<jsp:include page="../Header.jsp" enctype="multipart/form-data"/>
+	<jsp:include page="../Header.jsp"/>
 
-	<form action="./addCtr.do" method="post">
+	<form action="./addCtr.do" method="post" enctype="multipart/form-data">
 		<div>
 		<h3>제목</h3> <input type="text" name="rTitle">
 		

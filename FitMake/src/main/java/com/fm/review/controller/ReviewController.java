@@ -1,6 +1,8 @@
 package com.fm.review.controller;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.review.model.ReviewDto;
@@ -23,10 +26,18 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
+/**
+ * Create!!
+ * @param cNo
+ * @param model
+ * @return
+ */
+	
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewAdd(Model model) {
+	public String reviewAdd(int cNo, Model model) {
 		logger.info("리플을 달아보자", model);
 		
+		model.addAttribute("cNo", cNo);
 		return "/review/ReviewAdd";
 	}
 	
@@ -43,5 +54,27 @@ public class ReviewController {
 		}
 		
 		return "redirect:/item/list.do?cNo=2";
+//		return "redirect:/review/list.do?cNo=1";
+		
 	}
+	
+//	@RequestMapping(value="/review/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public String reviewSelectList(@RequestParam int cNo, Model model) {
+////		logger.info("리플을 확인합니다.{}" ,reviewDto);
+//		
+//		
+//		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(cNo);
+//		logger.info("카테고리는?.{}" , cNo);
+//		
+////		Map<String, Object> 
+//		
+//		Map<String, Object> pagingMap = new HashMap<>();
+//		
+//		pagingMap.put("cNo", cNo);
+//		
+//		model.addAttribute("reviewList", reviewList);
+//		model.addAttribute("cNo", cNo);
+//		
+//		return "/review/ReviewList";
+//	}
 }
