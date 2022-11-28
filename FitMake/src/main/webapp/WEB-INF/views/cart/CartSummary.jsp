@@ -29,16 +29,16 @@
 										cartList,
 										function(key, value) {
 											var iPriceRaw = parseInt(value.FM_ITEM_SELLPRICE);
+											var ctCount = parseInt(value.FM_CART_COUNT);
 											var iPrice = new Intl.NumberFormat(
 													'ko-KR', {
 														style : 'currency',
 														currency : 'KRW'
-													}).format(iPriceRaw);
+													}).format(iPriceRaw * ctCount);
 
-											var ctCount = parseInt(value.FM_CART_COUNT)
 											var ctNo = parseInt(value.FM_CART_NO);
 
-											str += '<tr><td rowspan="3", style="width:20%">';
+											str += '<tr><td rowspan="3", style="width:20px">';
 											str += '<a href="/item/list.do?iNo='
 													+ value.FM_ITEM_NO
 													+ '"></a></td>';
@@ -52,15 +52,13 @@
 													+ ctNo
 													+ ');" style="font-size:6px" href="#">';
 											str += '<u>삭제하기</u></a></td></tr>';
-											str += '<tr><td style="width: 30% ;vertical-align : bottom; font-size:13px;"><p>'
+											str += '<tr><td style="width: 20px ;vertical-align : bottom; font-size:13px;"><p>'
 													+ iPriceRaw + '원</p></td>'
 											str += '<td style="width: 15% ;vertical-align : bottom; font-size:13px; text-align:right;">';
 											str += '<p>' + value.FM_CART_COUNT
 													+ '개</p></td></tr>';
-											str += '<tr><td></td>';
-											str += '<td style="width:10%;vertical-align:middle;font-size:13px;text-align:right;"><p>'
-													+ (iPriceRaw * ctCount)
-													+ '원</p></td></tr>';
+											str += '<tr><td colspan="2" style="width:10px;vertical-align:middle;font-size:13px;text-align:right;">';
+											str += '<p>' + (iPrice) + '원</p></td></tr>';
 
 											cartTotal = cartTotal
 													+ (parseInt(iPriceRaw) * ctCount);
@@ -91,8 +89,8 @@
 					"ctNo" : cartNo
 				},
 				success : function(data) {
-					cartHeaderView();
 					alert("삭제완료");
+					viewCartSummaryFnc();
 				}
 			})
 
@@ -102,24 +100,24 @@
 	}
 </script>
 <style type="text/css">
-	#rightNav{
-		float :right;
-		width: (window.innerWidth - 1230px) / 2; 
-		height: 100%;
-		border: 1px solid black;
-		padding: 10px;
-	}
-	#rootRightNav{
-		text-align: center;
-		margin-right: 30px;
-	}
+#rightNav {
+	float: right;
+	width: 300px;
+	height: 100%;
+	border: 1px solid black;
+	padding: 10px;
+}
+
+#rootRightNav {
+	text-align: center;
+	margin-right: 30px;
+}
 </style>
 </head>
 <body>
 	<div id="rootRightNav">
 		<div id="rightNav" aria-hidden="true">
-			<a class="rightNavArea" href="../cart/list.do"
-				data-toggle="dropdown">
+			<a class="rightNavArea" href="../cart/list.do" data-toggle="dropdown">
 			</a>
 
 			<div style="" class="">

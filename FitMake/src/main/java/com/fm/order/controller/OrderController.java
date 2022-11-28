@@ -177,7 +177,7 @@ public class OrderController {
 	@RequestMapping(value = "/order/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String addOrder(HttpSession session, Model model, RedirectAttributes redirect, 
 			@RequestParam(defaultValue = "0") int[] iNo,
-			@RequestParam(defaultValue = "0") int[] cCount, @RequestParam(defaultValue = "0") int[] iPrice,
+			@RequestParam(defaultValue = "1") int[] ctCount, @RequestParam(defaultValue = "0") int[] iSellprice,
 			@RequestParam(defaultValue = "0") int[] ctNo) {
 		logger.debug("welcome orderAdd");
 
@@ -189,7 +189,7 @@ public class OrderController {
 		if (ctNo[0] == 0) {
 
 			orderService.addOrder(uNo);
-			orderService.addOrderDetail(uNo, iNo[0], cCount[0], iPrice[0]);
+			orderService.addOrderDetail(uNo, iNo[0], ctCount[0], iSellprice[0]);
 			oNo = orderService.viewOrderNo(uNo);
 			
 			redirect.addAttribute("oNo", oNo);
@@ -201,7 +201,7 @@ public class OrderController {
 			oNo = orderService.viewOrderNo(uNo);
 			
 			for (int i = 0; i < iNo.length; i++) {
-				orderService.addOrderDetail(uNo, iNo[i], cCount[i], iPrice[i]);
+				orderService.addOrderDetail(uNo, iNo[i], ctCount[i], iSellprice[i]);
 			}
 			
 			redirect.addAttribute("ctNo", ctNo);
@@ -338,7 +338,7 @@ public class OrderController {
 	  @ResponseBody
 	  @RequestMapping(value = "/cart/addex.do", method = RequestMethod.POST)
 	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo[]", defaultValue = "0") int[] iNo
-			  , @RequestParam(value="iCount", defaultValue = "0") int iCount) throws Exception {
+			  , @RequestParam(value="ctCount", defaultValue = "0") int iCount) throws Exception {
 		  logger.debug("ino = " + iNo);
 		  logger.debug("iCount = " + iCount);
 		  

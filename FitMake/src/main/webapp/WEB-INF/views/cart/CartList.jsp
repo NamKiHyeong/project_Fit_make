@@ -153,7 +153,7 @@
 				data : {"ctNo" : cartNo},
 				success : function(data){
 					alert("삭제완료");
-					cartHeaderView();
+					viewCartSummaryFnc();
 				}
 			})
 
