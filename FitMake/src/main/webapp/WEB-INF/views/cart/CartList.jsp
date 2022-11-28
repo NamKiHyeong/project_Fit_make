@@ -99,7 +99,6 @@
 			success : function(data) {
 
 				viewCartSummaryFnc();
-				alert("장바구니 업데이트 완료");
 				
 
 			}
@@ -132,7 +131,6 @@
 				success : function(data) {
 			
 					viewCartSummaryFnc();
-					alert("장바구니 업데이트 완료");
 
 				}
 			});
@@ -170,15 +168,13 @@
 	
 </script>
 <style type="text/css">
+	#cartListRootDiv {
+		width: 1200px;
+		margin: 0px auto;
+	}
 	#headHr {
 		margin-left: 6.5%;
 		margin-top: 3%
-	}
-	#rootDivObj{
-		width : 80%;
-		align-content: left;
-		text-align: right;
- 		align-items: left; 
 	}
 	#headTable {
 		width: 80%;
@@ -241,7 +237,8 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	
-	<div id="rootDivObj">
+<div id="cartListRootDiv" align="center">
+	<div id="textDivObj" >
 		<div id="titleDivObj">
 			<table id="headTable">
 				<tr>
@@ -303,12 +300,6 @@
 	
 	<input type="button" id="testbtn" value="카트테스트">
 	<input type="hidden" id="testiNo" value="3">
-	
-	<div>
-<!-- 		<form id="cartUpdateForm" action="./update.do" method="post"> -->
-<!-- 			<input type="hidden" name="ctNo" id="ctNoVal" value=""> -->
-<!-- 			<input type="hidden" name="ctCount" id="ctCountVal" value=""> -->
-<!-- 		</form> -->
-	</div>
+</div>
 </body>
 </html>

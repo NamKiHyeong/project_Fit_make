@@ -104,11 +104,10 @@
 <style type="text/css">
 	#rightNav{
 		float :right;
-		flex : auto;
-		justify-content : center;
 		width: (window.innerWidth - 1230px) / 2; 
 		height: 100%;
 		border: 1px solid black;
+		padding: 10px;
 	}
 	#rootRightNav{
 		text-align: center;
@@ -118,26 +117,25 @@
 </head>
 <body>
 	<div id="rootRightNav">
-		<div id="rightNav">
-			<a class="dropdown-toggle" href="../cart/list.do"
-				data-toggle="dropdown"> <span class="icon-basket"
-				aria-hidden="true"></span>
+		<div id="rightNav" aria-hidden="true">
+			<a class="rightNavArea" href="../cart/list.do"
+				data-toggle="dropdown">
 			</a>
 
 			<div style="" class="">
-				<table style="">
-					<tbody id="cartView">
+				<table style="" aria-hidden="true">
+					<tbody id="cartView" aria-hidden="true">
 
 					</tbody>
 				</table>
 				<hr />
-				<div style="text-align: right" class="font-serif">
+				<div style="text-align: right">
 					<span style="font-size: 22px;"> total : <span id="cartPrice"></span></span>
 				</div>
 			</div>
 			<ul>
-				<li class="dropdown" style="font-size: 15px; text-align: right;">
-					<a href="../cart/list.do" style="color: white">장바구니 보기</a>
+				<li style="font-size: 15px; text-align: right;" aria-hidden="true">
+					<a href="../cart/list.do" style="color: black">장바구니 보기</a>
 				</li>
 			</ul>
 		</div>
