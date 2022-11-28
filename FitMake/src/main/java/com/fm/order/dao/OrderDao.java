@@ -15,7 +15,7 @@ public interface OrderDao {
 	
 	public int addCart(int uNo, int iNo, int iCount);
 	
-	public int deleteCart(int uNo, int cNo);
+	public int deleteCart(int uNo, int ctNo);
 
 	public List<Map<String, Object>> viewOrderList(int uNo);
 

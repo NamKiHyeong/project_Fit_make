@@ -45,7 +45,7 @@
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM FM_CART
 		WHERE FM_USER_NO = #{uNo}
-		AND FM_CART_NO = #{cNo}
+		AND FM_CART_NO = #{ctNo}
 	</delete>
 	
 	<select id="viewOrderList" parameterType="int" 
@@ -88,8 +88,8 @@
 	
 	<update id="updateCart" parameterType="cartDto">
 		UPDATE FM_CART
-		SET FM_CART_COUNT = #{cCount}
-		WHERE FM_CART_NO = #{cNo}
+		SET FM_CART_COUNT = #{ctCount}
+		WHERE FM_CART_NO = #{ctNo}
 	</update>
 	
 	<select id="viewOrderNo" parameterType="int" resultType="int">

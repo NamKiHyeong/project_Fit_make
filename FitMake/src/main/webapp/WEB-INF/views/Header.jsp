@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/fitmake/resources/css/header.css">
 <title>헤더</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	viewCartSummaryFnc();
@@ -35,14 +36,18 @@ function viewCartSummaryFnc(){
 			var ctCount = parseInt(value.FM_CART_COUNT)
 			var ctNo = parseInt(value.FM_CART_NO);
 			
-			str += '<tr><td style="width:18%">';
-			str += '<a href="/item/list.do?iNo=' + value.FM_ITEM_NO + '">';
-//				str += '<img src="/img/'+value.itemVO.item_imgmain+'"></a></td>';
+			str += '<tr><td rowspan="3", style="width:15%">';
+			str += '<a href="/item/list.do?iNo=' + value.FM_ITEM_NO + '"></a></td>';
+//				str += '<img src="/img/'+value.itemVO.item_imgmain+'">';
 			str += '<td style="vertical-align : bottom; font-size:13px;">';
-			str += '<a href="/item/list.do?iNo=' + value.FM_ITEM_NO + '">'; 
-			str += value.FM_ITEM_NAME + '<p>'+value.FM_CART_COUNT + '개</p></a>';
-			str += '<a onclick="deleteCartFnc('+ ctNo +');" style="font-size:6px" href="#"><u>삭제하기</u></a></td>';
-			str += '<td style="width:20%;vertical-align : middle; font-size:13px;">'+ iPrice +'</td> </tr>';
+			str += '<a href="/item/list.do?iNo=' + value.FM_ITEM_NO + '">' + value.FM_ITEM_NAME; 
+			str += '<td style="text-align:right;"><a onclick="deleteCartFnc('+ ctNo +');" style="font-size:6px" href="#">';
+			str += '<u>삭제하기</u></a></td></tr>';
+			str += '<tr><td style="width: 30% ;vertical-align : bottom; font-size:13px;"><p>'+ iPriceRaw + '원</p></td>'
+			str += '<td style="width: 30% ;vertical-align : bottom; font-size:13px; text-align:right;">';
+			str += '<p>'+ value.FM_CART_COUNT + '개</p></td></tr>';
+			str += '<tr><td></td>';
+			str += '<td style="width:10%;vertical-align:middle;font-size:13px;text-align:right;"><p>'+ (iPriceRaw * ctCount) +'원</p></td></tr>';
 			
 			cartTotal = cartTotal + (parseInt(iPriceRaw) * ctCount);
 		});
@@ -58,6 +63,27 @@ function viewCartSummaryFnc(){
 		
 		}
 	});
+}
+
+function deleteCartFnc(cartNo){
+	var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
+	
+	if(deletecheck == true){
+		
+		$.ajax({
+			url : "../cart/deleteex.do",
+			type : "post",
+			dataType : "json",
+			data : {"ctNo" : cartNo},
+			success : function(data){
+				cartHeaderView();
+				alert("삭제완료");
+			}
+		})
+
+	} else {
+		return false;
+	}
 }
 </script>
 </head>
@@ -91,30 +117,24 @@ function viewCartSummaryFnc(){
 									src="/fitmake/resources/image/myinfo.png"></a></li>
 							<li><a href="${pageContext.request.contextPath}/order/list.do"><img alt="주문관리"
 									src="/fitmake/resources/image/membermanagement.png"></a></li>
-							<li><a href="${pageContext.request.contextPath}/cart/list.do"><img alt="장바구니"
-									src="/fitmake/resources/image/cart.png"></a>
-								<a  class="dropdown-toggle" href="../cart/list.do"  data-toggle="dropdown">
-									<span class="icon-basket" aria-hidden="true"></span>
+							<li><a href="${pageContext.request.contextPath}/cart/list.do" data-toggle="dropdown">
+									<img alt="장바구니" src="/fitmake/resources/image/cart.png">
 								</a>
-					        	<ul class="dropdown-menu">
-					            	<li class="dropdown" id="cartHeaderIcon"> 
-					               		<div style="width:550px;" class="bg-light">
-					               			<table class="table table-hover bg-light" style="">
-						                    	<tbody id="cartView">
-						
-						                    	</tbody>
-					                  		</table>
-						                  	<hr/>
-											<div style="text-align:right" class="font-serif">
-												<span style="font-size:22px;"> total : <span id="cartPrice"></span></span>
-							              	</div>
-										</div>
-									</li>
-									<li class="dropdown" style="font-size:15px;text-align:right;">
-										<a href="../cart/list.do" style="color:white">장바구니 보기</a>
-									</li>
-								</ul>
+								<div style="width:300px;" class="">
+			               			<table style="">
+				                    	<tbody id="cartView">
+											
+				                    	</tbody>
+			                  		</table>
+				                  	<hr/>
+									<div style="text-align:right" class="font-serif">
+										<span style="font-size:22px;"> total : <span id="cartPrice"></span></span>
+					              	</div>
+								</div>
 							</li>
+<!-- 							<li class="dropdown" style="font-size:15px;text-align:right;"> -->
+<!-- 								<a href="../cart/list.do" style="color:white">장바구니 보기</a> -->
+<!-- 							</li> -->
 						</ul>
 					</c:if>
 				</div>

@@ -41,12 +41,12 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public int deleteCart(int uNo, int cNo) {
+	public int deleteCart(int uNo, int ctNo) {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		
 		inputMap.put("uNo", uNo);
-		inputMap.put("cNo", cNo);
+		inputMap.put("ctNo", ctNo);
 				
 		return sqlSession.delete(namespace + "deleteCart", inputMap);
 	}

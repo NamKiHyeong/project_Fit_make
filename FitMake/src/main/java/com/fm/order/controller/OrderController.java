@@ -88,7 +88,7 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/cart/update.do", method = RequestMethod.POST)
 	public String updateCart(HttpSession session, CartDto cartDto, Model model) throws Exception {
-		logger.debug("Welcome cartUpdate" + cartDto.getcNo() + "" + cartDto.getcCount());
+		logger.debug("Welcome cartUpdate" + cartDto.getCtNo() + "" + cartDto.getCtCount());
 
 		int count = 0;
 
@@ -102,20 +102,20 @@ public class OrderController {
 	}
 
 	/**
-	 * 유효성 검사 추가 필요 / cno와 ino를 통해 장바구니 번호를 검색해야하는 지의 여부는 생각해 볼것 장바구니에 있는 물품을 지우는 기능
+	 * 유효성 검사 추가 필요 / ctNo와 ino를 통해 장바구니 번호를 검색해야하는 지의 여부는 생각해 볼것 장바구니에 있는 물품을 지우는 기능
 	 * 
 	 * @param session 세션에 저장된 uNo를 가져오기 위한 객체
-	 * @param cNo     장바구니 물품의 고유 값
+	 * @param ctNo     장바구니 물품의 고유 값
 	 * @return 장바구니리스트 페이지 호출
 	 */
 	@RequestMapping(value = "/cart/delete.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String deleteCart(HttpSession session, Model model, int cNo) {
+	public String deleteCart(HttpSession session, Model model, int ctNo) {
 		logger.debug("welcome cartDelete");
 
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		
-		orderService.deleteCart(uNo, cNo);
+		orderService.deleteCart(uNo, ctNo);
 
 		return "redirect:/cart/list.do";
 	}
@@ -170,7 +170,7 @@ public class OrderController {
 	 * @param iNo     제품번호
 	 * @param iCount  구매하고자 하는 제품 갯수
 	 * @param iPrice  제품 가격
-	 * @param cNo     장바구니 번호
+	 * @param ctNo     장바구니 번호
 	 * @return 주문이 완료 된 후 주문 리스트 jsp를 호출한다
 	 */
 	@Transactional
@@ -178,7 +178,7 @@ public class OrderController {
 	public String addOrder(HttpSession session, Model model, RedirectAttributes redirect, 
 			@RequestParam(defaultValue = "0") int[] iNo,
 			@RequestParam(defaultValue = "0") int[] cCount, @RequestParam(defaultValue = "0") int[] iPrice,
-			@RequestParam(defaultValue = "0") int[] cNo) {
+			@RequestParam(defaultValue = "0") int[] ctNo) {
 		logger.debug("welcome orderAdd");
 
 		String viewUrl = "";
@@ -186,7 +186,7 @@ public class OrderController {
 		int uNo = (int) userDto.getuNo();
 		int oNo = 0;
 		
-		if (cNo[0] == 0) {
+		if (ctNo[0] == 0) {
 
 			orderService.addOrder(uNo);
 			orderService.addOrderDetail(uNo, iNo[0], cCount[0], iPrice[0]);
@@ -195,7 +195,7 @@ public class OrderController {
 			redirect.addAttribute("oNo", oNo);
 			
 			viewUrl = "redirect:/order/detail.do";
-		} else if (cNo.length > 0) {
+		} else if (ctNo.length > 0) {
 
 			orderService.addOrder(uNo);
 			oNo = orderService.viewOrderNo(uNo);
@@ -204,7 +204,7 @@ public class OrderController {
 				orderService.addOrderDetail(uNo, iNo[i], cCount[i], iPrice[i]);
 			}
 			
-			redirect.addAttribute("cNo", cNo);
+			redirect.addAttribute("ctNo", ctNo);
 			redirect.addAttribute("oNo", oNo);
 			
 			viewUrl = "redirect:/order/detail.do";
@@ -247,7 +247,7 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
-			@RequestParam(value="cNo", defaultValue = "-1") int[] cNo) {
+			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo) {
 		logger.info("Welcome orderDetail!");
 
 		String viewUrl = "";
@@ -265,7 +265,7 @@ public class OrderController {
 			
 			model.addAttribute("orderDetailItemList", orderDetailItemList);
 			model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
-			model.addAttribute("cNo", cNo);
+			model.addAttribute("ctNo", ctNo);
 			model.addAttribute("oNo", oNo);
 			
 			viewUrl = "/order/OrderDetail";
@@ -279,22 +279,22 @@ public class OrderController {
 	/**
 	 * 주문 확인에서 구매를 결정하거나 취소하는 단계
 	 * @param session 	세션에 저장된 uNo를 가져오기 위한 객체
-	 * @param cNo		장바구니에 담긴 아이템을 삭제하기 위한 장바구니 제품번호
+	 * @param ctNo		장바구니에 담긴 아이템을 삭제하기 위한 장바구니 제품번호
 	 * @return			주문리스트 호출
 	 */
 	@Transactional
 	@RequestMapping(value="/order/confirm.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String orderConfirm(HttpSession session, @RequestParam(value="cNo", defaultValue = "0") int[] cNo) {
+	public String orderConfirm(HttpSession session, @RequestParam(value="ctNo", defaultValue = "0") int[] ctNo) {
 		logger.debug("Welcome orderConfirm");
 		
 		String viewUrl = "";
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		
-		if(cNo[0] != 0) {
+		if(ctNo[0] != 0) {
 			
-			for (int i = 0; i < cNo.length; i++) {
-				orderService.deleteCart(uNo, cNo[i]);
+			for (int i = 0; i < ctNo.length; i++) {
+				orderService.deleteCart(uNo, ctNo[i]);
 			}
 			
 			viewUrl = "/order/OrderSuccess";
@@ -336,8 +336,8 @@ public class OrderController {
 	 * @throws Exception
 	 */
 	  @ResponseBody
-	  @RequestMapping(value = "/cart/addex.do", method = {RequestMethod.GET , RequestMethod.POST})
-	  public int cart(HttpSession session, Model model, @RequestParam(value="iNo", defaultValue = "0") int iNo
+	  @RequestMapping(value = "/cart/addex.do", method = RequestMethod.POST)
+	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo", defaultValue = "0") int iNo
 			  , @RequestParam(value="iCount", defaultValue = "0") int iCount) throws Exception {
 		  logger.debug("ino = " + iNo);
 		  logger.debug("iCount = " + iCount);
@@ -353,4 +353,46 @@ public class OrderController {
 	     
 	    return 1;
 	  }
+	  
+	  @ResponseBody
+	  @RequestMapping(value = "/cart/summary.do", method = RequestMethod.GET)
+	  public List<Map<String, Object>> viewCartHeadListAsync(HttpSession session) {
+			logger.debug("Welcome CartList");
+
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+
+			List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
+
+			return cartMapList;
+	  }
+	  
+	  @ResponseBody
+	  @RequestMapping(value = "/cart/deleteex.do", method = RequestMethod.POST)
+		public int deleteCartAsync(HttpSession session, Model model, @RequestParam(value="ctNo") int ctNo) {
+			logger.debug("welcome cartDelete");
+
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			orderService.deleteCart(uNo, ctNo);
+
+			return 1;
+		}
+	  
+	  @ResponseBody
+	  @RequestMapping(value="/cart/updateex.do", method = RequestMethod.POST)
+	  public int updateCartAsync(HttpSession session, CartDto cartDto, Model model) throws Exception {
+			logger.debug("Welcome cartUpdate" + cartDto.getCtNo() + "" + cartDto.getCtCount());
+			
+			int count = 0;
+
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+
+			cartDto.setuNo(userDto.getuNo());
+
+			count = orderService.updateCart(cartDto);
+
+			return count;
+		}
 }

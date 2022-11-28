@@ -6,11 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-
+	
 		$("#orderConfirmBtn").on("click", function(){
 			var checkOrderConfirm = confirm("구매 하시겠습니까?");
 			

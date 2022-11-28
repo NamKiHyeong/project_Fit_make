@@ -41,9 +41,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public int deleteCart(int uNo, int cNo) {
+	public int deleteCart(int uNo, int ctNo) {
 		
-		return orderDao.deleteCart(uNo, cNo);
+		return orderDao.deleteCart(uNo, ctNo);
 	}
 	
 	@Override

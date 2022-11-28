@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -54,7 +54,7 @@
 
 					if (data == 1) {
 						//팝업으로 띄우는 방법을 알아볼 것
-// 						cartHeaderView();
+						viewCartSummaryFnc();
 						// toastr css를 사용해도 되는지 알아볼 것
 // 						toastr.options.preventDuplicates = true;
 // 						toastr.success("예시");
@@ -75,23 +75,49 @@
 	});
 	
 	function countUpFnc(cartNo){
-		$("#cCount" + cartNo).val(parseInt($("#cCount" + cartNo).val().valueOf())+1);
-		$("#cNoVal").val($("#cNo" + cartNo).val());
-		$("#cCountVal").val($("#cCount" + cartNo).val());
-		$("#cartUpdateForm").submit();
+		var ctNo = $("#ctNo" + cartNo).val();
+		var ModifiedCtCount = parseInt($("#ctCount" + cartNo).val()) + 1;
+		
+		$.ajax({
+			type : "POST",
+			url : "../cart/updateex.do",
+			dataType : "json",
+			data : {
+				"ctCount" : ModifiedCtCount,
+				"ctNo" : ctNo
+			},
+			error : function(request, status, error) {
+				alert("code:"
+						+ request.status
+						+ "\n"
+						+ "message:"
+						+ request.responseText
+						+ "\n"
+						+ "error:"
+						+ error);
+			},
+			success : function(data) {
+
+				if (data == 1) {
+					viewCartSummaryFnc();
+					alert("장바구니 업데이트 완료");
+				}
+
+			}
+		});
 	}
 	
 	function countDownFnc(cartNo){
-		if($("#cCount" + cartNo).val() > 1){
-			$("#cCount" + cartNo).val(parseInt($("#cCount" + cartNo).val().valueOf())-1);
-			$("#cNoVal").val($("#cNo" + cartNo).val());
-			$("#cCountVal").val($("#cCount" + cartNo).val());
+		if($("#ctCount" + cartNo).val() > 1){
+			$("#ctCount" + cartNo).val(parseInt($("#ctCount" + cartNo).val().valueOf())-1);
+			$("#ctNoVal").val($("#ctNo" + cartNo).val());
+			$("#ctCountVal").val($("#ctCount" + cartNo).val());
 			$("#cartUpdateForm").submit();
 		} else {
 			var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
 			
 			if(deletecheck == true){
-				location.href = "./delete.do?cNo=" + cartNo;
+				location.href = "./delete.do?ctNo=" + cartNo;
 			} else {
 				return false;
 			}
@@ -102,7 +128,18 @@
 		var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
 		
 		if(deletecheck == true){
-			location.href = "./delete.do?cNo=" + cartNo;
+			
+			$.ajax({
+				url : "../cart/deleteex.do",
+				type : "post",
+				dataType : "json",
+				data : {"ctNo" : cartNo},
+				success : function(data){
+					alert("삭제완료");
+					cartHeaderView();
+				}
+			})
+
 		} else {
 			return false;
 		}
@@ -179,7 +216,6 @@
 <body>
 	
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-<%-- 	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" /> --%>
 	
 	<div id="rootDivObj">
 		<div id="titleDivObj">
@@ -195,7 +231,7 @@
 			<c:choose>
 				<c:when test="${cartMapList.size() > 0}">
 					<c:forEach var="cartMap" items="${cartMapList}">
-						<input class="hiddenInfo" type="hidden" id="cNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="cNo">
+						<input class="hiddenInfo" type="hidden" id="ctNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="ctNo">
 						<table id="cartItemTable">
 							<tr>
 								<td id="imgArea" rowspan="3">img</td>
@@ -210,11 +246,11 @@
 							</tr>
 							<tr>
 								<td id="cartCountArea">
-									<input class="countModifyBtn" id="cCountUp${cartMap.FM_CART_NO}" type="button" value="∨" 
+									<input class="countModifyBtn" id="ctCountDown${cartMap.FM_CART_NO}" type="button" value="∨" 
 										onclick="countDownFnc(${cartMap.FM_CART_NO});">
-									<input class="countOuput" id="cCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" 
-										name="cCount" readonly="readonly">
-									<input class="countModifyBtn" id="cCountDown${cartMap.FM_CART_NO}" type="button" value="∧" 
+									<input class="countOuput" id="ctCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" 
+										name="ctCount" readonly="readonly">
+									<input class="countModifyBtn" id="ctCountUp${cartMap.FM_CART_NO}" type="button" value="∧" 
 										onclick="countUpFnc(${cartMap.FM_CART_NO});">
 								</td>
 								<td>총 금액</td>
@@ -245,10 +281,10 @@
 	<input type="hidden" id="testiNo" value="3">
 	
 	<div>
-		<form id="cartUpdateForm" action="./update.do" method="post">
-			<input type="hidden" name="cNo" id="cNoVal" value="">
-			<input type="hidden" name="cCount" id="cCountVal" value="">
-		</form>
+<!-- 		<form id="cartUpdateForm" action="./update.do" method="post"> -->
+<!-- 			<input type="hidden" name="ctNo" id="ctNoVal" value=""> -->
+<!-- 			<input type="hidden" name="ctCount" id="ctCountVal" value=""> -->
+<!-- 		</form> -->
 	</div>
 </body>
 </html>

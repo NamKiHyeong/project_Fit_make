@@ -2,29 +2,29 @@ package com.fm.order.model;
 
 public class CartDto {
 	
-	private int cNo = 0;
+	private int ctNo = 0;
 	private int uNo = 0;
 	private int iNo = 0;
-	private int cCount = 0;
+	private int ctCount = 0;
 	
 	public CartDto() {
 		super();
 	}
 
-	public CartDto(int cNo, int uNo, int iNo, int cCount) {
+	public CartDto(int ctNo, int uNo, int iNo, int ctCount) {
 		super();
-		this.cNo = cNo;
+		this.ctNo = ctNo;
 		this.uNo = uNo;
 		this.iNo = iNo;
-		this.cCount = cCount;
+		this.ctCount = ctCount;
 	}
 
-	public int getcNo() {
-		return cNo;
+	public int getCtNo() {
+		return ctNo;
 	}
 
-	public void setcNo(int cNo) {
-		this.cNo = cNo;
+	public void setCtNo(int ctNo) {
+		this.ctNo = ctNo;
 	}
 
 	public int getuNo() {
@@ -43,18 +43,17 @@ public class CartDto {
 		this.iNo = iNo;
 	}
 
-	public int getcCount() {
-		return cCount;
+	public int getCtCount() {
+		return ctCount;
 	}
 
-	public void setcCount(int cCount) {
-		this.cCount = cCount;
+	public void setCtCount(int ctCount) {
+		this.ctCount = ctCount;
 	}
 
 	@Override
 	public String toString() {
-		return "CartDto [cNo=" + cNo + ", uNo=" + uNo + ", iNo=" + iNo + ", cCount=" + cCount + "]";
+		return "CartDto [ctNo=" + ctNo + ", uNo=" + uNo + ", iNo=" + iNo + ", ctCount=" + ctCount + "]";
 	}
-	
-	
+
 }
