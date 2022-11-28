@@ -39,8 +39,11 @@ public class ItemController {
  *  나중에 sub을 사용할 때 사용하기
  */
 	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST})
-	public String itemAdd(Model model) {
+	public String itemAdd(Model model, int cNo) {
 		logger.trace("제품 추가해봅시다!" + model);
+		logger.info("cNo {} " );
+		
+		model.addAttribute("cNo", cNo);
 		return "/item/ItemAdd"; // jsp 주소로
 	}
 	

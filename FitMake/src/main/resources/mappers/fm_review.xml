@@ -24,6 +24,14 @@
 			VALUES(20, 20, 20, #{rTitle}, #{rContent}, SYSDATE, SYSDATE)
 		</insert>
 	
+	<insert id="insertFile" parameterType="map">
+		INSERT INTO FM_REVIEW_IMAGE
+		VALUE(FM_REVIEW_IMAGE_NO, FM_REVIEW_NO, FM_REVIEW_IMAGE_STORED_IMAGE_NAME)
+		VALUES(SEQ_FM_REVIEW_IMAGE_NO.NEXTVAL, ${parentSeq}, ${original_file_name}, #{stored_file_name})
+	</insert>
+	
+	
+	
 	
 	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
 		SELECT r.FM_REVIEW_NO, r.FM_ITEM_NO, r.FM_USER_NO, r.FM_REVIEW_TITLE, r.FM_REVIEW_CONTENT, r.FM_REVIEW_CRE_DATE

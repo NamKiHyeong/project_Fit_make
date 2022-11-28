@@ -13,18 +13,18 @@
 	</script>
 </head>
 <body>
-	<jsp:include page="../Header.jsp" />
-<!-- 	 enctype="multipart/form-data" -->
+	<jsp:include page="../Header.jsp" enctype="multipart/form-data"/>
+
 	<form action="./addCtr.do" method="post">
 		<div>
-		<h3>제목</h3>	 <input type="text" name="rTitle">
+		<h3>제목</h3> <input type="text" name="rTitle">
 		
 		<h3>내용</h3> <textarea rows="40px;" cols="40px;" name="rContent"></textarea>
 		</div>
 		
 		<div>파일</div>
-		
-		<input type="submit" value="작성"	>
+		<input type="file" name="file">
+		<input type="submit" value="작성">
 		<input type="button" value="이전페이지로" onclick="pageMoveListFnc();">
 	</form>
 </body>

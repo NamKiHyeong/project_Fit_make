@@ -15,23 +15,26 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
+	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	
 	<form action="./update.do" method="get">
-		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
+		<input type="hidden" name="iNo"	value="${itemDto.iNo}" readonly="readonly"><br>
 		<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
 		<input type="hidden" name="curPage" value="${prevMap.curPage}">
-		
-		<c:forEach var="item" items="${fileList}">
+		<div>
+			<c:forEach var="item" items="${fileList}">
 <%-- 		${row.ORIGINAL_FILE_NAME}(${row.FILE_SIZE}kb)<br> --%>
-		<img alt="image not found" src="<c:url value='/image/${item.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
-		</c:forEach>
+				<img alt="image not found" src="<c:url value='/image/${item.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+			</c:forEach>
+		</div>
 		
-		제품명 : <input type="text" name="iName" id="iName" value="${itemDto.iName}"><br>
-		가격 : <input type="number" name="iSellprice" value="${itemDto.iSellprice}"><br>
+		
+		제품명 : <input type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly"><br>
+		가격 : <input type="number" name="iSellprice" value="${itemDto.iSellprice}" readonly="readonly"><br>
 <%-- 		개수 : <input type="number" name="iCount" value="${itemDto.iCount}"><br> --%>
-		개수 : <input type="number" name="iCount" value=""><br>
+		개수 : <input type="number" name="iCount" value="1"><br>
 		제품상세정보 :
-		<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
+		<textarea rows="" cols="" readonly="readonly">${itemDto.iOneDetail}</textarea>
 		<br>
 		
 		

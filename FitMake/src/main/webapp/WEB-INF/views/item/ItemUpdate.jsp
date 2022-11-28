@@ -71,7 +71,8 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../Header.jsp" />
+	<jsp:include page="../Header.jsp"/>
+	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	<div>
 		<form action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
 		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>

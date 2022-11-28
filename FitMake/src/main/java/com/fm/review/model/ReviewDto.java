@@ -22,6 +22,9 @@ public class ReviewDto {
 		this.rCreDate = rCreDate;
 		this.rModDate = rModDate;
 	}
+	public ReviewDto() {
+		super();
+	}
 	
 	public int getrNo() {
 		return rNo;

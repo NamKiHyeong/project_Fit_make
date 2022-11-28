@@ -13,9 +13,11 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../Header.jsp" />
+	<jsp:include page="../Header.jsp"/>
+	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	<div>
 		<form action="./addCtr.do" method="post" enctype="multipart/form-data">
+			<input type="hidden" value="${cNo}" name="cNo">
 			<div>
 				파일:<input type="file" name="file">
 			</div>
@@ -26,7 +28,7 @@
 				<h3>제품상세정보</h3>
 <!-- 				<input type="text" name="iOneDetail"> -->
 				<textarea name="iOneDetail">
-					아무거나 한번 처본다
+					아무거나 한번 처본다3
 				</textarea>
 				
 				<input type="submit" value="작성">

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.review.model.ReviewDto;
 import com.fm.review.service.ReviewService;
@@ -30,10 +31,10 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewAddCtr(ReviewDto reviewDto, Model model, HttpServletRequest request) {
+	public String reviewAddCtr(ReviewDto reviewDto, Model model, MultipartHttpServletRequest mulRequest) {
 		logger.info("리플을 작성합니다." + reviewDto);
 		try {
-			reviewService.reviewInsert(reviewDto, request);
+			reviewService.reviewInsert(reviewDto, mulRequest);
 			
 		} catch (Exception e) {
 			// TODO: handle exception

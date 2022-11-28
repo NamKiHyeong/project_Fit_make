@@ -6,60 +6,13 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/fitmake/resources/css/diet.css">
+<link rel="stylesheet" href="/fitmake/resources/css/item.css">
 <title>특가 더미 사이트(Item list 사이트)</title>
 <style type="text/css">
- 	
-/*
-	frame에 margin이 max에는 없고 min에는 있는 margin 때문에
-	1450~1550 부분에 에러가 생김
-	css 할 때 마무리 하기
-*/
-/*	#frame{
-		display:grid;
-		grid-template-columns:1fr 1fr 1fr;
-		margin-left: 50px;
-		margin-top: 30px;
-	}
-	
-/* 	.CategoryItem{ */
-/* 		width:400px; */
-/* 		height:300px; */
-/* 		margin: 20px; */
-/*   		padding: 10px; */
-/* 		color:blue; */
-/* 	} */
-	
-/*	li{
-		display: inline;
-		padding: 20px;
-	}
-	#frame p{
-		margin-left: 20px;
-  		padding-left: 10px;
-		text-align: left;
-	}
-	.sortOrder{
-		float: right;
-    	display: inline-block;
-	}
-	.itemBoundary{
-		border-top:1px solid; 
-		border-bottom:1px solid; 
-		padding-top: 5px;
-	}
-	p{
-		margin: 2px;
-		margin-left: 1px;
-	}
-/* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */
-
+ 
 </style>
 
 <script type="text/javascript">
-
-
-
 
 	function itemOneFnc(no){
 		//pagingForm에 curPage
@@ -78,12 +31,14 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
+	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	<div class="diet_wrap">
 		<h3>다이어트</h3>
-		<h4><a href="./add.do">제품을 추가</a></h4>
+		<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 추가</a></h4>
 		<c:choose>
 			<c:when test="${empty itemList}">
-				<h4><a href="./add.do">제품을 등록해주세요</a></h4>
+				<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 등록해주세요</a></h4>
+				
 			</c:when>
 			
 			<c:otherwise>
@@ -94,7 +49,6 @@
 					</ul>
 				</div>
 				
-	<!-- 			@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 				<div id="frame">
 					<c:forEach var="item" items = "${itemList}">
 						<div class="CategoryItem">
@@ -108,7 +62,7 @@
 								
 			<%-- 					(${row.FILE_SIZE}kb) --%>
 								
-								<p><a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">${item.itemDto.iName}</a></p>
+								<p class="content"><a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">${item.itemDto.iName}</a></p>
 								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>
 								<p>리뷰 : ${item.itemDto.iCount}</p>
 								
@@ -117,7 +71,6 @@
 					</c:forEach>
 				</div>
 			</div>
-<!-- 			@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ -->
 		</c:otherwise>
 		
 	</c:choose>

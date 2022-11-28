@@ -9,7 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<jsp:include page="../Hearder.jsp" />
+	<jsp:include page="../Header.jsp" />
 	
 	
 	<form action="./update.do" method="get">
