@@ -10,6 +10,6 @@ import com.fm.review.model.ReviewDto;
 public interface ReviewService {
 	public void reviewInsert(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest) throws Exception;
 	
-//	public List<Map<String, Object>> reviewSelectList(int cNo);
+	public List<Map<String, Object>> reviewSelectList(int cNo);
 	
 }

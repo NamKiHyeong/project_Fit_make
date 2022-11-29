@@ -70,6 +70,7 @@ public class ItemServicempl implements ItemService {
 		List<ItemDto> itemList = itemDao.itemSelectList(cNo, keyword, start, end, older);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
+		
 		for (ItemDto itemDto : itemList) {
 			Map<String, Object> map = new HashMap<String, Object>();
 			int iNo = itemDto.getiNo();

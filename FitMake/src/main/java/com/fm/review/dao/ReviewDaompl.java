@@ -1,5 +1,7 @@
 package com.fm.review.dao;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -26,22 +28,22 @@ public class ReviewDaompl implements ReviewDao {
 		sqlSession.insert(namespace + "insertFile", map);
 	}
 	
-////	R
-//	@Override
-//	public List<ReviewDto> reviewSelectList(int cNo){
-//		Map<String, Object>map = new HashMap<String, Object>();
-//		
-//		map.put("cNo", cNo);
-//		
-//		return sqlSession.selectList(namespace + "reviewSelect", map);
-//	}
-//	
-//	
-//	@Override
-//	public Map<String, Object> fileSelectOne(int no){
-//		
-//		return sqlSession.selectOne(namespace + "fileSelectOne", no);
-//		
-//	}
+//	R
+	@Override
+	public List<ReviewDto> reviewSelectList(int cNo){
+		Map<String, Object>map = new HashMap<String, Object>();
+		
+		map.put("cNo", cNo);
+		
+		return sqlSession.selectList(namespace + "reviewSelect", map);
+	}
+	
+	
+	@Override
+	public Map<String, Object> fileSelectOne(int rNo){
+		
+		return sqlSession.selectOne(namespace + "fileSelectOne", rNo);
+		
+	}
 	
 }

@@ -30,5 +30,21 @@
 		VALUES(SEQ_FM_REVIEW_IMAGE_NO.NEXTVAL, ${parentSeq}, ${original_file_name}, #{stored_file_name})
 	</insert>
 	
+	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
+		SELECT r.FM_REVIEW_NO, r.FM_ITEM_NO, r.FM_USER_NO, r.FM_REVIEW_TITLE, r.FM_REVIEW_CONTENT
+			, r.FM_REVIEW_CRE_DATE
+		FROM FM_REVIEW r
+    	INNER JOIN FM_ITEM i
+        	ON r.FM_ITEM_NO = i.FM_ITEM_NO
+    	INNER JOIN FM_USER u
+       		ON r.FM_USER_NO = u.FM_USER_NO
+		WHERE r.FM_REVIEW_NO = 1
+	</select>
+	
+	<select id="fileSelectOne" parameterType="int" resultType="map">
+		SELECT FM_REVIEW_IMG_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_IMG_NAME
+		FROM FM_REVIEW_IMG
+		WHERE FM_REVIEW_NO = ${value}
+	</select>
 	
 </mapper>

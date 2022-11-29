@@ -11,8 +11,8 @@ public interface ReviewDao {
 	public void insertFile(Map<String,Object> map);
 	
 	
-//	public List<ReviewDto> reviewSelectList(int cNo);
-////	public List<Map<String, Object>> fileSelectList(int rNo);
-//	public Map<String, Object> fileSelectOne(int no);
+	public List<ReviewDto> reviewSelectList(int cNo);
+//	public List<Map<String, Object>> fileSelectList(int rNo);
+	public Map<String, Object> fileSelectOne(int rNo);
 
 }
