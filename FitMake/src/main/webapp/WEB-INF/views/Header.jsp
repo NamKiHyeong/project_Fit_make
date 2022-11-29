@@ -19,17 +19,19 @@ function viewCartSummaryFnc() {
 				url : "../cart/summary.do",
 				type : "get",
 				dataType : "json",
-				success : function(cartList) {
+				success : function(cartContainer) {
 					var str = '';
 					var cartTotal = 0;
-
-					if (cartList < 1) {
+					
+					alert(cartContainer.cartMapList.get(0));
+					
+					if (cartContainer.cartList < 1) {
 						str += '<div style="text-align:center">장바구니가 비었습니다</div>';
 					}
 
 					$
 							.each(
-									cartList,
+									cartMap,
 									function(key, value) {
 										var iPriceRaw = parseInt(value.FM_ITEM_SELLPRICE);
 										var ctCount = parseInt(value.FM_CART_COUNT);
@@ -74,7 +76,7 @@ function viewCartSummaryFnc() {
 
 					$("#cartPrice").html(cartTotal);
 					$("#cartView").html(str);
-
+					
 				}
 			});
 }
@@ -94,6 +96,7 @@ function deleteCartFnc(cartNo) {
 			success : function(data) {
 				alert("삭제완료");
 				viewCartSummaryFnc();
+				location.reload();
 			}
 		})
 
