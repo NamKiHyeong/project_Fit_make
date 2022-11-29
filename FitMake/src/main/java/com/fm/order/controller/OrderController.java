@@ -144,8 +144,6 @@ public class OrderController {
 			int uNo = (int) userDto.getuNo();
 
 			List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
-			
-			logger.debug("cartMapList" + cartMapList.get(0));
 			List<Map<String, Object>> fileList = orderService.viewCartFileList(uNo);
 			
 			Map<String, Object> cartContainer = new HashMap<String, Object>();

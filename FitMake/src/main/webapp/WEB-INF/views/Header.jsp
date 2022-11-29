@@ -19,13 +19,14 @@ function viewCartSummaryFnc() {
 				url : "../cart/summary.do",
 				type : "get",
 				dataType : "json",
-				success : function(cartContainer) {
+				success : function(data) {
+					var cartMapList = data.cartMapList;
+					var fileList = data.fileList;
 					var str = '';
 					var cartTotal = 0;
 					
-					alert(cartContainer.cartMapList.get(0));
 					
-					if (cartContainer.cartList < 1) {
+					if (cartMapList < 1) {
 						str += '<div style="text-align:center">장바구니가 비었습니다</div>';
 					}
 
