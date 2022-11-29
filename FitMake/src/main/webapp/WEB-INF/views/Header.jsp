@@ -103,35 +103,38 @@ function deleteCartFnc(cartNo) {
 }
 </script>
 <style type="text/css">
- 	#cartList{ 
- 		position : relative; 
-   		display : inline-block; 
- 	} 
+	.dropdownCart {
+		position : relative;
+  		display : inline-block;
+	}
 	
 	#cartList {
-    min-width: 280px;
-    max-width: 280px;
-    min-height: 100px;
-    background: white;
-    border : 1px solid;
-    padding: 5px;
-    border-radius : 3px;
-    transition: 0.5s all;
-	}
-
-	#cartList ul li a {
-	    padding: 10px 15px;
-	    font-size: 1.1em;
-	    display: block;
-	    color: black;
+		display : none;
+		position : absolute;
+		z-index : 1;
+	    min-width: 280px;
+	    max-width: 280px;
+	    min-height: 100px;
+	    background: white;
+	    border : 1px solid;
+	    padding: 5px;
+	    border-radius : 3px;
+	    transition: 0.5s all;
 	}
 	
-	#cartList.active {
-    margin-left: -250px;
+	#cartList table{
+		display : block;
 	}
-	a[data-toggle="collapse"] {
-	    position: relative;
+	
+	.dropdownCart:hover #cartList {
+  		display: block;
 	}
+	
+	/* 마우스를 올리면 색이 바뀌는 Css */
+	/* #cartList table:hover{
+  		background-color : #ececec
+	} */
+	
 </style>
 </head>
 <body>
@@ -164,20 +167,22 @@ function deleteCartFnc(cartNo) {
 									src="/fitmake/resources/image/myinfo.png"></a></li>
 							<li><a href="${pageContext.request.contextPath}/order/list.do"><img alt="주문관리"
 									src="/fitmake/resources/image/membermanagement.png"></a></li>
-							<li class="dropdown" style="font-size:15px;">
+							<li  class="dropdownCart">
 								<a href="${pageContext.request.contextPath}/cart/list.do" data-toggle="collaspe">
 									<img alt="장바구니" src="/fitmake/resources/image/cart.png">
 								</a>
-								<span class="" aria-hidden="true"></span>
-								<div id="cartList">
-									<table style="width: 100%" aria-hidden="true">
-										<tbody id="cartView" aria-hidden="true">
-											
-										</tbody>
-									</table>
-									<hr />
-									<div style="text-align: right">
-										<span style="font-size: 22px;"> total : <span id="cartPrice"></span></span>
+								<div>
+									<span class="" aria-hidden="true"></span>
+									<div id="cartList">
+										<table style="width: 100%" aria-hidden="true">
+											<tbody id="cartView" aria-hidden="true">
+												
+											</tbody>
+										</table>
+										<hr />
+										<div style="text-align: right">
+											<span style="font-size: 22px;"> total : <span id="cartPrice"></span></span>
+										</div>
 									</div>
 								</div>
 							</li>
