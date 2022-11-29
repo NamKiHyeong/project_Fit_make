@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fm.item.model.ItemDto;
 import com.fm.review.controller.ReviewController;
 import com.fm.review.dao.ReviewDao;
 import com.fm.review.model.ReviewDto;
@@ -60,10 +59,10 @@ public class ReviewServicempl implements ReviewService {
 	
 	
 	@Override
-	public List<Map<String, Object>> reviewSelectList(int cNo){
+	public List<Map<String, Object>> reviewSelectList(int iNo){
 		
-		List<ReviewDto> reviewList= reviewDao.reviewSelectList(cNo);
-		
+		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo);
+		logger.debug(""+reviewList.get(0));
 		List<Map<String, Object>> list = new ArrayList<>();
 		
 		for (ReviewDto reviewDto : reviewList) {

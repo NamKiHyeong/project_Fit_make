@@ -23,16 +23,15 @@
 	<div>
 		<c:forEach var="review" items="${reviewList}">
 			<div>
-				<from id="reviewForm${reivew.reviewDto.rNo}" action="./one.do" method="get">
+				<form id="reviewForm${review.reviewDto.rNo}" action="./one.do" method="get">
 					<input type="hidden" name="iNo" value="${review.reviewDto.iNo}">
-					<input type="hidden" name="cNo" value="${review.reviewDto.cNo}">
+					<input type="hidden" name="cNo" value="${paging.cNo}">
 					<input type="hidden" name="rNo" value="${review.reviewDto.rNo}">
 <%-- 					<input type="hidden" name="curPage" value="${}" --%>
 					<p>제목 : ${review.reviewDto.rTitle}</p>
 					<p>내용 : ${review.reviewDto.rContent}</p>
-				</from>
+				</form>
 			</div>
-			
 		</c:forEach>
 		
 	</div>

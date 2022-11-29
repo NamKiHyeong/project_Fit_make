@@ -30,11 +30,10 @@ public class ReviewDaompl implements ReviewDao {
 	
 //	R
 	@Override
-	public List<ReviewDto> reviewSelectList(int cNo){
+	public List<ReviewDto> reviewSelectList(int iNo){
 		Map<String, Object>map = new HashMap<String, Object>();
 		
-		map.put("cNo", cNo);
-		
+		map.put("iNo", iNo);
 		return sqlSession.selectList(namespace + "reviewSelect", map);
 	}
 	

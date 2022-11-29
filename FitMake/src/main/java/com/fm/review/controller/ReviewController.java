@@ -34,16 +34,18 @@ public class ReviewController {
  */
 	
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewAdd(int cNo, Model model) {
+	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model) {
 		logger.info("리플을 달아보자", model);
 		
-		model.addAttribute("cNo", cNo);
+		logger.info("리플에 iNo 값이 들어옴? {}" + iNo);
+		model.addAttribute("iNo", iNo);
+		
 		return "/review/ReviewAdd";
 	}
 	
 	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAddCtr(ReviewDto reviewDto, Model model, MultipartHttpServletRequest mulRequest) {
-		logger.info("리플을 작성합니다." + reviewDto);
+		logger.info("리플을 작성합니다. {}" + reviewDto);
 		try {
 			reviewService.reviewInsert(reviewDto, mulRequest);
 			
@@ -65,18 +67,16 @@ public class ReviewController {
  * @return
  */
 	@RequestMapping(value="/review/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewSelectList(@RequestParam int cNo, Model model) {
+	public String reviewSelectList(@RequestParam(defaultValue = "81") int iNo, Model model) {
 //		logger.info("리플을 확인합니다.{}" ,reviewDto);
-		logger.info("카테고리는?.{}" , cNo);
+		logger.info("카테고리는? {}" );
 		
-		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(cNo);
+		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo);
 		
-		logger.info("카테고리는?.{}" , reviewList);
+		logger.info("리뷰리스트의 값이 잘 오나?? {}" + reviewList);
 //		Map<String, Object> 
 		
 		Map<String, Object> pagingMap = new HashMap<>();
-		
-		pagingMap.put("cNo", cNo);
 		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("pagingMap", pagingMap);

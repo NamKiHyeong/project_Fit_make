@@ -17,6 +17,8 @@
 
 	<form action="./addCtr.do" method="post" enctype="multipart/form-data">
 		<div>
+		<input type="hidden" name="iNo" value="${iNo}">
+		
 		<h3>제목</h3> <input type="text" name="rTitle">
 		
 		<h3>내용</h3> <textarea rows="40px;" cols="40px;" name="rContent"></textarea>

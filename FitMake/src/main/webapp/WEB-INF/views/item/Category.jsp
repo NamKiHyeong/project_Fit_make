@@ -6,82 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="/fitmake/resources/css/item.css">
 <title>특가 더미 사이트(Item list 사이트)</title>
+
+<link rel="stylesheet" href="/fitmake/resources/css/item.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	$("#addCartBtn").on("click", function(){
-		
-		var iNo = [];
-		
-		$('input:checkbox[name="iCkBox"]').each(function() {
-			
-			if(this.checked == true){
-				iNo.push(this.value);
-			}
-		});
-		
-		var itemCart = { 
-				"iNo" : iNo,
-				"iCount" : 1
-		};
-		
-		$.ajax({
-			type : "POST",
-			url : "../cart/addex.do",
-			dataType : "json",
-			data : itemCart,
-			error : function(request, status, error) {
-				alert("code:"
-						+ request.status
-						+ "\n"
-						+ "message:"
-						+ request.responseText
-						+ "\n"
-						+ "error:"
-						+ error);
-			},
-			success : function(data) {
-
-				if (data == 1) {
-					viewCartSummaryFnc();
-
-					alert("장바구니 추가완료");
-				} else if (data == 2) {
-
-					alert("이미 추가 된 상품입니다");
-				}
-
-			}
-		});
-		
-	});
-	
-	viewCartSummaryFnc();
-	
-});
-	function itemOneFnc(no){
-		//pagingForm에 curPage
-		
-		var idStr = 'itemOneForm' + no;
-		var itemOneFormObj = document.getElementById(idStr);
-		
-		itemOneFormObj.submit();
-		
-	}
-	function itemOneAsc(){
-		var itemOneFormObj = document.getElementById("pagingForm");
-		itemOneFormObj.submit();
-	}
-</script>
-<style type="text/css">
-</style>
+<script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
+<script type="text/javascript" src="/fitmake/resources/js/jq_join.js"></script>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	<div class="diet_wrap">
 		<h3>다이어트</h3>
 		<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 추가</a></h4>
@@ -105,6 +38,7 @@ $(document).ready(function() {
 							<form id="itemOneForm${item.itemDto.iNo}" action="./one.do" method="get">
 								<input type="checkbox" name="iCkBox" value="${item.itemDto.iNo}">
 								<input type="hidden" name="iNo" value="${item.itemDto.iNo}">
+<%-- 								<input type="hidden" name="iNo" value="${item.itemDto.iNo}"> --%>
 								<input type="hidden" name="cNo" value="${item.itemDto.cNo}">
 								<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
 								<input type="hidden" name="keyword" value="${searchMap.keyword}">
@@ -124,7 +58,7 @@ $(document).ready(function() {
 				
 			</c:choose>
 		</div>
-		<input type="button" id="addCartBtn" value="장바구니 추가">
+		<input type="button" id="addCartListBtn" value="장바구니 추가">
 	
 	<form action="./list.do">
 		<input type="hidden" name="cNo" value="${pagingMap.cNo}">

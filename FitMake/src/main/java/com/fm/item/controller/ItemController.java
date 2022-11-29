@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fm.item.model.ItemDto;
 import com.fm.item.service.ItemService;
@@ -59,6 +60,8 @@ public class ItemController {
 			e.printStackTrace();
 		}
 		logger.info("카테고리 번호 있나?", itemDto.getcNo());
+		
+		
 		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 	
@@ -72,7 +75,10 @@ public class ItemController {
  * 3단계 페이징 확인
  */
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String itemList(@RequestParam int cNo, @RequestParam(defaultValue = "1") int curPage
+	public String itemList(@RequestParam(defaultValue = "1") int curPage
+			, @RequestParam int cNo
+//			, @RequestParam int
+//			, @RequestParam(defaultValue = "") ItemDto itemDto
 			, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "0") int older
 			, Model model) {
@@ -114,6 +120,7 @@ public class ItemController {
 	
 	@RequestMapping(value="/item/one.do")
 	public String itemOne(int curPage, int cNo, int iNo, Model model) {
+//		RedirectAttributes redirect
 		logger.trace("제품 상세정보" + model);
 		Map<String, Object>prevMap = new HashMap<>();
 		prevMap.put("cNo", cNo);
@@ -123,18 +130,20 @@ public class ItemController {
 		
 		ItemDto itemDto = (ItemDto) map.get("itemDto");
 		
+		logger.debug("one.do에서 itemDto에 iNo 값이 들어가 있니?{}", itemDto);
+		
 		List<Map<String, Object>> fileList =(List<Map<String,Object>>)map.get("fileList");
 		
-		System.out.println("Oen.do에서 " + iNo);
 		
-		logger.info("one.do에서 iNo확인해본다 {}", itemDto.getiName());
 		logger.info("one.do에서 cNo 확인해본다 {}", itemDto.getcNo());
 		logger.info("one.do에서 curPage확인해본다 {}", curPage);
+		
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("prevMap", prevMap);
-		return "/item/ItemOne";
 		
+		
+		return "/item/ItemOne";
 	}
 	
 	

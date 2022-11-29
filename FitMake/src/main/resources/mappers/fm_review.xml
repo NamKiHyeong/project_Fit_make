@@ -21,30 +21,36 @@
 		</selectKey>
 			INSERT INTO FM_REVIEW
 			VALUE(FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT, FM_REVIEW_CRE_DATE, FM_REVIEW_MOD_DATE)
-			VALUES(20, 20, 20, #{rTitle}, #{rContent}, SYSDATE, SYSDATE)
+			VALUES(SEQ_FM_REVIEW_NO.NEXTVAL, 80, 1, #{rTitle}, #{rContent}, SYSDATE, SYSDATE)
 		</insert>
 	
 	<insert id="insertFile" parameterType="map">
-		INSERT INTO FM_REVIEW_IMAGE
-		VALUE(FM_REVIEW_IMAGE_NO, FM_REVIEW_NO, FM_REVIEW_IMG_STORED_IMAGE_NAME)
-		VALUES(SEQ_FM_REVIEW_IMAGE_NO.NEXTVAL, ${parentSeq}, ${original_file_name}, #{stored_file_name})
+		INSERT INTO FM_REVIEW_IMG
+		VALUE(FM_REVIEW_IMG_NO, FM_REVIEW_NO, FM_REVIEW_NAME, FM_REVIEW_STORED_NAME)
+		VALUES(SEQ_FM_REVIEW_IMG_NO.NEXTVAL, #{parentSql}, #{original_file_name}, #{stored_file_name})
 	</insert>
+	
 	
 	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
 		SELECT r.FM_REVIEW_NO, r.FM_ITEM_NO, r.FM_USER_NO, r.FM_REVIEW_TITLE, r.FM_REVIEW_CONTENT
 			, r.FM_REVIEW_CRE_DATE
 		FROM FM_REVIEW r
-    	INNER JOIN FM_ITEM i
-        	ON r.FM_ITEM_NO = i.FM_ITEM_NO
-    	INNER JOIN FM_USER u
-       		ON r.FM_USER_NO = u.FM_USER_NO
-		WHERE r.FM_REVIEW_NO = 1
+    	INNER JOIN FM_ITEM i ON r.FM_ITEM_NO = i.FM_ITEM_NO
+    	INNER JOIN FM_USER u ON r.FM_USER_NO = u.FM_USER_NO
+		WHERE r.FM_ITEM_NO = #{iNo}
+<!-- 		<choose> -->
+<!-- 			<when test="iNo != 0"> -->
+<!-- 			</when> -->
+<!-- 			<otherwise> -->
+<!-- 				WHERE  -->
+<!-- 			</otherwise> -->
+<!-- 		</choose> -->
 	</select>
-	
+
 	<select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT FM_REVIEW_IMG_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_IMG_NAME
+		SELECT FM_REVIEW_IMG_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_NAME
 		FROM FM_REVIEW_IMG
-		WHERE FM_REVIEW_NO = ${value}
+		WHERE FM_REVIEW_NO = #{value}
 	</select>
 	
 </mapper>

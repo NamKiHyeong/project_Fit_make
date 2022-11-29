@@ -10,69 +10,10 @@
 
 
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-// 	$(document).ready(function(){
-// 		$("a[id^='delete']").on('click', function(e){ // 삭제 버튼
-// 			e.preventDefault();
-// 			deleteFileFnc($(this));
-// 		});
-// 	});
-	
-	function pageMoveListFnc(cNo) {
-		location.href="../item/list.do?cNo=" +cNo;
-	}
-	
-	function deleteFileFnc(obj){
-// 		alert(obj);
-		
-		$(obj).parent().remove();
-	}
-	
-	function pageMoveBefore(iNo){
-		
-		var url ="./one.do?no=" + iNo;
-		location.href = url;
-		
-	}
-	
-	function itemDeleteOneFnc(iNo, cNo){
-		var url = "./deleteOne.do?iNo=" + iNo + '&cNo=' + cNo;
-		location.href = url;
-	}
-	
-	function fileUpdateFnc(){
-		var obj = $('#fileContent');
-		var htmlStr = "";
-		
-		htmlStr += '<div>';
-		htmlStr += '<input type="hidden" id="fileIdx" name="fileIdx"';
-		htmlStr += ' value="">';
-		htmlStr += '<input type="file" id="file0" name="file0">';
-		htmlStr += '<a href="#this" id="delete0">삭제</a><br>';
-		htmlStr += '</div>';
-		
-		obj.html=(htmlStr);
-		
-		$('a[id^="delete"]').on('click', function(e){
-			e.preventDefault();
-			deleteFileFnc($(this));
-		});
-	}
-	function deleteItemFnc(iNo){
-	      var deletecheck = confirm("제품을 삭제하시겠습니까?");
-	      
-	      if(deletecheck == true){
-	         location.href = "./deleteOne.do?iNo=" + iNo + '&cNo=' + cNo;
-	      } else {
-	         return false;
-	      }
-	   }
-</script>
+<script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	<jsp:include page="/WEB-INF/views/cart/CartSummary.jsp" />
 	<div>
 		<form action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
 		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
