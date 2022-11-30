@@ -1,0 +1,57 @@
+@charset "UTF-8";
+
+.diet_wrap {width:1200px; margin:0 auto;}
+
+.diet_wrap h3 {font-weight:bold;font-size:24px;}
+
+.sortOrder{
+	width:1200px;
+   	padding-bottom:70px;
+   	position:relative;
+}
+
+.sortOrder:after {content:"";clear:both;display:block;}
+
+.sortOrder ul {position:absolute;text-align:right;right:0;}
+
+
+.sortOrder li {float:left;padding-left:30px;}
+
+.frame{
+	display:grid;
+	grid-template-columns:1fr 1fr;
+	width:600px;
+	margin-left: 50px;
+	margin-top: 30px;
+}
+
+/* #frame {position:relative;} */
+.frame:after {content:"";clear:both;display:block;}
+
+.frame .sortImg {
+	float:left;width:400px;text-align:center;padding-bottom:30px;
+	height:530px;}
+
+
+.frame li{
+	display: inline;
+	padding-left: 20px;
+}
+.frame p{
+	border-bottom:1px solid; 
+	width:400px;
+	padding-top: 2px;
+	padding-bottom: 5px;
+	font-size: 40px;
+	float:left;
+	margin: 20px;
+}
+.info{
+	font-size: 20px;
+}
+.iteminfo{margin-left:80px;}
+
+.itemCtrBack{margin-left:80px;}
+
+.itemCtrCenter{margin-left:240px; margin-right:240px;}
+/* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */

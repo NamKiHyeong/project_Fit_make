@@ -45,10 +45,10 @@ public class ReviewController {
 	
 	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAddCtr(ReviewDto reviewDto, Model model, MultipartHttpServletRequest mulRequest) {
-		logger.info("리플을 작성합니다. {}" + reviewDto);
+		logger.info("리플을 작성합니다1. {}" + reviewDto);
 		try {
 			reviewService.reviewInsert(reviewDto, mulRequest);
-			
+			logger.info("리플을 작성합니다2. {}" + reviewDto);
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("예외 발생");

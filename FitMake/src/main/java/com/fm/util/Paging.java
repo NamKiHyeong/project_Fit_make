@@ -11,7 +11,6 @@ public class Paging implements Serializable{
 	public static final int BLOCK_SCALE = 5;
 	
 	private int curPage; 	// 현재 페이지 위치
-	
 
 	private int totPage; 	// 전체 페이지 갯수
 	private int totBlock;	// 전체 페이지 블록 갯수
