@@ -137,9 +137,10 @@ public class OrderController {
 	  public List<Map<String, Object>> viewCartHeadListAsync(HttpSession session) {
 			logger.debug("Welcome CartList");
 			
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
 			try {
-				UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-				int uNo = (int) userDto.getuNo();
 
 				List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
 					
