@@ -45,10 +45,13 @@ public class ReviewController {
 	
 	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAddCtr(ReviewDto reviewDto, Model model, MultipartHttpServletRequest mulRequest) {
-		logger.info("리플을 작성합니다1. {}" + reviewDto);
+		logger.info("컨트롤에서 리플을 작성합니다1. {}" , reviewDto);
+		
 		try {
 			reviewService.reviewInsert(reviewDto, mulRequest);
-			logger.info("리플을 작성합니다2. {}" + reviewDto);
+			
+			logger.info("컨트롤에서 리플을 작성합니다2. {}" , reviewDto);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			System.out.println("예외 발생");
@@ -56,7 +59,7 @@ public class ReviewController {
 		}
 		
 //		return "redirect:/item/list.do?cNo=2";
-		return "redirect:/review/list.do?cNo=1";
+		return "redirect:/reivew/list.do?cNo=1";
 		
 	}
 	
@@ -67,20 +70,40 @@ public class ReviewController {
  * @return
  */
 	@RequestMapping(value="/review/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewSelectList(@RequestParam(defaultValue = "81") int iNo, Model model) {
-//		logger.info("리플을 확인합니다.{}" ,reviewDto);
-		logger.info("카테고리는? {}" );
+	public String reviewSelectList(@RequestParam(defaultValue = "0") int iNo, Model model) {
+		logger.info("리플리스트를 확인해 봅시다.{}" ,iNo);
 		
 		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo);
 		
 		logger.info("리뷰리스트의 값이 잘 오나?? {}" + reviewList);
-//		Map<String, Object> 
 		
 		Map<String, Object> pagingMap = new HashMap<>();
-		
+		pagingMap.put("iNo", iNo);
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("pagingMap", pagingMap);
 		
 		return "/review/ReviewList";
+	}
+	
+	@RequestMapping(value = "/review/one.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public String reviewSelectOne(int iNo, int rNo, Model model) {
+		logger.info("컨트롤러 one에 원하는 정보 들어옴? {}", model);
+		Map<String, Object>prevMap = new HashMap<String, Object>();
+		prevMap.put("iNo", iNo);
+
+		Map<String, Object> map = reviewService.reviewSelectOne(rNo);
+		
+		ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
+		
+		logger.debug("컨트롤러 one에 원하는 정보를 서비스에서 갖고옴? {}" , map);
+		
+		List<Map<String, Object>> fileList = (List<Map<String, Object>>)map.get("fileList");
+		
+		
+		model.addAttribute("reviewDto", reviewDto);
+		model.addAttribute("fileList", fileList);
+		model.addAttribute("prevMap", prevMap);
+		
+		return "/review/ReviewOne";
 	}
 }

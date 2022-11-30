@@ -77,8 +77,6 @@ public class ItemController {
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
 			, @RequestParam int cNo
-//			, @RequestParam int
-//			, @RequestParam(defaultValue = "") ItemDto itemDto
 			, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "0") int older
 			, Model model) {
@@ -95,7 +93,7 @@ public class ItemController {
 		Paging itemPaging = new Paging(totalItemCount, curPage);
 		int start = itemPaging.getPageBegin();
 		int end = itemPaging.getPageEnd();
-		
+//		---------------
 		List<Map<String, Object>> itemList = itemService.itemSelectList(cNo, keyword, start, end, older);
 		logger.info("itemlList에 cNo {} " , cNo);
 		

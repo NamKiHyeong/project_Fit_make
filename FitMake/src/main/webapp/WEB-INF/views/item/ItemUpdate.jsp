@@ -9,7 +9,8 @@
 <title>회원 수정 하는 곳</title>
 
 
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 </head>
 <body>
@@ -55,7 +56,7 @@
 			<input type="submit" value="수정완료">
 			<input type="button" value="뒤로가기" onclick="pageMoveBefore(${itemDto.iNo});">
 			<input type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
-			<input type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo},${itemDto.cNo});'>
+			<input type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo});'>
 			<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
 		</form>
 		

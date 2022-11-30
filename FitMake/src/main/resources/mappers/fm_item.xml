@@ -99,7 +99,7 @@
 	</delete>
 	
 	
-	
+<!--  밑에는 아이템@@@@@@  -->
 	
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO FM_ITEM_IMG

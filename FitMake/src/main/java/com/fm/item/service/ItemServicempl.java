@@ -94,14 +94,14 @@ public class ItemServicempl implements ItemService {
 		return itemDao.itemSelectTotalItemCount(cNo, keyword);
 	}
 	@Override
-	public Map<String, Object> itemSelectOne(int no) {
+	public Map<String, Object> itemSelectOne(int iNo) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
-		ItemDto itemDto = itemDao.itemSelectOne(no);
+		ItemDto itemDto = itemDao.itemSelectOne(iNo);
 		resultMap.put("itemDto", itemDto);
 
 		
-		List<Map<String, Object>> fileList = itemDao.fileSelectList(no);
+		List<Map<String, Object>> fileList = itemDao.fileSelectList(iNo);
 		resultMap.put("fileList", fileList);
 		
 		return resultMap;

@@ -44,8 +44,8 @@ public class ItemDaompl implements ItemDao{
 	}
 	
 	@Override
-	public ItemDto itemSelectOne(int no) {
-		return sqlSession.selectOne(namespace + "itemSelectOne", no);
+	public ItemDto itemSelectOne(int iNo) {
+		return sqlSession.selectOne(namespace + "itemSelectOne", iNo);
 	}
 	
 //	U
@@ -74,10 +74,10 @@ public class ItemDaompl implements ItemDao{
 		return sqlSession.selectList(namespace + "fileSelectList", no);
 	}
 	@Override
-	public Map<String, Object> fileSelectOne(int no) {
+	public Map<String, Object> fileSelectOne(int iNo) {
 		// TODO Auto-generated method stub
-		System.out.println(no);
-		return sqlSession.selectOne(namespace + "fileSelectOne", no);
+		System.out.println(iNo);
+		return sqlSession.selectOne(namespace + "fileSelectOne", iNo);
 	}
 	
 	@Override

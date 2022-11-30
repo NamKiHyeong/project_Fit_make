@@ -99,10 +99,10 @@ $(document).ready(function() {
 	viewCartSummaryFnc();
 	
 });
-	function itemOneFnc(no){
+	function itemOneFnc(iNo){
 		//pagingForm에 curPage
 		
-		var idStr = 'itemOneForm' + no;
+		var idStr = 'itemOneForm' + iNo;
 		var itemOneFormObj = document.getElementById(idStr);
 		
 		itemOneFormObj.submit();
@@ -136,6 +136,9 @@ $(document).ready(function() {
 		location.href="../review/add.do?iNo=" + iNo;
 		
 	}
+	function pageReviewListFnc(iNo){
+		location.href="../review/list.do?iNo=" + iNo;
+	}
 //-----------------------------------------------------
 	function itemDeleteOneFnc(iNo, cNo){
 		var url = "./deleteOne.do?iNo=" + iNo + '&cNo=' + cNo;
@@ -168,7 +171,8 @@ $(document).ready(function() {
 	      var deletecheck = confirm("제품을 삭제하시겠습니까?");
 	      
 	      if(deletecheck == true){
-	         location.href = "./deleteOne.do?iNo=" + iNo + '&cNo=' + cNo;
+	         location.href = "./deleteOne.do?iNo=" + iNo;
+//	          + '&cNo=' + cNo;
 	      } else {
 	         return false;
 	      }

@@ -9,7 +9,8 @@
 <title>제품 상세정보</title>
 
 <link rel="stylesheet" href="/fitmake/resources/css/itemOne.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 </head>
 <body>
@@ -49,6 +50,7 @@
 				<input class="itemCtrCenter" type="button" id="addCartBtn" value="장바구니">
 				<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">
 				<input class="itemCtr" type="button" value="리뷰쓰기" onclick="pageReviewFnc(${itemDto.iNo});">
+				<input class="itemCtr" type="button" value="리뷰목록" onclick="pageReviewListFnc(${itemDto.iNo});">
 			</c:if>
 			
 			<c:if test="${_userDto_.uNo == 1}">

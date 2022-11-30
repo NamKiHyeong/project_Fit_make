@@ -38,7 +38,3 @@
 </body>
 	
 </html>
-
-
-rTitle
-rContent

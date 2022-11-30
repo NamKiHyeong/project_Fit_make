@@ -10,7 +10,7 @@ public interface ItemDao {
 
 	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older);
 	
-	public ItemDto itemSelectOne(int no);
+	public ItemDto itemSelectOne(int iNo);
 
 	int itemUpdateOne(ItemDto itemDto);
 
@@ -20,9 +20,9 @@ public interface ItemDao {
 	
 	public void insertFile(Map<String, Object> map);
 
-	public List<Map<String, Object>> fileSelectList(int no);
+	public List<Map<String, Object>> fileSelectList(int iNo);
 	
-	public Map<String, Object> fileSelectOne(int no);
+	public Map<String, Object> fileSelectOne(int iNo);
 
 //-----------------------------------------------------------
 	

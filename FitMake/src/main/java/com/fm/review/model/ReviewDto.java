@@ -25,79 +25,50 @@ public class ReviewDto {
 	public ReviewDto() {
 		super();
 	}
-	
+
+
 	public int getrNo() {
 		return rNo;
 	}
-
-
 	public void setrNo(int rNo) {
 		this.rNo = rNo;
 	}
-
-
 	public int getiNo() {
 		return iNo;
 	}
-
-
 	public void setiNo(int iNo) {
 		this.iNo = iNo;
 	}
-
-
 	public int getuNo() {
 		return uNo;
 	}
-
-
 	public void setuNo(int uNo) {
 		this.uNo = uNo;
 	}
-
-
 	public String getrTitle() {
 		return rTitle;
 	}
-
-
 	public void setrTitle(String rTitle) {
 		this.rTitle = rTitle;
 	}
-
-
 	public String getrContent() {
 		return rContent;
 	}
-
-
 	public void setrContent(String rContent) {
 		this.rContent = rContent;
 	}
-
-
 	public Date getrCreDate() {
 		return rCreDate;
 	}
-
-
 	public void setrCreDate(Date rCreDate) {
 		this.rCreDate = rCreDate;
 	}
-
-
 	public Date getrModDate() {
 		return rModDate;
 	}
-
-
 	public void setrModDate(Date rModDate) {
 		this.rModDate = rModDate;
 	}
-
-
-
-
 	@Override
 	public String toString() {
 		return "ReviewDto [rNo=" + rNo + ", iNo=" + iNo + ", uNo=" + uNo + ", rTitle=" + rTitle + ", rContent="

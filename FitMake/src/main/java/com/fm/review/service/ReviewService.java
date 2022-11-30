@@ -11,5 +11,8 @@ public interface ReviewService {
 	public void reviewInsert(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest) throws Exception;
 	
 	public List<Map<String, Object>> reviewSelectList(int iNo);
+	public Map<String, Object> reviewSelectOne(int rNo);
+	
+	
 	
 }

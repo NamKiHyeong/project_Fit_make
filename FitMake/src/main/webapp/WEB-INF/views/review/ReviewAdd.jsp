@@ -17,17 +17,22 @@
 
 	<form action="./addCtr.do" method="post" enctype="multipart/form-data">
 		<div>
-		<input type="hidden" name="iNo" value="${iNo}">
-		
-		<h3>제목</h3> <input type="text" name="rTitle">
-		
-		<h3>내용</h3> <textarea rows="40px;" cols="40px;" name="rContent"></textarea>
+			<input type="hidden" name="cNo" value="1">
+			<input type="hidden" name="iNo" value="${iNo}">
+			<input type="hidden" name="uNo" value="${_userDto_.uNo}">
+			<h3>제목</h3>
+				<input type="text" name="rTitle">
+			
+			<h3>내용</h3>
+				<textarea rows="40px;" cols="40px;" name="rContent">
+				</textarea>
 		</div>
 		
-		<div>파일</div>
-		<input type="file" name="file">
+		<div>
+			파일 <input type="file" name="file">
+		</div>
 		<input type="submit" value="작성">
-		<input type="button" value="이전페이지로" onclick="pageMoveListFnc();">
+<!-- 		<input type="button" value="이전페이지로" onclick="pageMoveListFnc();"> -->
 	</form>
 </body>
 </html>

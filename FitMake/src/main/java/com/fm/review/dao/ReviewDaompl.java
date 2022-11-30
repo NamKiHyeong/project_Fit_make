@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fm.item.model.ItemDto;
 import com.fm.review.model.ReviewDto;
 
 @Repository
@@ -20,29 +21,42 @@ public class ReviewDaompl implements ReviewDao {
 //	C
 	@Override
 	public int reviewInsert(ReviewDto reviewDto) {
+		System.out.println("Daompl에서" + reviewDto);
 		return sqlSession.insert(namespace + "reviewInsert", reviewDto);
 		
 	}
 	@Override
 	public void insertFile(Map<String, Object> map) {
-		sqlSession.insert(namespace + "insertFile", map);
+		System.out.println("map의 parent seq" + map.get("parentSeq"));
+		
+		sqlSession.insert(namespace + "insertFile", map);	//여기가 문제라고?
 	}
 	
-//	R
+//	R list
 	@Override
 	public List<ReviewDto> reviewSelectList(int iNo){
 		Map<String, Object>map = new HashMap<String, Object>();
-		
 		map.put("iNo", iNo);
+		
 		return sqlSession.selectList(namespace + "reviewSelect", map);
 	}
-	
-	
+		
 	@Override
 	public Map<String, Object> fileSelectOne(int rNo){
-		
+		System.out.println("Daompl에서 rNo은? " + rNo);
 		return sqlSession.selectOne(namespace + "fileSelectOne", rNo);
+	}
+	
+//	R One
+	@Override
+	public ReviewDto reviewSelectOne(int rNo) {
+		return sqlSession.selectOne(namespace + "reviewSelectOne", rNo);
+	}
+	
+	@Override
+	public List<Map<String, Object>> fileSelectList(int rNo){
 		
+		return sqlSession.selectList(namespace + "fileSelectList", rNo);
 	}
 	
 }
