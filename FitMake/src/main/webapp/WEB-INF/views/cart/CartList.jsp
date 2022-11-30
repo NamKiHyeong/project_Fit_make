@@ -109,7 +109,7 @@
 		if(deletecheck == true){
 			
 			$.ajax({
-				url : "../cart/deleteex.do",
+				url : "../cart/delete.do",
 				type : "post",
 				dataType : "json",
 				data : {"ctNo" : cartNo},
@@ -188,6 +188,7 @@
 	#emptyRow{
 		text-align: center;
 	}
+	
 </style>
 <title>장바구니</title>
 </head>
@@ -213,7 +214,7 @@
 						<input class="hiddenInfo" type="hidden" id="ctNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="ctNo">
 						<table id="cartItemTable">
 							<tr>
-								<td id="imgArea" rowspan="3">img</td>
+								<td id="imgArea" rowspan="3"><img alt="image not founded" src="<c:url value='/image/${cartMap.FM_ITEM_STORED_IMG_NAME}'/>"/></td>
 								<td id="CartItemName">${cartMap.FM_ITEM_NAME}</td>		
 								<td></td>
 								<td><input type="button" value="X" onclick="deleteCartFnc(${cartMap.FM_CART_NO});"></td>		

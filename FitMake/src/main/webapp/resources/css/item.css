@@ -34,7 +34,10 @@
 #frame:after {content:"";clear:both;display:block;}
 
 #frame .CategoryItem {float:left;width:400px;text-align:center;padding-bottom:30px;}
-#frame .sortImg {height:530px;}
+#frame .sortImg {
+	width: 300px;
+	height:300px;
+	}
 
 
 /* 	.CategoryItem{ 
@@ -65,4 +68,9 @@
 	margin-left: 1px;
 }
 
+.iImg {
+	width: inherit;
+	height: inherit;
+	object-fit: cover;
+}
 /* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */

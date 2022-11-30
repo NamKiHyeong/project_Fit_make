@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="/fitmake/resources/css/item.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
-<script type="text/javascript" src="/fitmake/resources/js/jq_join.js"></script>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
@@ -38,14 +37,12 @@
 							<form id="itemOneForm${item.itemDto.iNo}" action="./one.do" method="get">
 								<input type="checkbox" name="iCkBox" value="${item.itemDto.iNo}">
 								<input type="hidden" name="iNo" value="${item.itemDto.iNo}">
-<%-- 								<input type="hidden" name="iNo" value="${item.itemDto.iNo}"> --%>
 								<input type="hidden" name="cNo" value="${item.itemDto.cNo}">
 								<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
 								<input type="hidden" name="keyword" value="${searchMap.keyword}">
-								<div class="sortImg"><img alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/><br></div>
-								
-			<%-- 					(${row.FILE_SIZE}kb) --%>
-								
+								<div class="sortImg">
+									<img class="iImg" alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+								</div>
 								<p class="content"><a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">${item.itemDto.iName}</a></p>
 								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>
 								<p>리뷰 : ${item.itemDto.iCount}</p>

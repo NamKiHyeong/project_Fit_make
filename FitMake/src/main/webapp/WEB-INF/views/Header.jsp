@@ -19,9 +19,7 @@ function viewCartSummaryFnc() {
 				url : "../cart/summary.do",
 				type : "get",
 				dataType : "json",
-				success : function(data) {
-					var cartMapList = data.cartMapList;
-					var fileList = data.fileList;
+				success : function(cartMapList) {
 					var str = '';
 					var cartTotal = 0;
 					
@@ -31,9 +29,6 @@ function viewCartSummaryFnc() {
 					}
 					
 					
-					$.each(fileList, function(i, elt) {
-						
-					})
 					$.each(cartMapList,	function(key, value) {
 						var iPriceRaw = parseInt(value.FM_ITEM_SELLPRICE);
 						var ctCount = parseInt(value.FM_CART_COUNT);
@@ -44,12 +39,12 @@ function viewCartSummaryFnc() {
 								}).format(iPriceRaw * ctCount);
 
 						var ctNo = parseInt(value.FM_CART_NO);
-
+						
 						str += '<tr><td rowspan="3", style="width:40px">';
 						str += '<a href="/item/list.do?iNo='
 								+ value.FM_ITEM_NO
-								+ '"></a></td>';
-						//				str += '<img src="/img/'+value.itemVO.item_imgmain+'">';
+								+ '">';
+						str += '<img alt="image not found" src="${pageContext.request.contextPath}/image/' + value.FM_ITEM_STORED_IMG_NAME + '"></a></td>';
 						str += '<td style="width:40px;vertical-align : bottom; font-size:13px;">';
 						str += '<a href="/item/list.do?iNo='
 								+ value.FM_ITEM_NO
@@ -89,7 +84,7 @@ function deleteCartFnc(cartNo) {
 	if (deletecheck == true) {
 
 		$.ajax({
-			url : "../cart/deleteex.do",
+			url : "../cart/delete.do",
 			type : "post",
 			dataType : "json",
 			data : {
@@ -139,7 +134,11 @@ function deleteCartFnc(cartNo) {
 	/* #cartList table:hover{
   		background-color : #ececec
 	} */
-	
+	td img {
+		width: 150px;
+	  	height: 150px;
+		object-fit: cover;
+	}
 </style>
 </head>
 <body>
