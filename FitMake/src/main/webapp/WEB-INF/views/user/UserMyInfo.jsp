@@ -35,6 +35,10 @@
 #myInfoDiv {
 	width: 1000px;
 }
+#myInfoP {
+	font-size: 26px;
+    font-weight: 600;
+}
 #tableDiv {
 	display: flex;
 	flex-direction: column;
