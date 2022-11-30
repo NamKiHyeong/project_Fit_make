@@ -72,19 +72,44 @@
 	<!-- 회원가입 // -->
 
 	<!-- //내정보조회 -->
-	<select id="userSelectInfo" parameterType="int"
-		resultType="map">
+	<select id="userSelectInfo" parameterType="int" resultType="map">
 		SELECT u.*, b.*
 		FROM FM_USER u INNER JOIN FM_USER_BMI b
-		ON u.FM_USER_NO = b.FM_USER_NO
+		ON u.FM_USER_NO
+		= b.FM_USER_NO
 		where u.FM_USER_NO = #{uNo}
 	</select>
 	<!-- 내정보조회// -->
-	
-	<!-- 이메일 중복체크 -->
+
+	<!-- //이메일 중복체크 -->
 	<select id="checkEmail" parameterType="String" resultType="int">
 		SELECT COUNT(*)
 		FROM FM_USER
 		WHERE FM_USER_EMAIL = #{email}
 	</select>
+	<!-- 이메일 중복체크// -->
+
+	<!-- //닉네임 중복체크 -->
+	<select id="checkNickName" parameterType="String"
+		resultType="int">
+		SELECT COUNT(*)
+		FROM FM_USER
+		WHERE FM_USER_NICKNAME =
+		#{nickName}
+	</select>
+	<!-- 닉네임 중복체크// -->
+
+	<!-- //포인트 충전 -->
+	<update id="addPoint" parameterType="userDto">
+		UPDATE FM_USER
+		SET
+		FM_USER_POINT = FM_USER_POINT + #{point}
+		WHERE FM_USER_NO = #{uNo};
+	</update>
+	<insert id="pointHisoty" parameterType="com.fm.util.PointAdd"
+		keyProperty="uNo">
+		INSERT INTO FM_POINT
+		VALUES(SEQ_FM_POINT_NO.NEXTVAL, #{uNo}, #{point}, SYSDATE);
+	</insert>
+	<!-- 포인트 충전// -->
 </mapper>

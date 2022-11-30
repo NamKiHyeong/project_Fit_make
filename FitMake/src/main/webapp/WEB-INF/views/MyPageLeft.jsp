@@ -23,13 +23,15 @@
 }
 
 #firstDiv_Nav {
+	display: flex;
+     justify-content: center;
+     align-items: center;
 	height: 100px;
-	text-align: center;
 	background-color: #d12268;
 }
 
 #mypageAtag {
-	padding: 50px 0;
+	padding: 40px 25px;
 	color: #fff;
 	font-size: 18px;
 	font-weight: bold;

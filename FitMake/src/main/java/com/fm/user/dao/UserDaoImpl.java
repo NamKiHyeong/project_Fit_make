@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
+import com.fm.util.PointAdd;
 
 //DB와 관련된 작업을 저장하는 곳이라 레파지토리라는 어노테이션을 붙여야 한다.
 @Repository
@@ -62,5 +63,29 @@ public class UserDaoImpl implements UserDao {
 
 		return sqlSession.selectOne(namespaceuser + "checkEmail", email);
 	}
+
+	@Override
+	public int addPoint(UserDto userDto, int point) {
+		
+		userDto.setPoint(point);
+		
+		return sqlSession.update(namespaceuser + "addPoint", userDto);
+	}
+	
+	@Override
+	public int pointHisoty(PointAdd pointAdd, int point) {
+		
+		pointAdd.setpHistory(point);
+		
+		return sqlSession.insert(namespaceuser + "pointHisoty", pointAdd);
+	}
+	
+	@Override
+	public int checkNickName(String nickName) {
+		
+		return sqlSession.selectOne(namespaceuser + "checkNickName", nickName);
+	}
+
+	
 
 }

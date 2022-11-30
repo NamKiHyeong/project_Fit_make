@@ -8,6 +8,10 @@ li {
 	list-style: none;
 }
 
+em {
+	font-style: normal;
+}
+
 a:link {
 	color: #000000;
 	text-decoration: none;

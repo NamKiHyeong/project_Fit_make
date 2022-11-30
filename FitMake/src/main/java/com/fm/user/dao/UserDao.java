@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
+import com.fm.util.PointAdd;
 
 public interface UserDao {
 
@@ -19,5 +20,13 @@ public interface UserDao {
 	public Map<String, Object> userSelectInfo(int uNo);
 
 	public int checkEmail(String email);
+
+	public int addPoint(UserDto userDto, int point);
+
+	public int checkNickName(String nickName);
+
+	public int pointHisoty(PointAdd pointAdd, int point);
+
+	
 
 }

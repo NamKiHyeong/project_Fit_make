@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
 import com.fm.util.BmiCalc;
+import com.fm.util.PointAdd;
 
 //어노테이션 드리븐
 @Controller
@@ -127,6 +128,24 @@ public class UserController {
 	
 	/**
 	 * 
+	 * @param nickName 닉네임 중복체크를 위한 값
+	 * @ResponseBody View 페이지가 아닌 응답값 그대로 반환하기 위해 사용
+	 * @return
+	 */
+	@RequestMapping(value = "/user/nickNameChk.do", method = RequestMethod.POST)
+	@ResponseBody 
+		public String checkNickName(@RequestParam("nickNameChk") String nickName) {
+		
+			String result = "N";
+			int flag = userService.checkNickName(nickName);
+			//닉네임이 있을시 Y 없을시 N 으로 회원가입페이지로 보냄
+			if (flag == 1) result = "Y";
+			
+			return result;
+		}
+	
+	/**
+	 * 
 	 * @param userPhoneNumber 수신번호
 	 * @ResponseBody View 페이지가 아닌 응답값 그대로 반환하기 위해 사용
 	 * @return
@@ -179,11 +198,28 @@ public class UserController {
 			
 			return "/user/UserMyInfo";
 		}
-	
+	/**
+	 * 
+	 * @return 충전버튼 누를시 -> 포인트충전 팝업창 실행
+	 */
 	@RequestMapping(value = "/user/point.do")
 		public String pointView() {;
 			logger.info("포인트 페이지로 갑니다");
 			
 		return "/user/PointPopup";
+	}
+	
+	@RequestMapping(value = "/user/pointAdd.do", method = {RequestMethod.GET,RequestMethod.POST})
+	@ResponseBody
+		public String pointAdd(@RequestParam("priceSelect") int point
+				,UserDto userDto, PointAdd pointAdd) {
+			logger.info("포인트 충전 - {}", point);
+			
+			
+			userService.addPoint(userDto, point);
+			userService.pointHisoty(pointAdd, point);
+			
+			
+			return null;
 	}
 }

@@ -22,7 +22,6 @@ $('input:radio[name="gType"]').each(function() {
     }
  		});
 	});
-	
 });
 </script>
 <title>회원가입 페이지</title>

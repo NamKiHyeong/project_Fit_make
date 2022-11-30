@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
+import com.fm.util.PointAdd;
 
 public interface UserService {
 
@@ -18,5 +19,11 @@ public interface UserService {
 	public void certifiedPhoneNumber(String userPhoneNumber, int randomNumber);
 
 	public int checkEmail(String email);
+
+	public int checkNickName(String nickName);
+
+	public void addPoint(UserDto userDto, int point);
+
+	public void pointHisoty(PointAdd pointAdd, int point);
 
 }

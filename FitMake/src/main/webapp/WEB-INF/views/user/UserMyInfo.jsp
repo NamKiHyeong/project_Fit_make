@@ -103,7 +103,7 @@
 					</tr>
 					<tr>
 						<th>휴대폰 번호</th>
-						<td><input type="text" value="${myInfomap.FM_USER_MOBILE}" readonly><input type="button" value="변경"></td>
+						<td><input type="text" value="${myInfomap.FM_USER_MOBILE}" readonly></td>
 					</tr>
 					<tr>
 						<th>현재 비밀번호</th>

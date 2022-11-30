@@ -22,6 +22,7 @@ import com.fm.user.dao.UserDao;
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
 import com.fm.util.FileUtils;
+import com.fm.util.PointAdd;
 
 import net.nurigo.java_sdk.api.Message;
 import net.nurigo.java_sdk.exceptions.CoolsmsException;
@@ -32,31 +33,31 @@ public class UserServiceImpl implements UserService {
 	private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	public UserDao UserDao;
+	public UserDao userDao;
 
 	@Override
 	public UserDto userExist(String email, String password) {
 		// TODO Auto-generated method stub
-		return UserDao.userExist(email, password);
+		return userDao.userExist(email, password);
 	}
 
 	@Override
 	public void userInsertOne(UserDto userDto, String address) {
 
-		UserDao.userInsertOne(userDto, address);
+		userDao.userInsertOne(userDto, address);
 	}
 
 	@Override
 	public void bmiInsertOne(BmiCalc bmiCalc) {
 
-		UserDao.bmiInsertOne(bmiCalc);
+		userDao.bmiInsertOne(bmiCalc);
 
 	}
 
 	@Override
 	public Map<String, Object> userSelectInfo(int uNo) {
 
-		return UserDao.userSelectInfo(uNo);
+		return userDao.userSelectInfo(uNo);
 	}
 
 	@Override
@@ -88,9 +89,31 @@ public class UserServiceImpl implements UserService {
 
 		int result = 0;
 
-		result = UserDao.checkEmail(email);
+		result = userDao.checkEmail(email);
 
 		return result;
 	}
+
+	@Override
+	public void addPoint(UserDto userDto, int point) {
+
+		userDao.addPoint(userDto, point);
+	}
+
+	@Override
+	public void pointHisoty(PointAdd pointAdd, int point) {
+		
+		userDao.pointHisoty(pointAdd, point);
+	}
+	
+	@Override
+	public int checkNickName(String nickName) {
+		int result = 0;
+
+		result = userDao.checkNickName(nickName);
+
+		return result;
+	}
+
 
 }
