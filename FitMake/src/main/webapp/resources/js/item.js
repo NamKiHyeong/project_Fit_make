@@ -13,12 +13,12 @@ $(document).ready(function() {
 		
 		var itemCart = { 
 				"iNo" : iNo,
-				"iCount" : 1
+				"ctCount" : 1
 		};
 				
 		$.ajax({
 			type : "POST",
-			url : "../cart/addex.do",
+			url : "../cart/add.do",
 			dataType : "json",
 			data : itemCart,
 			error : function(request, status, error) {
@@ -60,7 +60,7 @@ $(document).ready(function() {
 		
 		$.ajax({
 			type : "POST",
-			url : "../cart/addex.do",
+			url : "../cart/add.do",
 			dataType : "json",
 			data : itemCart,
 			error : function(request, status, error) {
