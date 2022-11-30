@@ -28,44 +28,6 @@
 			}
 		});
 		
-		$("#testbtn").on("click", function(){
-			
-			var testArr = { 
-					"iNo" : $("#testiNo").val(),
-					"iCount" : 3
-			};
-			
-			$.ajax({
-				type : "POST",
-				url : "../cart/addex.do",
-				dataType : "json",
-				data : testArr,
-				error : function(request, status, error) {
-					alert("code:"
-							+ request.status
-							+ "\n"
-							+ "message:"
-							+ request.responseText
-							+ "\n"
-							+ "error:"
-							+ error);
-				},
-				success : function(data) {
-
-					if (data == 1) {
-						viewCartSummaryFnc();
-
-						alert("장바구니 추가완료");
-					} else if (data == 2) {
-
-						alert("이미 추가 된 상품입니다");
-					}
-
-				}
-			});
-			
-		});
-		
 		viewCartSummaryFnc();
 		
 	});
@@ -170,14 +132,14 @@
 		margin: 0px auto;
 	}
 	#headHr {
-		margin-left: 6.5%;
+/* 		margin-left: 6.5%; */
 		margin-top: 3%
 	}
 	#headTable {
 		width: 80%;
 		margin-top: 5%;
-		margin-left: 3%;
-		padding-left: 6.5%;
+/* 		margin-left: 3%; */
+/* 		padding-left: 6.5%; */
 		text-align: left;
 	}
 	#headTitle {
@@ -186,7 +148,7 @@
 	#cartItemTable, #addForm {
 		width: 80%;
 		height: 15%;
-		margin-left: 5%;
+/* 		margin-left: 5%; */
 		padding: 0px;
 	}
 	.cartBtn {
@@ -202,7 +164,7 @@
 		padding-left: 1.5%;
 	}
 	#tailHr {
-		margin-left: 6.5%;
+/* 		margin-left: 6.5%; */
 		margin-top: 3%
 	}
 	#CartItemName {

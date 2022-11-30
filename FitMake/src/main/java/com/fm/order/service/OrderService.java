@@ -17,7 +17,7 @@ public interface OrderService {
 
 	public int deleteCart(int uNo, int ctNo);
 
-	public List<Map<String, Object>> viewOrderList(int uNo);
+	public List<Map<String, Object>> viewOrderList(int uNo, String searchOption, String searchText, int start, int end);
 	
 	public int addOrder(int uNo);
 	
@@ -35,8 +35,10 @@ public interface OrderService {
 
 	public void updateOrder(int oNo, String oStatus);
 
-	public int getOrderTotalCount();
+	public int getOrderTotalCount(int uNo, String searchOption, String searchText);
 
 	public int checkCart(int uNo, int iNo);
+
+	public List<Map<String, Object>> viewCartFileList(int uNo);
 
 }

@@ -47,9 +47,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public List<Map<String, Object>> viewOrderList(int uNo) {
+	public List<Map<String, Object>> viewOrderList(int uNo, String searchOption, String searchText, int start, int end) {
 		
-		return orderDao.viewOrderList(uNo);
+		return orderDao.viewOrderList(uNo, searchOption, searchText, start, end);
 	}
 	
 	@Override
@@ -100,15 +100,20 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public int getOrderTotalCount() {
+	public int getOrderTotalCount(int uNo, String searchOption, String searchText) {
 		
-		return orderDao.getOrderTotalCount();
+		return orderDao.getOrderTotalCount(uNo, searchOption, searchText);
 	}
 
 	@Override
 	public int checkCart(int uNo, int iNo) {
 		
 		return orderDao.checkCart(uNo, iNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> viewCartFileList(int uNo) {
+		return orderDao.viewCartFileList(uNo);
 	}
 
 }

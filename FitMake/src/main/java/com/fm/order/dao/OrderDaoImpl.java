@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.jasper.tagplugins.jstl.core.Choose;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Repository;
 import com.fm.order.model.CartDto;
 import com.fm.order.model.OrderDto;
 import com.fm.user.model.UserDto;
+
+import javafx.beans.binding.When;
 
 @Repository
 public class OrderDaoImpl implements OrderDao {
@@ -52,9 +55,39 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public List<Map<String, Object>> viewOrderList(int uNo) {
+	public List<Map<String, Object>> viewOrderList(int uNo, String searchOption, String searchText
+			, int start, int end) {
 		
-		return sqlSession.selectList(namespace + "viewOrderList", uNo);
+		if(searchOption.equals("user")) {
+			searchOption = "u.FM_USER_NICKNAME";
+		} else {
+			searchOption = "o.FM_ORDER_STATUS";
+			
+			switch (searchText) {
+			case "대기":
+				searchText = "pending";
+				break;
+			case "승인":
+				searchText = "confirm";
+				break;
+			case "취소":
+				searchText = "cancel";
+				break;
+	
+			default: searchText = "";
+				break;
+			}
+		}
+						
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("searchOption", searchOption);
+		inputMap.put("searchText", searchText);
+		inputMap.put("start", start);
+		inputMap.put("end", end);
+		
+		
+		return sqlSession.selectList(namespace + "viewOrderList", inputMap);
 	}
 	
 	@Override
@@ -122,9 +155,35 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public int getOrderTotalCount() {
+	public int getOrderTotalCount(int uNo, String searchOption, String searchText) {
 		
-		return sqlSession.selectOne(namespace + "getOrderTotalCount");
+		if(searchOption.equals("user")) {
+			searchOption = "u.FM_USER_NICKNAME";
+		} else {
+			searchOption = "o.FM_ORDER_STATUS";
+			
+			switch (searchText) {
+			case "대기":
+				searchText = "pending";
+				break;
+			case "승인":
+				searchText = "confirm";
+				break;
+			case "취소":
+				searchText = "cancel";
+				break;
+	
+			default: searchText = "";
+				break;
+			}
+		}
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("searchOption", searchOption);
+		inputMap.put("searchText", searchText);
+		inputMap.put("uNo", uNo);
+		
+		return sqlSession.selectOne(namespace + "getOrderTotalCount", inputMap);
 	}
 
 	@Override
@@ -135,6 +194,12 @@ public class OrderDaoImpl implements OrderDao {
 		inputMap.put("iNo", iNo);
 		
 		return sqlSession.selectOne(namespace + "checkCart", inputMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> viewCartFileList(int uNo) {
+		
+		return sqlSession.selectList(namespace + "viewCartFileList", uNo);
 	}
 
 }

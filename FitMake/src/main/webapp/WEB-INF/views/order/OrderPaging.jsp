@@ -48,13 +48,6 @@ nav > ul > li > a:hover {
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
 <script type="text/javascript">
-	function goPageFnc(pageNumber){
-		var curPageObj = $("#curPage");
-		curPageObj.val(pageNumber);
-		
-		$("#pagingForm").submit();
-	}
-	
 	window.onload = function(){
 		var curPageDoc = $('#curPage');
 		var pageButtonId = '#pageButton' + curPageDoc.val();
@@ -62,22 +55,29 @@ nav > ul > li > a:hover {
 		$(pageButtonId).addClass('active');
 		
 	}
+	
+	function goPageFnc(pageNumber){
+		var curPageObj = $("#curPage");
+		curPageObj.val(pageNumber);
+		
+		$("#pagingForm").submit();
+	}
 </script>
 
 <nav>
 		<ul>
-		<c:if test="${pagingMap.itemPaging.prevBlock ne 1}">
+		<c:if test="${oPagingMap.orderPaging.prevBlock ne 1}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${pagingMap.itemPaging.prevBlock});">
+					onclick="goPageFnc(${oPagingMap.orderPaging.prevBlock});">
 					<span>«</span>
 				</a>
 			</li>
 		</c:if>
 		
 		<c:forEach var="num" 
-			begin="${pagingMap.itemPaging.blockBegin}" 
-			end="${pagingMap.itemPaging.blockEnd}">
+			begin="${oPagingMap.orderPaging.blockBegin}" 
+			end="${oPagingMap.orderPaging.blockEnd}">
 			<li id='pageButton${num}'>
 				<a href="#" onclick="goPageFnc(${num});">
 					<c:out value="${num}"/>
@@ -85,11 +85,11 @@ nav > ul > li > a:hover {
 			</li>
 		</c:forEach>
 		
-		<c:if test="${pagingMap.itemPaging.curBlock 
-			< pagingMap.itemPaging.totBlock}">
+		<c:if test="${oPagingMap.orderPaging.curBlock 
+			< oPagingMap.orderPaging.totBlock}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${pagingMap.itemPaging.nextBlock});">
+					onclick="goPageFnc(${oPagingMap.orderPaging.nextBlock});">
 					<span>»</span>
 				</a>
 			</li>			

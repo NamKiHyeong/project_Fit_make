@@ -49,67 +49,77 @@ public class OrderController {
 
 		List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
 		
+		List<Map<String, Object>> fileList = orderService.viewCartFileList(uNo);
+		
 		model.addAttribute("cartMapList", cartMapList);
+		model.addAttribute("fileList", fileList);
 
 		return "cart/CartList";
 	}
 
 	/**
-	 * 유효성 검사 추가 필요 장바구니 추가 기능
-	 * 
-	 * @param session 세션에 있는uNo를 가지고 오기 위한 객체
-	 * @param model   화면 구성을 위한 객체
-	 * @param iNo     장바구니에 추가할 제품번호
-	 * @param iCount  장바구니에 추가할 제품갯수
-	 * @return 화면에서 이동할 것인지 아닌지 선택한 값을 통해 다르게 리턴
-	 */
-	@Transactional
-	@RequestMapping(value = "/cart/add.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String addCart(HttpSession session, Model model, @RequestParam(defaultValue = "0") int iNo,
-			@RequestParam(defaultValue = "0") int iCount) {
-		logger.info("Welcome addCart!");
-
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-
-		orderService.addCart(uNo, iNo, iCount);
-
-		// 화면에서 남아 있을것인지 아닌지 확인 받아서 들어온 값에 따라 리턴을 다르게 한다
-		return "redirect:/cart/list.do";
-	}
-
-	/**
-	 * cart 수량 업데이트 기능
-	 * 
-	 * @param session 세션에 저장된 uNo를 가져오기 위한 객체
-	 * @param cartDto 화면에서 cCount를 가져오기 위한 객체
-	 * @return 성공하면 1 실패하면 -1를 리턴
+	 * 비동기 장바구니 추가 기능
+	 * @param session 	세션에 저장된 회원번호를 받기 위한 객체
+	 * @param model		필요 없음 지금은
+	 * @param iNo		장바구니에 등록하고자 하는 제품 번호
+	 * @param iCount	장바구니에 등록하고자 하는 제품 갯수
+	 * @return			장바구니에 이미 있다면 2 / 성공했다면 1을 반환
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "/cart/update.do", method = RequestMethod.POST)
-	public String updateCart(HttpSession session, CartDto cartDto, Model model) throws Exception {
-		logger.debug("Welcome cartUpdate" + cartDto.getCtNo() + "" + cartDto.getCtCount());
+	  @ResponseBody
+	  @RequestMapping(value = "/cart/add.do", method = RequestMethod.POST)
+	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo[]", defaultValue = "0") int[] iNo
+			  , @RequestParam(value="ctCount", defaultValue = "0") int ctCount) throws Exception {
+		  logger.debug("welcome CartAdd");
+		  
+	      UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+	      int uNo = (int)userDto.getuNo();
+	      
+	      for(int i = 0; i < iNo.length; i++) {
+		      if(orderService.checkCart(uNo, iNo[i]) != 0) {
+		    	  return 2;
+		      }
+	      }
+	      
+	      for(int i = 0; i < iNo.length; i++) {
+	    	  orderService.addCart(uNo, iNo[i], ctCount);
+	      }
+	      
+	    return 1;
+	  }
 
-		int count = 0;
+	 /**
+	  * 비동기 카트 수량 업데이트 기능
+	  * @param session		회원번호를 가져오기 위한 객체
+	  * @param cartDto		업데이트하기 위한 정보를 가지고 있는 객체
+	  * @return				성공하면 1을 반환
+	  * @throws Exception	
+	  */
+	  @ResponseBody
+	  @RequestMapping(value="/cart/update.do", method = RequestMethod.POST)
+	  public int updateCartAsync(HttpSession session, CartDto cartDto) throws Exception {
+			logger.debug("Welcome cartUpdate" + cartDto.getCtNo() + "" + cartDto.getCtCount());
+			
+			int count = 0;
 
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 
-		cartDto.setuNo(userDto.getuNo());
+			cartDto.setuNo(userDto.getuNo());
 
-		count = orderService.updateCart(cartDto);
+			count = orderService.updateCart(cartDto);
 
-		return "redirect:/cart/list.do";
-	}
-
+			return count;
+		}	  
+	  
 	/**
-	 * 유효성 검사 추가 필요 / ctNo와 ino를 통해 장바구니 번호를 검색해야하는 지의 여부는 생각해 볼것 장바구니에 있는 물품을 지우는 기능
-	 * 
-	 * @param session 세션에 저장된 uNo를 가져오기 위한 객체
-	 * @param ctNo     장바구니 물품의 고유 값
-	 * @return 장바구니리스트 페이지 호출
+	 * 비동기 장바구니 제품 삭제 기능
+	 * @param session	회원번호를 가져오기 위한 객체
+	 * @param ctNo		장바구니번호
+	 * @return			성공하면 1을 반환
 	 */
-	@RequestMapping(value = "/cart/delete.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String deleteCart(HttpSession session, Model model, int ctNo) {
+	@ResponseBody
+	@RequestMapping(value = "/cart/delete.do", method = RequestMethod.POST)
+	public int deleteCartAsync(HttpSession session, @RequestParam(value="ctNo") int ctNo) {
 		logger.debug("welcome cartDelete");
 
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
@@ -117,9 +127,32 @@ public class OrderController {
 		
 		orderService.deleteCart(uNo, ctNo);
 
-		return "redirect:/cart/list.do";
+		return 1;
 	}
+	
+	/**
+	 * 장바구니 드롭다운 내용을 호출하는 기능
+	 * @param session	회원번호를 얻기 위한 객체
+	 * @return			장바구니 제품 리스트를 반환
+	 */
+	  @ResponseBody
+	  @RequestMapping(value = "/cart/summary.do", method = RequestMethod.GET)
+	  public Map<String, Object> viewCartHeadListAsync(HttpSession session) {
+			logger.debug("Welcome CartList");
 
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+
+			List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
+			List<Map<String, Object>> fileList = orderService.viewCartFileList(uNo);
+			
+			Map<String, Object> cartContainer = new HashMap<String, Object>();
+			cartContainer.put("cartMapList", cartMapList);
+			cartContainer.put("fileList", fileList);
+
+			return cartContainer;
+	  }
+	
 	/**
 	 * 주문관리 페이지 리스트를 호출 할 때 사용하는 메서드
 	 * 
@@ -129,37 +162,56 @@ public class OrderController {
 	 */
 	@Transactional
 	@RequestMapping(value = "/order/list.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String viewOrderList(HttpSession session, Model model,@RequestParam(defaultValue = "1") int curPage) {
+	public String viewOrderList(HttpSession session, Model model
+			, @RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "user") String searchOption
+			, @RequestParam(defaultValue = "") String searchText) {
 		logger.info("Welcome orderList!");
 		
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		
-		int totalCount = orderService.getOrderTotalCount();
+		String viewUrl = "";
+		
+		
+		int totalCount = orderService.getOrderTotalCount(uNo, searchOption, searchText);
+		
+		logger.info("totalCount {}", totalCount);
+		
 		Paging orderPaging = new Paging(totalCount, curPage);
 		
 		int start = orderPaging.getPageBegin();
 		int end = orderPaging.getPageEnd();
 		
-		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo);
-		Map<String, Object> orderDetailMyInfo = orderService.viewOrderDetailMyInfo(uNo);
+		logger.info("start {}", start);
+		logger.info("end {}", end);
 		
-		/*
-		 * Map<String, Object> oPagingMap = new HashMap<String, Object>();\
-		 * oPagingMap.put("oPagingMap", oPagingMap); oPagingMap.put("totalCount",
-		 * totalCount);
-		 */
+		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo, searchOption, searchText, start, end);
 		
-		/*Map<String, Object> searchMap = new HashMap<String, Object>();
+		logger.info("orderMapList {}", orderMapList.size());
+		
+		Map<String, Object> oPagingMap = new HashMap<String, Object>();
+		oPagingMap.put("orderPaging", orderPaging); 
+		oPagingMap.put("totalCount",totalCount);
+		oPagingMap.put("start", start);
+		oPagingMap.put("end", end);
+		 
+		
+		Map<String, Object> searchMap = new HashMap<String, Object>();
+		searchMap.put("searchOption", searchOption);
 		searchMap.put("searchText", searchText);
-		searchMap.put("catName", catName);*/
 		
 		model.addAttribute("orderMapList", orderMapList);
-		model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
-		/*model.addAttribute("oPagingMap", oPagingMap);
-		model.addAttribute("searchMap", searchMap);*/
-
-		return "order/OrderManage";
+		model.addAttribute("searchMap", searchMap);
+		model.addAttribute("oPagingMap", oPagingMap);
+		
+		if(uNo == 1) {
+			viewUrl = "order/OrderManage";
+		} else {
+			viewUrl = "order/MyOrder";
+		}
+		
+		return viewUrl;
 	}
 
 	/**
@@ -326,77 +378,6 @@ public class OrderController {
 		return viewUrl;
 	}
 	
-	/**
-	 * 비동기 장바구니 추가 기능
-	 * @param session 	세션에 저장된 유저넘버를 받기 위한 객체
-	 * @param model		필요 없음 지금은
-	 * @param iNo		장바구니에 등록하고자 하는 제품 번호
-	 * @param iCount	장바구니에 등록하고자 하는 제품 갯수
-	 * @return			장바구니에 이미 있다면 2 / 성공했다면 1을 반환
-	 * @throws Exception
-	 */
-	  @ResponseBody
-	  @RequestMapping(value = "/cart/addex.do", method = RequestMethod.POST)
-	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo[]", defaultValue = "0") int[] iNo
-			  , @RequestParam(value="ctCount", defaultValue = "0") int iCount) throws Exception {
-		  logger.debug("ino = " + iNo);
-		  logger.debug("iCount = " + iCount);
-		  
-	      UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-	      int uNo = (int)userDto.getuNo();
-	      
-	      for(int i = 0; i < iNo.length; i++) {
-		      if(orderService.checkCart(uNo, iNo[i]) != 0) {
-		    	  return 2;
-		      }
-	      }
-	      
-	      for(int i = 0; i < iNo.length; i++) {
-	    	  orderService.addCart(uNo, iNo[i], iCount);
-	      }
-	      
-	    return 1;
-	  }
 	  
-	  @ResponseBody
-	  @RequestMapping(value = "/cart/summary.do", method = RequestMethod.GET)
-	  public List<Map<String, Object>> viewCartHeadListAsync(HttpSession session) {
-			logger.debug("Welcome CartList");
-
-			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-			int uNo = (int) userDto.getuNo();
-
-			List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
-
-			return cartMapList;
-	  }
 	  
-	  @ResponseBody
-	  @RequestMapping(value = "/cart/deleteex.do", method = RequestMethod.POST)
-		public int deleteCartAsync(HttpSession session, Model model, @RequestParam(value="ctNo") int ctNo) {
-			logger.debug("welcome cartDelete");
-
-			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-			int uNo = (int) userDto.getuNo();
-			
-			orderService.deleteCart(uNo, ctNo);
-
-			return 1;
-		}
-	  
-	  @ResponseBody
-	  @RequestMapping(value="/cart/updateex.do", method = RequestMethod.POST)
-	  public int updateCartAsync(HttpSession session, CartDto cartDto, Model model) throws Exception {
-			logger.debug("Welcome cartUpdate" + cartDto.getCtNo() + "" + cartDto.getCtCount());
-			
-			int count = 0;
-
-			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-
-			cartDto.setuNo(userDto.getuNo());
-
-			count = orderService.updateCart(cartDto);
-
-			return count;
-		}
 }
