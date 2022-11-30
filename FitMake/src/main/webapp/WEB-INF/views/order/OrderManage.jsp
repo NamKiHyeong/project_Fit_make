@@ -6,7 +6,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
@@ -52,7 +51,7 @@
 			location.href = './list.do?searchOption=' + searchOptionVal + '&searchText=' + searchTextVal;
 		});
 		
-		$("#searchOption").val("${searchMap.searchOption}").prop("selected", true);
+		$('#searchOption').val($('#prevSearchOption').val()).prop("selected", true);
 	});
 	
 	function viewDetailFnc(oNo){
@@ -135,6 +134,7 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
 	<div id="orderRootDiv">
+	<jsp:include page="../MyPageLeft.jsp" />
 		<div id="titleDiv">
 			<table id="headTable">
 				<tr>
@@ -222,8 +222,8 @@
 	<div id="pagingSection">
 		<form id="pagingForm" action="./list.do" method="get">
 			<input type="hidden" id="curPage" name="curPage" value="${oPagingMap.orderPaging.curPage}">
-			<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-			<input type="hidden" name="searchText" value="${searchMap.searchText}">
+			<input type="hidden" id="prevSearchOption" name="searchOption" value="${searchMap.searchOption}">
+			<input type="hidden" id="prevSearchText" name="searchText" value="${searchMap.searchText}">
 		</form>
 	</div>
 	

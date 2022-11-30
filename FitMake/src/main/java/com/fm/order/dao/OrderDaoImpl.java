@@ -64,18 +64,18 @@ public class OrderDaoImpl implements OrderDao {
 			searchOption = "o.FM_ORDER_STATUS";
 			
 			switch (searchText) {
-			case "대기":
-				searchText = "pending";
-				break;
-			case "승인":
-				searchText = "confirm";
-				break;
-			case "취소":
-				searchText = "cancel";
-				break;
-	
-			default: searchText = "";
-				break;
+				case "대기":
+					searchText = "pending";
+					break;
+				case "승인":
+					searchText = "confirm";
+					break;
+				case "취소":
+					searchText = "cancel";
+					break;
+				case "구매확정":
+					searchText = "pixed";
+					break;	
 			}
 		}
 						

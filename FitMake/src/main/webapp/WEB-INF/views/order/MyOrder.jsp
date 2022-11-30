@@ -6,44 +6,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
-		
-		$('select[name="oStatus"]').each(function() {
-			$(this).val($(this).siblings('input').val());
-		});
-		
-		$('#orderUpdateBtn').on('click', function(){
-			$('#orderListForm').attr('action', './update.do');
-			$('#orderListForm').attr('method', 'post');
-			
-			var oNoArr = [];
-			var oStatusArr = [];
-			
-			$('input:checkbox[name="orderCheckbox"]').each(function() {
-				
-				if(this.checked == true){
-					oNoArr.push(this.value);
-					oStatusArr.push($('#oStatus'+ this.value).val());					
-				}
-			});
-			
-			$('#oNoArr').val(oNoArr);
-			$('#oStatusArr').val(oStatusArr);
-			
-			$('#orderListForm').submit();
-		});
-				
-		$('#checkAll').on('click', function(){			
-			
-			$('input:checkbox[name="orderCheckbox"]').each(function() {
-				this.checked = $('#checkAll').is(':checked');
-			});
-			
-		});
 		
 		$('#searchBtn').on('click', function(){
 			var searchOptionVal = $('#searchOption').val();
@@ -52,17 +18,7 @@
 			location.href = './list.do?searchOption=' + searchOptionVal + '&searchText=' + searchTextVal;
 		});
 		
-		$("#searchOption").val("${searchMap.searchOption}").prop("selected", true);
 	});
-	
-	function viewDetailFnc(oNo){
-		var orderDetailFormObj = $('#orderDetailForm');
-		var orderNoObj = $('#orderNo');
-		
-		orderNoObj.val(oNo);
-		orderDetailFormObj.attr('action', './detail.do');
-		orderDetailFormObj.submit();
-	}
 	
 </script>
 <style type="text/css">
@@ -123,6 +79,7 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
 	<div id="orderRootDiv">
+	<jsp:include page="../MyPageLeft.jsp" />
 		<div id="titleDiv">
 			<table id="headTable">
 				<tr>
@@ -190,9 +147,9 @@
 								</tr>
 								<tr>
 									<td>
-										${FM_ORDER_DETAIL_COUNT}
 									</td>
 									<td>
+									${orderMap.totalPrice}원
 									</td>
 								</tr>
 							</table>
@@ -207,13 +164,8 @@
 	<div id="pagingSection">
 		<form id="pagingForm" action="./list.do" method="get">
 			<input type="hidden" id="curPage" name="curPage" value="${oPagingMap.orderPaging.curPage}">
-			<input type="hidden" name="searchOption" value="${searchMap.searchOption}">
-			<input type="hidden" name="searchText" value="${searchMap.searchText}">
 		</form>
 	</div>
 	
-	<form id="orderDetailForm" method="post">
-		<input type="hidden" id="orderNo" value="${orderMap.FM_ORDER_NO}" name="oNo">
-	</form>
 </body>
 </html>
