@@ -4,7 +4,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>충전 페이지</title>
+<script type="text/javascript">
+	
+</script>
 </head>
 <body>
 	<h1>포인트 충전</h1>
@@ -18,6 +21,7 @@
 				<option value="">100,000</option>
 				<option value="">직접입력</option>
 			</select>
+			<input type="button" value="충전" onclick=""><input type="button" value="취소" onclick="">
 		</div>
 	</form>
 </body>

@@ -8,20 +8,20 @@
 <title>회원 정보</title>
 
 <style type="text/css">
-div {
-	border: 1px solid;
-}
+/* div { */
+/* 	border: 1px solid; */
+/* } */
 
-table{
+#tableDiv table{
 	border-collapse: collapse;
 	width: 100%;
 }
 
-table, th, tr, td {
+#tableDiv table, th, tr, td {
 	border: 1px solid;
 }
 
-th{
+#tableDiv th{
 	padding: 20px 0px 20px 0px;
     	width: 180px;
 }
@@ -86,7 +86,7 @@ th{
 	<jsp:include page="/WEB-INF/views/MyPageLeft.jsp" />
 		<div id="myInfoDiv">
 		<div style="height: 100px;"></div>
-			<p>내정보 수정</p>
+			<p id="myInfoP">내정보 수정</p>
 			<div id="tableDiv">
 				<table>
 					<tr>
