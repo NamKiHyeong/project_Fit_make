@@ -7,10 +7,16 @@
 <title>Insert title here</title>
 
 <style type="text/css">
+#container_Nav {
+	width: 140px;
+    height: 420px;
+	border: 1px solid #c3c3c3;
+}
+
 #container_Nav ol {
 	margin: 6px;
 	padding: 10px;
-	border-bottom: 1px solid;
+	border-bottom: 1px solid #c3c3c3;
 	text-align: left;
 	font-size: small;
 	line-height: 1.8em;
@@ -43,8 +49,8 @@
 		<div>
 			<ol>
 				<li><strong>주문관리</strong></li>
-				<li><a href="#">주문/배송조회</a></li>
-				<li><a href="#">주문취소/반품조회</a></li>
+				<li><a href="../order/list.do">주문조회</a></li>
+				<li><a href="#">주문취소</a></li>
 			</ol>
 		</div>
 		<div>
@@ -53,8 +59,6 @@
 				<li><a href="#">리얼후기</a></li>
 				<li><a href="#">상품문의</a></li>
 				<li><a href="#">1:1 문의</a></li>
-				<li><a href="#">찜한 상품</a></li>
-				<li><a href="#">최근 본 상품</a></li>
 			</ol>
 		</div>
 		<div>

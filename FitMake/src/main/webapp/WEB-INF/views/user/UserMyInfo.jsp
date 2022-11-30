@@ -85,11 +85,11 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="../Header.jsp" />
 	<div id="container">
-	<jsp:include page="/WEB-INF/views/MyPageLeft.jsp" />
+	<jsp:include page="../MyPageLeft.jsp" />
 		<div id="myInfoDiv">
-		<div style="height: 100px;"></div>
+		<jsp:include page="../MyPageNav.jsp" />
 			<p id="myInfoP">내정보 수정</p>
 			<div id="tableDiv">
 				<table>
@@ -103,23 +103,23 @@
 					</tr>
 					<tr>
 						<th>휴대폰 번호</th>
-						<td><input type="text" value="${myInfomap.FM_USER_MOBILE}"><input type="button" value="변경"></td>
+						<td><input type="text" value="${myInfomap.FM_USER_MOBILE}" readonly><input type="button" value="변경"></td>
 					</tr>
 					<tr>
 						<th>현재 비밀번호</th>
-						<td><input type="text" value=""><a id="pwdView" onclick="viewPwdChange();">비밀번호 변경</a></td>
+						<td><input type="text" placeholder="현재 비밀번호를 입력해주세요"><a id="pwdView" onclick="viewPwdChange();">비밀번호 변경</a></td>
 					</tr>
-					<tr id="trpwd1">
+					<tr id="trpwd1" style="display: none;">
 						<th>신규 비밀번호</th>
 						<td><input type="password" id="new_user_pwd" value="" placeholder="비밀번호를 입력하세요"></td>
 					</tr>
-					<tr id="trpwd2">
+					<tr id="trpwd2" style="display: none;">
 						<th>신규 비밀번호 확인</th>
 						<td><input type="password" id="new_user_pwd_check" value="" placeholder="비밀번호를 한번더 입력하세요"></td>
 					</tr>
 					<tr>
 						<th>구매 포인트</th>
-						<td>보유금액 <input type="text" value="${_userDto_.point}">원 <input type="button" value="충전" onclick="showPopup();"></td>
+						<td>보유금액 <input type="text" value="${_userDto_.point}" readonly>원 <input type="button" value="충전" onclick="showPopup();"></td>
 					</tr>
 					<tr>
 						<th>상세 정보</th>

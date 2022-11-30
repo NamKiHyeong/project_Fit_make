@@ -35,14 +35,14 @@ $('input:radio[name="gType"]').each(function() {
 			<form action='./addCtr.do' method='post' id="addctrForm">
 				<div class="input_p_Css">
 					<p class="join_P">
-						이메일<em class="join_em_Cl">*</em>
+						이메일<em class="join_em_Cl">⭐</em>
 					</p>
 					<input type='text' name='email' id="emailChk" class="input_Css"
 						placeholder="이메일 입력"> <span id="result_checkEmail"></span>
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						닉네임<em class="join_em_Cl">*</em>
+						닉네임<em class="join_em_Cl">⭐</em>
 					</p>
 					<input type='text' name='nickName' id="nickNameChk"
 						class="input_Css" placeholder="닉네임 입력"> <span
@@ -50,7 +50,7 @@ $('input:radio[name="gType"]').each(function() {
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						비밀번호<em class="join_em_Cl">*</em>
+						비밀번호<em class="join_em_Cl">⭐</em>
 					</p>
 					<input type='password' name='password' id="pwdChk"
 						class="input_Css" placeholder="비밀번호 입력"
@@ -61,7 +61,7 @@ $('input:radio[name="gType"]').each(function() {
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						휴대폰<em class="join_em_Cl">*</em>
+						휴대폰<em class="join_em_Cl">⭐</em>
 					</p>
 					<input id="phone" type="text" class="mobile_first" name="mobile"
 						placeholder="휴대폰번호 입력" maxlength="13" /> <input type="button"
@@ -74,7 +74,7 @@ $('input:radio[name="gType"]').each(function() {
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						주소<em class="join_em_Cl">*</em>
+						주소<em class="join_em_Cl">⭐</em>
 					</p>
 					<input type="text" id="zipcode_Id" class="zipCode" name="zipCode"
 						placeholder="우편번호" readonly="readonly"> <input
@@ -89,7 +89,7 @@ $('input:radio[name="gType"]').each(function() {
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						성별<em class="join_em_Cl">*</em>
+						성별<em class="join_em_Cl">⭐</em>
 					</p>
 					<label><input type="radio" name="gType" value="M" checked />남성</label>
 					<label><input type="radio" name="gType" value="W" />여성</label>
@@ -97,7 +97,7 @@ $('input:radio[name="gType"]').each(function() {
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						몸무게<em class="join_em_Cl">*</em>
+						몸무게<em class="join_em_Cl">⭐</em>
 					</p>
 					<input type="text" name="weight" id="weightChk" class="input_Css"
 						placeholder="숫자만 입력(소수점까지 기입가능)"> <span
@@ -105,7 +105,7 @@ $('input:radio[name="gType"]').each(function() {
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						키<em class="join_em_Cl">*</em>
+						키<em class="join_em_Cl">⭐</em>
 					</p>
 					<input type="text" name="height" id="heightChk" class="input_Css"
 						placeholder="숫자만 입력(소수점까지 기입가능)"> <span

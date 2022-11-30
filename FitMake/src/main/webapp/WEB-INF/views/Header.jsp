@@ -7,7 +7,8 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/fitmake/resources/css/header.css">
 <title>헤더</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
 	viewCartSummaryFnc();

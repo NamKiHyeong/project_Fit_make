@@ -12,7 +12,8 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<jsp:include page="../Header.jsp" />
+	
 </body>
 
 
