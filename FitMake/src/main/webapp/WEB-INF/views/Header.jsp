@@ -12,6 +12,14 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	viewCartSummaryFnc();
+	
+	var headerDiv = $("#headerDiv");
+	if (${_userDto_.email != null}) {
+		headerDiv.css("background", "#ebebeb");
+	} else {
+		headerDiv.css("background", "#fff");
+	}
+	
 });
 
 function viewCartSummaryFnc() {

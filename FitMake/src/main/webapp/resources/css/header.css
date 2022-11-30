@@ -46,6 +46,7 @@ a:active {
 
 #logo_infoDiv {
 	margin: 0 auto;
+    margin-top: 22px;
 	margin-bottom: 22px;
 	width: 1200px;
 	position: relative;
@@ -59,7 +60,7 @@ a:active {
 }
 
 #headerDiv {
-	height: 50px;
+	height: 20px;
 	width: 1200px;
 	margin: 0 auto;
 }
