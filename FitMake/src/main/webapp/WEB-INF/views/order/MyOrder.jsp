@@ -6,13 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		for(var i = 0; i < ${orderMapList.size()}; i++){
-			$('#oStatus'+ i).val($('#orderStatus'+ i).val());
-		}
+		$('select[name="oStatus"]').each(function() {
+			$(this).val($(this).siblings('input').val());
+		});
 		
 		$('#orderUpdateBtn').on('click', function(){
 			$('#orderListForm').attr('action', './update.do');
@@ -38,9 +40,7 @@
 		$('#checkAll').on('click', function(){			
 			
 			$('input:checkbox[name="orderCheckbox"]').each(function() {
-				
 				this.checked = $('#checkAll').is(':checked');
-				
 			});
 			
 		});
@@ -66,6 +66,9 @@
 	
 </script>
 <style type="text/css">
+	form > div {
+		border: 1px solid black;
+	}
 	#orderRootDiv {
 		width : 1200px;
 		margin: 0px auto;
@@ -87,30 +90,11 @@
 		margin-left: 10%;
 		margin-top: 2.4%
 	}
-	.titleTd{
-		width: 10%;
-	}
 	#orderListForm{
 		width: 80%;
 		height: 15%;
 		margin-left: 5%;
 		padding: 0px;
-	}
-	#orderManageTable{
-		height: 15%;
-		text-align: center;
-		margin-left: 6%;
-		padding: 0px;
-	}
-	#titleCheckArea{
-		width: 5%;
-	}
-	#orderCheckArea{
-		width: 3%;
-	}
-	#orderDate{
-		width: 15%;
-		text-align: center;
 	}
 	#fncDiv{
 		text-align: right;
@@ -127,98 +111,95 @@
 		width: 30%;
 		text-align: right;
 	}
+	.viewOrderDetail{
+		
+		text-align: right;
+	}
 </style>
-<title>주문관리</title>
+<title>내 주문</title>
 </head>
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-
+	
 	<div id="orderRootDiv">
 		<div id="titleDiv">
 			<table id="headTable">
 				<tr>
-					<th id="headTitle">주문관리</th>
+					<th id="headTitle">주문/배송 조회</th>
 				</tr>
 			</table>
 			<hr id="headHr">
 		</div>
 		
 		<form id="orderListForm">
-			<table id="orderManageTable">
-				<tr>
-					<td id="titleCheckArea" class="titleTd">
-						<input type="checkbox" id="checkAll" value="">
-					</td>
-					<td class="titleTd">주문날짜</td>
-					<td class="titleTd">주문명</td>
-					<td class="titleTd">주문금액</td>
-					<td class="titleTd">주문자</td>
-					<td class="titleTd">운송장</td>
-					<td class="titleTd">주문상태</td>
-				</tr>
 			<c:forEach var="orderMap" items="${orderMapList}">
-					<c:if test="${orderMap.oRownum eq '1'}">
-						<tr>
-							<td id="orderCheckArea">
-								<input type="checkbox" id="cbNo${orderMap.FM_ORDER_NO}" name="orderCheckbox" value="${orderMap.FM_ORDER_NO}">
-							</td>
-							<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
-							<td>
-								<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
-									<c:choose>
-											<c:when test="${orderMap.oCount == 1}">
-													${orderMap.FM_ITEM_NAME}
-											</c:when>
-											<c:otherwise>
-												${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
-											</c:otherwise>
-									</c:choose>
-								</a>
-							</td>
-							<td>${orderMap.totalPrice}</td>
-							<td>${orderMap.FM_USER_NICKNAME}</td>
-							<td>1111</td>
-							<td>
-								<select id="oStatus${orderMap.FM_ORDER_NO}"
-									name="oStatus">
-										<option value="pending">대기</option>
-										<option value="confirm">승인</option>
-										<option value="cancel">취소</option>
-								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
+				<c:if test="${orderMap.oRownum eq '1'}">
+					<div>
+						<p>${orderMap.FM_ORDER_DATE} 주문<span class="viewOrderDetail"><a href="#">주문상세보기</a></span></p>
+						<div>
+							<c:choose>
+									<c:when test="${orderMap.FM_ORDER_STATUS eq 'pending'}">
+										<p>주문대기
+											<span>
+												<input type="button" value="주문취소">
+											</span>
+										</p>
+									</c:when>
+									<c:when test="${orderMap.FM_ORDER_STATUS eq 'confirm'}">
+										<p>주문승인
+											<span>
+												<input type="button" value="주문취소">
+											</span>
+										</p>
+									</c:when>
+									<c:when test="${orderMap.FM_ORDER_STATUS eq 'cancel'}">
+										<p>주문취소
+										</p>
+									</c:when>
+									<c:otherwise>
+										<p>구매확정
+											<span>
+												<input type="button" value="리뷰쓰기">
+											</span>
+										</p>	
+									</c:otherwise>
+								</c:choose>
 								
-							</td>
-						</tr>
-					</c:if>
-					</c:forEach>
-					<tr>
-						<td>
-							<input type="hidden" id="oNoArr" value="" name="oNoArr">
-							<input type="hidden" id="oStatusArr" value="" name="oStatusArr">
-						</td>
-					</tr>
-				</table>
-			<c:if test="${_userDto_.getuNo() == 1}">
-				<div id="fncDiv">
-					<div id="searchSection">
-							<select id="searchOption" name="searchOption">
-									<option value="user">주문자</option>
-								<option value="oStatus">주문상태</option>
-							</select>
-							<input type="search" id="searchText" name="searchText" value="${searchMap.searchText}">
-							<input type="button" id="searchBtn" value="검색">
+							<table>
+								<tr>
+									<td colspan="2" rowspan="3">
+										<img alt="image not founed" src="<c:url value='/image/${orderMap.FM_ITEM_STORED_IMG_NAME}'/>">
+									</td>
+									<td colspan="2">
+										<c:choose>
+												<c:when test="${orderMap.oCount == 1}">
+														${orderMap.FM_ITEM_NAME}
+												</c:when>
+												<c:otherwise>
+													${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
+												</c:otherwise>
+										</c:choose>
+									</td>
+								</tr>
+								<tr>
+									<td>
+									</td>
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										${FM_ORDER_DETAIL_COUNT}
+									</td>
+									<td>
+									</td>
+								</tr>
+							</table>
+						</div>
 					</div>
-					<div id="btnSection">
-						<input id="orderUpdateBtn" type="button" value="수정하기">
-					</div>
-				</div>
-			</c:if>
-				
+				</c:if>
+			</c:forEach>
 		</form>
 	</div>
 	

@@ -20,12 +20,15 @@
 	</resultMap>
 	
 	<select id="viewCartList" parameterType="int" resultType="map">
-		SELECT c.FM_CART_NO, c.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT
+		SELECT c.FM_CART_NO, c.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT 
+				, ig.FM_ITEM_STORED_IMG_NAME
 		FROM FM_CART C
 			INNER JOIN FM_USER u
 				ON c.FM_USER_NO = u.FM_USER_NO
 			INNER JOIN FM_ITEM i
 				ON c.FM_ITEM_NO = i.FM_ITEM_NO
+			INNER JOIN FM_ITEM_IMG ig
+				ON i.FM_ITEM_NO = ig.FM_ITEM_NO
 		WHERE c.FM_USER_NO = #{uNo}
 		ORDER BY c.FM_CART_NO DESC
 	</select>
@@ -49,7 +52,8 @@
 					, ol.FM_ITEM_NAME, ol.FM_ORDER_DETAIL_COUNT, "oCount", "oRownum", "totalPrice",
 					DENSE_RANK() OVER(ORDER BY ol.FM_ORDER_NO DESC) as "rNum" 
 				FROM ( SELECT u.FM_USER_NICKNAME, o.FM_ORDER_NO, o.FM_ORDER_DATE, o.FM_ORDER_STATUS, i.FM_ITEM_NAME
-							, od.FM_ORDER_DETAIL_COUNT, COUNT(*) OVER(PARTITION BY o.FM_ORDER_NO) AS "oCount"
+							, od.FM_ORDER_DETAIL_COUNT, ig.FM_ITEM_STORED_IMG_NAME
+							, COUNT(*) OVER(PARTITION BY o.FM_ORDER_NO) AS "oCount"
 							, ROW_NUMBER() OVER(PARTITION BY o.FM_ORDER_NO ORDER BY i.FM_ITEM_NAME) AS "oRownum"
 							, SUM(od.FM_ORDER_DETAIL_PRICE * od.FM_ORDER_DETAIL_COUNT) OVER(PARTITION BY o.FM_ORDER_NO) AS "totalPrice"
 						FROM FM_USER u INNER JOIN FM_ORDER o 
@@ -58,6 +62,8 @@
 							ON o.FM_ORDER_NO = od.FM_ORDER_NO 
 								INNER JOIN FM_ITEM i 
 							ON od.FM_ITEM_NO = i.FM_ITEM_NO 
+								INNER JOIN FM_ITEM_IMG ig
+							ON i.FM_ITEM_NO = ig.FM_ITEM_NO
 						<include refid="search"></include>
 						ORDER BY o.FM_ORDER_DATE DESC 
 					) ol

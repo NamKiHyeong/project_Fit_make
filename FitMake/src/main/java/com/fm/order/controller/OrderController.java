@@ -49,10 +49,7 @@ public class OrderController {
 
 		List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
 		
-		List<Map<String, Object>> fileList = orderService.viewCartFileList(uNo);
-		
 		model.addAttribute("cartMapList", cartMapList);
-		model.addAttribute("fileList", fileList);
 
 		return "cart/CartList";
 	}
@@ -137,20 +134,20 @@ public class OrderController {
 	 */
 	  @ResponseBody
 	  @RequestMapping(value = "/cart/summary.do", method = RequestMethod.GET)
-	  public Map<String, Object> viewCartHeadListAsync(HttpSession session) {
+	  public List<Map<String, Object>> viewCartHeadListAsync(HttpSession session) {
 			logger.debug("Welcome CartList");
 
 			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 			int uNo = (int) userDto.getuNo();
 
 			List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
-			List<Map<String, Object>> fileList = orderService.viewCartFileList(uNo);
+//			List<Map<String, Object>> fileList = orderService.viewCartFileList(uNo);
 			
-			Map<String, Object> cartContainer = new HashMap<String, Object>();
-			cartContainer.put("cartMapList", cartMapList);
-			cartContainer.put("fileList", fileList);
+//			Map<String, Object> cartContainer = new HashMap<String, Object>();
+//			cartContainer.put("cartMapList", cartMapList);
+//			cartContainer.put("fileList", fileList);
 
-			return cartContainer;
+			return cartMapList;
 	  }
 	
 	/**
@@ -188,19 +185,15 @@ public class OrderController {
 		
 		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo, searchOption, searchText, start, end);
 		
-		logger.info("orderMapList {}", orderMapList.size());
-		
 		Map<String, Object> oPagingMap = new HashMap<String, Object>();
 		oPagingMap.put("orderPaging", orderPaging); 
 		oPagingMap.put("totalCount",totalCount);
 		oPagingMap.put("start", start);
 		oPagingMap.put("end", end);
-		 
 		
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("searchOption", searchOption);
 		searchMap.put("searchText", searchText);
-		
 		model.addAttribute("orderMapList", orderMapList);
 		model.addAttribute("searchMap", searchMap);
 		model.addAttribute("oPagingMap", oPagingMap);

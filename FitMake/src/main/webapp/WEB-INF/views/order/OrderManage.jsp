@@ -6,13 +6,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script> -->
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function(){
 		
-		for(var i = 0; i < ${orderMapList.size()}; i++){
-			$('#oStatus'+ i).val($('#orderStatus'+ i).val());
-		}
+		$('select[name="oStatus"]').each(function() {
+			$(this).val($(this).siblings('input').val());
+		});
 		
 		$('#orderUpdateBtn').on('click', function(){
 			$('#orderListForm').attr('action', './update.do');
@@ -38,9 +40,7 @@
 		$('#checkAll').on('click', function(){			
 			
 			$('input:checkbox[name="orderCheckbox"]').each(function() {
-				
 				this.checked = $('#checkAll').is(':checked');
-				
 			});
 			
 		});
@@ -133,7 +133,7 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-
+	
 	<div id="orderRootDiv">
 		<div id="titleDiv">
 			<table id="headTable">
@@ -185,13 +185,9 @@
 										<option value="pending">대기</option>
 										<option value="confirm">승인</option>
 										<option value="cancel">취소</option>
+										<option value="pixed">구매확정</option>
 								</select>
-							</td>
-						</tr>
-						<tr>
-							<td>
 								<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
-								
 							</td>
 						</tr>
 					</c:if>
