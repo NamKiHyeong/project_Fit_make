@@ -76,7 +76,6 @@ public class ItemServicempl implements ItemService {
 			int iNo = itemDto.getiNo();
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
-//			List<Map<String, Object>> fileMap = itemDao.fileSelectOne(iNo);
 			
 			map.put("fileMap", fileMap);
 			map.put("itemDto", itemDto);
@@ -93,6 +92,7 @@ public class ItemServicempl implements ItemService {
 		
 		return itemDao.itemSelectTotalItemCount(cNo, keyword);
 	}
+	
 	@Override
 	public Map<String, Object> itemSelectOne(int iNo) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
@@ -107,24 +107,27 @@ public class ItemServicempl implements ItemService {
 		return resultMap;
 
 	}
-
+	
 	@Transactional(rollbackFor = Exception.class)
 	@Override
-	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest, int fileIdx) throws Exception {
+	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest
+			, int fileIdx) throws Exception {
 
 		int resultNum = 0;
 
 		try {
+			log.info("서비스mpl에서 itemDto는?? {}", itemDto);
 			resultNum = itemDao.itemUpdateOne(itemDto);
 			
+			log.info("서비스mpl에서 업데이트는 성공했나? {}",resultNum);
 			int iNo = itemDto.getiNo();
 			
-//			List<Map<String, Object>> tempFileMap = itemDao.fileSelectOne(iNo);
 			Map<String, Object> tempFileMap = itemDao.fileSelectOne(iNo);
-			// 실제 드라이브 파일을 추가하고 정보를 반환함 ex)이름 사이즈 번호
+			log.info("서비스mpl에서 파일 하나를 잘 찾아왔나? {}",tempFileMap);
 			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(iNo, mulRequest);
 			
-			log.debug("수정되는 것 확인1", itemDto.getiName());
+			log.info("서비스mpl에서 list를 잘 찾아왔나? {}",list);
+			
 			
 			// 리스트가 존재 할 경우 수행			
 			if(list.isEmpty() == false) {
@@ -157,11 +160,11 @@ public class ItemServicempl implements ItemService {
 			}
 			
 		} catch (Exception e) {
-			log.debug("수정되는 것 확인6", itemDto.getiName());
+			log.debug("서비스 mpl에서 예외 발생", itemDto.getiName());
 			TransactionAspectSupport.currentTransactionStatus()
 			.setRollbackOnly();
 		}
-		log.debug("수정되는 것 확인7", itemDto.getiName());
+		log.debug("수정이 완료되었습니다. {}", itemDto.getiName());
 		
 		return resultNum;
 	}

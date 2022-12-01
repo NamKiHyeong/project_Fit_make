@@ -69,9 +69,9 @@ public class ItemDaompl implements ItemDao{
 	}
 	
 	@Override
-	public List<Map<String, Object>> fileSelectList(int no){
+	public List<Map<String, Object>> fileSelectList(int iNo){
 		
-		return sqlSession.selectList(namespace + "fileSelectList", no);
+		return sqlSession.selectList(namespace + "fileSelectList", iNo);
 	}
 	@Override
 	public Map<String, Object> fileSelectOne(int iNo) {
@@ -81,8 +81,8 @@ public class ItemDaompl implements ItemDao{
 	}
 	
 	@Override
-	public int fileDelete(int no) {
-		return sqlSession.delete(namespace + "fileDelete", no);
+	public int fileDelete(int iNo) {
+		return sqlSession.delete(namespace + "fileDelete", iNo);
 	}
 	
 	

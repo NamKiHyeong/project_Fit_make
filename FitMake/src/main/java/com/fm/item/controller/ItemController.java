@@ -116,10 +116,11 @@ public class ItemController {
 	}
 	
 	
-	@RequestMapping(value="/item/one.do")
-	public String itemOne(int curPage, int cNo, int iNo, Model model) {
+	@RequestMapping(value="/item/one.do", method = RequestMethod.GET)
+	public String itemOne(@RequestParam int curPage, int cNo, int iNo, Model model) {
 //		RedirectAttributes redirect
 		logger.trace("제품 상세정보" + model);
+		
 		Map<String, Object>prevMap = new HashMap<>();
 		prevMap.put("cNo", cNo);
 		prevMap.put("curPage", curPage);
@@ -151,7 +152,6 @@ public class ItemController {
  * @param model
  * @return
  */
-	@Transactional
 	@RequestMapping(value="/item/update.do", method = RequestMethod.GET)
 	public String itemUpdate(int curPage, int cNo, int iNo, Model model) {
 		logger.trace("수정하는 DB에 접속"+ curPage);
@@ -170,23 +170,29 @@ public class ItemController {
 		
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("prevMap", prevMap);
-		model.addAttribute("img", fileList.get(0));
+		if (fileList.size() != 0) {
+			model.addAttribute("img", fileList.get(0));
+		}
 		
 		return "item/ItemUpdate";
 	}
-	@Transactional
+	
 	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
 	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto
 			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
 			, MultipartHttpServletRequest mulRequest, Model model) {
-		
+		logger.info("컨트롤러 서비스로 curPage {} " , curPage);
+		logger.info("컨트롤러 서비스로 cNo {} " , itemDto);
+		logger.info("컨트롤러 서비스로 cNo {} " , fileIdx);
 		int cNo = itemDto.getcNo();
 		
 		try {
-			itemService.itemUpdateOne(itemDto,mulRequest,fileIdx);
+			itemService.itemUpdateOne(itemDto, mulRequest, fileIdx);
 			
 		} catch (Exception e) {
+			System.out.println("컨트롤 업데이트 예외 발생");
 			e.printStackTrace();
+			
 		}
 		
 		return "redirect:/item/list.do?cNo=" + cNo;
