@@ -137,10 +137,9 @@ public class OrderController {
 	  public List<Map<String, Object>> viewCartHeadListAsync(HttpSession session) {
 			logger.debug("Welcome CartList");
 			
-			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-			int uNo = (int) userDto.getuNo();
-			
 			try {
+				UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+				int uNo = (int) userDto.getuNo();
 
 				List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
 					
@@ -174,15 +173,10 @@ public class OrderController {
 		
 		int totalCount = orderService.getOrderTotalCount(uNo, searchOption, searchText);
 		
-		logger.info("totalCount {}", totalCount);
-		
 		Paging orderPaging = new Paging(totalCount, curPage);
 		
 		int start = orderPaging.getPageBegin();
 		int end = orderPaging.getPageEnd();
-		
-		logger.info("start {}", start);
-		logger.info("end {}", end);
 		
 		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo, searchOption, searchText, start, end);
 		
@@ -195,6 +189,7 @@ public class OrderController {
 		Map<String, Object> searchMap = new HashMap<String, Object>();
 		searchMap.put("searchOption", searchOption);
 		searchMap.put("searchText", searchText);
+		
 		model.addAttribute("orderMapList", orderMapList);
 		model.addAttribute("searchMap", searchMap);
 		model.addAttribute("oPagingMap", oPagingMap);

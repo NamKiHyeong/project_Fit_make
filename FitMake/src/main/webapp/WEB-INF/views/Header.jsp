@@ -27,8 +27,9 @@ function viewCartSummaryFnc() {
 			.ajax({
 				url : "../cart/summary.do",
 				type : "get",
-				dataType : "json",
-				success : function(cartMapList) {
+				dataType : "html",
+				success : function(data) {
+					var cartMapList = $.parseJSON(data);
 					var str = '';
 					var cartTotal = 0;
 					
@@ -83,6 +84,16 @@ function viewCartSummaryFnc() {
 					$("#cartPrice").html(cartTotal);
 					$("#cartView").html(str);
 					
+				},
+				error : function(request, status, error) {
+					alert("code:"
+							+ request.status
+							+ "\n"
+							+ "message:"
+							+ request.responseText
+							+ "\n"
+							+ "error:"
+							+ error);
 				}
 			});
 }
