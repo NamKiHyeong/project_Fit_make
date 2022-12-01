@@ -131,7 +131,7 @@ $("document").ready(function() {
 	//휴대폰 인증번호 대조
 	$("#phoneChk2").click(function() {
 		if ($("#phone2").val() == null || $("#phone2").val() == '') {
-			$(".successPhoneChk").html("· 휴대폰 번호 입력 후 인증번호 보내기를 눌러주세요").css("color", "black");
+			$(".successPhoneChk").html("· 인증번호 보내기 후 본인인증을 눌러주세요").css("color", "black");
 			return false;
 		}
 

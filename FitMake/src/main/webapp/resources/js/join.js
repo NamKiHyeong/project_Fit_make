@@ -61,8 +61,13 @@ function joinSunFnc() {
 		$("#heightChk").focus();
 		return false;
 	}
-
-	addFormObj.submit();
+	
+	if ($("#phoneDoubleChk").val == true){
+		addFormObj.submit();
+	} else {
+		alert("· 휴대폰인증을 완료해주세요");
+		return false;
+	}
 
 
 };

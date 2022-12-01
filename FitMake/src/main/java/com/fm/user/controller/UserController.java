@@ -1,6 +1,5 @@
 package com.fm.user.controller;
 
-
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -31,6 +30,7 @@ public class UserController {
 
 	/**
 	 * index.jsp에서 로그인 페이지로 이동 나중에 없앨듯
+	 * 
 	 * @return LoginForm.jsp로 이동
 	 */
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
@@ -39,9 +39,10 @@ public class UserController {
 
 		return "auth/LoginForm";
 	}
-	
+
 	/**
 	 * 헤더 메인로고 클릭 시 로그인 상태 -> 메인페이지, 비로그인 상태 -> 로그인페이지
+	 * 
 	 * @param session 회원정보 유무상태를 확인
 	 * @return 로그인상태 -> MainPage.jsp, 비로그인 상태 -> LoginForm.jsp
 	 */
@@ -60,9 +61,9 @@ public class UserController {
 
 	/**
 	 * 
-	 * @param email 사용자가 입력한 email값
+	 * @param email    사용자가 입력한 email값
 	 * @param password 사용자가 입력한 password값
-	 * @param session 세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
+	 * @param session  세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
 	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 페이지(이동후 다시 로그인페이지)
 	 */
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
@@ -98,6 +99,7 @@ public class UserController {
 
 	/**
 	 * 회원가입 페이지로 이동
+	 * 
 	 * @param model
 	 * @return
 	 */
@@ -107,7 +109,7 @@ public class UserController {
 
 		return "/user/JoinForm";
 	}
-	
+
 	/**
 	 * 
 	 * @param email 이메일 중복체크를 위한 밸류값
@@ -115,17 +117,18 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/emailCheck.do", method = RequestMethod.POST)
-	@ResponseBody 
-		public String checkEmail(@RequestParam("emailChk") String email) {
-		
-			String result = "N";
-			int flag = userService.checkEmail(email);
-			//이메일이 있을시 Y 없을시 N 으로 회원가입페이지로 보냄
-			if (flag == 1) result = "Y";
-			
-			return result;
-		}
-	
+	@ResponseBody
+	public String checkEmail(@RequestParam("emailChk") String email) {
+
+		String result = "N";
+		int flag = userService.checkEmail(email);
+		// 이메일이 있을시 Y 없을시 N 으로 회원가입페이지로 보냄
+		if (flag == 1)
+			result = "Y";
+
+		return result;
+	}
+
 	/**
 	 * 
 	 * @param nickName 닉네임 중복체크를 위한 값
@@ -133,17 +136,18 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/nickNameChk.do", method = RequestMethod.POST)
-	@ResponseBody 
-		public String checkNickName(@RequestParam("nickNameChk") String nickName) {
-		
-			String result = "N";
-			int flag = userService.checkNickName(nickName);
-			//닉네임이 있을시 Y 없을시 N 으로 회원가입페이지로 보냄
-			if (flag == 1) result = "Y";
-			
-			return result;
-		}
-	
+	@ResponseBody
+	public String checkNickName(@RequestParam("nickNameChk") String nickName) {
+
+		String result = "N";
+		int flag = userService.checkNickName(nickName);
+		// 닉네임이 있을시 Y 없을시 N 으로 회원가입페이지로 보냄
+		if (flag == 1)
+			result = "Y";
+
+		return result;
+	}
+
 	/**
 	 * 
 	 * @param userPhoneNumber 수신번호
@@ -154,14 +158,14 @@ public class UserController {
 //	@GetMapping("/user/phoneCheck.do")
 	@ResponseBody
 	public String sendSMS(@RequestParam("phone") String userPhoneNumber) { // 휴대폰 문자보내기
-		int randomNumber = (int)((Math.random()* (9999 - 1000 + 1)) + 1000);//난수 생성
+		int randomNumber = (int) ((Math.random() * (9999 - 1000 + 1)) + 1000);// 난수 생성
 
-		userService.certifiedPhoneNumber(userPhoneNumber,randomNumber);
-		
+		userService.certifiedPhoneNumber(userPhoneNumber, randomNumber);
+
 		System.out.println(randomNumber);
 		return Integer.toString(randomNumber);
 	}
-	
+
 	/**
 	 * 
 	 * @param session
@@ -170,15 +174,15 @@ public class UserController {
 	@RequestMapping(value = "/user/pointChk.do", method = RequestMethod.GET)
 	@ResponseBody
 	public int myPointChk(HttpSession session) {
-		
+
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
-		
+
 		int myPointChk = userService.myPointChk(uNo);
-		
+
 		return myPointChk;
 	}
-	
+
 	/**
 	 * 
 	 * @param userDto
@@ -188,69 +192,71 @@ public class UserController {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st,
-			String add_Extra, String add_Detail) {
+	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st, String add_Extra,
+			String add_Detail) {
 		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
 		String address = add_1st + add_Extra + add_Detail;
-		
+
 		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
 		return "redirect:/auth/login.do";
 	}
-	
+
 	/**
 	 * 
 	 * @param model
-	 * @return 
+	 * @return
 	 */
 	@RequestMapping(value = "/user/Info.do")
-		public String userInfo(Model model, HttpSession session) {
-			logger.info("Welcome UserController userInfo enter! - {}");
-			
-			UserDto userdto = new UserDto();
-			userdto = (UserDto) session.getAttribute("_userDto_");
-			logger.info("Welcome UserController userInfo enter! - {}", userdto.getuNo());
-			Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
-			model.addAttribute("myInfomap", myInfomap);
-			
-			return "/user/UserMyInfo";
-		}
+	public String userInfo(Model model, HttpSession session) {
+		
+		UserDto userdto = new UserDto();
+		
+		userdto = (UserDto) session.getAttribute("_userDto_");
+		logger.info("Welcome UserController userInfo enter! - {}", userdto.getuNo());
+		
+		
+		Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
+		model.addAttribute("myInfomap", myInfomap);
+
+		return "/user/UserMyInfo";
+	}
+
 	/**
 	 * 
 	 * @return 충전버튼 누를시 -> 포인트충전 팝업창 실행
 	 */
 	@RequestMapping(value = "/user/point.do")
-		public String pointView() {;
-			logger.info("포인트 페이지로 갑니다");
-			
+	public String pointView() {
+		;
+		logger.info("포인트 페이지로 갑니다");
+
 		return "/user/PointPopup";
 	}
-	
-	@RequestMapping(value = "/user/pointAdd.do", method = {RequestMethod.GET,RequestMethod.POST})
+
+	@RequestMapping(value = "/user/pointAdd.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-		public int pointAdd(@RequestParam("priceSelect") int point
-				, PointAdd pointAdd, HttpSession session) {
-			logger.info("포인트 충전 - {}", point);
-			
-			UserDto userdto = new UserDto();
-			userdto = (UserDto) session.getAttribute("_userDto_");
-			
-			
-			userService.addPoint(userdto, point);
-			userService.pointHisoty(pointAdd, point);
-			
-			
-			return 1;
+	public int pointAdd(@RequestParam("priceSelect") int point, PointAdd pointAdd, HttpSession session) {
+		logger.info("포인트 충전 - {}", point);
+
+		UserDto userdto = new UserDto();
+		userdto = (UserDto) session.getAttribute("_userDto_");
+		pointAdd.setuNo(userdto.getuNo());
+
+		userService.addPoint(userdto, point);
+		userService.pointHisoty(pointAdd, point);
+
+		return 1;
 	}
-	
+
 	/**
 	 * 
 	 * @return 충전/사용내역 View
 	 */
 	@RequestMapping(value = "/user/pointHistory.do")
-		public String viewHistory() {
-			logger.info("충전/사용내역");
-		
+	public String viewHistory() {
+		logger.info("충전/사용내역");
+
 		return "/user/PointRechargehistory";
 	}
 }

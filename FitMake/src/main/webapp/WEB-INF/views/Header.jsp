@@ -11,6 +11,7 @@
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
+	myPointChkFnc();
 	viewCartSummaryFnc();
 	
 	var headerDiv = $("#headerDiv");
@@ -21,6 +22,21 @@ $(document).ready(function() {
 	}
 	
 });
+
+function myPointChkFnc() {
+	$.ajax({
+		url: "../user/pointChk.do",
+		type: "get",
+		dataType: "json",
+		success: function (data) {
+			$("#pointChk").html(data+ "원");
+		},
+		error: function (e) {
+			console.log("오류발생");
+		}
+		
+	});
+}
 
 function viewCartSummaryFnc() {
 	$
@@ -168,7 +184,7 @@ function deleteCartFnc(cartNo) {
 				<ul>
 					<c:if test="${_userDto_.email ne null}">
 						<li><strong>${_userDto_.nickName}</strong>님&nbsp;&nbsp;</li>
-						<li><strong>${myInfomap.FM_USER_POINT}원</strong>&nbsp;&nbsp;</li>
+						<li><strong id="pointChk"></strong>&nbsp;&nbsp;</li>
 						<li><a
 							href="${pageContext.request.contextPath}/auth/logout.do">로그아웃</a></li>
 					</c:if>
@@ -185,7 +201,7 @@ function deleteCartFnc(cartNo) {
 				<div id="infoDiv">
 					<c:if test="${_userDto_.email ne null}">
 						<ul>
-							<li><a href="#"><img alt="포인트관리"
+							<li><a href="${pageContext.request.contextPath}/user/pointHistory.do"><img alt="포인트관리"
 									src="/fitmake/resources/image/point.png"></a></li>
 							<li><a href="${pageContext.request.contextPath}/user/Info.do"><img alt="내정보"
 									src="/fitmake/resources/image/myinfo.png"></a></li>

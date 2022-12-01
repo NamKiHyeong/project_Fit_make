@@ -18,11 +18,16 @@
 }
 
 #historytableDiv table, th, tr, td {
-	border: 1px solid;
+	border: 1px solid #cbcbcb;
 }
 
 #historyDiv {
 	width: 1000px;
+}
+
+#topupPtag {
+	font-size: 26px;
+    font-weight: 600;
 }
 </style>
 <title>FitMake</title>
@@ -33,7 +38,7 @@
 		<jsp:include page="../MyPageLeft.jsp"/>
 		<div id="historyDiv">
 			<jsp:include page="../MyPageNav.jsp"/>
-			<h1>충전/사용내역</h1>
+			<p id="topupPtag">충전/사용내역</p>
 		<div id="historytableDiv">
 		<table>
 			<tr>
