@@ -109,7 +109,17 @@
 	<insert id="pointHisoty" parameterType="com.fm.util.PointAdd"
 		keyProperty="uNo">
 		INSERT INTO FM_POINT
-		VALUES(SEQ_FM_POINT_NO.NEXTVAL, #{uNo}, #{pHistory}, SYSDATE)
+		VALUES(SEQ_FM_POINT_NO.NEXTVAL,
+		#{uNo}, #{pHistory}, SYSDATE)
 	</insert>
 	<!-- 포인트 충전// -->
+
+	<!-- //포인트 조회 -->
+	<select id="myPointChk" parameterType="int" resultType="int">
+		select
+		fm_user_point
+		from fm_user
+		where fm_user_no = #{uNo}
+	</select>
+	<!-- 포인트 조회// -->
 </mapper>

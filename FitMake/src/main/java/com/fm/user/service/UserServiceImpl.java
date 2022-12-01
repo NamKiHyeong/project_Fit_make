@@ -115,5 +115,12 @@ public class UserServiceImpl implements UserService {
 		return result;
 	}
 
+	@Override
+	public int myPointChk(int uNo) {
+		
+		
+		return userDao.myPointChk(uNo);
+	}
+
 
 }

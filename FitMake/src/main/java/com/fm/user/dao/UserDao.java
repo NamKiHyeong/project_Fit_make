@@ -27,6 +27,8 @@ public interface UserDao {
 
 	public int pointHisoty(PointAdd pointAdd, int point);
 
+	public int myPointChk(int uNo);
+
 	
 
 }

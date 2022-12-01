@@ -113,6 +113,7 @@ a:active {
 
 #menu ul {
 	display: flex;
+	padding: 0px;
 }
 
 #menu ul li { /* menu -> ul -> li 태그의 스타일링 */

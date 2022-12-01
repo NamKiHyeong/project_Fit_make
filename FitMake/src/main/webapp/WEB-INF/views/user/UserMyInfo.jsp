@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 정보</title>
+<title>FitMake</title>
 
 <style type="text/css">
 /* div { */

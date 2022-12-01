@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>충전 페이지</title>
+<title>FitMake</title>
 <style type="text/css">
 #selectContainer li {
 	list-style: none;

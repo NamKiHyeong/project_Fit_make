@@ -26,4 +26,6 @@ public interface UserService {
 
 	public void pointHisoty(PointAdd pointAdd, int point);
 
+	public int myPointChk(int uNo);
+
 }

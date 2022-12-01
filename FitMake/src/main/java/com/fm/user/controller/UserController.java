@@ -164,6 +164,23 @@ public class UserController {
 	
 	/**
 	 * 
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/user/pointChk.do", method = RequestMethod.GET)
+	@ResponseBody
+	public int myPointChk(HttpSession session) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+		
+		int myPointChk = userService.myPointChk(uNo);
+		
+		return myPointChk;
+	}
+	
+	/**
+	 * 
 	 * @param userDto
 	 * @param model
 	 * @param bmiCalc
@@ -224,5 +241,16 @@ public class UserController {
 			
 			
 			return 1;
+	}
+	
+	/**
+	 * 
+	 * @return 충전/사용내역 View
+	 */
+	@RequestMapping(value = "/user/pointHistory.do")
+		public String viewHistory() {
+			logger.info("충전/사용내역");
+		
+		return "/user/PointRechargehistory";
 	}
 }

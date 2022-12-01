@@ -87,6 +87,12 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.selectOne(namespaceuser + "checkNickName", nickName);
 	}
 
+	@Override
+	public int myPointChk(int uNo) {
+		
+		return sqlSession.selectOne(namespaceuser + "myPointChk", uNo); 
+	}
+
 	
 
 }
