@@ -119,7 +119,7 @@
 					</tr>
 					<tr>
 						<th>구매 포인트</th>
-						<td>보유금액 <input type="text" value="${_userDto_.point}" readonly>원 <input type="button" value="충전" onclick="showPopup();"></td>
+						<td>보유금액 <input type="text" value="${myInfomap.FM_USER_POINT}" readonly>원 <input type="button" value="충전" onclick="showPopup();"></td>
 					</tr>
 					<tr>
 						<th>상세 정보</th>

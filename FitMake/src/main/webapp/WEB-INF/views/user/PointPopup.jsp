@@ -19,7 +19,6 @@
 	
 	
 	$(document).ready(function () {
-	var priceSelect = $("#priceSelect").val();
 		$("#priceSelect").click(function() {
 			if ($("#optionUl").is(':visible') == false) {
 				$("#optionUl").show();
@@ -31,16 +30,16 @@
 		});
 		
 		$("#pointAdd").click(function() {
+		var priceSelect = parseInt($("#priceSelect").val());
 			$.ajax({
-				type: "POST",
+				type: "post",
+				dataType: "json",
 				url: "pointAdd.do",
-				data: { priceSelect: priceSelect },
+				data: { "priceSelect": priceSelect },
 				success: function(data) {
-					if (data) {
-						console.log(data);
-					} else {
-						console.log("123",data);
-					}
+					alert("충전이 완료되었습니다");
+					closeTabClick();
+					
 				},
 				error: function() {
 					console.log("안됨;");

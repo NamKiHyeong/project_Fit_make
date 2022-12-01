@@ -67,6 +67,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public int addPoint(UserDto userDto, int point) {
 		
+		
 		userDto.setPoint(point);
 		
 		return sqlSession.update(namespaceuser + "addPoint", userDto);

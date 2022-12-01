@@ -211,15 +211,18 @@ public class UserController {
 	
 	@RequestMapping(value = "/user/pointAdd.do", method = {RequestMethod.GET,RequestMethod.POST})
 	@ResponseBody
-		public String pointAdd(@RequestParam("priceSelect") int point
-				,UserDto userDto, PointAdd pointAdd) {
+		public int pointAdd(@RequestParam("priceSelect") int point
+				, PointAdd pointAdd, HttpSession session) {
 			logger.info("포인트 충전 - {}", point);
 			
+			UserDto userdto = new UserDto();
+			userdto = (UserDto) session.getAttribute("_userDto_");
 			
-			userService.addPoint(userDto, point);
+			
+			userService.addPoint(userdto, point);
 			userService.pointHisoty(pointAdd, point);
 			
 			
-			return null;
+			return 1;
 	}
 }
