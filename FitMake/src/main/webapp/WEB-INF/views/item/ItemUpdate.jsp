@@ -8,15 +8,17 @@
 <meta charset="UTF-8">
 <title>회원 수정 하는 곳</title>
 
-
+<link rel="stylesheet" href="/fitmake/resources/css/itemupdate.css">
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	<div>
+	<div class="diet_wrap">
 		<form action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
+	
+	
 		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
 		<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
 		<input type="hidden" name="curPage" value="${prevMap.curPage}">
@@ -48,18 +50,20 @@
 				
 				</c:otherwise>
 			</c:choose>	
+			<div>
+				제품명 : <input type="text" name="iName" id="itemName" value = "${itemDto.iName}"><br>
+				가격 : <input type="text" name="iSellprice" value = "${itemDto.iSellprice}"><br>
+				재고 : <input type="text" name="iCount" value = "${itemDto.iCount}"><br>
 				
-			제품명 : <input type="text" name="iName" id="itemName" value = "${itemDto.iName}"><br>
-			가격 : <input type="text" name="iSellprice" value = "${itemDto.iSellprice}"><br>
-			재고 : <input type="text" name="iCount" value = "${itemDto.iCount}"><br>
-			제품상세정보 : 
-			<input type="submit" value="수정완료">
-			<input type="button" value="뒤로가기" onclick="pageMoveBefore(${itemDto.iNo});">
-			<input type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
-			<input type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo});'>
-			<textarea rows="" cols="" >${itemDto.iOneDetail}</textarea>
+				<input type="submit" value="수정완료">
+				<input type="button" value="뒤로가기" onclick="pageMoveBefore(${itemDto.iNo});">
+				<input type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
+				<input type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo});'><br>
+			</div>
+			
+			제품상세정보 <br>
+			<textarea rows="30" cols="20" >${itemDto.iOneDetail}</textarea>
 		</form>
-		
 	</div>
 	
 </body>
