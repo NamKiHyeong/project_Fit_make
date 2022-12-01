@@ -78,13 +78,13 @@
 		
 	</select>
 	
-	<select id="itemSelectOne" parameterType="int"
-		resultMap="itemResultMap">
+	<select id="itemSelectOne" parameterType="map"
+		resultType="map">
 		SELECT FM_ITEM_NO, FM_CATEGORY_NO, FM_ITEM_NAME, FM_ITEM_CALORY
 			, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
 			, FM_CALORY_GRADE, FM_ITEM_DETAIL
 		FROM FM_ITEM
-		WHERE FM_ITEM_NO = #{iNo}
+		WHERE FM_ITEM_NO = #{testNo}
 	</select>
 	
 	<update id="itemUpdateOne" parameterType="itemDto">

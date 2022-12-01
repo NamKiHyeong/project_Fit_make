@@ -45,7 +45,10 @@ public class ItemDaompl implements ItemDao{
 	
 	@Override
 	public ItemDto itemSelectOne(int iNo) {
-		return sqlSession.selectOne(namespace + "itemSelectOne", iNo);
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		
+		map.put("testNo", iNo);
+		return sqlSession.selectOne(namespace + "itemSelectOne", map);
 	}
 	
 //	U

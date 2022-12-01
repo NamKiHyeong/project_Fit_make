@@ -116,12 +116,13 @@ public class ItemServicempl implements ItemService {
 		int resultNum = 0;
 
 		try {
+//			resultNum = itemDao.itemUpdateOne(itemDto);
 			log.info("서비스mpl에서 itemDto는?? {}", itemDto);
-			resultNum = itemDao.itemUpdateOne(itemDto);
 			
 			log.info("서비스mpl에서 업데이트는 성공했나? {}",resultNum);
 			int iNo = itemDto.getiNo();
 			
+//			
 			Map<String, Object> tempFileMap = itemDao.fileSelectOne(iNo);
 			log.info("서비스mpl에서 파일 하나를 잘 찾아왔나? {}",tempFileMap);
 			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(iNo, mulRequest);

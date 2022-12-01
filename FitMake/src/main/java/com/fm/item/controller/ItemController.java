@@ -195,7 +195,9 @@ public class ItemController {
 			
 		}
 		
-		return "redirect:/item/list.do?cNo=" + cNo;
+		return "";
+		
+//		return "redirect:/item/list.do?cNo=" + cNo;
 	
 	}
 /**Delete
