@@ -27,6 +27,7 @@ public class FileUtils {
 	 */
 	public List<Map<String, Object>> parseInsertFileInfo(int parentSeq, 
 			MultipartHttpServletRequest mulRequest) throws Exception{
+//		MultipartFile multipartFile
 		Iterator<String> iterator = mulRequest.getFileNames();
 		MultipartFile multipartFile = null;
 		String originalFileName = null;			//파일 이름
