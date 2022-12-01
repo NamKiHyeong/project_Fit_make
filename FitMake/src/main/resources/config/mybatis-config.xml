@@ -14,6 +14,8 @@
   	<typeAlias type="com.fm.item.model.ItemDto" alias="itemDto"/>
   	<typeAlias type="com.fm.order.model.CartDto" alias="cartDto"/>
   	<typeAlias type="com.fm.review.model.ReviewDto" alias="reviewDto"/>
+  	<typeAlias type="com.fm.board.model.BoardDto" alias="boardDto"/>
+  	<typeAlias type="com.fm.board.model.ReplyDto" alias="ReplyDto"/>
   </typeAliases>
   
   

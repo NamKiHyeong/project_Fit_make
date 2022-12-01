@@ -11,7 +11,6 @@
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	viewPointFnc();
 	viewCartSummaryFnc();
 	
 	var headerDiv = $("#headerDiv");
@@ -22,20 +21,6 @@ $(document).ready(function() {
 	}
 	
 });
-
-function viewPointFnc() {
-	
-	$.ajax({
-		url: "../user/pointChk.do",
-		type: "get",
-		dataType: "json",
-		success: function (point) {
-			$("#pointChk").html(point + "원");
-		
-		}
-	
-	});
-}
 
 function viewCartSummaryFnc() {
 	$
@@ -183,7 +168,7 @@ function deleteCartFnc(cartNo) {
 				<ul>
 					<c:if test="${_userDto_.email ne null}">
 						<li><strong>${_userDto_.nickName}</strong>님&nbsp;&nbsp;</li>
-						<li><strong id="pointChk"></strong>&nbsp;&nbsp;</li>
+						<li><strong>${myInfomap.FM_USER_POINT}원</strong>&nbsp;&nbsp;</li>
 						<li><a
 							href="${pageContext.request.contextPath}/auth/logout.do">로그아웃</a></li>
 					</c:if>

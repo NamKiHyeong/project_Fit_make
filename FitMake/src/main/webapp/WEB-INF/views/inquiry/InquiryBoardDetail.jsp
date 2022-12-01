@@ -61,7 +61,7 @@
 		<div id="titleDiv">
 			<table id="headTable">
 				<tr>
-					<th id="headTitle">문의게시판 리스트</th>
+					<th id="headTitle">문의게시판</th>
 				</tr>
 			</table>
 			<hr id="headHr">
@@ -71,64 +71,47 @@
 	<form id="form">
 		<table>
 			<tr>
-				<td>
-					
+				<td colspan="4">
+					<input type="text" name="bTitle" value="${boardMap.FM_INQUIRY_TITLE}">
 				</td>
 				<td>
-					문의제목
-				</td>
-				<td>
-					댓글수
-				</td>
-				<td>
-					작성일
+					<input type="hidden" id="bNo" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
 				</td>
 			</tr>
-			<c:forEach var="boardMap" items="${BoardMapList}">
-				<c:if test="${boardMap.bCount == 1}">
-					<tr>
-						<td>
-							<input type="hidden" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
-						</td>
-						<td>
-							<a href="./detail.do?bNo=${boardMap.FM_INQUIRY_NO}">${boardMap.FM_INQUIRY_TITLE} </a>
-						</td>
-						<td>
-						</td>
-						<td>
-							${boardMap.igrCount}
-						</td>
-						<td>
-							${boardMap.FM_INQUIRY_CRE_DATE}
-						</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${BoardMapList.size() == 0}">
 				<tr>
+					<td colspan="2">
+						
+					</td>
 					<td>
-						문의 내역이 없습니다
+						${boardMap.FM_USER_NICKNAME}
+					</td>
+					<td>
+						${boardMap.FM_INQUIRY_CRE_DATE}
+					</td>
+					<td>
+						${boardMap.igrCount}
 					</td>
 				</tr>
-			</c:if>
 				<tr>
-					<td colspan="4">
-						<input type="button" value="문의하기" onclick="location.href='./add.do'">
+					<td colspan="5">
+						<div>
+							${boardMap.FM_INQUIRY_CONTENT}
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						
+					</td>
+					<td>
+						<input type="button" value="수정">
+						<input type="button" value="삭제" onclick="location.href='./delete.do?bNo=${boardMap.FM_INQUIRY_NO}'">
+						<input type="button" value="목록">
 					</td>
 				</tr>
 		</table>
-		
 	</form>
 	
-	
-	<jsp:include page="/WEB-INF/views/inquiry/InquiryPaging.jsp" />
-	
-	<div id="pagingSection">
-		<form id="pagingForm" action="./list.do" method="get">
-			<input type="hidden" id="curPage" name="curPage" value="${iqPagingMap.iqPaging.curPage}">
-		</form>
-	</div>
-	
+	<jsp:include page="/WEB-INF/views/inquiry/InquiryReply.jsp" />
 </body>
 </html>

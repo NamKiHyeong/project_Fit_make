@@ -9,7 +9,15 @@
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-	
+	$(document).ready(function () {
+		$("#addBoardBtn").on("click", function(){
+			$("#boardDetailForm").attr("action", "./add.do");
+			$("#boardDetailForm").attr("method", "post");
+			$("#boardDetailForm").submit();
+			
+		});
+		
+	});
 </script>
 <style type="text/css">
 	#boardRootDiv {
@@ -61,74 +69,41 @@
 		<div id="titleDiv">
 			<table id="headTable">
 				<tr>
-					<th id="headTitle">문의게시판 리스트</th>
+					<th id="headTitle">문의게시판 작성</th>
 				</tr>
 			</table>
 			<hr id="headHr">
 		</div>
 	</div>
 	
-	<form id="form">
+	<form id="boardDetailForm">
 		<table>
 			<tr>
-				<td>
-					
+				<td colspan="4">
+					제목	<input type="text" name="bTitle" value="">
 				</td>
 				<td>
-					문의제목
+					<input type="text" value="${_userDto_.getNickName()}" readonly="readonly"> 
 				</td>
-				<td>
-					댓글수
-				</td>
-				<td>
-					작성일
-				</td>
-			</tr>
-			<c:forEach var="boardMap" items="${BoardMapList}">
-				<c:if test="${boardMap.bCount == 1}">
-					<tr>
-						<td>
-							<input type="hidden" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
-						</td>
-						<td>
-							<a href="./detail.do?bNo=${boardMap.FM_INQUIRY_NO}">${boardMap.FM_INQUIRY_TITLE} </a>
-						</td>
-						<td>
-						</td>
-						<td>
-							${boardMap.igrCount}
-						</td>
-						<td>
-							${boardMap.FM_INQUIRY_CRE_DATE}
-						</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${BoardMapList.size() == 0}">
 				<tr>
-					<td>
-						문의 내역이 없습니다
+					<td colspan="5">
+						<textarea name="bContent">
+							
+						</textarea>
 					</td>
 				</tr>
-			</c:if>
 				<tr>
-					<td colspan="4">
-						<input type="button" value="문의하기" onclick="location.href='./add.do'">
+					<td>
+						
+					</td>
+					<td>
+						<input type="button" id="addBoardBtn" value="작성">
+						<input type="button" value="취소">
 					</td>
 				</tr>
 		</table>
-		
 	</form>
 	
-	
-	<jsp:include page="/WEB-INF/views/inquiry/InquiryPaging.jsp" />
-	
-	<div id="pagingSection">
-		<form id="pagingForm" action="./list.do" method="get">
-			<input type="hidden" id="curPage" name="curPage" value="${iqPagingMap.iqPaging.curPage}">
-		</form>
-	</div>
 	
 </body>
 </html>

@@ -136,18 +136,18 @@ public class OrderController {
 	  @RequestMapping(value = "/cart/summary.do", method = RequestMethod.GET)
 	  public List<Map<String, Object>> viewCartHeadListAsync(HttpSession session) {
 			logger.debug("Welcome CartList");
-			
-			try {
-				UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-				int uNo = (int) userDto.getuNo();
-
-				List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
-					
+				
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			if(userDto == null) {
+				List<Map<String, Object>> cartMapList = null;
 				return cartMapList;
-			} catch (Exception e) {
-				e.printStackTrace();
-				return null;
+			} else {
+				int uNo = (int) userDto.getuNo();
+				
+				List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
+				return cartMapList;
 			}
+			
 	  }
 	
 	/**

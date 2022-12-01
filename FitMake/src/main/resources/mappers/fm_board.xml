@@ -10,14 +10,82 @@
 <!-- 		</if> -->
 <!-- 	</sql> -->
 	
-	<select id="viewBoardList" parameterType="int" resultType="map">
-		SELECT iq.*, COUNT(igr.FM_INQUIRY_NO) OVER(PARTITION BY igr.FM_INQUIRY_NO) "igrCount" 
-		FROM FM_INQUIRY iq
-			LEFT OUTER JOIN FM_INQUIRY_REPLY igr
-				ON iq.FM_INQUIRY_NO = igr.FM_INQUIRY_NO
-		<if test="uNo != 1">
-			AND iq.FM_USER_NO = #{uNo}
-		</if>
+	<resultMap type="replyDto" id="replyResultMap">
+		<id column="FM_INQUIRY_REPLY_NO" property="irNo"/>
+		<result column="FM_USER_NO" property="uNo"/>
+		<result column="FM_INQUIRY_NO" property="bNo" />
+		<result column="FM_INQUIRY_REPLY_CONTENT" property="irContent"/>
+		<result column="FM_INQUIRY_REPLY_CRE_DATE" property="createDate" javaType="java.util.Date"/>
+		<result column="FM_INQUIRY_REPLY_PARENT" property="irParentNo"/>
+	</resultMap>
 	
+	<select id="viewBoardList" parameterType="map" resultType="map">
+		SELECT *
+		FROM (SELECT iql.FM_INQUIRY_NO, iql.FM_INQUIRY_TITLE, iql.FM_INQUIRY_CRE_DATE, iql.FM_USER_NO
+					, iql."igrCount", ROW_NUMBER() OVER(PARTITION BY iql.FM_INQUIRY_NO ORDER BY iql.FM_INQUIRY_CRE_DATE DESC) as "bCount"
+					, DENSE_RANK() OVER(ORDER BY iql.FM_INQUIRY_NO DESC) as "rNum" 
+				FROM(	SELECT iq.FM_INQUIRY_NO, iq.FM_INQUIRY_TITLE, iq.FM_INQUIRY_CRE_DATE, iq.FM_USER_NO
+							, COUNT(igr.FM_INQUIRY_NO) OVER(PARTITION BY igr.FM_INQUIRY_NO) "igrCount" 
+						FROM FM_INQUIRY iq
+							INNER JOIN FM_INQUIRY_REPLY igr
+								ON iq.FM_INQUIRY_NO = igr.FM_INQUIRY_NO
+					) iql
+			) iqll
+		WHERE iqll."rNum" BETWEEN #{start} AND #{end}
+		<if test="uNo != 1">
+		AND iqll.FM_USER_NO = #{uNo}
+		</if>
 	</select>
+	
+	<select id="getBoardTotalCount" parameterType="int" resultType="int">
+		SELECT COUNT(FM_USER_NO)
+		FROM FM_INQUIRY
+		WHERE FM_USER_NO = #{uNo}
+	</select>
+	
+	<select id="viewBoardDetail" parameterType="map" resultType="map">
+		SELECT *
+		FROM FM_INQUIRY iq
+		WHERE iq.FM_USER_NO = #{uNo}
+		AND iq.FM_INQUIRY_NO = #{bNo}
+	</select>
+	
+	<insert id="addBoardDetail" parameterType="boardDto">
+		INSERT INTO FM_INQUIRY
+		VALUE(FM_INQUIRY_NO, FM_USER_NO, FM_INQUIRY_TITLE, FM_INQUIRY_CONTENT, FM_INQUIRY_CRE_DATE, FM_INQUIRY_MOD_DATE)
+		VALUES(SEQ_FM_INQUIRY_NO.NEXTVAL, #{uNo}, #{bTitle}, #{bContent}, SYSDATE, SYSDATE)
+	</insert>
+	
+	<delete id="deleteBoardDetail" parameterType="boardDto">
+		DELETE FROM FM_INQUIRY
+		WHERE FM_USER_NO = #{uNo}
+		AND FM_INQUIRY_NO = #{bNo}
+	</delete>
+	
+	<insert id="addReply" parameterType="replyDto"
+				useGeneratedKeys="true" keyProperty="irParentNo">
+		<selectKey keyProperty="irParentNo" resultType="int" order="BEFORE">
+			SELECT *
+			FROM (SELECT FM_INQUIRY_REPLY_NO, ROWNUM "rNum", FM_INQUIRY_NO
+					FROM FM_INQUIRY_REPLY 
+					ORDER BY FM_INQUIRY_REPLY_CRE_DATE DESC
+					) irr
+			WHERE irr.FM_INQUIRY_NO = #{bNo} 
+			AND irr."rNum" = 1 
+		</selectKey>
+		INSERT INTO FM_INQUIRY_REPLY
+		VALUE(FM_INQUIRY_REPLY_NO, FM_USER_NO, FM_INQUIRY_NO, FM_INQUIRY_REPLY_CONTENT, FM_INQUIRY_REPLY_CRE_DATE, FM_INQUIRY_REPLY_PARENT)
+		VALUES(SEQ_FM_INQUIRY_REPLY_NO.NEXTVAL, #{uNo}, #{bNo}, #{irContent}, SYSDATE, #{irParentNo})
+	</insert>
+	
+	<select id="viewReplyList" parameterType="replyDto" resultType="map">
+		SELECT iqr.FM_INQUIRY_REPLY_NO, iqr.FM_INQUIRY_NO, iqr.FM_INQUIRY_REPLY_CONTENT, iqr.FM_INQUIRY_REPLY_CRE_DATE, u.FM_USER_NICKNAME
+		FROM FM_INQUIRY_REPLY iqr
+			INNER JOIN FM_USER u
+				ON u.FM_USER_NO = iqr.FM_USER_NO
+		WHERE FM_INQUIRY_NO = #{bNo}
+		ORDER BY iqr.FM_INQUIRY_REPLY_CRE_DATE ASC
+	</select>
+	
+	
 </mapper>
