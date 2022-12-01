@@ -1,8 +1,6 @@
 // 회원가입 유효성 검사 (임시 제이쿼리로 다 바꿀예정)
 function joinSunFnc() {
 	var addFormObj = $("#addctrForm");
-	var emailChk = $("#emailChk").val();
-	var nickNameChk = $("#nickNameChk").val();
 	var pwdChk = $("#pwdChk").val();
 	var pwd_Re_chk = $("#pwd_Re_chk").val();
 	var mobileChk = $("#phone").val();
@@ -11,27 +9,10 @@ function joinSunFnc() {
 	var weightChk = $("#weightChk").val();
 	var heightChk = $("#heightChk").val();
 
-	if (emailChk == '' || emailChk == null) {
-		$("#result_checkEmail").html("· 이메일을 입력해주세요").css("color", "red");
-		$("#emailChk").focus();
-		return false;
-	}
 
-	var nicknameRull = RegExp(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/);
-	if (nickNameChk == '' || nickNameChk == null) {
-		$("#result_check_Nickname").html("· 닉네임을 입력해주세요").css("color", "red");
-		$("#nickNameChk").focus();
-		return false;
-	}
-
-	if (!nicknameRull.test(nickNameChk)) {
-		$("#result_check_Nickname").html("· 닉네임은 특수문자를 제외한 조합으로 2~16자리 사용해야합니다").css("color", "red");
-		$("#nickNameChk").focus();
-		return false;
-	}
 
 	if (pwdChk == '' || pwdChk == null) {
-		$("#result_Check_pwd").html("· 비밀번호를 입력해주세요").css("color", "red");
+		$("#result_check_Re_pwd").html("· 비밀번호를 입력해주세요").css("color", "red");
 		$("#pwdChk").focus();
 		return false;
 	}
@@ -41,7 +22,7 @@ function joinSunFnc() {
 
 	// test() ㅡ 찾는 문자열이, 들어있는지 아닌지를 알려준다.
 	if (!pwdRull.test(pwdChk)) {
-		$("#result_Check_pwd").html("· 비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야합니다").css("color", "red");
+		$("#result_check_Re_pwd").html("· 비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야합니다").css("color", "red");
 		$("#pwdChk").focus();
 		return false;
 	}

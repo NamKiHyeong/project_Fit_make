@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.fm.board">
+	
+<!-- 	<sql id="search"> -->
+<!-- 		WHERE ${searchOption} LIKE '%' || #{searchText} || '%' -->
+<!-- 		<if test="uNo != 1"> -->
+<!-- 			AND u.FM_USER_NO = #{uNo} -->
+<!-- 		</if> -->
+<!-- 	</sql> -->
+	
+	<select id="viewBoardList" parameterType="int" resultType="map">
+		SELECT iq.*, COUNT(igr.FM_INQUIRY_NO) OVER(PARTITION BY igr.FM_INQUIRY_NO) "igrCount" 
+		FROM FM_INQUIRY iq
+			LEFT OUTER JOIN FM_INQUIRY_REPLY igr
+				ON iq.FM_INQUIRY_NO = igr.FM_INQUIRY_NO
+		<if test="uNo != 1">
+			AND iq.FM_USER_NO = #{uNo}
+		</if>
+	
+	</select>
+</mapper>

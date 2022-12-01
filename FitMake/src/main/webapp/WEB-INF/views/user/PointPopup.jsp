@@ -5,29 +5,70 @@
 <head>
 <meta charset="UTF-8">
 <title>충전 페이지</title>
+<style type="text/css">
+#selectContainer li {
+	list-style: none;
+}
+</style>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	function closeTabClick() {
 		window.close();
 	}
+	
+	
+	$(document).ready(function () {
+	var priceSelect = $("#priceSelect").val();
+		$("#priceSelect").click(function() {
+			if ($("#optionUl").is(':visible') == false) {
+				$("#optionUl").show();
+			} 
+		});
+		$(".optionli").click(function() {
+			$("#priceSelect").val($(this).val());
+			$("#optionUl").hide();
+		});
+		
+		$("#pointAdd").click(function() {
+			$.ajax({
+				type: "POST",
+				url: "pointAdd.do",
+				data: { priceSelect: priceSelect },
+				success: function(data) {
+					if (data) {
+						console.log(data);
+					} else {
+						console.log("123",data);
+					}
+				},
+				error: function() {
+					console.log("안됨;");
+				}
+			});
+		});
+		
+	});
+	
+	
 </script>
 </head>
 <body>
 	<h1>포인트 충전</h1>
 
-	<form action="#" method="post">
-		<div id="selectContainer">
-			<select name="point">
-				<option value="">직접입력</option>
-				<option value="">5,000</option>
-				<option value="">10,000</option>
-				<option value="">30,000</option>
-				<option value="" selected>50,000</option>
-				<option value="">100,000</option>
-			</select> <input type="button" value="충전" onclick=""><input
-				type="button" value="취소" onclick="closeTabClick();">
-		</div>
-	</form>
+	<div id="selectContainer">
+		<input type="number" id="priceSelect" placeholder="금액입력">
+		<ul id="optionUl" style="display: none;">
+			<li><input class="optionli" type="button" value="직접입력"></li>
+			<li><input class="optionli" type="button" value="5000"></li>
+			<li><input class="optionli" type="button" value="10000"></li>
+			<li><input class="optionli" type="button" value="30000"></li>
+			<li><input class="optionli" type="button" value="50000"></li>
+			<li><input class="optionli" type="button" value="100000"></li>
+		</ul>
+
+		<input type="button" id="pointAdd" value="충전"> <input
+			type="button" value="취소" onclick="closeTabClick();">
+	</div>
 </body>
 </html>

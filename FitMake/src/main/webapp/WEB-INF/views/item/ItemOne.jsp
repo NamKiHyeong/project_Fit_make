@@ -23,43 +23,46 @@
 		<div class="diet_wrap">
 		
 			<div class="frame">
-				<div class="sortImg">
+				<div class="sortImg sort1">
 					<c:forEach var="item" items="${fileList}">
 		<%-- 		${row.ORIGINAL_FILE_NAME}(${row.FILE_SIZE}kb)<br> --%>
 						<img alt="image not found" src="<c:url value='/image/${item.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
 					</c:forEach>
 				</div>
-				<div class="sortImg" >
-					<p>제품명	 <input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly"><br></p>
-					<p>가 격	 <input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}" readonly="readonly"></p>
-					<p>칼로리	 <input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
+				<div class="sortImg sort2">
+					<p><span>제품명</span>	 <input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly"><br></p>
+					<p><span>가 &nbsp; 격</span>	 <input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}" readonly="readonly"></p>
+					<p><span>칼로리</span>	 <input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
 	
 					<c:choose>
 						<c:when test="${_userDto_.uNo == 1}">
-							<p>재 고	 <input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" readonly="readonly"></p>
+							<p><span>재 &nbsp; 고</span>	 <input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" readonly="readonly"></p>
 						</c:when>
 						<c:otherwise>
-							<p>개 수	 <input class="info" type="number" name="ctCount" id="ctCountInput" value="1"></p>
+							<p><span>개 &nbsp; 수</span>	 <input class="info" type="number" name="ctCount" id="ctCountInput" value="1"></p>
 						</c:otherwise>
-					</c:choose>	
+					</c:choose>
+					
+					<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo});">
+					<c:if test="${_userDto_.uNo != 1}">
+						<input class="itemCtrCenter" type="button" id="addCartBtn" value="장바구니">
+						<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">
+						<input class="itemCtr" type="button" value="리뷰쓰기" onclick="pageReviewFnc(${itemDto.iNo});">
+						<input class="itemCtr" type="button" value="리뷰목록" onclick="pageReviewListFnc(${itemDto.iNo});">
+					</c:if>
+			
+					<c:if test="${_userDto_.uNo == 1}">
+						<input class="itemCtr" type="submit" value="수정하기">
+					</c:if>
 				</div>
+				
 			</div>
 			
-			<input class="itemCtrBack" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo});">
-			<c:if test="${_userDto_.uNo != 1}">
-				<input class="itemCtrCenter" type="button" id="addCartBtn" value="장바구니">
-				<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">
-				<input class="itemCtr" type="button" value="리뷰쓰기" onclick="pageReviewFnc(${itemDto.iNo});">
-				<input class="itemCtr" type="button" value="리뷰목록" onclick="pageReviewListFnc(${itemDto.iNo});">
-			</c:if>
 			
-			<c:if test="${_userDto_.uNo == 1}">
-				<input class="itemCtr" type="submit" value="수정하기">
-			</c:if>
 			<br>
 			<div class="iteminfo">
 						<h3>제품상세정보</h3>
-				<textarea rows="20" cols="100" readonly="readonly">${itemDto.iOneDetail}</textarea>
+				<textarea rows="20" cols="120" readonly="readonly" style="padding:15px;">${itemDto.iOneDetail}</textarea>
 			</div>
 		</div>
 	</form>

@@ -64,18 +64,18 @@ nav > ul > li > a:hover {
 
 <nav>
 		<ul>
-		<c:if test="${oPagingMap.orderPaging.prevBlock ne 1}">
+		<c:if test="${iqPagingMap.iqPaging.prevBlock ne 1}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${oPagingMap.orderPaging.prevBlock});">
+					onclick="goPageFnc(${iqPagingMap.iqPaging.prevBlock});">
 					<span>«</span>
 				</a>
 			</li>
 		</c:if>
 		
 		<c:forEach var="num" 
-			begin="${oPagingMap.orderPaging.blockBegin}" 
-			end="${oPagingMap.orderPaging.blockEnd}">
+			begin="${iqPagingMap.iqPaging.blockBegin}" 
+			end="${iqPagingMap.iqPaging.blockEnd}">
 			<li id='pageButton${num}'>
 				<a href="#" onclick="goPageFnc(${num});">
 					<c:out value="${num}"/>
@@ -83,11 +83,11 @@ nav > ul > li > a:hover {
 			</li>
 		</c:forEach>
 		
-		<c:if test="${oPagingMap.orderPaging.curBlock 
-			< oPagingMap.orderPaging.totBlock}">
+		<c:if test="${iqPagingMap.iqPaging.curBlock 
+			< iqPagingMap.iqPaging.totBlock}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${oPagingMap.orderPaging.nextBlock});">
+					onclick="goPageFnc(${iqPagingMap.iqPaging.nextBlock});">
 					<span>»</span>
 				</a>
 			</li>			

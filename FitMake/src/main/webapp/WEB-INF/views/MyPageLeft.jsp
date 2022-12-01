@@ -23,12 +23,15 @@
 }
 
 #firstDiv_Nav {
+	display: flex;
+     justify-content: center;
+     align-items: center;
 	height: 100px;
-	text-align: center;
 	background-color: #d12268;
 }
 
 #mypageAtag {
+	padding: 40px 25px;
 	color: #fff;
 	font-size: 18px;
 	font-weight: bold;
@@ -65,7 +68,7 @@
 			<ol>
 				<li><strong>정보 관리</strong></li>
 				<li><a href="#">내정보 수정</a></li>
-				<li><a href="#">충전내역</a></li>
+				<li><a href="#">충전/사용내역</a></li>
 			</ol>
 		</div>
 	</div>

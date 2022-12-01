@@ -23,7 +23,7 @@ $("document").ready(function() {
 					result = "· 사용가능한 이메일입니다";
 					$("#result_checkEmail").html(result).css("color", "green");
 				} else {
-					result = "· 이미 사용중인 아이디입니다";
+					result = "· 이미 사용중인 이메일입니다";
 					$("#result_checkEmail").html(result).css("color", "red");
 				}
 			},
@@ -32,6 +32,39 @@ $("document").ready(function() {
 			}
 		});
 	});
+	$("#nickNameChk").keyup(function() {
+	//닉네임 정규식
+	var nicknameRull = RegExp(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/);
+	let nickNameChk = $("#nickNameChk").val();
+	if (nickNameChk == null || nickNameChk == '') {
+		$("#result_check_Nickname").html("");
+		return false;
+	}
+	
+	if (!nicknameRull.test(nickNameChk)) {
+		$("#result_check_Nickname").html("· 닉네임은 특수문자를 제외한 조합으로 2~16자리 사용해야합니다").css("color", "red");
+		$("#nickNameChk").focus();
+		return false;
+	}
+	
+	$.ajax({
+		type: "post",
+		url: "nickNameChk.do",
+		data: { nickNameChk: nickNameChk },
+		success: function(data) {
+			if (data == "N") {
+				result = "· 사용가능한 닉네임입니다";
+				$("#result_check_Nickname").html(result).css("color", "green");
+			} else {
+				result = "· 이미 사용중인 닉네임입니다";
+				$("#result_check_Nickname").html(result).css("color", "red");
+			}
+		},
+		error: function() {
+			console.log("통신실패");
+		}
+	});
+});
 	//휴대폰 번호 자동 하이픈
 	function autoHypenPhone(str) {
 		str = str.replace(/[^0-9]/g, '');
@@ -78,7 +111,7 @@ $("document").ready(function() {
 			$("#phone").attr("autofocus", true);
 			return false;
 		}
-		alert("· 인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주세요.");
+		alert("인증번호 발송이 완료되었습니다.\n휴대폰에서 인증번호 확인을 해주세요.");
 
 		$.ajax({
 			type: "GET",
