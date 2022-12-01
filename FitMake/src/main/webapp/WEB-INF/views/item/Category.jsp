@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>특가 더미 사이트(Item list 사이트)</title>
 
-<link rel="stylesheet" href="/fitmake/resources/css/item.css">
+<link rel="stylesheet" href="/fitmake/resources/css/itemlist.css">
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
@@ -18,6 +18,14 @@
 	<div class="diet_wrap">
 		<h3>다이어트</h3>
 		<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 추가</a></h4>
+		<input type="button" id="addCartListBtn" value="장바구니 추가">
+	
+		<form action="./list.do">
+			<input type="hidden" name="cNo" value="${pagingMap.cNo}">
+			<input type="text" name="keyword" value="${searchMap.keyword}">
+			<input type="submit" value="검색">
+	<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
+		</form>
 		<c:choose>
 			<c:when test="${empty itemList}">
 				<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 등록해주세요</a></h4>
@@ -56,14 +64,7 @@
 				
 			</c:choose>
 		</div>
-		<input type="button" id="addCartListBtn" value="장바구니 추가">
-	
-	<form action="./list.do">
-		<input type="hidden" name="cNo" value="${pagingMap.cNo}">
-		<input type="text" name="keyword" value="${searchMap.keyword}">
-		<input type="submit" value="검색">
-<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
-	</form>
+		
 	
 	<jsp:include page="./ItemPaging.jsp"/>	
 	

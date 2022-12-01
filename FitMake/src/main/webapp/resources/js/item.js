@@ -121,14 +121,7 @@ $(document).ready(function() {
 	
 	
 	
-	function pageMoveBefore(iNo){
-		
-		var url ="./one.do?no=" + iNo;
-		location.href = url;
-//		/views/item/ItemOne.jsp
-//		/views/review/ReviewList.jsp
-//<h3><a href="/fitmake/WEB-iNF/views/review/list.do?cNo=1">리뷰</a></h3>
-	}
+	
 //------------------------------------------------------------------
 
 
@@ -140,10 +133,7 @@ $(document).ready(function() {
 		location.href="../review/list.do?iNo=" + iNo;
 	}
 //-----------------------------------------------------
-	function itemDeleteOneFnc(iNo, cNo){
-		var url = "./deleteOne.do?iNo=" + iNo + '&cNo=' + cNo;
-		location.href = url;
-	}
+	
 	function deleteFileFnc(obj){
 		
 		$(obj).parent().remove();
@@ -167,14 +157,6 @@ $(document).ready(function() {
 			deleteFileFnc($(this));
 		});
 	}
-	function deleteItemFnc(iNo){
-	      var deletecheck = confirm("제품을 삭제하시겠습니까?");
-	      
-	      if(deletecheck == true){
-	         location.href = "./deleteOne.do?iNo=" + iNo;
-//	          + '&cNo=' + cNo;
-	      } else {
-	         return false;
-	      }
-	   }
+	
+	
 //-------------------------------------------------------------

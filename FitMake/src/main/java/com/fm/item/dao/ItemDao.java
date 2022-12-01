@@ -26,7 +26,7 @@ public interface ItemDao {
 
 //-----------------------------------------------------------
 	
-	public int fileDelete(int no);
+	public int fileDelete(int iNo);
 
 	public int itemSelectTotalItemCount(int cNo, String keyword);
 }

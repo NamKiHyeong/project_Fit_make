@@ -1,8 +1,13 @@
 @charset "UTF-8";
 
-.diet_wrap {width:1200px; margin:0 auto;}
+.diet_wrap {
+	width:1200px;
+	margin:0 auto;
+}
 
-.diet_wrap h3 {font-weight:bold;font-size:24px;}
+.diet_wrap h3 {
+	font-weight:bold;font-size:24px;
+}
 
 .sortOrder{
 	width:1200px;
@@ -10,12 +15,23 @@
    	position:relative;
 }
 
-.sortOrder:after {content:"";clear:both;display:block;}
+.sortOrder:after {
+	content:"";
+	clear:both;
+	display:block;
+}
 
-.sortOrder ul {position:absolute;text-align:right;right:0;}
+.sortOrder ul {
+	position:absolute;
+	text-align:right;
+	right:0;
+}
 
 
-.sortOrder li {float:left;padding-left:30px;}
+.sortOrder li {
+	float:left;
+	padding-left:30px;
+}
 
 .frame{
 	display:grid;
@@ -26,14 +42,24 @@
 }
 
 /* #frame {position:relative;} */
-.frame:after {content:"";clear:both;display:block;}
+.frame:after {
+	content:"";
+	clear:both;
+	display:block;
+}
 
-.frame > div {float:left;}
+.frame > div {
+	float:left;
+}
 .frame .sort1 {
-	width:400px; margin-right:40px;
-	height:530px;}
+	width:400px;
+	margin-right:40px;
+	height:530px;
+}
 	
-.frame .sort1 > img {padding:30px; border:1px solid #ddd;}
+.frame .sort1 > img {
+	padding:30px; border:1px solid #ddd;
+}
 
 
 .frame li{
@@ -47,13 +73,31 @@
 	margin:30px 0 40px;
 }
 
-.frame p > span {display:inline-block;width:150px;font-size:24px;font-weight:bold;}
-.info{
-	font-size: 20px; padding:3px;
+.frame p > span {
+	display:inline-block;
+	width:150px;
+	font-size:24px;
+	font-weight:bold;
 }
-.iteminfo{margin-left:50px;}
+.info{
+	font-size: 20px;
+	padding:3px;
+}
+.iteminfo{
+	margin-left:50px;
+}
 
-.itemCtr {padding:10px 20px; margin-right:15px; font-size:16px; background:#333;color:#fff;border:none;border-radius:10px;}
+.itemCtr {
+	padding:10px 20px;
+	margin-right:15px;
+	font-size:16px;
+	background:#333;
+	color:#fff;
+	border:none;
+	border-radius:10px;
+}
 
-.itemCtrCenter{margin-left:240px; margin-right:240px;}
+.itemCtrCenter{
+	margin-left:240px; margin-right:240px;
+}
 /* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */
