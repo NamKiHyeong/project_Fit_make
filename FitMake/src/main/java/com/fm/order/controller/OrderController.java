@@ -173,8 +173,6 @@ public class OrderController {
 		
 		int totalCount = orderService.getOrderTotalCount(uNo, searchOption, searchText);
 		
-		logger.info("totalCount {}", totalCount);
-		
 		Paging orderPaging = new Paging(totalCount, curPage);
 		
 		int start = orderPaging.getPageBegin();
