@@ -367,6 +367,16 @@ public class OrderController {
 		return viewUrl;
 	}
 	
-	  
+	@ResponseBody
+	@RequestMapping(value="/order/count.do", method= {RequestMethod.POST, RequestMethod.GET})
+	public Map<String, Object> countMyOrderStatus(HttpSession session) {
+		
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+		
+		Map<String, Object> orderStatusMap = orderService.countMyOrderStatus(uNo);
+		
+		return orderStatusMap;
+	}
 	  
 }

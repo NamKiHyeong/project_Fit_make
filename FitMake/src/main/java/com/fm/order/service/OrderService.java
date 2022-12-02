@@ -41,4 +41,6 @@ public interface OrderService {
 
 	public List<Map<String, Object>> viewCartFileList(int uNo);
 
+	public Map<String, Object> countMyOrderStatus(int uNo);
+
 }
