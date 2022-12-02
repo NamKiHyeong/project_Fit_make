@@ -64,23 +64,26 @@ public class UserController {
 	 * 
 	 * @param email    사용자가 입력한 email값
 	 * @param password 사용자가 입력한 password값
+	 * @param model alret를 하기 위해 model 사용
 	 * @param session  세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
 	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 페이지(이동후 다시 로그인페이지)
 	 */
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password, HttpSession session) {
+	public String loginCtr(String email, String password, HttpSession session
+			, Model model) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
 
 		UserDto userDto = userService.userExist(email, password);
 
 		String viewUrl = "";
 		// 회원 확인
-		if (userDto != null) {
-			session.setAttribute("_userDto_", userDto);
-			viewUrl = "main/MainPage";
-		} else {
-			viewUrl = "/auth/LoginFail";
-		}
+		if (userDto == null) {
+			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다");
+			model.addAttribute("url", "../auth/login.do");
+			return "auth/LoginFail";
+		} 
+		session.setAttribute("_userDto_", userDto);
+		viewUrl = "main/MainPage";
 		return viewUrl;
 	}
 

@@ -69,9 +69,6 @@ em {
 }
 </style>
 <script type="text/javascript">
-	function joinFnc() {
-
-	}
 </script>
 <title>로그인 페이지</title>
 </head>

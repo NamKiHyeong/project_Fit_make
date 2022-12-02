@@ -53,15 +53,13 @@
 			<ol>
 				<li><strong>주문관리</strong></li>
 				<li><a href="../order/list.do">주문조회</a></li>
-				<li><a href="#">주문취소</a></li>
 			</ol>
 		</div>
 		<div>
 			<ol>
 				<li><strong>활동 관리</strong></li>
-				<li><a href="#">리얼후기</a></li>
-				<li><a href="#">상품문의</a></li>
-				<li><a href="#">1:1 문의</a></li>
+				<li><a href="../review/list.do">리얼후기</a></li>
+				<li><a href="../inquiry/list.do">1:1 문의</a></li>
 			</ol>
 		</div>
 		<div>

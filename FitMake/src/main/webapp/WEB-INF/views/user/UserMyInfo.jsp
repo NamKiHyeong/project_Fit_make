@@ -50,7 +50,7 @@
 #myInfoSpan {
  	float: right;
  	color: #666;
-    	text-decoration: underline;
+    text-decoration: underline;
 }
 
 #tableDiv {
@@ -107,7 +107,7 @@
 			<jsp:include page="../MyPageNav.jsp" />
 			<div id="updateDelete">
 				<p id="myInfoP">내정보 수정</p>
-				<a href="#"><span id="myInfoSpan" style="float: right;">회원탈퇴</span></a>
+				<a href="#"><span id="myInfoSpan">회원탈퇴</span></a>
 			</div>
 			<div id="tableDiv">
 				<table>
