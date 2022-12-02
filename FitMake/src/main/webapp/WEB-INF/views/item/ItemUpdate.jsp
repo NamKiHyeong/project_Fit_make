@@ -68,6 +68,9 @@
 		   
 		   var htmlStr = "";
 		   
+		   htmlStr += '<img alt="image not fount">';
+// 		   htmlStr += '<스타일 적고 하>';
+// 		   htmlStr += '<div class=>';
 		   htmlStr += '사진 <input name="originalName" id="imageId" type="file">';
 		   htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
 		   
@@ -95,6 +98,7 @@
 		<div class="diet_wrap">	
 			<div class="frame">
 				<div class="sortImg sort1">
+					<div id='fileContent'>
 					<c:choose>
 						<c:when test="${empty img.FM_ITEM_IMG_NO}">
 							<input name="originalName" id="imageId" type="file">
@@ -114,6 +118,7 @@
 <%-- 							</c:forEach> --%>
 						</c:otherwise>
 					</c:choose>
+					</div>
 				</div>
 				<div class="sortImg sort2">
 					<p><span>제품명</span>		<input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}"></p>
@@ -132,7 +137,6 @@
 			<div class="iteminfo">
 				<h3>제품상세정보</h3>
 				<textarea rows="20" cols="120" id='iOneDetail' name="iOneDetail" style="padding:15px;">
-					${itemDto.iOneDetail}
 				</textarea>
 			</div>
 			
