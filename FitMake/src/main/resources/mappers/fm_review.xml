@@ -42,9 +42,9 @@
 	</select>
 
 	<select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT FM_REVIEW_IMG_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_NAME
+		SELECT FM_REVIEW_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_NAME
 		FROM FM_REVIEW_IMG
-		WHERE FM_REVIEW_NO = #{value}
+		WHERE FM_REVIEW_NO = #{rNo}
 	</select>
 	
 	
@@ -54,13 +54,39 @@
 		SELECT FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT
 			, FM_REVIEW_CRE_DATE
 		FROM FM_REVIEW 
-		WHERE FM_ITEM_NO = #{rNo}
+		WHERE FM_REVIEW_NO = #{rNo}
 	</select>
 	
 	<select id="fileSelectList" parameterType="int" resultType="map">
-		SELECT FM_REVIEW_IMG_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_NAME
+		SELECT FM_REVIEW_IMG_NO, FM_REVIEW_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_NAME
 		FROM FM_REVIEW_IMG
-		WHERE FM_REVIEW_NO = #{parentSeq}
+		WHERE FM_REVIEW_NO = #{rNo}
 	</select>
+	
+	
+<!-- 	Update -->
+	<update id="reviewUpdateOne" parameterType="reviewDto">
+		UPDATE FM_REVIEW
+		<set>
+			<if test="rTitle != ''">FM_REVIEW_TITLE = #{rTitle},</if>
+			FM_REVIEW_CONTENT = #{rContent}
+<!-- 		FM_REVIEW_TITLE
+			rTitle
+			FM_REVIEW_CONTENT
+			rContent-->
+		</set>
+		WHERE FM_REVIEW_NO = #{rNo}
+	</update>
+	
+<!-- 	Delete -->
+	<delete id="reviewDeleteOne" parameterType="int">
+		 DELETE FROM FM_REVIEW
+		 WHERE FM_REVIEW_NO = #{value}
+	</delete>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM FM_REVIEW_IMG
+		WHERE FM_REVIEW_IMG_NO = ${value}
+	</delete>
 	
 </mapper>

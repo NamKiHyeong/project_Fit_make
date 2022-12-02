@@ -116,7 +116,7 @@ public class ItemServicempl implements ItemService {
 		int resultNum = 0;
 
 		try {
-//			resultNum = itemDao.itemUpdateOne(itemDto);
+			resultNum = itemDao.itemUpdateOne(itemDto);
 			log.info("서비스mpl에서 itemDto는?? {}", itemDto);
 			
 			log.info("서비스mpl에서 업데이트는 성공했나? {}",resultNum);
@@ -171,8 +171,8 @@ public class ItemServicempl implements ItemService {
 	}
 
 	@Override
-	public void itemDeleteOne(int no) {
-		itemDao.itemDeleteOne(no);
+	public void itemDeleteOne(int iNo) {
+		itemDao.itemDeleteOne(iNo);
 	}
 
 

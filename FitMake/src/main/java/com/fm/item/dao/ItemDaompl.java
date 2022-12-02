@@ -45,10 +45,8 @@ public class ItemDaompl implements ItemDao{
 	
 	@Override
 	public ItemDto itemSelectOne(int iNo) {
-		Map<String, Integer> map = new HashMap<String, Integer>();
 		
-		map.put("testNo", iNo);
-		return sqlSession.selectOne(namespace + "itemSelectOne", map);
+		return sqlSession.selectOne(namespace + "itemSelectOne", iNo);
 	}
 	
 //	U
@@ -58,8 +56,8 @@ public class ItemDaompl implements ItemDao{
 	}
 //	D
 	@Override
-	public void itemDeleteOne(int no){
-		sqlSession.delete(namespace + "itemDeleteOne", no);
+	public void itemDeleteOne(int iNo){
+		sqlSession.delete(namespace + "itemDeleteOne", iNo);
 	
 	}
 	

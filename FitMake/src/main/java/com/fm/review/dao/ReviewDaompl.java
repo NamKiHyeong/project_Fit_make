@@ -50,13 +50,29 @@ public class ReviewDaompl implements ReviewDao {
 //	R One
 	@Override
 	public ReviewDto reviewSelectOne(int rNo) {
+		System.out.println("Daompl에서 rNo" + rNo);
 		return sqlSession.selectOne(namespace + "reviewSelectOne", rNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> fileSelectList(int rNo){
+		System.out.println("Daompl에서 파일리스트는? rNo" + rNo);
+		return sqlSession.selectList(namespace + "fileSelectList", rNo);
+	}
+//	U
+	@Override
+	public int reviewUpdateOne(ReviewDto reviewDto) {
+		System.out.println("Dao mpl에서 업데이트 Dto?" + reviewDto);
+		return sqlSession.update(namespace + "reviewUpdateOne", reviewDto);
+	}
+//	D
+	@Override
+	public void reviewDeleteOne(int rNo){
+		sqlSession.delete(namespace + "reviewDeleteOne", rNo);
 	}
 	
 	@Override
-	public List<Map<String, Object>> fileSelectList(int rNo){
-		
-		return sqlSession.selectList(namespace + "fileSelectList", rNo);
+	public int fileDelete(int rNo) {
+		return sqlSession.delete(namespace + "fileDelete", rNo);
 	}
-	
 }

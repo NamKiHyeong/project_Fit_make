@@ -16,5 +16,9 @@ public interface ReviewDao {
 	
 	public ReviewDto reviewSelectOne(int rNo);
 	public List<Map<String, Object>> fileSelectList(int rNo);
-
+	int reviewUpdateOne(ReviewDto reviewDto);
+	
+	
+	public void reviewDeleteOne(int iNo);
+	public int fileDelete(int iNo);
 }

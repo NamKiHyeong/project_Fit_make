@@ -78,13 +78,13 @@
 		
 	</select>
 	
-	<select id="itemSelectOne" parameterType="map"
-		resultType="map">
+	<select id="itemSelectOne" parameterType="int"
+		resultMap="itemResultMap">
 		SELECT FM_ITEM_NO, FM_CATEGORY_NO, FM_ITEM_NAME, FM_ITEM_CALORY
 			, FM_ITEM_SELLPRICE, FM_ITEM_COUNT
 			, FM_CALORY_GRADE, FM_ITEM_DETAIL
 		FROM FM_ITEM
-		WHERE FM_ITEM_NO = #{testNo}
+		WHERE FM_ITEM_NO = #{iNo}
 	</select>
 	
 	<update id="itemUpdateOne" parameterType="itemDto">
@@ -92,8 +92,10 @@
 		<set>
 			<if test="iName != ''">FM_ITEM_NAME = #{iName},</if>
 			<if test="iSellprice != ''">FM_ITEM_SELLPRICE = #{iSellprice},</if>
-			<if test="iCalory != ''">FM_ITEM_CALORY = #{iCalory}</if>
-			<if test="iCount != ''">FM_ITEM_COUNT = #{iCount}</if>
+			<if test="iCalory != ''">FM_ITEM_CALORY = #{iCalory},</if>
+			<if test="iCount != ''">FM_ITEM_COUNT = #{iCount},</if>
+			FM_ITEM_DETAIL = #{iOneDetail}
+			
 		</set>
 		WHERE FM_ITEM_NO = #{iNo}
 	</update>
@@ -114,13 +116,14 @@
 	</insert>
 	
 	<select id="fileSelectList" parameterType="int" resultType="map">
-		SELECT FM_ITEM_IMG_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
+		SELECT FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
+		<!-- 		SELECT FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME -->
 		FROM FM_ITEM_IMG
-		WHERE FM_ITEM_NO = #{parentSeq}
+		WHERE FM_ITEM_NO = #{iNo}
 	</select>
 	
 	<select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
+		SELECT FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM_IMG
 		WHERE FM_ITEM_NO = #{iNo}
 	</select>

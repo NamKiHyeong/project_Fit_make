@@ -10,13 +10,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fm.item.model.ItemDto;
 import com.fm.item.service.ItemService;
@@ -164,7 +162,8 @@ public class ItemController {
 		
 		ItemDto itemDto = (ItemDto)map.get("itemDto");
 		
-		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
+		List<Map<String, Object>> fileList
+		= (List<Map<String, Object>>) map.get("fileList");
 		
 		System.out.println("update.do에서 " + iNo);
 		
@@ -172,6 +171,7 @@ public class ItemController {
 		model.addAttribute("prevMap", prevMap);
 		if (fileList.size() != 0) {
 			model.addAttribute("img", fileList.get(0));
+//			model.addAttribute("fileList", fileList);
 		}
 		
 		return "item/ItemUpdate";
@@ -195,9 +195,8 @@ public class ItemController {
 			
 		}
 		
-		return "";
 		
-//		return "redirect:/item/list.do?cNo=" + cNo;
+		return "redirect:/item/list.do?cNo=" + cNo;
 	
 	}
 /**Delete

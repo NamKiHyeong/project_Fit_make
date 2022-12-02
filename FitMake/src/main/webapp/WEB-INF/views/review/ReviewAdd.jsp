@@ -17,12 +17,11 @@
 
 	<form action="./addCtr.do" method="post" enctype="multipart/form-data">
 		<div>
-			<input type="hidden" name="cNo" value="1">
+		
 			<input type="hidden" name="iNo" value="${iNo}">
 			<input type="hidden" name="uNo" value="${_userDto_.uNo}">
 			<h3>제목</h3>
 				<input type="text" name="rTitle">
-			
 			<h3>내용</h3>
 				<textarea rows="40px;" cols="40px;" name="rContent">
 				</textarea>

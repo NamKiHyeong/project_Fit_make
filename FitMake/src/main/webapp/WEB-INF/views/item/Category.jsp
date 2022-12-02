@@ -52,7 +52,11 @@
 								<div class="sortImg">
 									<img class="iImg" alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
 								</div>
-								<p class="content"><a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">${item.itemDto.iName}</a></p>
+								<p class="content">
+									<a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">
+									${item.itemDto.iName}
+									</a>
+								</p>
 								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>
 								<p>리뷰 : ${item.itemDto.iCount}</p>
 								

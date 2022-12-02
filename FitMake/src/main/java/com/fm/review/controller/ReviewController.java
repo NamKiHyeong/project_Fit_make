@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +59,10 @@ public class ReviewController {
 			System.out.println("예외 발생");
 			e.printStackTrace();
 		}
-		
-//		return "redirect:/item/list.do?cNo=2";
-		return "redirect:/reivew/list.do?cNo=1";
-		
+			logger.info("컨트롤러에서 추가버튼을 눌렀을 때 list.do로 iNo 값을 쏴주나? {}" ,reviewDto.getiNo());
+		return "redirect:/review/list.do?iNo=" + reviewDto.getiNo();
+//		location.href="../review/list.do?iNo=" + iNo;
+//		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 	
 /**
@@ -85,25 +87,80 @@ public class ReviewController {
 		return "/review/ReviewList";
 	}
 	
-	@RequestMapping(value = "/review/one.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewSelectOne(int iNo, int rNo, Model model) {
+	@RequestMapping(value="/review/one.do", method = RequestMethod.GET)
+	public String reviewSelectOne(@RequestParam int iNo, int rNo, Model model) {
 		logger.info("컨트롤러 one에 원하는 정보 들어옴? {}", model);
 		Map<String, Object>prevMap = new HashMap<String, Object>();
 		prevMap.put("iNo", iNo);
 
 		Map<String, Object> map = reviewService.reviewSelectOne(rNo);
-		
-		ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
-		
 		logger.debug("컨트롤러 one에 원하는 정보를 서비스에서 갖고옴? {}" , map);
+		ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
+		logger.info("컨트롤러 one에 {}" , reviewDto);
 		
-		List<Map<String, Object>> fileList = (List<Map<String, Object>>)map.get("fileList");
 		
+		List<Map<String, Object>> fileList2 = (List<Map<String, Object>>)map.get("fileList2");
+		logger.info("컨트롤러 one에 fileList2{}" , fileList2);
 		
 		model.addAttribute("reviewDto", reviewDto);
-		model.addAttribute("fileList", fileList);
+		model.addAttribute("fileList2", fileList2);
 		model.addAttribute("prevMap", prevMap);
 		
 		return "/review/ReviewOne";
 	}
+	
+	@RequestMapping(value="/review/update.do", method = RequestMethod.GET)
+	public String reviewUpdate(int iNo, int rNo, Model model) {
+		logger.trace("수정하는 DB에 접속"+ iNo);
+		
+		Map<String, Object>prevMap = new HashMap<>();
+		prevMap.put("iNo", iNo);
+//		prevMap.put("curPage", curPage);
+		
+		Map<String, Object> map = reviewService.reviewSelectOne(rNo);
+		
+		ReviewDto reviewDto = (ReviewDto)map.get("reviewDto");
+		logger.info("컨트롤러에 ReviewDto가 들어왔나? {} 확인", reviewDto);
+		List<Map<String, Object>> fileList2
+		= (List<Map<String, Object>>) map.get("fileList2");
+		
+		System.out.println("update.do에서 " + rNo);
+		
+		model.addAttribute("reviewDto", reviewDto);
+		model.addAttribute("prevMap", prevMap);
+		if (fileList2.size() != 0) {
+			model.addAttribute("img", fileList2.get(0));
+		}
+		
+		return "review/ReviewUpdate";
+	}
+	
+	@RequestMapping(value="/review/updateCtr.do", method = RequestMethod.POST)
+	public String reviewUpdateCtr( HttpSession session, ReviewDto reviewDto
+			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
+			, MultipartHttpServletRequest mulRequest, Model model) {
+//		logger.info("컨트롤러 서비스로 curPage {} " , curPage);
+		logger.info("컨트롤러 서비스로 reviewDto {} " , reviewDto);
+		logger.info("컨트롤러 서비스로 fileIdx {} " , fileIdx);
+		int iNo = reviewDto.getiNo();
+		
+		try {
+			reviewService.reviewUpdateOne(reviewDto, mulRequest, fileIdx);
+			
+		} catch (Exception e) {
+			System.out.println("컨트롤 업데이트 예외 발생");
+			e.printStackTrace();
+		}
+		return "redirect:/review/list.do?iNo=" + iNo;
+	}
+	
+	@RequestMapping(value="/review/deleteOne.do", method = RequestMethod.GET)
+	public String reviewDelete(int rNo,int iNo, Model model) {
+		logger.info("삭제기능" + rNo);
+			reviewService.reviewDeleteOne(rNo);
+		logger.info("삭제기능");
+		return "redirect:/review/list.do?iNo=" + iNo;
+		
+	}
 }
+

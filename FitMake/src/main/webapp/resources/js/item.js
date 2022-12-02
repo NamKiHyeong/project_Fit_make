@@ -98,26 +98,33 @@ $(document).ready(function() {
 	
 	viewCartSummaryFnc();
 	
+//	------------------------------------
+	$("a[id^='delete']").on('click', function(e){ // 삭제 버튼
+		e.preventDefault();
+		deleteFileFnc($(this));
+	});
+	
+	
 });
-	function itemOneFnc(iNo){
-		//pagingForm에 curPage
-		
-		var idStr = 'itemOneForm' + iNo;
-		var itemOneFormObj = document.getElementById(idStr);
-		
-		itemOneFormObj.submit();
-		
-	}
-	function itemOneAsc(){
-		var itemOneFormObj = document.getElementById("pagingForm");
-		itemOneFormObj.submit();
-	}
+
+function itemOneFnc(iNo){
+	//pagingForm에 curPage
+	var idStr = 'itemOneForm' + iNo;
+	var itemOneFormObj = document.getElementById(idStr);
+	
+	itemOneFormObj.submit();
+	
+}
+function itemOneAsc(){
+	var itemOneFormObj = document.getElementById("pagingForm");
+	itemOneFormObj.submit();
+}
 	
 //----------------------------------------------------------------
-	//리스트로 이동
-	function pageMoveListFnc(cNo) {
-		location.href="../item/list.do?cNo=" + cNo;
-	}
+//리스트로 이동
+function pageMoveListFnc(cNo) {
+	location.href="../item/list.do?cNo=" + cNo;
+}
 	
 	
 	
@@ -125,38 +132,36 @@ $(document).ready(function() {
 //------------------------------------------------------------------
 
 
-	function pageReviewFnc(iNo){
-		location.href="../review/add.do?iNo=" + iNo;
-		
-	}
-	function pageReviewListFnc(iNo){
-		location.href="../review/list.do?iNo=" + iNo;
-	}
+function pageReviewFnc(iNo){
+	location.href="../review/add.do?iNo=" + iNo;
+	
+}
+function pageReviewListFnc(iNo){
+	location.href="../review/list.do?iNo=" + iNo;
+}
 //-----------------------------------------------------
 	
-	function deleteFileFnc(obj){
-		
-		$(obj).parent().remove();
-	}
-	
-	function fileUpdateFnc(){
-		var obj = $('#fileContent');
-		var htmlStr = "";
-		
-		htmlStr += '<div>';
-		htmlStr += '<input type="hidden" id="fileIdx" name="fileIdx"';
-		htmlStr += ' value="">';
-		htmlStr += '<input type="file" id="file0" name="file0">';
-		htmlStr += '<a href="#this" id="delete0">삭제</a><br>';
-		htmlStr += '</div>';
-		
-		obj.html=(htmlStr);
-		
-		$('a[id^="delete"]').on('click', function(e){
-			e.preventDefault();
-			deleteFileFnc($(this));
-		});
-	}
-	
+function deleteFileFnc(obj){
+//		      위 -> 아래 
+//		      아래 -> 위
+		   obj.parent().remove();
+}
+
+function deleteFileFnc() {
+   var obj = $('#fileContent');
+   
+   var htmlStr = "";
+   
+   htmlStr += '사진 <input name="originalName" id="imageId" type="file">';
+   htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
+   
+   obj.html(htmlStr);
+   
+   $('a[id^="delete"]').on('click', function(e) {
+      e.preventDefault();
+      deleteFileFnc($(this));
+   });      
+   
+}
 	
 //-------------------------------------------------------------
