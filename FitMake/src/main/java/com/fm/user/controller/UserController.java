@@ -1,5 +1,6 @@
 package com.fm.user.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -176,11 +177,17 @@ public class UserController {
 	public int myPointChk(HttpSession session) {
 
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-
-		int myPointChk = userService.myPointChk(uNo);
-
-		return myPointChk;
+		
+		if(userDto == null) {
+			int myPointChk  = 0;
+			return myPointChk;
+		} else {
+			int uNo = (int) userDto.getuNo();
+			
+			int myPointChk = userService.myPointChk(uNo);
+			return myPointChk;
+		}
+		
 	}
 
 	/**

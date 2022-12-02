@@ -29,10 +29,10 @@ function myPointChkFnc() {
 		type: "get",
 		dataType: "json",
 		success: function (data) {
+			if(data == 0){
+                return false;
+            }
 			$("#pointChk").html(data+ "원");
-		},
-		error: function (e) {
-			console.log("오류발생");
 		}
 		
 	});
