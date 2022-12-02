@@ -171,9 +171,9 @@ public class OrderDaoImpl implements OrderDao {
 			case "취소":
 				searchText = "cancel";
 				break;
-	
-			default: searchText = "";
-				break;
+			case "구매확정":
+				searchText = "pixed";
+				break;	
 			}
 		}
 		
@@ -200,5 +200,17 @@ public class OrderDaoImpl implements OrderDao {
 		
 		return sqlSession.selectList(namespace + "viewCartFileList", uNo);
 	}
+
+	@Override
+	public Object countMyOrderStatus(int uNo, String oStatus) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("oStatus", oStatus);
+		
+		return sqlSession.selectOne(namespace + "countMyOrderStatus", inputMap);
+	}
+
+		
 
 }

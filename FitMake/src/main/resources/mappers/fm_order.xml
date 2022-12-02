@@ -148,4 +148,11 @@
 		WHERE c.FM_USER_NO = #{uNo}
 		ORDER BY c.FM_CART_NO DESC
 	</select>
+	
+	<select id="countMyOrderStatus" parameterType="map" resultType="int">
+		SELECT COUNT(FM_ORDER_NO)
+		FROM FM_ORDER
+		WHERE FM_USER_NO = #{uNo}
+		AND FM_ORDER_STATUS = #{oStatus}
+	</select>
 </mapper>
