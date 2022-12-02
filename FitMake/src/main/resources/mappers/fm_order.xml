@@ -46,11 +46,11 @@
 	</delete>
 	
 	<select id="viewOrderList" parameterType="map" resultType="map">
-		SELECT "rNum", oll.FM_USER_NICKNAME, oll.FM_ORDER_NO, oll.FM_ORDER_DATE, oll.FM_ORDER_STATUS
-					, oll.FM_ITEM_NAME, oll.FM_ORDER_DETAIL_COUNT, oll."oCount", oll."oRownum", oll."totalPrice" 
+		SELECT *
 		FROM ( SELECT ol.FM_USER_NICKNAME, ol.FM_ORDER_NO, ol.FM_ORDER_DATE, ol.FM_ORDER_STATUS
-					, ol.FM_ITEM_NAME, ol.FM_ORDER_DETAIL_COUNT, "oCount", "oRownum", "totalPrice",
-					DENSE_RANK() OVER(ORDER BY ol.FM_ORDER_NO DESC) as "rNum" 
+					, ol.FM_ITEM_NAME, ol.FM_ORDER_DETAIL_COUNT, "oCount", "oRownum", "totalPrice"
+					, ol.FM_ITEM_STORED_IMG_NAME
+					, DENSE_RANK() OVER(ORDER BY ol.FM_ORDER_NO DESC) as "rNum" 
 				FROM ( SELECT u.FM_USER_NICKNAME, o.FM_ORDER_NO, o.FM_ORDER_DATE, o.FM_ORDER_STATUS, i.FM_ITEM_NAME
 							, od.FM_ORDER_DETAIL_COUNT, ig.FM_ITEM_STORED_IMG_NAME
 							, COUNT(*) OVER(PARTITION BY o.FM_ORDER_NO) AS "oCount"
@@ -68,7 +68,7 @@
 						ORDER BY o.FM_ORDER_DATE DESC 
 					) ol
 				) oll
-		WHERE "rNum" BETWEEN #{start} AND #{end}
+		WHERE oll."rNum" BETWEEN #{start} AND #{end}
 	</select>
 	
 	<insert id="addOrder" parameterType="int">
