@@ -45,6 +45,11 @@ function viewCartSummaryFnc() {
 				type : "get",
 				dataType : "html",
 				success : function(data) {
+					
+					if(data.length == 0 ){
+                        return false;
+                    }
+					
 					var cartMapList = $.parseJSON(data);
 					var str = '';
 					var cartTotal = 0;
