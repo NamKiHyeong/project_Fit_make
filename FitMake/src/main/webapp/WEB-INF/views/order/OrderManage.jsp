@@ -98,6 +98,11 @@
 	#orderManageTable td {
 		text-align: center;
 	}
+	#orderViewTitleEmpty{
+		font-size: 20px;
+		font-weight: 600;
+		text-align: center;
+	}
 	#fncDiv {
 		display:flex;
 		justify-content: space-between
@@ -132,64 +137,64 @@
 							<td class="titleTd">주문상태</td>
 						</tr>
 					<c:forEach var="orderMap" items="${orderMapList}">
-							<c:if test="${orderMap.oRownum eq '1'}">
-								<tr>
-									<td id="orderCheckArea">
-										<input type="checkbox" id="cbNo${orderMap.FM_ORDER_NO}" name="orderCheckbox" value="${orderMap.FM_ORDER_NO}">
-									</td>
-									<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
-									<td>
-										<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
-											<c:choose>
-													<c:when test="${orderMap.oCount == 1}">
-															${orderMap.FM_ITEM_NAME}
-													</c:when>
-													<c:otherwise>
-														${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
-													</c:otherwise>
-											</c:choose>
-										</a>
-									</td>
-									<td>${orderMap.totalPrice}</td>
-									<td>${orderMap.FM_USER_NICKNAME}</td>
-									<td>1111</td>
-									<td>
-										<select id="oStatus${orderMap.FM_ORDER_NO}"
-											name="oStatus">
-												<option value="pending">대기</option>
-												<option value="confirm">승인</option>
-												<option value="cancel">취소</option>
-												<option value="pixed">구매확정</option>
-										</select>
-										<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
-									</td>
-								</tr>
-							</c:if>
-							</c:forEach>
+						<c:if test="${orderMap.oRownum eq '1'}">
 							<tr>
+								<td id="orderCheckArea">
+									<input type="checkbox" id="cbNo${orderMap.FM_ORDER_NO}" name="orderCheckbox" value="${orderMap.FM_ORDER_NO}">
+								</td>
+								<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
 								<td>
-									<input type="hidden" id="oNoArr" value="" name="oNoArr">
-									<input type="hidden" id="oStatusArr" value="" name="oStatusArr">
+									<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
+										<c:choose>
+												<c:when test="${orderMap.oCount == 1}">
+														${orderMap.FM_ITEM_NAME}
+												</c:when>
+												<c:otherwise>
+													${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
+												</c:otherwise>
+										</c:choose>
+									</a>
+								</td>
+								<td>${orderMap.totalPrice}</td>
+								<td>${orderMap.FM_USER_NICKNAME}</td>
+								<td>1111</td>
+								<td>
+									<select id="oStatus${orderMap.FM_ORDER_NO}"
+										name="oStatus">
+											<option value="pending">대기</option>
+											<option value="confirm">승인</option>
+											<option value="cancel">취소</option>
+											<option value="pixed">구매확정</option>
+									</select>
+									<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
 								</td>
 							</tr>
-						</table>
-					</div>
-				<c:if test="${_userDto_.getuNo() == 1}">
-					<div id="fncDiv">
-						<span id="searchSection">
-								<select id="searchOption" name="searchOption">
-										<option value="user">주문자</option>
-									<option value="oStatus">주문상태</option>
-								</select>
-								<input type="search" id="searchText" name="searchText" value="${searchMap.searchText}">
-								<input type="button" id="searchBtn" value="검색">
-						</span>
-						<span id="btnSection">
-							<input id="orderUpdateBtn" type="button" value="수정하기">
-						</span>
-					</div>
-				</c:if>
-					
+						</c:if>
+						</c:forEach>
+						<c:if test="${orderMapList.size() < 1}">
+							<p id="orderViewTitleEmpty">주문 내역이 없습니다</p>
+						</c:if>
+						<tr>
+							<td>
+								<input type="hidden" id="oNoArr" value="" name="oNoArr">
+								<input type="hidden" id="oStatusArr" value="" name="oStatusArr">
+							</td>
+						</tr>
+					</table>
+				</div>
+				<div id="fncDiv">
+					<span id="searchSection">
+							<select id="searchOption" name="searchOption">
+									<option value="user">주문자</option>
+								<option value="oStatus">주문상태</option>
+							</select>
+							<input type="search" id="searchText" name="searchText" value="${searchMap.searchText}">
+							<input type="button" id="searchBtn" value="검색">
+					</span>
+					<span id="btnSection">
+						<input id="orderUpdateBtn" type="button" value="수정하기">
+					</span>
+				</div>
 			</form>
 		</div>
 		<jsp:include page="/WEB-INF/views/order/OrderPaging.jsp" />

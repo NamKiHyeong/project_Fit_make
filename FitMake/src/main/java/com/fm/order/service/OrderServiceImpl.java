@@ -59,14 +59,14 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewOrderDetailItem(int oNo) {
+	public List<Map<String, Object>> viewOrderConfirmItem(int oNo) {
 		
-		return orderDao.viewOrderDetailItem(oNo);
+		return orderDao.viewOrderConfirmItem(oNo);
 	}
 
 	@Override
-	public Map<String, Object> viewOrderDetailMyInfo(int uNo) {
-		return orderDao.viewOrderDetailMyInfo(uNo);
+	public Map<String, Object> viewOrderConfirmMyInfo(int uNo) {
+		return orderDao.viewOrderConfirmMyInfo(uNo);
 	}
 	
 	@Override

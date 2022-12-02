@@ -77,7 +77,7 @@
 		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, 'pending')
 	</insert>
 	
-	<select id="viewOrderDetailItem" parameterType="int" resultType="map">
+	<select id="viewOrderConfirmItem" parameterType="int" resultType="map">
 		SELECT od.FM_ORDER_DETAIL_NO, i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE
 			, SUM(od.FM_ORDER_DETAIL_PRICE * od.FM_ORDER_DETAIL_COUNT) OVER(PARTITION by o.FM_ORDER_NO) AS "totalPrice"
 		FROM FM_ORDER_DETAIL od 

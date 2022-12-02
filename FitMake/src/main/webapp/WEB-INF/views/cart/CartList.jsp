@@ -133,14 +133,11 @@
 		margin: 0px auto;
 	}
 	#headHr {
-/* 		margin-left: 6.5%; */
 		margin-top: 3%
 	}
 	#headTable {
 		width: 80%;
 		margin-top: 5%;
-/* 		margin-left: 3%; */
-/* 		padding-left: 6.5%; */
 		text-align: left;
 	}
 	#headTitle {
@@ -149,7 +146,6 @@
 	#cartItemTable, #addForm {
 		width: 80%;
 		height: 15%;
-/* 		margin-left: 5%; */
 		padding: 0px;
 	}
 	.cartBtn {
@@ -165,7 +161,6 @@
 		padding-left: 1.5%;
 	}
 	#tailHr {
-/* 		margin-left: 6.5%; */
 		margin-top: 3%
 	}
 	#CartItemName {
@@ -238,15 +233,15 @@
 							</tr>
 						</table>
 						<input class="hiddenInfo"  type="hidden" name="iNo" value="${cartMap.FM_ITEM_NO}">
-						<input class="hiddenInfo"  type="hidden" name="iPrice" value="${cartMap.FM_ITEM_SELLPRICE}">
+						<input class="hiddenInfo"  type="hidden" name="iSellprice" value="${cartMap.FM_ITEM_SELLPRICE}">
 						<hr id="tailHr">
 					</c:forEach>
 				</c:when>
 				<c:otherwise>
 					<table id="emptyTable">
-							<tr>
-								<td id="emptyRow" rowspan="3">장바구니에 담긴 물품이 없습니다</td>
-							</tr>
+						<tr>
+							<td id="emptyRow" rowspan="3">장바구니에 담긴 물품이 없습니다</td>
+						</tr>
 					</table>
 				</c:otherwise>
 			</c:choose>

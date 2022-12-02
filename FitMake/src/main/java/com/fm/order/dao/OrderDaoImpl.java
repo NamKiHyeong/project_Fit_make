@@ -96,9 +96,9 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public List<Map<String, Object>> viewOrderDetailItem(int oNo) {
+	public List<Map<String, Object>> viewOrderConfirmItem(int oNo) {
 		
-		return sqlSession.selectList(namespace + "viewOrderDetailItem", oNo);
+		return sqlSession.selectList(namespace + "viewOrderConfirmItem", oNo);
 	}
 
 	@Override
@@ -115,7 +115,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public Map<String, Object> viewOrderDetailMyInfo(int uNo) {
+	public Map<String, Object> viewOrderConfirmMyInfo(int uNo) {
 		
 		return sqlSession.selectOne("com.fm.user.userSelectInfo", uNo);
 	}

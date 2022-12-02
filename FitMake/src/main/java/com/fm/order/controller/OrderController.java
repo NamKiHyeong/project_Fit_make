@@ -301,15 +301,15 @@ public class OrderController {
 				oNo = orderService.viewOrderNo(uNo);
 			}
 			
-			List<Map<String, Object>> orderDetailItemList = orderService.viewOrderDetailItem(oNo);
-			Map<String, Object> orderDetailMyInfo = orderService.viewOrderDetailMyInfo(uNo);
+			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
+			Map<String, Object> orderConfirmMyInfo = orderService.viewOrderConfirmMyInfo(uNo);
 			
-			model.addAttribute("orderDetailItemList", orderDetailItemList);
-			model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
+			model.addAttribute("orderConfirmItemList", orderConfirmItemList);
+			model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
 			model.addAttribute("ctNo", ctNo);
 			model.addAttribute("oNo", oNo);
 			
-			viewUrl = "/order/OrderDetail";
+			viewUrl = "/order/OrderConfirm";
 		} else {
 			viewUrl = "redirect:/auth/login.do";
 		}

@@ -21,9 +21,9 @@ public interface OrderService {
 	
 	public int addOrder(int uNo);
 	
-	public List<Map<String, Object>> viewOrderDetailItem(int oNo);
+	public List<Map<String, Object>> viewOrderConfirmItem(int oNo);
 
-	public Map<String, Object> viewOrderDetailMyInfo(int uNo);
+	public Map<String, Object> viewOrderConfirmMyInfo(int uNo);
 
 	public int addOrderDetail(int uNo, int iNo, int iCount, int price);
 
