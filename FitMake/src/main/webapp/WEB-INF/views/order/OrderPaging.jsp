@@ -62,7 +62,7 @@ nav > ul > li > a:hover {
 	}
 </script>
 
-<nav>
+<nav id="pagingNav">
 		<ul>
 		<c:if test="${oPagingMap.orderPaging.prevBlock ne 1}">
 			<li>

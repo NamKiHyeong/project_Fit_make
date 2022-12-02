@@ -206,7 +206,6 @@
 				</tr>
 			</table>
 		</div>
-		<input type="button" value="인쿼리" onclick="location.href='../inquiry/list.do'">
 		<form id="addForm" action="../order/add.do" method="post">
 		<hr id="headHr">
 			<c:choose>

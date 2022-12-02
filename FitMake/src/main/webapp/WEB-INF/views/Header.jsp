@@ -177,7 +177,7 @@ function deleteCartFnc(cartNo) {
 	} */
 	td img {
 		width: 150px;
-	  	height: 150px;
+	  	height: 100px;
 		object-fit: cover;
 	}
 </style>
