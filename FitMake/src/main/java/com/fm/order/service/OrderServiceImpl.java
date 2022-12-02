@@ -65,8 +65,8 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Map<String, Object> viewOrderConfirmMyInfo(int uNo) {
-		return orderDao.viewOrderConfirmMyInfo(uNo);
+	public Map<String, Object> viewMyInfo(int uNo) {
+		return orderDao.viewMyInfo(uNo);
 	}
 	
 	@Override
@@ -129,6 +129,12 @@ public class OrderServiceImpl implements OrderService {
 		
 		
 		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> viewOrderDetailItem(int oNo) {
+		
+		return orderDao.viewOrderDetailItem(oNo);
 	}
 
 }

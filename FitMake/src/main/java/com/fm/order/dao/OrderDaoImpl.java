@@ -115,7 +115,7 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public Map<String, Object> viewOrderConfirmMyInfo(int uNo) {
+	public Map<String, Object> viewMyInfo(int uNo) {
 		
 		return sqlSession.selectOne("com.fm.user.userSelectInfo", uNo);
 	}
@@ -209,6 +209,12 @@ public class OrderDaoImpl implements OrderDao {
 		inputMap.put("oStatus", oStatus);
 		
 		return sqlSession.selectOne(namespace + "countMyOrderStatus", inputMap);
+	}
+
+	@Override
+	public Map<String, Object> viewOrderDetailItem(int oNo) {
+		
+		return sqlSession.selectOne(namespace + "viewOrderDetailItem", oNo);
 	}
 
 		

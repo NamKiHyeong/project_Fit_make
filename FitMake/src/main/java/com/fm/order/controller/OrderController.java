@@ -299,17 +299,27 @@ public class OrderController {
 			
 			if (oNo == 0) {
 				oNo = orderService.viewOrderNo(uNo);
+				List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
+				Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
+				
+				model.addAttribute("orderConfirmItemList", orderConfirmItemList);
+				model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
+				model.addAttribute("ctNo", ctNo);
+				model.addAttribute("oNo", oNo);
+				
+				viewUrl = "/order/OrderConfirm";
+			} else {
+				
+				Map<String, Object> orderDetailItem = orderService.viewOrderDetailItem(oNo);
+				Map<String, Object> orderDetailMyInfo = orderService.viewMyInfo(uNo);
+				
+				model.addAttribute("orderDetailItem", orderDetailItem);
+				model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
+				model.addAttribute("oNo", oNo);
+				
+				viewUrl = "/order/MyOrderDetail";
 			}
 			
-			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
-			Map<String, Object> orderConfirmMyInfo = orderService.viewOrderConfirmMyInfo(uNo);
-			
-			model.addAttribute("orderConfirmItemList", orderConfirmItemList);
-			model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
-			model.addAttribute("ctNo", ctNo);
-			model.addAttribute("oNo", oNo);
-			
-			viewUrl = "/order/OrderConfirm";
 		} else {
 			viewUrl = "redirect:/auth/login.do";
 		}

@@ -172,7 +172,7 @@
 						<p id="orderConfirmP">
 							<span class="orderConfirmItem">${orderConfirmItem.FM_ITEM_NAME}</span>
 							<span class="orderConfirmItem">
-								<input type="text" value="${orderConfirmItem.FM_ORDER_DETAIL_COUNT}" readonly="readonly">개
+								<span>${orderConfirmItem.FM_ORDER_DETAIL_COUNT}개</span>
 							</span>
 							<span class="orderConfirmItem">
 								<input class="orderConfirmPrice" type="hidden" 
