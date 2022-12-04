@@ -140,28 +140,6 @@ function pageReviewListFnc(iNo){
 	location.href="../review/list.do?iNo=" + iNo;
 }
 //-----------------------------------------------------
-	
-function deleteFileFnc(obj){
-//		      위 -> 아래 
-//		      아래 -> 위
-		   obj.parent().remove();
-}
 
-function deleteFileFnc() {
-   var obj = $('#fileContent');
-   
-   var htmlStr = "";
-   
-   htmlStr += '사진 <input name="originalName" id="imageId" type="file">';
-   htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
-   
-   obj.html(htmlStr);
-   
-   $('a[id^="delete"]').on('click', function(e) {
-      e.preventDefault();
-      deleteFileFnc($(this));
-   });      
-   
-}
 	
 //-------------------------------------------------------------

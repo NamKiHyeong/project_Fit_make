@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>특가 더미 사이트(Item list 사이트)</title>
 
-<link rel="stylesheet" href="/fitmake/resources/css/itemlist.css">
+<link rel="stylesheet" href="/fitmake/resources/css/itemList.css">
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>

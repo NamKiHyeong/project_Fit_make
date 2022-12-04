@@ -69,9 +69,9 @@ public class ReviewServicempl implements ReviewService {
 	
 	
 	@Override
-	public List<Map<String, Object>> reviewSelectList(int iNo){
+	public List<Map<String, Object>> reviewSelectList(int iNo,  String keyword, int start, int end){
 		
-		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo);
+		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo, keyword, start, end);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
@@ -174,5 +174,10 @@ public class ReviewServicempl implements ReviewService {
 	@Override
 	public void reviewDeleteOne(int rNo) {
 		reviewDao.reviewDeleteOne(rNo);
+	}
+	
+	@Override
+	public int reviewSelectTotalReviewCount(int iNo, String keyword){
+		return reviewDao.reviewSelectTotalReviewCount(iNo, keyword);
 	}
 }

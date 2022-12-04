@@ -34,9 +34,12 @@ public class ReviewDaompl implements ReviewDao {
 	
 //	R list
 	@Override
-	public List<ReviewDto> reviewSelectList(int iNo){
+	public List<ReviewDto> reviewSelectList(int iNo, String keyword, int start, int end){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("iNo", iNo);
+		map.put("keyword", keyword);
+		map.put("start", start);
+		map.put("end", end);
 		
 		return sqlSession.selectList(namespace + "reviewSelect", map);
 	}
@@ -74,5 +77,14 @@ public class ReviewDaompl implements ReviewDao {
 	@Override
 	public int fileDelete(int rNo) {
 		return sqlSession.delete(namespace + "fileDelete", rNo);
+	}
+	
+	@Override
+	public int  reviewSelectTotalReviewCount(int iNo, String keyword) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("iNo", iNo);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne(namespace + " reviewSelectTotalReviewCount", map);
+		
 	}
 }

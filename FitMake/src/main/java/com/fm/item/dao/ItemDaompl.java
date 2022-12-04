@@ -88,6 +88,7 @@ public class ItemDaompl implements ItemDao{
 	
 	
 	//---------------------------------------------------------- 카테고리의 제품 수
+	@Override
 	public int itemSelectTotalItemCount(int cNo, String keyword) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("cNo", cNo);

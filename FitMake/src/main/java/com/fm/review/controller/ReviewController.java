@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.review.model.ReviewDto;
 import com.fm.review.service.ReviewService;
+import com.fm.util.Paging;
 
 @Controller
 public class ReviewController {
@@ -72,27 +73,41 @@ public class ReviewController {
  * @return
  */
 	@RequestMapping(value="/review/list.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewSelectList(@RequestParam(defaultValue = "0") int iNo, Model model) {
+	public String reviewSelectList(@RequestParam(defaultValue = "1") int curPage
+			, @RequestParam(defaultValue = "0") int iNo
+			, @RequestParam(defaultValue = "") String keyword
+			, Model model) {
 		logger.info("리플리스트를 확인해 봅시다.{}" ,iNo);
-		
-		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo);
+		int totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo, keyword);
+		Paging reviewPaging = new Paging(totalReviewCount, curPage);
+		int start = reviewPaging.getPageBegin();
+		int end = reviewPaging.getPageEnd();
+		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo, keyword, start, end);
 		
 		logger.info("리뷰리스트의 값이 잘 오나?? {}" + reviewList);
+		Map<String, Object> searchMap = new HashMap<>();
+		searchMap.put("keyword", keyword);
 		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("iNo", iNo);
+		pagingMap.put("itemPaging", reviewPaging);
+		pagingMap.put("totalItemCount", totalReviewCount);
+		
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("pagingMap", pagingMap);
+		model.addAttribute("searchMap", searchMap);
 		
 		return "/review/ReviewList";
 	}
 	
 	@RequestMapping(value="/review/one.do", method = RequestMethod.GET)
-	public String reviewSelectOne(@RequestParam int iNo, int rNo, Model model) {
+	public String reviewSelectOne(@RequestParam int curPage
+			, @RequestParam int iNo, int rNo, Model model) {
 		logger.info("컨트롤러 one에 원하는 정보 들어옴? {}", model);
 		Map<String, Object>prevMap = new HashMap<String, Object>();
 		prevMap.put("iNo", iNo);
-
+		prevMap.put("curPage", curPage);
+		
 		Map<String, Object> map = reviewService.reviewSelectOne(rNo);
 		logger.debug("컨트롤러 one에 원하는 정보를 서비스에서 갖고옴? {}" , map);
 		ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
@@ -110,12 +125,12 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/review/update.do", method = RequestMethod.GET)
-	public String reviewUpdate(int iNo, int rNo, Model model) {
+	public String reviewUpdate(int curPage, int iNo, int rNo, Model model) {
 		logger.trace("수정하는 DB에 접속"+ iNo);
 		
 		Map<String, Object>prevMap = new HashMap<>();
 		prevMap.put("iNo", iNo);
-//		prevMap.put("curPage", curPage);
+		prevMap.put("curPage", curPage);
 		
 		Map<String, Object> map = reviewService.reviewSelectOne(rNo);
 		
@@ -136,7 +151,7 @@ public class ReviewController {
 	}
 	
 	@RequestMapping(value="/review/updateCtr.do", method = RequestMethod.POST)
-	public String reviewUpdateCtr( HttpSession session, ReviewDto reviewDto
+	public String reviewUpdateCtr(int curPage, HttpSession session, ReviewDto reviewDto
 			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
 			, MultipartHttpServletRequest mulRequest, Model model) {
 //		logger.info("컨트롤러 서비스로 curPage {} " , curPage);

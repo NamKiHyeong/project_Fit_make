@@ -2,7 +2,10 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.review">
-
+<sql id="search">
+	WHERE FM_REVIEW_NAME LIKE '%'||#{keyword}||'%' 
+	AND FM_ITEM_NO = #{INo}
+</sql>
 	<resultMap type="reviewDto" id="reviewResultMap">
 		<id column="FM_REVIEW_NO" property="rNo"/>
 			<result column="FM_ITEM_NO" property="iNo"/>	
@@ -89,4 +92,10 @@
 		WHERE FM_REVIEW_IMG_NO = ${value}
 	</delete>
 	
+	<select id=" reviewSelectTotalReviewCount" resultType="int" parameterType="map">
+		SELECT COUNT(*)
+		FROM FM_REVIEW
+		<include refid="search"></include>
+	
+	</select>
 </mapper>

@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 <title>리뷰 수정하기</title>
-
+<link rel="stylesheet" href="/fitmake/resources/css/reviewUpdate.css">
 <script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 <script type="text/javascript">
@@ -108,6 +108,7 @@ function deleteReviewFnc(rNo, iNo){
 				<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>
 			</c:when>
 			<c:otherwise>
+			
 			<input type = "hidden" value="${img.FM_REVIEW_IMG_NO}">
 			<input type = "hidden" value="${img.FM_REVIEW_NO}">
 			<input type = "hidden" value="${img.FM_REVIEW_IMG_NAME}">

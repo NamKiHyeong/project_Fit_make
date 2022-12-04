@@ -6,8 +6,7 @@
 }
 
 .diet_wrap h3 {
-	font-weight:bold;
-	font-size:24px;
+	font-weight:bold;font-size:24px;
 }
 
 .sortOrder{
@@ -36,9 +35,9 @@
 
 .frame{
 	display:grid;
-	grid-template-columns:500px 1fr;
+	grid-template-columns:1fr 1fr;
 	width:600px;
-/* 	margin-left: 50px; */
+	margin-left: 50px;
 	margin-top: 30px;
 }
 
@@ -54,7 +53,7 @@
 }
 .frame .sort1 {
 	width:400px;
-	margin-left:50px;
+	margin-right:40px;
 	height:530px;
 }
 	
@@ -86,7 +85,6 @@
 }
 .iteminfo{
 	margin-left:50px;
-	margin-top:30px;
 }
 
 .itemCtr {

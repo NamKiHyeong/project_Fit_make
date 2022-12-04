@@ -8,7 +8,7 @@
 <meta charset="UTF-8">
 <title>리뷰 목록</title>
 
-<link rel="stylesheet" href="/fitmake/resources/css/reviewlist.css">
+<link rel="stylesheet" href="/fitmake/resources/css/reviewList.css">
 <script type="text/javascript" src="/fitmake/resources/js/review.js"></script>
 <script type="text/javascript">
 function deleteReivewFnc(rNo) {
@@ -50,7 +50,13 @@ function deleteReviewFnc(rNo, iNo){
 			<li><a>리뷰 낮은 순</a></li>
 		</ul>
 	</div>
-<%-- 	<a href="./add.do?cNo=${pagingMap.cNo}"></a> --%>
+	<form action="./list.do">
+			<input type="hidden" name="iNo" value="${pagingMap.iNo}">
+			<input type="text" name="keyword" value="${searchMap.keyword}">
+			<input type="submit" value="검색">
+	<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
+	</form>
+	
 	<div>
 		<c:forEach var="review" items="${reviewList}">
 			<div>
@@ -80,6 +86,13 @@ function deleteReviewFnc(rNo, iNo){
 		</c:forEach>
 		
 	</div>
-
+	
+	<jsp:include page="./ReviewPaging.jsp"/>	
+	
+	<form action="./list.do" id="pagingForm" method="post">
+		<input type="hidden" id="curPage" name="curPage" value="${pagingMap.ReviewPaging.curPage}">
+		<input type="hidden" name="cNo" value="${pagingMap.cNo}">
+		<input type="hidden" name="keyword" value="${searchmap.keyword}">
+	</form>
 </body>
 </html>

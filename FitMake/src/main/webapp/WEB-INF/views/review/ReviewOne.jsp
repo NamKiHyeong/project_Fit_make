@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>리뷰 하나 보기</title>
 
+<link rel="stylesheet" href="/fitmake/resources/css/reviewOne.css">
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
