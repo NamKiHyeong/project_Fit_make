@@ -58,11 +58,6 @@
 		padding: 10px;
 		margin: 10px;
 	}
-	#orderDetailViewSpan{
-		margin: 5px;
-		display:flex;
-		justify-content: space-between
-	}
 	#orderTable{
 		position: relative;
 		width: 100%;
@@ -70,8 +65,13 @@
 	.orderTableDetail{
 		text-align: right;
 	}
-	#pagingNav {
+	.orderStatuswWithBtn{
+		width: 900px;
 		display: flex;
+		justify-content: space-between;
+	}
+	.buyerInfo{
+		width: 80px;
 	}
 </style>
 <title>나의 주문상세</title>
@@ -92,31 +92,37 @@
 					<span>${orderDetailItem.FM_ORDER_DATE} 주문</span>
 					<div id="orderListDiv">
 						<div id="orderSummaryDiv">
-							<span id="orderDetailViewSpan">
-								<c:choose>
-									<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'pending'}">
+							<c:choose>
+								<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'pending'}">
+									<div class="orderStatuswWithBtn">
 										주문대기
-										<span>
-											<input type="button" value="주문취소">
-										</span>
-									</c:when>
-									<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'confirm'}">
+											<span>
+												<input type="button" value="주문취소">
+											</span>
+									</div>
+								</c:when>
+								<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'confirm'}">
+									<div class="orderStatuswWithBtn">
 										주문승인
-										<span>
-											<input type="button" value="주문취소">
-										</span>
-									</c:when>
-									<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'cancel'}">
+											<span>
+												<input type="button" value="주문취소">
+											</span>
+									</div>
+								</c:when>
+								<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'cancel'}">
+									<div class="orderStatuswWithBtn">
 										주문취소
-									</c:when>
-									<c:otherwise>
+									</div>
+								</c:when>
+								<c:otherwise>
+									<div class="orderStatuswWithBtn">
 										구매확정
-										<span>
-											<input type="button" value="리뷰쓰기">
-										</span>
-									</c:otherwise>
-								</c:choose>
-							</span>
+											<span>
+												<input type="button" value="리뷰쓰기">
+											</span>
+									</div>
+								</c:otherwise>
+							</c:choose>
 						</div>
 						<div id="orderContainer">
 							<table id="orderTable">
@@ -151,20 +157,20 @@
 							</table>
 						</div>
 					</div>
-					<div id="orderSummaryDiv">
+					<div id="">
 						<span>받는사람 정보</span>
 						<hr>
 						<table>
 							<tr>
-								<td>
+								<td class="buyerInfo">
 									받는사람
 								</td>
-								<td>
+								<td >
 									${orderDetailMyInfo.FM_USER_NICKNAME}
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="buyerInfo">
 									연락처
 								</td>
 								<td>
@@ -172,7 +178,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td>
+								<td class="buyerInfo">
 									받는주소
 								</td>
 								<td>

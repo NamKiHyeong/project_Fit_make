@@ -105,7 +105,7 @@
 								<div id="orderSummaryDiv">
 									${orderMap.FM_ORDER_DATE} 주문
 									<span id="orderDetailViewSpan">
-										<a href="./detail.do?oNo="${orderMap.FM_ORDER_NO}>
+										<a href="./detail.do?oNo=${orderMap.FM_ORDER_NO}">
 											<span class="viewOrderDetail">주문상세보기</span>
 										</a>
 									</span>

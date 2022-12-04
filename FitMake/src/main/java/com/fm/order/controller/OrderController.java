@@ -290,6 +290,8 @@ public class OrderController {
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
 			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo) {
 		logger.info("Welcome orderDetail!");
+		logger.info("ctNo" + ctNo[0]);
+		logger.info("oNo" + oNo);
 
 		String viewUrl = "";
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
@@ -297,7 +299,7 @@ public class OrderController {
 
 		if (uNo > 0) {
 			
-			if (oNo == 0) {
+			if (oNo != 0) {
 				oNo = orderService.viewOrderNo(uNo);
 				List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
 				Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
