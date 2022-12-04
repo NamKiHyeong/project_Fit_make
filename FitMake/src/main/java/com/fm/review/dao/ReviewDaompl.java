@@ -34,10 +34,12 @@ public class ReviewDaompl implements ReviewDao {
 	
 //	R list
 	@Override
-	public List<ReviewDto> reviewSelectList(int iNo, String keyword, int start, int end){
+//	public List<ReviewDto> reviewSelectList(int iNo){
+		public List<ReviewDto> reviewSelectList(int iNo, int start, int end){
+//		public List<ReviewDto> reviewSelectList(int iNo, String keyword, int start, int end){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("iNo", iNo);
-		map.put("keyword", keyword);
+//		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -80,10 +82,12 @@ public class ReviewDaompl implements ReviewDao {
 	}
 	
 	@Override
-	public int  reviewSelectTotalReviewCount(int iNo, String keyword) {
+	public int  reviewSelectTotalReviewCount(int iNo) {
+//		public int  reviewSelectTotalReviewCount(int iNo, String keyword) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("iNo", iNo);
-		map.put("keyword", keyword);
+		
+//		map.put("keyword", keyword);
 		return sqlSession.selectOne(namespace + " reviewSelectTotalReviewCount", map);
 		
 	}

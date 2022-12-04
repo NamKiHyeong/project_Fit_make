@@ -42,12 +42,12 @@
 						</c:otherwise>
 					</c:choose>
 					
-					<input class="info" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo});">
+					<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo});">
 					<c:if test="${_userDto_.uNo != 1}">
-						<input class="info" type="button" id="addCartBtn" value="장바구니">
-						<input class="info" type="button" id="addOrderBtn" value="구매하기">
-						<input class="info" type="button" value="리뷰쓰기" onclick="pageReviewFnc(${itemDto.iNo});">
-						<input class="info" type="button" value="리뷰목록" onclick="pageReviewListFnc(${itemDto.iNo});">
+						<input class="itemCtr" type="button" id="addCartBtn" value="장바구니">
+						<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">
+						<input class="itemCtr" type="button" value="리뷰쓰기" onclick="pageReviewFnc(${itemDto.iNo});">
+						<input class="itemCtr" type="button" value="리뷰목록" onclick="pageReviewListFnc(${itemDto.iNo});">
 					</c:if>
 			
 					<c:if test="${_userDto_.uNo == 1}">
@@ -57,9 +57,7 @@
 			</div>
 			<div class="iteminfo">
 				<h3>제품상세정보</h3>
-				<textarea rows="20" cols="120" readonly="readonly" style="padding:15px;">
-					${itemDto.iOneDetail}
-				</textarea>
+				<textarea rows="20" cols="120" readonly="readonly" style="padding:15px;">${itemDto.iOneDetail}</textarea>
 			</div>
 		</div>
 	</form>

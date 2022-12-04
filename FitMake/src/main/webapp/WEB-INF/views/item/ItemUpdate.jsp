@@ -42,45 +42,26 @@
 		}
    }
 	
-	$(document).ready(function(){
-		
-		   $("a[id^='delete']").on('click', function(e){ // 삭제 버튼
-		      e.preventDefault();
-		      deleteFileFnc($(this));
-		   });
-		});
 
-		function deleteFileFnc(obj){
-//		      위 -> 아래 
-//		      아래 -> 위
-		   obj.parent().remove();
-		}
-
-		function deleteFileFnc() {
-		   var obj = $('#fileContent');
-		   
-		   var htmlStr = "";
-// 		   htmlStr += '<div class="sortImg sort1">';
-		   htmlStr += '<img alt="image not fount">';
-		   htmlStr += '사진 <input name="originalName" id="imageId" type="file">';
-		   htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
-// 		   htmlStr += '</div>';
-		   obj.html(htmlStr);
-		   
-		   $('a[id^="delete"]').on('click', function(e) {
-		      e.preventDefault();
-		      deleteFileFnc($(this));
-		   });      
-		   
-		}
+	function deleteFileFnc(){
 		
+	   var obj = $('#imgInfo');
+	   
+	   var htmlStr = "";
+	   htmlStr += '<div style="height: 500px;"></div>';
+	   htmlStr += '사진 <input type="file" id="file" name="file">';
+	   htmlStr += '<a href="#" onclick="deleteFileFnc();">삭제</a>';
+	   
+	   obj.html(htmlStr);
+
+	}
 		
 </script>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
 	
-		<form id='itemFormObj' action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
+	<form id='itemFormObj' action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
 
 		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
 		<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
@@ -88,33 +69,19 @@
 			
 		<div class="diet_wrap">	
 			<div class="frame">
-				<c:choose>
-					<c:when test="${empty img.FM_ITEM_IMG_NO}">
-						<div class="sortImg sort1">
-							<input name="originalName" id="imageId" type="file">
-                  			<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>
-						</div>
-					</c:when>
-					<c:otherwise>
-						<div class="sortImg sort1">
-							<input type = "hidden" value="${img.FM_ITEM_IMG_NO}">
-							<input type = "hidden" value="${img.FM_ITEM_NO}">
-							<input type="hidden" value="${img.FM_ITEM_IMG_NAME}">
-							
-							<img alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
-							<input type="file" id="file_${obj.index}" name="file_${obj.index}"> 
-<!-- 							type="file"가 파일 선택임 -->
-							<a href="#this" onclick="deleteFileFnc()">삭제</a><br>
-							<a href="#this" id="delete_${img.FM_ITEM_IMG_NO}">삭제</a>
-						</div>
-					</c:otherwise>
-				</c:choose>
+				<!-- type="file"가 파일 선택임 -->
+				<div id="imgInfo" class="sortImg sort1">
+					<input type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
+					<img id="itemImg" alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+					<input type="file" id="file" name="file">
+					<a href="#" onclick="deleteFileFnc();">삭제</a>
+				</div>
 				
 				<div class="sortImg sort2">
 					<p><span>제품명</span>		<input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}"></p>
 					<p><span>가 &nbsp; 격</span>	<input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}"></p>
-					<p><span>재 &nbsp; 고</span>	<input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" ></p>
 					<p><span>칼로리</span>	 	<input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
+					<p><span>재 &nbsp; 고</span>	<input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" ></p>
 					
 					<input id='itemFormSubmitBtn' class="itemCtr" type="submit" value="수정완료">
 					
@@ -125,13 +92,12 @@
 				</div>
 				<div class="iteminfo">
 					<h3>제품상세정보</h3>
-					<textarea rows="20" cols="120" id='iOneDetail' name="iOneDetail" style="padding:15px;"></textarea>
+					<textarea rows="20" cols="120" id='iOneDetail' name="iOneDetail">${itemDto.iOneDetail}</textarea>
 				</div>
 			</div>
 		</div>
 	</form>
 	
-	<input type="hidden" id='tempIOneDetail' value="${itemDto.iOneDetail}">
 </body>
 	
 </html>

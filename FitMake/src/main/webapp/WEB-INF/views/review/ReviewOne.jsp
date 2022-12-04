@@ -21,17 +21,26 @@
 	<form action="./update.do" method="get">
 		<input type="hidden" name="rNo" value="${reviewDto.rNo}">
 		<input type="hidden" name="iNo" value="${reviewDto.iNo}">
-		<c:forEach var="review" items="${fileList2}">
-			<img alt="image not found" src="<c:url value='/image/${review.FM_REVIEW_STORED_NAME}'/>"/><br>
-		</c:forEach>
-		<c:if test="${_userDto_.uNo == reviewDto.uNo}">
-			<input class="itemCtr" type="submit" value="수정하기">
-		</c:if>
-		제목 <input type="text" name="rTitle" value="${reviewDto.rTitle}" readonly="readonly">
-		내용 <textarea rows="" cols="" readonly="readonly"> ${reviewDto.rContent} </textarea>
-<!-- 	value는 list - control에서 map or list에 준 것을 앞에 붙이기		 -->
+		<input type="hidden" name="curPage" value="${prevMap.curPage}">
 		
-<%-- 		<c:if test="${reviewDto.rNo == uNo}"><input type="button" value="수정하기"></c:if> --%>
+		<div class="diet_wrap">
+			<div class="frame">
+				<div class="sortImg sort1">
+					<c:forEach var="review" items="${fileList2}">
+						<img alt="image not found" src="<c:url value='/image/${review.FM_REVIEW_STORED_NAME}'/>"/><br>
+					</c:forEach>
+				</div>
+				
+				<div class="sortImg sort2">
+					<h3>제목</h3><input type="text" name="rTitle" value="${reviewDto.rTitle}" readonly="readonly" style="padding:7px;width:600px;box-sizing:border-box;"><br>
+					
+					<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> <textarea style="padding:10px;" rows="20" cols="80" name="rContent" readonly="readonly">${reviewDto.rContent}</textarea>
+					<c:if test="${_userDto_.uNo == reviewDto.uNo}">
+						<input class="reviewCtr" type="submit" value="수정하기">
+					</c:if>
+				</div>
+			</div>
+		</div>
 	</form>
 </body>
 </html>

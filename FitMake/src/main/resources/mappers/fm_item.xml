@@ -123,14 +123,14 @@
 	</select>
 	
 	<select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
+		SELECT FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM_IMG
 		WHERE FM_ITEM_NO = #{iNo}
 	</select>
 	
 	<delete id="fileDelete" parameterType="int">
 		DELETE FROM FM_ITEM_IMG
-		WHERE FM_ITEM_IMG_NO = ${value}
+		WHERE FM_ITEM_NO = ${value}
 	</delete>
 	
 	

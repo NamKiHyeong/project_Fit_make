@@ -86,18 +86,18 @@ nav > ul > li > a:hover {
 
 <nav>
 		<ul>
-		<c:if test="${pagingMap.itemPaging.prevBlock ne 1}">
+		<c:if test="${pagingMap.reviewPaging.prevBlock ne 1}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${pagingMap.itemPaging.prevBlock});">
+					onclick="goPageFnc(${pagingMap.reviewPaging.prevBlock});">
 					<span>«</span>
 				</a>
 			</li>
 		</c:if>
 		
 		<c:forEach var="num" 
-			begin="${pagingMap.itemPaging.blockBegin}" 
-			end="${pagingMap.itemPaging.blockEnd}">
+			begin="${pagingMap.reviewPaging.blockBegin}" 
+			end="${pagingMap.reviewPaging.blockEnd}">
 			<li id='pageButton${num}'>
 				<a href="#" onclick="goPageFnc(${num});">
 					<c:out value="${num}"/>
@@ -105,11 +105,11 @@ nav > ul > li > a:hover {
 			</li>
 		</c:forEach>
 		
-		<c:if test="${pagingMap.itemPaging.curBlock 
-			< pagingMap.itemPaging.totBlock}">
+		<c:if test="${pagingMap.reviewPaging.curBlock 
+			< pagingMap.reviewPaging.totBlock}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${pagingMap.itemPaging.nextBlock});">
+					onclick="goPageFnc(${pagingMap.reviewPaging.nextBlock});">
 					<span>»</span>
 				</a>
 			</li>			

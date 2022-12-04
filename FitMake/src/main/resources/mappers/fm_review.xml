@@ -3,8 +3,8 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.review">
 <sql id="search">
-	WHERE FM_REVIEW_NAME LIKE '%'||#{keyword}||'%' 
-	AND FM_ITEM_NO = #{INo}
+	WHERE FM_REVIEW_TITLE LIKE '%'||#{keyword}||'%' 
+	AND FM_ITEM_NO = #{iNo}
 </sql>
 	<resultMap type="reviewDto" id="reviewResultMap">
 		<id column="FM_REVIEW_NO" property="rNo"/>
@@ -73,10 +73,6 @@
 		<set>
 			<if test="rTitle != ''">FM_REVIEW_TITLE = #{rTitle},</if>
 			FM_REVIEW_CONTENT = #{rContent}
-<!-- 		FM_REVIEW_TITLE
-			rTitle
-			FM_REVIEW_CONTENT
-			rContent-->
 		</set>
 		WHERE FM_REVIEW_NO = #{rNo}
 	</update>
@@ -95,7 +91,7 @@
 	<select id=" reviewSelectTotalReviewCount" resultType="int" parameterType="map">
 		SELECT COUNT(*)
 		FROM FM_REVIEW
-		<include refid="search"></include>
+<!-- 		<include refid="search"></include> -->
 	
 	</select>
 </mapper>

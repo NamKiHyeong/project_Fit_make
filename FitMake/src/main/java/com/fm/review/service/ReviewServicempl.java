@@ -17,7 +17,6 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
-import com.fm.item.model.ItemDto;
 import com.fm.review.dao.ReviewDao;
 import com.fm.review.model.ReviewDto;
 import com.fm.util.FileUtils;
@@ -69,9 +68,13 @@ public class ReviewServicempl implements ReviewService {
 	
 	
 	@Override
-	public List<Map<String, Object>> reviewSelectList(int iNo,  String keyword, int start, int end){
+//	public List<Map<String, Object>> reviewSelectList(int iNo){
+		public List<Map<String, Object>> reviewSelectList(int iNo, int start, int end){
+//		public List<Map<String, Object>> reviewSelectList(int iNo, String keyword, int start, int end){
 		
-		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo, keyword, start, end);
+//		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo);
+		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo, start, end);
+//		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo, keyword, start, end);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
@@ -177,7 +180,11 @@ public class ReviewServicempl implements ReviewService {
 	}
 	
 	@Override
-	public int reviewSelectTotalReviewCount(int iNo, String keyword){
-		return reviewDao.reviewSelectTotalReviewCount(iNo, keyword);
+//	public int reviewSelectTotalReviewCount(int iNo, String keyword){
+//		return reviewDao.reviewSelectTotalReviewCount(iNo, keyword);
+//	}
+	
+	public int reviewSelectTotalReviewCount(int iNo){
+		return reviewDao.reviewSelectTotalReviewCount(iNo);
 	}
 }

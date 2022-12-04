@@ -179,15 +179,15 @@ public class ItemController {
 	
 	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
 	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto
-			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
+			,@RequestParam(value = "imgNo", defaultValue = "-1") int imgNo
 			, MultipartHttpServletRequest mulRequest, Model model) {
 		logger.info("컨트롤러 서비스로 curPage {} " , curPage);
 		logger.info("컨트롤러 서비스로 cNo {} " , itemDto);
-		logger.info("컨트롤러 서비스로 cNo {} " , fileIdx);
+		logger.info("컨트롤러 서비스로 imgNo {} " , imgNo);
 		int cNo = itemDto.getcNo();
 		
 		try {
-			itemService.itemUpdateOne(itemDto, mulRequest, fileIdx);
+			itemService.itemUpdateOne(itemDto, mulRequest, imgNo);
 			
 		} catch (Exception e) {
 			System.out.println("컨트롤 업데이트 예외 발생");
