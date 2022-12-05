@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -38,8 +37,32 @@ public class UserController {
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login() {
 		logger.info("Welcome UserController login! ");
-
+		
+		
 		return "auth/LoginForm";
+	}
+
+	/**
+	 * 
+	 * @param userDto
+	 * @param model
+	 * @param bmiCalc
+	 * @return 회원가입 userDto정보와 bmiCalc정보 DB에 기입
+	 */
+	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st, String add_Extra,
+			String add_Detail) {
+		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
+		String address = add_1st + add_Extra + add_Detail;
+		
+		int salt = userDto.addSalt();
+		String password = userDto.setHashpwd(salt, userDto.getPassword());
+		userDto.setSalt(salt);
+		userDto.setPassword(password);
+		
+		userService.userInsertOne(userDto, address);
+		userService.bmiInsertOne(bmiCalc);
+		return "redirect:/auth/login.do";
 	}
 
 	/**
@@ -86,14 +109,17 @@ public class UserController {
 
 		String oldPwd = uPwd.getPassword();
 		String sessionPwd = userDto.getPassword();
-
-		if (!(sessionPwd.equals(oldPwd))) {
+		
+		String existPwd = userDto.setHashpwd(uPwd.getSalt(), sessionPwd);
+		if (existPwd.equals(oldPwd)) {
+			userService.userBmiDelete(userDto);
+			userService.userDelete(userDto);
+			session.invalidate();
+			return "redirect:/auth/login.do";
+		} else {
 			ra.addFlashAttribute("msg", false);
 			return "redirect:/user/userDelete.do";
 		}
-		userService.userDelete(userDto);
-		session.invalidate();
-		return "redirect:/auth/login.do";
 	}
 
 	/**
@@ -126,7 +152,9 @@ public class UserController {
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
 	public String loginCtr(String email, String password, HttpSession session, Model model) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
-
+		
+		
+		
 		UserDto userDto = userService.userExist(email, password);
 
 		String viewUrl = "";
@@ -293,25 +321,6 @@ public class UserController {
 
 	/**
 	 * 
-	 * @param userDto
-	 * @param model
-	 * @param bmiCalc
-	 * @return 회원가입 userDto정보와 bmiCalc정보 DB에 기입
-	 */
-	@ResponseBody
-	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st, String add_Extra,
-			String add_Detail) {
-		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
-		String address = add_1st + add_Extra + add_Detail;
-
-		userService.userInsertOne(userDto, address);
-		userService.bmiInsertOne(bmiCalc);
-		return "redirect:/auth/login.do";
-	}
-
-	/**
-	 * 
 	 * @param model
 	 * @return 내정보 보기
 	 */
@@ -346,15 +355,17 @@ public class UserController {
 
 		String existingPwd = uPwd.getPassword();
 		String sessionPwd = userDto.getPassword();
-
+		
 		if (!(sessionPwd.equals(existingPwd))) {
 			model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
 			model.addAttribute("url", "redirect:/user/Info.do");
 
 			return "common/UpdateAlert";
 		}
-
-		userService.userUpdate(userDto, nickName, newpassword);
+		int salt = userDto.addSalt();
+		String password = userDto.setHashpwd(salt, newpassword);
+		
+		userService.userUpdate(userDto, nickName, password, salt);
 
 		return "redirect:/user/Info.do";
 	}
@@ -404,10 +415,10 @@ public class UserController {
 		int uNo = (int) userDto.getuNo();
 
 		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo);
-		
+
 		model.addAttribute("pointList", pointList);
 
 		return "user/PointRechargehistory";
 	}
-	
+
 }

@@ -14,16 +14,17 @@
 		<result column="FM_USER_POINT" property="point" />
 		<result column="FM_USER_CRE_DATE" property="createDate"
 			javaType="java.util.Date" />
+		<result column="FM_USER_SALT" property="salt" />
 	</resultMap>
 	<!-- //회원확인 -->
 	<select id="userExist" parameterType="map"
 		resultMap="userResultMap">
 		SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
-		FM_USER_POINT, FM_USER_PASSWORD
+		FM_USER_POINT, FM_USER_PASSWORD, FM_USER_SALT
 		FROM FM_USER
-		WHERE FM_USER_EMAIL =
-		#{email} AND
-		FM_USER_PASSWORD = #{password}
+		WHERE
+		FM_USER_EMAIL =
+		#{email}
 	</select>
 	<!-- 회원확인// -->
 
@@ -42,10 +43,12 @@
 		FM_USER_PASSWORD
 		, FM_USER_MOBILE, FM_USER_ZIP_CODE, FM_USER_ADDRESS,
 		FM_USER_POINT,
-		FM_USER_CRE_DATE)
-		VALUES(#{uNo}, #{nickName}, #{email}
+		FM_USER_CRE_DATE, FM_USER_SALT)
+		VALUES(#{uNo},
+		#{nickName}, #{email}
 		,
-		#{password}, #{mobile}, #{zipCode}, #{address}, 0, SYSDATE)
+		#{password}, #{mobile}, #{zipCode}, #{address},
+		0, SYSDATE, #{salt})
 	</insert>
 
 
@@ -73,11 +76,16 @@
 	<!-- 회원가입 // -->
 
 	<!-- //회원탈퇴 -->
+	<delete id="userBmiDelete">
+		DELETE FROM FM_USER_BMI
+		WHERE FM_USER_NO = (
+		SELECT FM_USER_NO
+		FROM FM_USER
+		WHERE FM_USER_EMAIL = #{email})
+	</delete>
 	<delete id="userDelete">
 		DELETE FROM FM_USER
 		WHERE FM_USER_EMAIL = #{email}
-		AND
-		FM_USER_PASSWORD = #{password}
 	</delete>
 	<!-- 회원탈퇴// -->
 
@@ -97,6 +105,7 @@
 		<set>
 			<if test="nickName != ''">FM_USER_NICKNAME = #{nickName},</if>
 			<if test="password != ''">FM_USER_PASSWORD = #{password},</if>
+			<if test="salt != ''">FM_USER_SALT = #{salt},</if>
 		</set>
 		WHERE FM_USER_NO = #{uNo}
 	</update>
@@ -181,7 +190,8 @@
 		FM_POINT_CRE_DATE
 		FROM FM_POINT
 		WHERE FM_USER_NO = #{uNo}
-		ORDER BY FM_POINT_NO DESC
+		ORDER BY
+		FM_POINT_NO DESC
 	</select>
 	<!-- //충전 내역 -->
 

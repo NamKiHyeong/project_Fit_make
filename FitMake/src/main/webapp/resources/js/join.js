@@ -49,6 +49,7 @@ function joinSunFnc() {
 		$("#add_Detail").focus();
 		return false;
 	}
+	
 
 	if (weightChk == '' || weightChk == null) {
 		$("#result_check_wei").html("· 몸무게를 기입해주세요").css("color", "red");
@@ -61,13 +62,13 @@ function joinSunFnc() {
 		$("#heightChk").focus();
 		return false;
 	}
-	
-	if ($("#phoneDoubleChk").val == true){
 		addFormObj.submit();
-	} else {
-		alert("· 휴대폰인증을 완료해주세요");
-		return false;
-	}
+//	
+//	if ($("#phoneDoubleChk").val() == true){
+//	} else {
+//		alert("· 휴대폰인증을 완료해주세요");
+//		return false;
+//	}
 
 
 };

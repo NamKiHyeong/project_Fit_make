@@ -11,19 +11,7 @@
 <script
 	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/jq_join.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-$('input:radio[name="gType"]').on("click", function () {
-$('input:radio[name="gType"]').each(function() {
-    
-    if(this.checked == true){
-    	$("#genderInput").val(this.value);
-                      
-    }
- 		});
-	});
-});
-</script>
+
 <title>FitMake</title>
 </head>
 <body>
@@ -90,9 +78,9 @@ $('input:radio[name="gType"]').each(function() {
 					<p class="join_P">
 						성별<em class="join_em_Cl">⭐</em>
 					</p>
-					<label><input type="radio" name="gType" value="M" checked />남성</label>
-					<label><input type="radio" name="gType" value="W" />여성</label>
-					<input type="hidden" id="genderInput" name="gender" value="">
+					<label><input type="radio" id="men" name="gender" value="M" />남성</label>
+					<label><input type="radio" name="gender" id="women"
+						value="W" checked />여성</label> <span id="result_Check_gender"></span>
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
