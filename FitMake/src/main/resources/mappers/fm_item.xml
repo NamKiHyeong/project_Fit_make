@@ -135,9 +135,14 @@
 	
 	
 	
-	<select id="itemSelectTotalItemCount" resultType="int" parameterType="map">
+	<select id="itemSelectTotalItemCount" parameterType="map" resultType="int" >
 		SELECT COUNT(*)
 		FROM FM_ITEM
 		<include refid="search"></include>
 	</select>
+	
+	
+	
+	
+	
 </mapper>

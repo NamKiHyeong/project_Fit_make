@@ -23,10 +23,14 @@ public interface ItemDao {
 	public List<Map<String, Object>> fileSelectList(int iNo);
 	
 	public Map<String, Object> fileSelectOne(int iNo);
-
+	public int reviewSelectTotalReviewCount(int iNo);
+//	public Map<String, Object> reviewSelectTotalReviewCount(int iNo);
 //-----------------------------------------------------------
 	
 	public int fileDelete(int iNo);
 
 	public int itemSelectTotalItemCount(int cNo, String keyword);
+	
+	
+
 }

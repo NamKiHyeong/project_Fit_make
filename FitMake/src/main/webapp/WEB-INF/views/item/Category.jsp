@@ -16,25 +16,32 @@
 <body>
 	<jsp:include page="../Header.jsp"/>
 	<div class="diet_wrap">
-		<h3>다이어트</h3>
-		<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 추가</a></h4>
-		<input type="button" id="addCartListBtn" value="장바구니 추가">
+		<div class="infoTop">
+			<h3>다이어트</h3>
+			<input class="itemCtr" type="button" id="addCartListBtn" value="장바구니 추가"><br>
+			
+			<div class="serachGo">
+				<form action="./list.do">
+					<input type="hidden" name="cNo" value="${pagingMap.cNo}">
+					<input type="text" name="keyword" style= "padding: 10px 15px; margin-right: 7px; font-size: 14px;box-sizing:border-box;" value="${searchMap.keyword}">
+					<input class="itemCtr" type="submit" value="검색">
+			<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
+				
+				</form>
+			</div>
+		</div>
 	
-		<form action="./list.do">
-			<input type="hidden" name="cNo" value="${pagingMap.cNo}">
-			<input type="text" name="keyword" value="${searchMap.keyword}">
-			<input type="submit" value="검색">
-	<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
-		</form>
+		
+		
 		<c:choose>
 			<c:when test="${empty itemList}">
 				<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 등록해주세요</a></h4>
-				
 			</c:when>
 			
 			<c:otherwise>
 				<div class="sortOrder">
 					<ul class="sortOrderbox">
+						<li><c:if test="${_userDto_.uNo == 1}"><a href="./add.do?cNo=${pagingMap.cNo}" class="sortOrdervv" style="color: aqua;">제품 추가</a></c:if></li>
 						<li><a href="./list.do?cNo=${pagingMap.cNo}&older=1" class="sortOrdervv" onclick="itemOneAsc();">낮은 가격순</a></li>
 						<li><a href="./list.do?cNo=${pagingMap.cNo}&older=2" class="sortOrdervv" onclick="itemOneAsc();">높은 리뷰순</a></li>
 					</ul>
@@ -58,7 +65,8 @@
 									</a>
 								</p>
 								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>
-								<p>리뷰 : ${item.itemDto.iCount}</p>
+<%-- 								<p>리뷰 : ${item.itemDto.iCount}</p> --%>
+								<p>리뷰 : ${item.review}</p>
 								
 							</form>
 						</div>
@@ -67,10 +75,12 @@
 				</c:otherwise>
 				
 			</c:choose>
+			
 		</div>
 		
 	
-	<jsp:include page="./ItemPaging.jsp"/>	
+		
+	<jsp:include page="./ItemPaging.jsp"/>
 	
 	<form action="./list.do" id="pagingForm" method="post">
 		<input type="hidden" id="curPage" name="curPage" value="${pagingMap.itemPaging.curPage}">

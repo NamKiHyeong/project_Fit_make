@@ -115,7 +115,7 @@ public class ReviewServicempl implements ReviewService {
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int reviewUpdateOne(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest
-			, int fileIdx) throws Exception {
+			, int imgNo) throws Exception {
 
 		int resultNum = 0;
 
@@ -151,7 +151,7 @@ public class ReviewServicempl implements ReviewService {
 					
 				}
 			// 이미지를 삭제해서 존재하지 않을 때
-			} else if(fileIdx == -1){
+			} else if(imgNo == -1){
 				log.debug("수정되는 것 확인4", reviewDto.getrTitle());
 				
 				if(tempFileMap2 != null){
@@ -185,6 +185,7 @@ public class ReviewServicempl implements ReviewService {
 //	}
 	
 	public int reviewSelectTotalReviewCount(int iNo){
+//		public Map<String, Object> reviewSelectTotalReviewCount(int iNo){
 		return reviewDao.reviewSelectTotalReviewCount(iNo);
 	}
 }

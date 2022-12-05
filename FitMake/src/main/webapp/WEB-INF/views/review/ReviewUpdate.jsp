@@ -60,26 +60,39 @@ location.href="../review/list.do?iNo=" + iNo;
 }
 //-----------------------------------------------------
 
-function deleteFileFnc(obj){
-//	      위 -> 아래 
-//	      아래 -> 위
-	   obj.parent().remove();
-}
+// function deleteFileFnc(obj){
+// //	      위 -> 아래 
+// //	      아래 -> 위
+// 	   obj.parent().remove();
+// }
 
-function deleteFileFnc() {
-var obj = $('#fileContent');
+// function deleteFileFnc() {
+// var obj = $('#fileContent');
 
-var htmlStr = "";
+// var htmlStr = "";
 
-htmlStr += '사진 <input name="originalName" id="imageId" type="file">';
-htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
+// htmlStr += '사진 <input name="originalName" id="imageId" type="file">';
+// htmlStr += '<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>';
 
-obj.html(htmlStr);
+// obj.html(htmlStr);
 
-$('a[id^="delete"]').on('click', function(e) {
-  e.preventDefault();
-  deleteFileFnc($(this));
-});      
+// $('a[id^="delete"]').on('click', function(e) {
+//   e.preventDefault();
+//   deleteFileFnc($(this));
+// });      
+
+// }
+
+function deleteFileFnc(){
+		
+   var obj = $('#imgInfo');
+   
+   var htmlStr = "";
+   htmlStr += '<div style="width:400px;margin-left:50px;height:530px;"></div>';
+   htmlStr += '사진 <input type="file" id="file" name="file">';
+   htmlStr += '<a href="#" onclick="deleteFileFnc();">삭제</a>';
+   
+   obj.html(htmlStr);
 
 }
 function deleteReviewFnc(rNo, iNo){
@@ -107,30 +120,34 @@ function deleteReviewFnc(rNo, iNo){
 	<input type="hidden" name="curPage" value="${prevMap.curPage}">
 	<div class="diet_wrap">
 			<div class="frame">
-				<div class="sortImg sort1">
-					<c:choose>
-						<c:when test="${empty img.FM_REVIEW_IMG_NO}">
-						<input name="originalName" id="imageId" type="file">
-							<a href="#this" id="" onclick="deleteFileFnc();">삭제</a>
-						</c:when>
-						<c:otherwise>
-							<input type = "hidden" value="${img.FM_REVIEW_IMG_NO}">
-							<input type = "hidden" value="${img.FM_REVIEW_NO}">
-							<input type = "hidden" value="${img.FM_REVIEW_IMG_NAME}">
-							
-							<img alt="image not fount" src="<c:url value='/image/${img.FM_REVIEW_STORED_NAME}'/>"/><br>
-							<input type="file" id="file_${obj.index}" name="file_${obj.index}"> 
-							<!-- 							type="file"가 파일 선택임 -->
-							<a href="#this" onclick="deleteFileFnc()">삭제</a><br>
-							<a href="#this" id="delete_${img.FM_REVIEW_IMG_NO}">삭제</a>
-						</c:otherwise>
-					</c:choose>
+				<div id="imgInfo" class="sortImg sort1">
+<%-- 				<c:choose> --%>
+<%-- 					<c:when test="${empty img.FM_REVIEW_IMG_NO}"> --%>
+<!-- 					<input name="originalName" id="imageId" type="file"> -->
+<!-- 						<a href="#this" id="" onclick="deleteFileFnc();">삭제</a> -->
+<%-- 					</c:when> --%>
+<%-- 					<c:otherwise> --%>
+<%-- 						<input type = "hidden" value="${img.FM_REVIEW_IMG_NO}"> --%>
+<%-- 						<input type = "hidden" value="${img.FM_REVIEW_NO}"> --%>
+<%-- 						<input type = "hidden" value="${img.FM_REVIEW_IMG_NAME}"> --%>
+						
+<%-- 						<img alt="image not fount" src="<c:url value='/image/${img.FM_REVIEW_STORED_NAME}'/>"/><br> --%>
+<%-- 						<input type="file" id="file_${obj.index}" name="file_${obj.index}">  --%>
+<!-- 													type="file"가 파일 선택임 -->
+<!-- 						<a href="#this" onclick="deleteFileFnc()">삭제</a><br> -->
+<%-- 						<a href="#this" id="delete_${img.FM_REVIEW_IMG_NO}">삭제</a> --%>
+<%-- 					</c:otherwise> --%>
+<%-- 				</c:choose> --%>
+					<input type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
+					<img id="reviewImg" alt="image not fount" style="width:400px;margin-left:50px;height:530px; src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+					<input type="file" id="file" name="file">
+					<a href="#" onclick="deleteFileFnc();">삭제</a>
 				</div>
 				<div class="sortImg sort2">
 				<h3>제목</h3><input type="text" name="rTitle" value="${reviewDto.rTitle}" style="padding:7px;width:600px;box-sizing:border-box;"><br>
 				<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> <textarea style="padding:10px; margin-bottom:15px;" rows="20" cols="80" name="rContent">${reviewDto.rContent}</textarea>
-		
 				<input class="itemCtr" type="submit" value="수정완료">
+				
 				<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveBefore(${prevMap.curPage},${reviewDto.iNo}, ${reviewDto.rNo});">
 							
 				<input class="itemCtr" type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${reviewDto.iNo});">

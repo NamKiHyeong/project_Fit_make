@@ -79,6 +79,7 @@ public class ReviewController {
 			, Model model) {
 		logger.info("리플리스트를 확인해 봅시다.{}" ,iNo);
 		int totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo);
+//		Map<String, Object> totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo);
 //		int totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo, keyword);
 		Paging reviewPaging = new Paging(totalReviewCount, curPage);
 //		Paging reviewPaging = new Paging(totalReviewCount);
@@ -161,15 +162,15 @@ public class ReviewController {
 	public String reviewUpdateCtr(HttpSession session
 			, int curPage
 			, ReviewDto reviewDto
-			,@RequestParam(value = "fileIdx", defaultValue = "-1") int fileIdx
+			,@RequestParam(value = "fileIdx", defaultValue = "-1") int imgNo
 			, MultipartHttpServletRequest mulRequest, Model model) {
 //		logger.info("컨트롤러 서비스로 curPage {} " , curPage);
 		logger.info("컨트롤러 서비스로 reviewDto {} " , reviewDto);
-		logger.info("컨트롤러 서비스로 fileIdx {} " , fileIdx);
+		logger.info("컨트롤러 서비스로 fileIdx {} " , imgNo);
 		int iNo = reviewDto.getiNo();
 		
 		try {
-			reviewService.reviewUpdateOne(reviewDto, mulRequest, fileIdx);
+			reviewService.reviewUpdateOne(reviewDto, mulRequest, imgNo);
 			
 		} catch (Exception e) {
 			System.out.println("컨트롤 업데이트 예외 발생");

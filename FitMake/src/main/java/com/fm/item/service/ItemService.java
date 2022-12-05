@@ -14,11 +14,12 @@ public interface ItemService {
 	public List<Map<String, Object>> itemSelectList(int cNo, String keyword, int start, int end, int older);
 	public Map<String, Object> itemSelectOne(int iNo);
 	
-	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest, int fileIdx) throws Exception;
+	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest, int imgNo) throws Exception;
 	
 	public void itemDeleteOne(int iNo);
 
 //-----------------------------------------------------------
 	
 	public int itemSelectTotalItemCount(int cNo, String keyword);
+	
 }

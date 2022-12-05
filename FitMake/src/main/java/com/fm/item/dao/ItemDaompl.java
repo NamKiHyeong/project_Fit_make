@@ -95,4 +95,11 @@ public class ItemDaompl implements ItemDao{
 		map.put("keyword", keyword);
 		return sqlSession.selectOne(namespace + "itemSelectTotalItemCount", map);
 	}
+	
+	@Override
+	public int reviewSelectTotalReviewCount(int iNo){
+//		public Map<String, Object> reviewSelectTotalReviewCount(int iNo){
+		System.out.println("item daompl에서 리뷰 값을 가져오기 위한 iNo 값이 제대로 들어오나?" + iNo);
+		return sqlSession.selectOne("com.fm.review.reviewSelectTotalReviewCount", iNo);
+	}
 }

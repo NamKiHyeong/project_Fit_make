@@ -88,10 +88,10 @@
 		WHERE FM_REVIEW_IMG_NO = ${value}
 	</delete>
 	
-	<select id=" reviewSelectTotalReviewCount" resultType="int" parameterType="map">
+	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
 		SELECT COUNT(*)
 		FROM FM_REVIEW
-<!-- 		<include refid="search"></include> -->
-	
+		WHERE FM_ITEM_NO = ${value}
 	</select>
+	
 </mapper>

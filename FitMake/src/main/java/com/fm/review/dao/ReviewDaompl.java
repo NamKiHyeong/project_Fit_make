@@ -82,13 +82,14 @@ public class ReviewDaompl implements ReviewDao {
 	}
 	
 	@Override
-	public int  reviewSelectTotalReviewCount(int iNo) {
+	public int reviewSelectTotalReviewCount(int iNo) {
+//		public Map<String, Object> reviewSelectTotalReviewCount(int iNo) {
 //		public int  reviewSelectTotalReviewCount(int iNo, String keyword) {
-		Map<String, Object> map = new HashMap<>();
-		map.put("iNo", iNo);
+//		Map<String, Object> map = new HashMap<>();
+//		map.put("iNo", iNo);
 		
 //		map.put("keyword", keyword);
-		return sqlSession.selectOne(namespace + " reviewSelectTotalReviewCount", map);
+		return sqlSession.selectOne(namespace + "reviewSelectTotalReviewCount", iNo);
 		
 	}
 }

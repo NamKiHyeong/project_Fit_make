@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.item.dao.ItemDao;
 import com.fm.item.model.ItemDto;
+import com.fm.review.dao.ReviewDao;
 import com.fm.util.FileUtils;
 
 @Service
@@ -27,6 +28,9 @@ public class ItemServicempl implements ItemService {
 
 	@Autowired
 	public ItemDao itemDao;
+	
+	@Autowired
+	public ReviewDao reviewDao;
 
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtiles;
@@ -76,10 +80,13 @@ public class ItemServicempl implements ItemService {
 			int iNo = itemDto.getiNo();
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
+			int review = reviewDao.reviewSelectTotalReviewCount(iNo);
+			log.info("review의 값이 잘 들어옴? {}" , review);
+//			Map<String, Object> reviewMap = (Map<String, Object>) review;
 			
 			map.put("fileMap", fileMap);
 			map.put("itemDto", itemDto);
-			
+			map.put("review", review);
 			list.add(map);
 		}
 		
@@ -92,7 +99,10 @@ public class ItemServicempl implements ItemService {
 		
 		return itemDao.itemSelectTotalItemCount(cNo, keyword);
 	}
-	
+//	@Override
+//	public int reviewSelectTotalReviewCount(int iNo) {
+//		return itemDao.reviewSelectTotalReviewCount(iNo);
+//	}
 	@Override
 	public Map<String, Object> itemSelectOne(int iNo) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();

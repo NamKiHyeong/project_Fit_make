@@ -45,17 +45,28 @@
 
 	function deleteFileFnc(){
 		
-	   var obj = $('#imgInfo');
+	   var obj = $('#imgInfo2');
 	   
 	   var htmlStr = "";
-	   htmlStr += '<div style="height: 500px;"></div>';
-	   htmlStr += '사진 <input type="file" id="file" name="file">';
-	   htmlStr += '<a href="#" onclick="deleteFileFnc();">삭제</a>';
+	   htmlStr += '<div style="height: 400px;"></div>';
+	   htmlStr += '사진 <input type="file" id="file" onchange="" name="file">';
+	   htmlstr += '<a href="#" onclick="deleteFileFnc();">삭제</a>';
 	   
 	   obj.html(htmlStr);
 
 	}
+	function imgEmptyCheckFnc(){
+		var itemImgObj = document.getElementById("itemImgNo"); 
 		
+		if(itemImgObj == null){
+			alert("사진이 없습니다.");
+		} else{
+			var itemUpdateCtrFormObj = document.getElementById("itemFormObj");
+			itemUpdateCtrFormObj.submit();
+		} 
+		
+		
+	}
 </script>
 </head>
 <body>
@@ -69,10 +80,11 @@
 			
 		<div class="diet_wrap">	
 			<div class="frame">
-				<!-- type="file"가 파일 선택임 -->
 				<div id="imgInfo" class="sortImg sort1">
-					<input type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
+					<input id="itemImgNo" type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
+<!-- 					<div id="imgInfo2"> -->
 					<img id="itemImg" alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+<!-- 					</div> -->
 					<input type="file" id="file" name="file">
 					<a href="#" onclick="deleteFileFnc();">삭제</a>
 				</div>
@@ -83,7 +95,7 @@
 					<p><span>칼로리</span>	 	<input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
 					<p><span>재 &nbsp; 고</span>	<input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" ></p>
 					
-					<input id='itemFormSubmitBtn' class="itemCtr" type="submit" value="수정완료">
+					<input id='itemFormSubmitBtn' class="itemCtr" type="button" onclick="imgEmptyCheckFnc()" value="수정완료">
 					
 					<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveBefore(${prevMap.curPage}, ${prevMap.cNo}, ${itemDto.iNo});">
 					

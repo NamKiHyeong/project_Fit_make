@@ -59,7 +59,6 @@ public class ItemController {
 		}
 		logger.info("카테고리 번호 있나?", itemDto.getcNo());
 		
-		
 		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 	
@@ -74,7 +73,8 @@ public class ItemController {
  */
 	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
-			, @RequestParam int cNo
+//			, @RequestParam int cNo
+			, ItemDto itemDto
 			, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "0") int older
 			, Model model) {
@@ -82,18 +82,22 @@ public class ItemController {
 		
 		logger.info("제품 리스트로 옴 {}" + model);
 		logger.info("curPage {} " , curPage);
-		logger.info("cNo {} " , cNo);
+		logger.info("cNo {} " , itemDto.getcNo());
 		logger.info("older {} " , older);
 		logger.info("keyword: {} ", keyword);
 		
 		
-		int totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword);
+		int totalItemCount = itemService.itemSelectTotalItemCount(itemDto.getcNo(), keyword);
+		
+		
 		Paging itemPaging = new Paging(totalItemCount, curPage);
 		int start = itemPaging.getPageBegin();
 		int end = itemPaging.getPageEnd();
 //		---------------
-		List<Map<String, Object>> itemList = itemService.itemSelectList(cNo, keyword, start, end, older);
-		logger.info("itemlList에 cNo {} " , cNo);
+		List<Map<String, Object>> itemList = itemService.itemSelectList(itemDto.getcNo(), keyword, start, end, older);
+		
+//		int totalReviewCount = itemService.reviewSelectTotalReviewCount(itemList.get);
+		logger.info("itemlList에 cNo {} " , itemDto.getcNo());
 		
 		Map<String, Object> searchMap = new HashMap<>();
 		searchMap.put("keyword", keyword);
@@ -101,10 +105,11 @@ public class ItemController {
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("itemPaging", itemPaging);
 		pagingMap.put("totalItemCount", totalItemCount);
+//		pagingMap.put("totalReviewCount", totalReviewCount);
 		pagingMap.put("older", older);
-		pagingMap.put("cNo", cNo);
+		pagingMap.put("cNo", itemDto.getcNo());
 		
-		logger.info("itemlList에 cNo {} " , cNo);
+		logger.info("itemlList에 cNo {} " , itemDto.getcNo());
 		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("pagingMap", pagingMap);

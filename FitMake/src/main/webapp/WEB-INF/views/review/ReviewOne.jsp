@@ -32,7 +32,7 @@
 				</div>
 				
 				<div class="sortImg sort2">
-					<h3>제목</h3><input type="text" name="rTitle" value="${reviewDto.rTitle}" readonly="readonly" style="padding:7px;width:600px;box-sizing:border-box;"><br>
+					<h3>제목</h3><input type="text" name="rTitle" style="padding:7px;width:600px;box-sizing:border-box;" value="${reviewDto.rTitle}" readonly="readonly"><br>
 					
 					<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> <textarea style="padding:10px;" rows="20" cols="80" name="rContent" readonly="readonly">${reviewDto.rContent}</textarea>
 					<c:if test="${_userDto_.uNo == reviewDto.uNo}">

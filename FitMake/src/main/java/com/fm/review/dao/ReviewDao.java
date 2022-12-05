@@ -24,5 +24,6 @@ public interface ReviewDao {
 	public void reviewDeleteOne(int iNo);
 	public int fileDelete(int iNo);
 	public int reviewSelectTotalReviewCount(int iNo);
+//	public Map<String, Object> reviewSelectTotalReviewCount(int iNo);
 //	public int reviewSelectTotalReviewCount(int iNo, String keyword);
 }
