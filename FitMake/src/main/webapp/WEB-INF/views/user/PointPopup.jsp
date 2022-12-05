@@ -51,8 +51,6 @@
 		});
 
 		$("#pointAdd").click(function() {
-		var priceSelect = parseInt($("#priceSelect").val());
-
 			var priceSelect = parseInt($("#priceSelect").val());
 			$.ajax({
 				type : "post",

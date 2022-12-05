@@ -108,7 +108,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void userDelete(UserDto userDto) {
-
+		
 		sqlSession.delete(namespaceuser + "userDelete", userDto);
 	}
 	
