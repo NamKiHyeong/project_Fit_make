@@ -153,10 +153,10 @@ public class UserController {
 	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 alert(이동후 다시 로그인페이지)
 	 */
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(UserDto userDto, HttpSession session, Model model) {
-		logger.info("Welcome UserController loginCtr! " + userDto);
+	public String loginCtr(HttpSession session, Model model, String email, String password) {
+		logger.info("Welcome UserController loginCtr! " + email);
 		
-		userService.userExist(userDto);
+		UserDto userDto = userService.userExist(email, password);
 
 		String viewUrl = "";
 		// 회원 확인

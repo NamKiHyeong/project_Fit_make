@@ -28,10 +28,14 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserDto userExist(UserDto userDto) {
-		sqlSession.selectOne(namespaceuser + "userExist", userDto);
+	public UserDto userExist(String email, String password) {
 		
-		String existPwd = userDto.setHashpwd(userDto.getSalt(), userDto.getPassword());
+		HashMap<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("email", email);
+		
+		UserDto userDto = sqlSession.selectOne(namespaceuser + "userExist", paramMap);
+		
+		String existPwd = userDto.setHashpwd(userDto.getSalt(), password);
 		if (existPwd.equals(userDto.getPassword())) {
 			
 			return userDto;

@@ -62,7 +62,7 @@ public class UserDto {
 
 			e.printStackTrace();
 		}
-		System.out.println(sb.toString());
+		System.out.println(sb.toString() + "setHashpwd");
 		return sb.toString();
 	}
 

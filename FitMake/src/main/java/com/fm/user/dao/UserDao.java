@@ -13,7 +13,7 @@ public interface UserDao {
 
 	public List<Map<String, Object>> pointHistoryList(int uNo);
 
-	public UserDto userExist(UserDto userDto);
+	public UserDto userExist(String email, String password);
 
 	public int userInsertOne(UserDto userDto, String address);
 

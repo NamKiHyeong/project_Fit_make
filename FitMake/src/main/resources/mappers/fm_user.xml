@@ -17,7 +17,7 @@
 		<result column="FM_USER_SALT" property="salt" />
 	</resultMap>
 	<!-- //회원확인 -->
-	<select id="userExist" parameterType="userDto" resultType="com.fm.user.model.UserDto">
+	<select id="userExist" parameterType="map" resultMap="userResultMap">
 		SELECT FM_USER_NO,
 		FM_USER_NICKNAME, FM_USER_EMAIL,
 		FM_USER_POINT, FM_USER_PASSWORD,

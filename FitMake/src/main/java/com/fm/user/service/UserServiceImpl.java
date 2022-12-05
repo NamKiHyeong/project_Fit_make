@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto userExist(UserDto userDto) {
+	public UserDto userExist(String email, String password) {
 		
-		return userDao.userExist(userDto);
+		return userDao.userExist(email, password);
 	}
 
 	@Override
