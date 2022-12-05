@@ -89,104 +89,108 @@
 				</div>
 				
 				<form id="orderListForm">
-					<span>${orderDetailItem.FM_ORDER_DATE} 주문</span>
-					<div id="orderListDiv">
-						<div id="orderSummaryDiv">
-							<c:choose>
-								<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'pending'}">
-									<div class="orderStatuswWithBtn">
-										주문대기
-											<span>
-												<input type="button" value="주문취소">
-											</span>
-									</div>
-								</c:when>
-								<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'confirm'}">
-									<div class="orderStatuswWithBtn">
-										주문승인
-											<span>
-												<input type="button" value="주문취소">
-											</span>
-									</div>
-								</c:when>
-								<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'cancel'}">
-									<div class="orderStatuswWithBtn">
-										주문취소
-									</div>
-								</c:when>
-								<c:otherwise>
-									<div class="orderStatuswWithBtn">
-										구매확정
-											<span>
-												<input type="button" value="리뷰쓰기">
-											</span>
-									</div>
-								</c:otherwise>
-							</c:choose>
-						</div>
-						<div id="orderContainer">
-							<table id="orderTable">
-								<tr>
-									<td colspan="2" rowspan="3">
-										<img alt="image not founed" src="<c:url value='/image/${orderDetailItem.FM_ITEM_STORED_IMG_NAME}'/>">
-									</td>
-									<td class="orderTableDetail" colspan="2">
-										<c:choose>
-											<c:when test="${orderDetailItem.oCount == 1}">
-													${orderDetailItem.FM_ITEM_NAME}
-											</c:when>
-											<c:otherwise>
-												${orderDetailItem.FM_ITEM_NAME} 외 ${orderDetailItem.oCount-1}개
-											</c:otherwise>
-										</c:choose>
-									</td>
-								</tr>
-								<tr>
-									<td>
-									</td>
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td>
-									</td>
-									<td class="orderTableDetail">
-									${orderDetailItem.totalPrice}원
-									</td>
-								</tr>
-							</table>
-						</div>
-					</div>
-					<div id="">
-						<span>받는사람 정보</span>
-						<hr>
-						<table>
-							<tr>
-								<td class="buyerInfo">
-									받는사람
-								</td>
-								<td >
-									${orderDetailMyInfo.FM_USER_NICKNAME}
-								</td>
-							</tr>
-							<tr>
-								<td class="buyerInfo">
-									연락처
-								</td>
-								<td>
-									${orderDetailMyInfo.FM_USER_MOBILE}
-								</td>
-							</tr>
-							<tr>
-								<td class="buyerInfo">
-									받는주소
-								</td>
-								<td>
-									${orderDetailMyInfo.FM_USER_ADDRESS}
-								</td>
-							</tr>
-						</table>
-					</div>
+					<c:forEach var="orderDetailItem" items="${orderDetailItemList}" varStatus="status">
+						<c:if test="${status.index == 1}">
+							<span>${orderDetailItem.FM_ORDER_DATE} 주문</span>
+							<div id="orderListDiv">
+								<div id="orderSummaryDiv">
+									<c:choose>
+										<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'pending'}">
+											<div class="orderStatuswWithBtn">
+												주문대기
+													<span>
+														<input type="button" value="주문취소">
+													</span>
+											</div>
+										</c:when>
+										<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'confirm'}">
+											<div class="orderStatuswWithBtn">
+												주문승인
+													<span>
+														<input type="button" value="주문취소">
+													</span>
+											</div>
+										</c:when>
+										<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'cancel'}">
+											<div class="orderStatuswWithBtn">
+												주문취소
+											</div>
+										</c:when>
+										<c:otherwise>
+											<div class="orderStatuswWithBtn">
+												구매확정
+													<span>
+														<input type="button" value="리뷰쓰기">
+													</span>
+											</div>
+										</c:otherwise>
+									</c:choose>
+								</div>
+								<div id="orderContainer">
+									<table id="orderTable">
+										<tr>
+											<td colspan="2" rowspan="3">
+												<img alt="image not founed" src="<c:url value='/image/${orderDetailItem.FM_ITEM_STORED_IMG_NAME}'/>">
+											</td>
+											<td class="orderTableDetail" colspan="2">
+												<c:choose>
+													<c:when test="${orderDetailItem.oCount == 1}">
+															${orderDetailItem.FM_ITEM_NAME}
+													</c:when>
+													<c:otherwise>
+														${orderDetailItem.FM_ITEM_NAME} 외 ${orderDetailItem.oCount-1}개
+													</c:otherwise>
+												</c:choose>
+											</td>
+										</tr>
+										<tr>
+											<td>
+											</td>
+											<td>
+											</td>
+										</tr>
+										<tr>
+											<td>
+											</td>
+											<td class="orderTableDetail">
+											${orderDetailItem.totalPrice}원
+											</td>
+										</tr>
+									</table>
+								</div>
+							</div>
+							<div id="">
+								<span>받는사람 정보</span>
+								<hr>
+								<table>
+									<tr>
+										<td class="buyerInfo">
+											받는사람
+										</td>
+										<td >
+											${orderDetailMyInfo.FM_USER_NICKNAME}
+										</td>
+									</tr>
+									<tr>
+										<td class="buyerInfo">
+											연락처
+										</td>
+										<td>
+											${orderDetailMyInfo.FM_USER_MOBILE}
+										</td>
+									</tr>
+									<tr>
+										<td class="buyerInfo">
+											받는주소
+										</td>
+										<td>
+											${orderDetailMyInfo.FM_USER_ADDRESS}
+										</td>
+									</tr>
+								</table>
+							</div>
+						</c:if>
+					</c:forEach>
 				</form>
 			</div>
 		</div>

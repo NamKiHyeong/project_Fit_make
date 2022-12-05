@@ -10,17 +10,19 @@
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function () {
-		$("#addBoardBtn").on("click", function(){
-			$("#boardAddForm").attr("action", "./add.do");
-			$("#boardAddForm").attr("method", "post");
-			$("#boardAddForm").submit();
-			
+		$('#addInquiryBtn').on('click', function(){
+			$('#inquiryAddForm').attr('action', './add.do');
+			$('#inquiryAddForm').attr('method', 'post');
+			$('#inquiryAddForm').submit();
 		});
 		
+		$('#addInquiryCancelBtn').on('click', function(){
+			location.href='./list.do';
+		});
 	});
 </script>
 <style type="text/css">
-	#boardAddRootDiv {
+	#inquiryAddRootDiv {
 		display: flex;
 		width : 1200px;
 		margin: 0px auto;
@@ -37,23 +39,23 @@
 		font-size: 26px;
 		font-weight: 600;
 	}
-	#boardAddForm{
+	#inquiryAddForm{
 		width: 1000px;
 	}
-	#boardAddDiv{
+	#inquiryAddDiv{
 		padding: 10px;
  		display: flex; 
 		flex-direction: column;
 		justify-content: space-between;
 	}
-	#boardAddContentArea{
+	#inquiryAddContentArea{
 		width: 950px;
 	}
-	.BoardAddRight{
+	.inquiryAddRight{
 		text-align: right;
 		width: 300px;
 	}
-	.BoardAddLeft{
+	.inquiryAddLeft{
 		width: 650px;
 	}
 	#bContent{
@@ -61,15 +63,24 @@
 	    height: 500px;
 	    resize: none;
 	}
-	#boardAddbtnArea{
+	#inquiryAddbtnArea{
 		text-align: right;
+	}
+	.inquiryBtn {
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
 	}
 </style>
 <title>FitMake</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<div id="boardAddRootDiv">
+	<div id="inquiryAddRootDiv">
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="inquiryAdd">
 			<jsp:include page="../MyPageNav.jsp" />
@@ -79,31 +90,31 @@
 		
 			<hr id="headHr">
 			
-			<form id="boardAddForm">
-				<div id="boardAddDiv">
-					<table id="boardAddTable">
+			<form id="inquiryAddForm">
+				<div id="inquiryAddDiv">
+					<table id="inquiryAddTable">
 						<tr>
-							<td colspan="4" class="BoardAddLeft">
+							<td colspan="4" class="inquiryAddLeft">
 								제목	<input id="bTitle" type="text" name="bTitle" value="" placeholder="제목을 입력해 주세요." style="width: 600px;">
 							</td>
-							<td class="BoardAddRight">
+							<td class="inquiryAddRight">
 								<span>
 									작성자 <input type="text" value="${_userDto_.getNickName()}" readonly="readonly">
 								</span> 
 							</td>
 						</tr>
 						<tr>
-							<td colspan="5" id="boardAddContentArea">
+							<td colspan="5" id="inquiryAddContentArea">
 								<textarea id="bContent" name="bContent" placeholder="내용을 입력해 주세요."></textarea>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="4" class="BoardAddLeft">
+							<td colspan="4" class="inquiryAddLeft">
 								
 							</td>
-							<td id="boardAddbtnArea" class="BoardAddRight">
-								<input type="button" id="addBoardBtn" value="작성">
-								<input type="button" value="취소">
+							<td id="inquiryAddbtnArea" class="inquiryAddRight">
+								<input type="button" class="inquiryBtn" id="addInquiryBtn" value="작성">
+								<input type="button" class="inquiryBtn" id="addInquiryCancelBtn" value="취소" >
 							</td>
 						</tr>
 					</table>

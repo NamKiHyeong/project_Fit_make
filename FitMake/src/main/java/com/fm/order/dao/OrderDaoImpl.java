@@ -212,9 +212,9 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public Map<String, Object> viewOrderDetailItem(int oNo) {
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo) {
 		
-		return sqlSession.selectOne(namespace + "viewOrderDetailItem", oNo);
+		return sqlSession.selectList(namespace + "viewOrderDetailItem", oNo);
 	}
 
 		

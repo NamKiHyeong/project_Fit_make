@@ -34,10 +34,6 @@
 		})
 	})
 	
-	function backToOrderListFnc(){
-		location.href = './list.do';
-	}
-	
 	function backToCartListFnc(){
 		location.href = '../cart/list.do';
 	}
@@ -54,7 +50,7 @@
 		width: 1000px;
 	}
 	#titleDiv{
-		margin-top: 100px;
+		margin-top: 0px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -62,8 +58,13 @@
 		font-size: 40px;
 		font-weight: 600;
 	}
-	#orderConfirmSummary, #buyerInfoOuterDiv
-	, #deliveryInfoOuterDiv {
+	#orderConfirmSummary{
+		border : 1px solid black;
+		border-collapse: collapse;
+		border-radius : 5px;
+		padding: 10px;
+	}
+	#buyerInfoOuterDiv, #deliveryInfoOuterDiv {
 		border : 1px solid black;
 		border-collapse: collapse;
 		border-radius : 5px;
@@ -91,28 +92,52 @@
 	.orderConfirmP{
 		display: table;
 		table-layout: fixed;
-		width: 100%;
+		width: 90%;
+		text-align: center;
+	}
+	.orderConfirmItemName{
+		display:table-cell;
+   		vertical-align: middle;
+   		border-right: 1px solid black;
+		padding-left: 20px;
+		text-align: left;
 	}
 	.orderConfirmItem{
 		display:table-cell;
    		vertical-align: middle;
+   		border-right: 1px solid black;
+		padding-left: 20px;
 	}
 	#buyerInfoTitle{
 		font-size: 20px;
 		font-weight: 450;
 	}
-	
 	#buyerInfoDiv{
-		margin-left: 10px;
+		position: relative;
+		margin: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
  	.buyerInfo{
  		display: table;
 		table-layout: fixed;
 		width: 100%;
+		border: 1px solid black;
+		padding-left: 20px;
  	} 
+ 	.buyerInfoContentHead{
+ 		display:table-cell;
+ 		width: 75px;
+ 		text-align: center;
+ 		border-right: 1px solid black;
+   		vertical-align: middle;
+   		background: #f5f5f5;
+		padding: 20px 0px 20px 0px; 
+ 	}
  	.buyerInfoContent{
  		display:table-cell;
    		vertical-align: middle;
+   		padding: 20px 20px 20px 20px;
  	}
  	
  	#deliveryInfoTitle{
@@ -121,16 +146,31 @@
 	}
  	
  	#deliveryInfoDiv{
-		margin-left: 10px;
+		position: relative;
+		margin: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
  	.deliveryInfo{
  		display: table;
 		table-layout: fixed;
 		width: 100%;
+		border: 1px solid black;
+		padding-left: 20px;
  	} 
+ 	.deliveryInfoContentHead{
+ 		display:table-cell;
+ 		width: 75px;
+ 		border-right: 1px solid black;
+ 		text-align: center;
+   		vertical-align: middle;
+   		background: #f5f5f5;
+		padding: 20px 0px 20px 0px;
+ 	}
  	.deliveryInfoContent{
  		display:table-cell;
    		vertical-align: middle;
+   		padding: 20px 20px 20px 20px;
  	}
 	.deliveryAdress{
 		width: 300px;
@@ -145,11 +185,24 @@
 	#totalPrice{
 		font-size: 30px;
 		font-weight: 450;
+		padding-right: 40px;
+		text-align: right;
 	}
 	#confirmForm {
 		padding: 10px;
 		text-align: right;
-		
+	}
+	#orderCancelBtn, #orderConfirmBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
+	#totalSummaryDiv{
+		padding-left: 10px;
 	}
 </style>
 <title>FitMake</title>
@@ -175,7 +228,7 @@
 				<div id="orderConfirmDiv">
 					<c:forEach var="orderConfirmItem" items="${orderConfirmItemList}">
 						<p class="orderConfirmP">
-							<span class="orderConfirmItem">${orderConfirmItem.FM_ITEM_NAME}</span>
+							<span class="orderConfirmItemName">${orderConfirmItem.FM_ITEM_NAME}</span>
 							<span class="orderConfirmItem">
 								<span>${orderConfirmItem.FM_ORDER_DETAIL_COUNT}개</span>
 							</span>
@@ -192,13 +245,13 @@
 				<div id="buyerInfoDiv">
 					<p id="buyerInfoTitle">구매자 정보</p>
 					<p class="buyerInfo">
-						<span class="buyerInfoContent">이름</span>
+						<span class="buyerInfoContentHead">이름</span>
 						<span class="buyerInfoContent">
 							<span>${orderConfirmMyInfo.FM_USER_NICKNAME}</span>
 						</span>
 					</p>
 					<p class="buyerInfo">
-						<span class="buyerInfoContent">연락처</span>
+						<span class="buyerInfoContentHead">연락처</span>
 						<span class="buyerInfoContent">
 							<span>${orderConfirmMyInfo.FM_USER_MOBILE}</span>
 						</span>
@@ -209,14 +262,14 @@
 				<div id="deliveryInfoDiv">
 					<p id="deliveryInfoTitle">배송 정보</p>
 					<p class="deliveryInfo">
-						<span class="deliveryInfoContent">이름</span>
+						<span class="deliveryInfoContentHead">이름</span>
 						<span class="deliveryInfoContent">
 							<span>${orderConfirmMyInfo.FM_USER_NICKNAME}</span>
 							<span></span>
 						</span>
 					</p>
 					<p class="deliveryInfo">
-						<span class="deliveryInfoContent">
+						<span class="deliveryInfoContentHead">
 							주소
 						</span>
 						<span class="deliveryInfoContent">
@@ -226,7 +279,7 @@
 						</span>
 					</p>
 					<p class="deliveryInfo">
-						<span class="deliveryInfoContent">
+						<span class="deliveryInfoContentHead">
 							연락처
 						</span>
 						<span class="deliveryInfoContent">
@@ -257,7 +310,6 @@
 					<c:forEach var="ctNo" items="${ctNo}">
 						<input type="hidden" name="ctNo" value="${ctNo}">
 					</c:forEach>
-				<input type="button" value="주문리스트로" onclick="backToOrderListFnc();">
 				</form>
 			</div>
 		</div>

@@ -44,7 +44,7 @@ public class BoardController {
 		int start = iqPaging.getPageBegin();
 		int end = iqPaging.getPageEnd();
 		
-		List<Map<String, Object>> BoardMapList = boardService.viewBoardList(uNo, start, end);
+		List<Map<String, Object>> inquiryMapList = boardService.viewBoardList(uNo, start, end);
 		
 		
 		Map<String, Object> iqPagingMap = new HashMap<String, Object>();
@@ -54,7 +54,7 @@ public class BoardController {
 		iqPagingMap.put("start", start);
 		iqPagingMap.put("end", end);
 		
-		model.addAttribute("BoardMapList", BoardMapList);
+		model.addAttribute("inquiryMapList", inquiryMapList);
 		model.addAttribute("iqPagingMap", iqPagingMap);
 		
 		viewUrl = "/inquiry/InquiryBoardList";
@@ -91,9 +91,9 @@ public class BoardController {
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		
-		Map<String, Object> boardMap = boardService.viewBoardDetail(uNo, bNo);
+		Map<String, Object> inquiryMap = boardService.viewBoardDetail(uNo, bNo);
 		
-		model.addAttribute("boardMap", boardMap);
+		model.addAttribute("inquiryMap", inquiryMap);
 		
 		viewUrl = "/inquiry/InquiryBoardDetail";
 		

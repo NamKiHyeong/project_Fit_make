@@ -132,7 +132,7 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Map<String, Object> viewOrderDetailItem(int oNo) {
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo) {
 		
 		return orderDao.viewOrderDetailItem(oNo);
 	}

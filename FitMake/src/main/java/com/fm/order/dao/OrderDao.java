@@ -43,7 +43,7 @@ public interface OrderDao {
 
 	public Object countMyOrderStatus(int uNo, String oStatus);
 
-	public Map<String, Object> viewOrderDetailItem(int oNo);
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo);
 
 	
 }

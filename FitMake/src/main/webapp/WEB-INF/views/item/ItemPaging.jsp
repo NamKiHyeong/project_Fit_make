@@ -9,8 +9,8 @@ nav > ul{
 	list-style-type: none;
 	padding: 0px;
 	overflow: hidden;
-	background-color: #333333;
-/*  	width: 700px;  */
+	background: #d7266d;
+	border: 2px solid #d7266d;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
@@ -29,16 +29,17 @@ nav > ul > li > a{
 }
 
 nav > ul > li > a:hover {
-	color: #FFD9EC;
-	background-color: #5D5D5D;
+	color: #ffffff;
+	background-color: #a41d53;
 	font-weight: bold;
 }
 
 .active {
-	color: #FFD9EC;
-    background-color: #5D5D5D;
+	color: #ffffff;
+    background-color: #a41d53;
     font-weight: bold;
 }
+
 
 </style>
 

@@ -107,6 +107,24 @@
 		display:flex;
 		justify-content: space-between
 	}
+	#searchBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
+	#orderUpdateBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
 </style>
 <title>FitMake</title>
 </head>
