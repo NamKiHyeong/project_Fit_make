@@ -12,41 +12,53 @@
 	
 </script>
 <style type="text/css">
-	#boardRootDiv {
+	#boardDetailRootDiv {
+		display: flex;
 		width : 1200px;
 		margin: 0px auto;
-		align-content: left;
- 		align-items: left; 
+		justify-content: space-between;
 	}
-	#headTitle {
-		font-size: 40px;
+	#inquiryDetail{
+		width: 1000px;
 	}
-	#headTable {
-		width: 80%;
-		margin-top: 5%;
-		margin-left: 3%;
-		padding-left: 6.5%;
-		text-align: left;
+	#inquiryDetailReply{
+		display: flex;
+		flex-direction: column;
 	}
-	#headHr {
-		width: 75%;
-		margin-left: 10%;
-		margin-top: 2.4%
+	#titleDiv{
+		position: relative;
+		overflow: hidden;
 	}
-	
-	#fncDiv{
+	#inquiryDetailTitle{
+		font-size: 26px;
+		font-weight: 600;
+	}
+	#inquiryDetailform{
+		width: 1000px;
+	}
+	#inquiryDetailDiv{
+		padding: 10px;
+ 		display: flex; 
+		flex-direction: column;
+		justify-content: space-between;
+	}
+	#inquiryDetailTable > tr > td{
+		margin-top: 10px;
+	}
+	.inquiryDetailHead{
 		text-align: right;
-		margin-top: 2%; 
 	}
-	#searchSection {
-		float: left;
-		width: 40%;
+	#inquiryDetailWriter{
 		text-align: left;
-		margin-left: 5%;
 	}
-	#btnSection{
-		float: right;
-		width: 30%;
+	#inquiryDetailContent{
+		width: 100%;
+	    height: 500px;
+		border: none;
+		vertical-align: top;
+	}
+	#inquiryDetailbtnArea{
+		width: 100px;
 		text-align: right;
 	}
 </style>
@@ -56,62 +68,61 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<div id="boardRootDiv">
+	<div id="boardDetailRootDiv">
 	<jsp:include page="../MyPageLeft.jsp" />
-		<div id="titleDiv">
-			<table id="headTable">
-				<tr>
-					<th id="headTitle">문의게시판</th>
-				</tr>
-			</table>
-			<hr id="headHr">
+		<div id="inquiryDetail">
+			<div id="inquiryDetailReply">
+				<jsp:include page="../MyPageNav.jsp" />
+				<div id="titleDiv">
+					<p id="inquiryDetailTitle">문의상세내용</p>
+					<hr>
+				</div>
+	
+				<form id="inquiryDetailform">
+					<div id="inquiryDetailDiv">
+						<table id="inquiryDetailTable">
+							<tr>
+								<td colspan="4">
+									${boardMap.FM_INQUIRY_TITLE}
+								</td>
+								<td>
+									<input type="hidden" id="bNo" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
+								</td>
+							</tr>
+							<tr>
+								<td colspan="2" id="inquiryDetailWriter">
+								${boardMap.FM_USER_NICKNAME}
+								</td>
+								<td >	
+								</td>
+								<td class="inquiryDetailHead">
+									작성일 ${boardMap.FM_INQUIRY_CRE_DATE}
+								</td>
+								<td class="inquiryDetailHead">
+									댓글수 ${boardMap.igrCount}
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5" id="inquiryDetailContent">
+									${boardMap.FM_INQUIRY_CONTENT}
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									
+								</td>
+								<td id="inquiryDetailbtnArea">
+									<input type="button" value="수정">
+									<input type="button" value="삭제" onclick="location.href='./delete.do?bNo=${boardMap.FM_INQUIRY_NO}'">
+									<input type="button" value="목록" onclick="location.href='./list.do'">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+			<jsp:include page="/WEB-INF/views/inquiry/InquiryReply.jsp" />
 		</div>
 	</div>
-	
-	<form id="form">
-		<table>
-			<tr>
-				<td colspan="4">
-					<input type="text" name="bTitle" value="${boardMap.FM_INQUIRY_TITLE}">
-				</td>
-				<td>
-					<input type="hidden" id="bNo" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
-				</td>
-			</tr>
-				<tr>
-					<td colspan="2">
-						
-					</td>
-					<td>
-						${boardMap.FM_USER_NICKNAME}
-					</td>
-					<td>
-						${boardMap.FM_INQUIRY_CRE_DATE}
-					</td>
-					<td>
-						${boardMap.igrCount}
-					</td>
-				</tr>
-				<tr>
-					<td colspan="5">
-						<div>
-							${boardMap.FM_INQUIRY_CONTENT}
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						
-					</td>
-					<td>
-						<input type="button" value="수정">
-						<input type="button" value="삭제" onclick="location.href='./delete.do?bNo=${boardMap.FM_INQUIRY_NO}'">
-						<input type="button" value="목록">
-					</td>
-				</tr>
-		</table>
-	</form>
-	
-	<jsp:include page="/WEB-INF/views/inquiry/InquiryReply.jsp" />
 </body>
 </html>

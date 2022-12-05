@@ -22,13 +22,10 @@
 	<select id="viewBoardList" parameterType="map" resultType="map">
 		SELECT *
 		FROM (SELECT iql.FM_INQUIRY_NO, iql.FM_INQUIRY_TITLE, iql.FM_INQUIRY_CRE_DATE, iql.FM_USER_NO
-					, iql."igrCount", ROW_NUMBER() OVER(PARTITION BY iql.FM_INQUIRY_NO ORDER BY iql.FM_INQUIRY_CRE_DATE DESC) as "bCount"
+					, ROW_NUMBER() OVER(PARTITION BY iql.FM_INQUIRY_NO ORDER BY iql.FM_INQUIRY_CRE_DATE DESC) as "bCount"
 					, DENSE_RANK() OVER(ORDER BY iql.FM_INQUIRY_NO DESC) as "rNum" 
-				FROM(	SELECT iq.FM_INQUIRY_NO, iq.FM_INQUIRY_TITLE, iq.FM_INQUIRY_CRE_DATE, iq.FM_USER_NO
-							, COUNT(igr.FM_INQUIRY_NO) OVER(PARTITION BY igr.FM_INQUIRY_NO) "igrCount" 
-						FROM FM_INQUIRY iq
-							INNER JOIN FM_INQUIRY_REPLY igr
-								ON iq.FM_INQUIRY_NO = igr.FM_INQUIRY_NO
+				FROM(	SELECT FM_INQUIRY_NO, FM_INQUIRY_TITLE, FM_INQUIRY_CRE_DATE, FM_USER_NO
+						FROM FM_INQUIRY 
 					) iql
 			) iqll
 		WHERE iqll."rNum" BETWEEN #{start} AND #{end}
@@ -46,6 +43,8 @@
 	<select id="viewBoardDetail" parameterType="map" resultType="map">
 		SELECT *
 		FROM FM_INQUIRY iq
+			INNER JOIN FM_USER u
+				ON iq.FM_USER_NO = u.FM_USER_NO
 		WHERE iq.FM_USER_NO = #{uNo}
 		AND iq.FM_INQUIRY_NO = #{bNo}
 	</select>
@@ -64,18 +63,20 @@
 	
 	<insert id="addReply" parameterType="replyDto"
 				useGeneratedKeys="true" keyProperty="irParentNo">
-		<selectKey keyProperty="irParentNo" resultType="int" order="BEFORE">
-			SELECT *
-			FROM (SELECT FM_INQUIRY_REPLY_NO, ROWNUM "rNum", FM_INQUIRY_NO
-					FROM FM_INQUIRY_REPLY 
-					ORDER BY FM_INQUIRY_REPLY_CRE_DATE DESC
+		<selectKey keyProperty="irParentNo" resultType="int" order="BEFORE" >
+			SELECT irr.FM_INQUIRY_REPLY_NO
+			FROM ( SELECT ROWNUM "rNum", igr.FM_INQUIRY_REPLY_NO, igr.FM_INQUIRY_NO
+					FROM( SELECT FM_INQUIRY_REPLY_NO, FM_INQUIRY_NO
+							FROM FM_INQUIRY_REPLY 
+							WHERE FM_INQUIRY_NO = #{bNo} 
+							ORDER BY FM_INQUIRY_REPLY_CRE_DATE DESC
+						) igr
 					) irr
-			WHERE irr.FM_INQUIRY_NO = #{bNo} 
-			AND irr."rNum" = 1 
-		</selectKey>
+			WHERE irr."rNum" = 1
+ 		</selectKey>
 		INSERT INTO FM_INQUIRY_REPLY
 		VALUE(FM_INQUIRY_REPLY_NO, FM_USER_NO, FM_INQUIRY_NO, FM_INQUIRY_REPLY_CONTENT, FM_INQUIRY_REPLY_CRE_DATE, FM_INQUIRY_REPLY_PARENT)
-		VALUES(SEQ_FM_INQUIRY_REPLY_NO.NEXTVAL, #{uNo}, #{bNo}, #{irContent}, SYSDATE, #{irParentNo})
+		VALUES(SEQ_FM_INQUIRY_REPLY_NO.NEXTVAL, #{uNo}, #{bNo}, #{irContent}, SYSDATE, #{irParentNo, jdbcType=NUMERIC})
 	</insert>
 	
 	<select id="viewReplyList" parameterType="replyDto" resultType="map">

@@ -122,83 +122,83 @@
 					<p id="orderManageTitle">주문관리</p>
 				</div>
 			
-			<form id="orderListForm">
-				<div id="orderListDiv">
-					<table id="orderManageTable">
-						<tr>
-							<td id="titleCheckArea" class="titleTd">
-								<input type="checkbox" id="checkAll" value="">
-							</td>
-							<td class="titleTd">주문날짜</td>
-							<td class="titleTd">주문명</td>
-							<td class="titleTd">주문금액</td>
-							<td class="titleTd">주문자</td>
-							<td class="titleTd">운송장</td>
-							<td class="titleTd">주문상태</td>
-						</tr>
-					<c:forEach var="orderMap" items="${orderMapList}">
-						<c:if test="${orderMap.oRownum eq '1'}">
+				<form id="orderListForm">
+					<div id="orderListDiv">
+						<table id="orderManageTable">
 							<tr>
-								<td id="orderCheckArea">
-									<input type="checkbox" id="cbNo${orderMap.FM_ORDER_NO}" name="orderCheckbox" value="${orderMap.FM_ORDER_NO}">
+								<td id="titleCheckArea" class="titleTd">
+									<input type="checkbox" id="checkAll" value="">
 								</td>
-								<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
+								<td class="titleTd">주문날짜</td>
+								<td class="titleTd">주문명</td>
+								<td class="titleTd">주문금액</td>
+								<td class="titleTd">주문자</td>
+								<td class="titleTd">운송장</td>
+								<td class="titleTd">주문상태</td>
+							</tr>
+						<c:forEach var="orderMap" items="${orderMapList}">
+							<c:if test="${orderMap.oRownum eq '1'}">
+								<tr>
+									<td id="orderCheckArea">
+										<input type="checkbox" id="cbNo${orderMap.FM_ORDER_NO}" name="orderCheckbox" value="${orderMap.FM_ORDER_NO}">
+									</td>
+									<td id="orderDate">${orderMap.FM_ORDER_DATE}</td>
+									<td>
+										<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
+											<c:choose>
+													<c:when test="${orderMap.oCount == 1}">
+															${orderMap.FM_ITEM_NAME}
+													</c:when>
+													<c:otherwise>
+														${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
+													</c:otherwise>
+											</c:choose>
+										</a>
+									</td>
+									<td>${orderMap.totalPrice}</td>
+									<td>${orderMap.FM_USER_NICKNAME}</td>
+									<td>1111</td>
+									<td>
+										<select id="oStatus${orderMap.FM_ORDER_NO}"
+											name="oStatus">
+												<option value="pending">대기</option>
+												<option value="confirm">승인</option>
+												<option value="cancel">취소</option>
+												<option value="pixed">구매확정</option>
+										</select>
+										<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
+									</td>
+								</tr>
+							</c:if>
+							</c:forEach>
+							<c:if test="${orderMapList.size() < 1}">
+								<p id="orderViewTitleEmpty">주문 내역이 없습니다</p>
+							</c:if>
+							<tr>
 								<td>
-									<a id="orderName" onclick="viewDetailFnc(${orderMap.FM_ORDER_NO})">
-										<c:choose>
-												<c:when test="${orderMap.oCount == 1}">
-														${orderMap.FM_ITEM_NAME}
-												</c:when>
-												<c:otherwise>
-													${orderMap.FM_ITEM_NAME} 외 ${orderMap.oCount-1}개
-												</c:otherwise>
-										</c:choose>
-									</a>
-								</td>
-								<td>${orderMap.totalPrice}</td>
-								<td>${orderMap.FM_USER_NICKNAME}</td>
-								<td>1111</td>
-								<td>
-									<select id="oStatus${orderMap.FM_ORDER_NO}"
-										name="oStatus">
-											<option value="pending">대기</option>
-											<option value="confirm">승인</option>
-											<option value="cancel">취소</option>
-											<option value="pixed">구매확정</option>
-									</select>
-									<input type="hidden" id="orderStatus${orderMap.FM_ORDER_NO}" value="${orderMap.FM_ORDER_STATUS}" name="orderStatus">
+									<input type="hidden" id="oNoArr" value="" name="oNoArr">
+									<input type="hidden" id="oStatusArr" value="" name="oStatusArr">
 								</td>
 							</tr>
-						</c:if>
-						</c:forEach>
-						<c:if test="${orderMapList.size() < 1}">
-							<p id="orderViewTitleEmpty">주문 내역이 없습니다</p>
-						</c:if>
-						<tr>
-							<td>
-								<input type="hidden" id="oNoArr" value="" name="oNoArr">
-								<input type="hidden" id="oStatusArr" value="" name="oStatusArr">
-							</td>
-						</tr>
-					</table>
-				</div>
-				<div id="fncDiv">
-					<span id="searchSection">
-							<select id="searchOption" name="searchOption">
-									<option value="user">주문자</option>
-								<option value="oStatus">주문상태</option>
-							</select>
-							<input type="search" id="searchText" name="searchText" value="${searchMap.searchText}">
-							<input type="button" id="searchBtn" value="검색">
-					</span>
-					<span id="btnSection">
-						<input id="orderUpdateBtn" type="button" value="수정하기">
-					</span>
-				</div>
-			</form>
-		</div>
+						</table>
+					</div>
+					<div id="fncDiv">
+						<span id="searchSection">
+								<select id="searchOption" name="searchOption">
+										<option value="user">주문자</option>
+									<option value="oStatus">주문상태</option>
+								</select>
+								<input type="search" id="searchText" name="searchText" value="${searchMap.searchText}">
+								<input type="button" id="searchBtn" value="검색">
+						</span>
+						<span id="btnSection">
+							<input id="orderUpdateBtn" type="button" value="수정하기">
+						</span>
+					</div>
+				</form>
+			</div>
 		<jsp:include page="/WEB-INF/views/order/OrderPaging.jsp" />
-	</div>
+		</div>
 	</div>
 	
 	<div id="pagingSection">

@@ -43,7 +43,7 @@
 		font-size: 26px;
 		font-weight: 600;
 	}
-	#orderListDiv{
+	.orderListDiv{
 		border: 1px solid black;
 		border-radius: 10px;
 		padding: 10px;
@@ -101,7 +101,7 @@
 				<form id="orderListForm">
 					<c:forEach var="orderMap" items="${orderMapList}">
 						<c:if test="${orderMap.oRownum eq '1'}">
-							<div id="orderListDiv">
+							<div class="orderListDiv">
 								<div id="orderSummaryDiv">
 									${orderMap.FM_ORDER_DATE} 주문
 									<span id="orderDetailViewSpan">

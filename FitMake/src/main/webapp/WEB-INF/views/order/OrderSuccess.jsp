@@ -20,28 +20,50 @@
 </script>
 <style type="text/css">
 	#orderSuccessDiv{
-		width: 1200px;
+		display: flex;
+		width : 1200px;
+		margin: 0px auto;
+		justify-content: space-around;
+		flex-direction: column;
+		align-content: center;
+		align-items: center;
+		
+	}
+	#orderSuccessInnerDiv{
+ 		margin-top: 200px; 
+ 		text-align: center; 
+		width : 1000px;
+	}
+	#successBtn{
+		text-align: right;
+ 		
 	}
 	#successTextArea{
-		text-align: center;
-	}
-	#orderSuccessText{
 		font-size: 50px;
 		font-weight: 600;
 	}
 	#orderSuccessDiv{
 		align-items: right;
 	}
+	#successBtn{
+		margin-top: 200px;
+	}
+	
 </style>
 </head>
 <body>
 	<div>
 		<jsp:include page="/WEB-INF/views/Header.jsp" />
 		<div id="orderSuccessDiv">
-			<p id="successTextArea"><span id="orderSuccessText">주문에 성공하셨습니다.</span></p>
-			
-			<input id="orderListBtn" type="button" value="주문목록으로">
-			<input id="itemListBtn" type="button" value="제품목록으로">
+			<div id="orderSuccessInnerDiv">
+				<div id="successTextDiv">
+					<p id="successTextArea">주문에 성공하셨습니다.</p>
+				</div>
+				<div id="successBtn">
+					<input id="orderListBtn" type="button" value="주문목록으로">
+					<input id="itemListBtn" type="button" value="제품목록으로">
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

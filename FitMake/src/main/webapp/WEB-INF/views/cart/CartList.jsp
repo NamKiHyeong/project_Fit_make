@@ -29,17 +29,26 @@
 			}
 		});
 		
-		function getTotalCartSum(){
-			var totalPrice = 0;
-			$(".cartTotalPriceEach").each(function(){
-				totalPrice += $(this).innerHTML;
-		    });
-			$("#cartTotalPrice").text(totalPrice);
-		}
 		
-		viewCartSummaryFnc();
+		
 		getTotalCartSum();
+		viewCartSummaryFnc();
 	});
+	
+	function getTotalCartSum(){
+		var totalPrice = 0;
+		$(".cartTotalPriceEach").each(function(){
+			totalPrice += parseInt($(this).text());
+	    });
+		
+		var totalPriceTrans = new Intl.NumberFormat(
+				'ko-KR', {
+				style: 'currency',
+				currency: 'KRW'
+			}).format(totalPrice);
+		
+		$("#cartTotalPrice").text(totalPriceTrans);
+	}
 	
 	function countUpFnc(cartNo){
 		var ctNo = $("#ctNo" + cartNo).val();
@@ -212,6 +221,12 @@
 	#btnSection{
 		text-align: right;
 	}
+	#cartTotalPriceDiv{
+		font-size: 20px;
+		font-weight: 450;
+		text-align: right;
+		margin: 20px;
+	}
 </style>
 <title>장바구니</title>
 </head>
@@ -267,13 +282,13 @@
 						</div>
 					</c:otherwise>
 				</c:choose>
-				<div>
+				<div id="cartTotalPriceDiv">
 					<span id="cartTotalPrice"></span> 
 				</div>
 				<div id="btnSection">
 					<input type="hidden" id="itemClassCount" value="${cartMapList.size()}">
 					<input class="cartBtn" type="button" id="buyBtn" value="구매하기">
-					<input class="cartBtn" type="button" value="이전페이지">
+					<input class="cartBtn" type="button" value="메인화면으로" onclick="location.href='../main/main.do'">
 				</div>
 			</form>	
 		</div>		

@@ -12,117 +12,139 @@
 	
 </script>
 <style type="text/css">
-	#boardRootDiv {
+	#boardListRootDiv {
+		display: flex;
 		width : 1200px;
 		margin: 0px auto;
-		align-content: left;
- 		align-items: left; 
+		justify-content: space-between;
 	}
-	#headTitle {
-		font-size: 40px;
+	#pagingDiv{
+		display: flex;
+		flex-direction: column;
 	}
-	#headTable {
-		width: 80%;
-		margin-top: 5%;
-		margin-left: 3%;
-		padding-left: 6.5%;
-		text-align: left;
+	#inquiryList{
+		width: 1000px;
 	}
-	#headHr {
-		width: 75%;
-		margin-left: 10%;
-		margin-top: 2.4%
+	#titleDiv{
+		position: relative;
+		overflow: hidden;
+	}
+	#inquiryBoardTitle{
+		font-size: 26px;
+		font-weight: 600;
+	}
+	#inquiryForm{
+		margin-top: 20px; 
+	}
+	.boardListDiv{
+ 		display: flex; 
+		flex-direction: column;
+	}
+	.boardListTableTitle{
+		text-align: center;
+	}
+	#boardListTable{
+		border-spacing : 0px;
+	}
+	.boardListTr{
+		padding : 10px;
+		border-bottom: 1px solid black;
+		border-collapse: collapse; 
+	}
+	.boardListTitleTr > td{
+		border-spacing : 0px;
+		border-bottom: 1px solid black;
+		border-collapse: collapse; 
+		height: 30px;
+	}
+	.boardListContent{
+		text-align: center;
+		height: 30px;
+	}
+	#emptyTable{
+		font-size: 20px;
+		font-weight: 600;
+		text-align: center;
+	}
+	#AddInquiryBtnArea{
+		text-align: right;
+	}
+	#pagingNav {
+		display: flex;
 	}
 	
-	#fncDiv{
-		text-align: right;
-		margin-top: 2%; 
-	}
-	#searchSection {
-		float: left;
-		width: 40%;
-		text-align: left;
-		margin-left: 5%;
-	}
-	#btnSection{
-		float: right;
-		width: 30%;
-		text-align: right;
-	}
 </style>
 <title>주문관리</title>
 </head>
 <body>
-
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<div id="boardRootDiv">
-	<jsp:include page="../MyPageLeft.jsp" />
-		<div id="titleDiv">
-			<table id="headTable">
-				<tr>
-					<th id="headTitle">문의게시판 리스트</th>
-				</tr>
-			</table>
-			<hr id="headHr">
+	<div id="boardListRootDiv">
+		<jsp:include page="../MyPageLeft.jsp" />
+		<div id="pagingDiv">
+			<div id="inquiryList">
+				<jsp:include page="../MyPageNav.jsp" />
+				<div id="titleDiv">
+					<p id="inquiryBoardTitle">문의게시판</p>
+				</div>
+				<hr id="headHr">
+			
+	
+				<form id="inquiryForm">
+					<div class="boardListDiv">
+						<table id="boardListTable">
+							<c:if test="${BoardMapList.size() > 0}">
+								<tr class="boardListTitleTr">
+									<td>
+										
+									</td>
+									<td class="boardListTableTitle">
+										문의제목
+									</td>
+									<td class="boardListTableTitle">
+										댓글수
+									</td>
+									<td class="boardListTableTitle">
+										작성일
+									</td>
+								</tr>
+							</c:if>
+							<c:forEach var="boardMap" items="${BoardMapList}">
+								<tr class="boardListTr">
+									<td class="boardListContent">
+										<input type="hidden" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
+									</td>
+									<td class="boardListContent">
+										<a href="./detail.do?bNo=${boardMap.FM_INQUIRY_NO}">${boardMap.FM_INQUIRY_TITLE} </a>
+									</td>
+									<td class="boardListContent">
+										${boardMap.igrCount}
+									</td>
+									<td class="boardListContent">
+										${boardMap.FM_INQUIRY_CRE_DATE}
+									</td>
+								</tr>
+							</c:forEach>
+						
+							<c:if test="${BoardMapList.size() == 0}">
+								<tr>
+									<td id="emptyTable" colspan="4">
+										문의 내역이 없습니다
+									</td>
+								</tr>
+							</c:if>
+							<tr>
+								<td colspan="4" id="AddInquiryBtnArea">
+									<input type="button" value="문의하기" onclick="location.href='./add.do'">
+								</td>
+							</tr>
+						</table>
+					</div>
+				</form>
+			</div>
+		<jsp:include page="/WEB-INF/views/inquiry/InquiryPaging.jsp" />
 		</div>
 	</div>
-	
-	<form id="form">
-		<table>
-			<tr>
-				<td>
-					
-				</td>
-				<td>
-					문의제목
-				</td>
-				<td>
-					댓글수
-				</td>
-				<td>
-					작성일
-				</td>
-			</tr>
-			<c:forEach var="boardMap" items="${BoardMapList}">
-				<c:if test="${boardMap.bCount == 1}">
-					<tr>
-						<td>
-							<input type="hidden" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
-						</td>
-						<td>
-							<a href="./detail.do?bNo=${boardMap.FM_INQUIRY_NO}">${boardMap.FM_INQUIRY_TITLE} </a>
-						</td>
-						<td>
-						</td>
-						<td>
-							${boardMap.igrCount}
-						</td>
-						<td>
-							${boardMap.FM_INQUIRY_CRE_DATE}
-						</td>
-					</tr>
-				</c:if>
-			</c:forEach>
-			
-			<c:if test="${BoardMapList.size() == 0}">
-				<tr>
-					<td>
-						문의 내역이 없습니다
-					</td>
-				</tr>
-			</c:if>
-				<tr>
-					<td colspan="4">
-						<input type="button" value="문의하기" onclick="location.href='./add.do'">
-					</td>
-				</tr>
-		</table>
-		
-	</form>
-	
-	
-	<jsp:include page="/WEB-INF/views/inquiry/InquiryPaging.jsp" />
 	
 	<div id="pagingSection">
 		<form id="pagingForm" action="./list.do" method="get">

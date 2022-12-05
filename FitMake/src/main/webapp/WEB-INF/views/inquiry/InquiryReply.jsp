@@ -40,18 +40,12 @@
 			},
 			success : function(replyMapList) {
 				var str = "";
-				
 				$.each(replyMapList, function(key, value){
 					
-					str += '<div>';
-					str += '<input type="text" id="irContent' + i + '" name="irContent"'; 
-					str += 'value="' + value.FM_INQUIRY_REPLY_CONTENT + '" readonly="readonly">';
-					str += '</div>';
-					str += '<div>';
-					str += '<input type="text" value="' + value.FM_USER_NICKNAME + '">';
-					str += '</div>';
-					str += '<div>';
-					str += '<input type="text" value="' + value.FM_INQUIRY_REPLY_CRE_DATE + '">';
+					str += '<div class="viewReplyDetail">';
+					str += '<table class="replyTable"><tr><td class="replyContent" rowspan="2">' + value.FM_INQUIRY_REPLY_CONTENT + '</td>'
+					str += '<td class="replyWriter">' + value.FM_USER_NICKNAME + '</td></tr>';
+					str += '<tr><td class="replyDate">' + new Intl.DateTimeFormat('kr').format(value.FM_INQUIRY_REPLY_CRE_DATE) + '</td></tr></table>';
 					str += '</div>';
 					
 					i++
@@ -60,32 +54,69 @@
 				$("#replyListArea").html(str);
 			}
 		});
-		
-		
-		
 	});
 </script>
 <style type="text/css">
+	#addReplyArea{
+		width: auto;
+		height: 75px;
+		position: relative;
+		margin: 1px;
+	}
+	#irContent{
+		width: 80%;
+		border-radius: 2px;
+		height: 50px;
+		resize: none;
+		position: absolute;
+	}
+	#AddReplyBtn{
+		width : 100px;
+		height: 50px;
+		position: absolute;
+		left: 80%;
+ 		transform: translate(80%,5%); 
+	}
+	.viewReplyDetail{
+		width 800px;
+		position: relative;
+		margin: 5px;
+	}
+	.replyTable{
+		width: 800px;
+		border-bottom: 1px solid black;
+	}
+	.replyDate{
+		width: 200px;
+		text-align: right;
+	}
+	.replyWriter{
+		width: 200px;
+		text-align: right;
+	}
+	.replyContent{
+		width: 600px;
+		vertical-align: middle;
+	}
 </style>
 <title>댓글</title>
 </head>
 <body>
-	<div>
+	<div id="inquiryReplyDiv">
 		<hr>
-		<p><span>댓글</span></p>
-		<form action="">
+		<p>
+			<span>댓글</span>
+		</p>
+		<div id="addReplyArea">
 			<div>
 				<input type="hidden" id="irParentNo" name="irParentNo" value="">
 			</div>
 			<div>
-				<input type="text" id="irContent" name="irContent" value="">
-			</div>
-			<div>
+				<textarea id="irContent" name="irContent"></textarea>
 				<input id="AddReplyBtn" type="button" value="등록하기">
 			</div>
-		</form>
+		</div>
 		<div id="replyListArea">
-			
 		</div>
 	</div>
 </body>

@@ -39,23 +39,23 @@ public class BoardController {
 		
 		int totalCount = boardService.getBoardTotalCount(uNo);
 		
-		Paging igPaging = new Paging(totalCount, curPage);
+		Paging iqPaging = new Paging(totalCount, curPage);
 		
-		int start = igPaging.getPageBegin();
-		int end = igPaging.getPageEnd();
+		int start = iqPaging.getPageBegin();
+		int end = iqPaging.getPageEnd();
 		
 		List<Map<String, Object>> BoardMapList = boardService.viewBoardList(uNo, start, end);
 		
 		
-		Map<String, Object> igPagingMap = new HashMap<String, Object>();
+		Map<String, Object> iqPagingMap = new HashMap<String, Object>();
 		
-		igPagingMap.put("igPaging", igPaging); 
-		igPagingMap.put("totalCount",totalCount);
-		igPagingMap.put("start", start);
-		igPagingMap.put("end", end);
+		iqPagingMap.put("iqPaging", iqPaging); 
+		iqPagingMap.put("totalCount",totalCount);
+		iqPagingMap.put("start", start);
+		iqPagingMap.put("end", end);
 		
 		model.addAttribute("BoardMapList", BoardMapList);
-		model.addAttribute("igPagingMap", igPagingMap);
+		model.addAttribute("iqPagingMap", iqPagingMap);
 		
 		viewUrl = "/inquiry/InquiryBoardList";
 		
