@@ -60,10 +60,10 @@ public class UserController {
 		userDto.setSalt(salt);
 		userDto.setPassword(password);
 		
-		userService.userExist(userDto);
+//		userService.userExist(userDto);
 		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
-		userService.addRecommendItem(userDto);
+//		userService.addRecommendItem(userDto);
 		
 		return "redirect:/auth/login.do";
 	}
