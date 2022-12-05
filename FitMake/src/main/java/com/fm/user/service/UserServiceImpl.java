@@ -185,4 +185,18 @@ public class UserServiceImpl implements UserService {
 		 userDao.addRecommendItem(userDto);
 	}
 
+	@Override
+	public int getUserTotalCount(int uNo) {
+		
+		
+		return userDao.getUserTotalCount(uNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> viewUserList(int uNo, int start, int end) {
+		
+		
+		return userDao.viewUserList(uNo, start, end);
+	}
+
 }

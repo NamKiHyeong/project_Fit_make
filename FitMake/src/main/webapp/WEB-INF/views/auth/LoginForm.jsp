@@ -7,12 +7,12 @@
 <style type="text/css">
 em {
 	font-style: normal;
-    	display: inline-block;
-    	padding: 0px 2%;
-    	margin-top: 10px;
-    	font-size: 0.855em;
-    	color: #454545;
-    	font-weight: normal;
+	display: inline-block;
+	padding: 0px 2%;
+	margin-top: 10px;
+	font-size: 0.855em;
+	color: #454545;
+	font-weight: normal;
 }
 
 #login_Root_Div {
@@ -58,7 +58,7 @@ em {
 	width: 400px;
 	background: #d7266d;
 	margin-top: 30px;
-   	margin-bottom: 30px;
+	margin-bottom: 30px;
 	padding: 10px 0px;
 	border: 1px solid #d7266d;
 	color: #fff;
@@ -68,8 +68,9 @@ em {
 	cursor: pointer;
 }
 </style>
-<script type="text/javascript">
-</script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript"></script>
 <title>로그인 페이지</title>
 </head>
 <body>
@@ -82,11 +83,11 @@ em {
 			<div class="input_p_Css">
 				<form action="./loginCtr.do" method="post" id="loginFormDiv">
 					<div style="margin-bottom: 20px;">
-						<input type="text" class="input_Css" name="email"
+						<input type="text" id="emailInput" class="input_Css" name="email"
 							placeholder="이메일 입력">
 					</div>
 					<div>
-						<input type="password" class="input_Css" name="password"
+						<input type="password" id="pwdInput" class="input_Css" name="password"
 							placeholder="비밀번호 입력">
 					</div>
 					<input id="login_input" type="submit" value="로그인">
@@ -94,8 +95,8 @@ em {
 			</div>
 			<p>
 				<a style="font-weight: bold;" href="../user/add.do">회원가입</a><em>ㅣ</em>
-				<a href="../user/findId.do">아이디 찾기</a><em>ㅣ</em>
-				<a href="../user/findPassword.do">비밀번호 찾기</a>
+				<a href="../user/findId.do">아이디 찾기</a><em>ㅣ</em> <a
+					href="../user/findPassword.do">비밀번호 찾기</a>
 			</p>
 		</div>
 	</div>

@@ -16,8 +16,40 @@
 			javaType="java.util.Date" />
 		<result column="FM_USER_SALT" property="salt" />
 	</resultMap>
+	<!-- //회원정보 페이징카운트 -->
+	<select id="getUserTotalCount" resultType="int">
+		SELECT
+		COUNT(FM_USER_NO)
+		FROM FM_USER
+	</select>
+	<!-- 회원정보 페이징카운트// -->
+
+	<!-- //회원 정보 -->
+	<select id="viewUserList" parameterType="map" resultType="map">
+		SELECT ubb.*
+		FROM(
+		    SELECT ROWNUM rnum, ub.*
+		    FROM(
+		            SELECT u.FM_USER_NO, u.FM_USER_NICKNAME, u.FM_USER_EMAIL, u.FM_USER_MOBILE, u.FM_USER_ZIP_CODE
+		            , u.FM_USER_ADDRESS, u.FM_USER_CRE_DATE, u.FM_USER_POINT
+		            , b.FM_USER_BMI_WEIGHT, b.FM_USER_BMI_HEIGHT, b.FM_USER_BMI_GENDER
+		            FROM FM_USER u , FM_USER_BMI b
+		            WHERE u.FM_USER_NO = b.FM_USER_NO
+		            ORDER BY u.FM_USER_CRE_DATE DESC) ub
+		    ) ubb
+		    WHERE ubb.rnum BETWEEN #{start} AND #{end}
+	</select>
+	<!-- 회원 정보// -->
+	
+	<!-- //회원 상세정보 -->
+	<select id="">
+		
+	</select>
+	<!-- 회원 상세정보// -->
+	
 	<!-- //회원확인 -->
-	<select id="userExist" parameterType="map" resultMap="userResultMap">
+	<select id="userExist" parameterType="map"
+		resultMap="userResultMap">
 		SELECT FM_USER_NO,
 		FM_USER_NICKNAME, FM_USER_EMAIL,
 		FM_USER_POINT, FM_USER_PASSWORD,

@@ -44,4 +44,8 @@ public interface UserService {
 
 	public void addRecommendItem(UserDto userDto);
 
+	public int getUserTotalCount(int uNo);
+
+	public List<Map<String, Object>> viewUserList(int uNo, int start, int end);
+
 }

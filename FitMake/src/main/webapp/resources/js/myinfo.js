@@ -47,7 +47,7 @@ $(document).ready(function() {
 
 		// test() ㅡ 찾는 문자열이, 들어있는지 아닌지를 알려준다.
 		if (!pwdRull.test(pwdChk)) {
-			$("#result_check_Re_pwd").html("· 비밀번호는 영문자+숫자+특수문자 조합으로 8~25자리 사용해야합니다").css("color", "red");
+			$("#result_check_Re_pwd").html("· 영문자+숫자+특수문자 조합으로 8~25자리 사용해야합니다").css("color", "red");
 			$("#new_user_pwd").focus();
 			return false;
 		}

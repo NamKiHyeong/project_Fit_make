@@ -7,6 +7,9 @@
 <meta charset="UTF-8">
 <title>FitMake</title>
 <style type="text/css">
+div {
+	border: 1px solid;
+}
 #containerMainDiv {
 	width: 1200px;
 	margin: 0px auto;
@@ -31,20 +34,29 @@
 		<div>
 			<p class="paddingPtag"></p>
 			<p class="titlePtag">
-				<a href="../item/list.do?cNo=2">다이어트</a>
+				<a href="../item/list.do?cNo=2">추천상품</a>
 			</p>
+			<div>
+				<h2>상품을 등록해주세요</h2>
+			</div>
 		</div>
 		<div>
 			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="#">베스트</a>
 			</p>
+			<div>
+				<h2>상품을 등록해주세요</h2>
+			</div>
 		</div>
 		<div>
 			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="../review/list.do?cNo=1">리뷰</a>
 			</p>
+			<div>
+				<h2>리뷰를 등록해주세요</h2>
+			</div>
 		</div>
 	</div>
 </body>

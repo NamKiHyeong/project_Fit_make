@@ -20,6 +20,10 @@
 			}
 			$("#updateForm").submit();
 		});
+		
+		$("#cancelInp").click(function () {
+			location.href = "../user/Info.do";
+		});
 	});
 </script>
 </head>

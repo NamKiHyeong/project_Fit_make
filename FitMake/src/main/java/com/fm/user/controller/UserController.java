@@ -1,5 +1,6 @@
 package com.fm.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
 import com.fm.util.BmiCalc;
+import com.fm.util.Paging;
 import com.fm.util.PointAdd;
 
 //어노테이션 드리븐
@@ -37,9 +39,42 @@ public class UserController {
 	@RequestMapping(value = "/auth/login.do", method = RequestMethod.GET)
 	public String login() {
 		logger.info("Welcome UserController login! ");
-		
-		
+
 		return "auth/LoginForm";
+	}
+
+	/**
+	 * 
+	 * @param email    사용자가 입력한 email값
+	 * @param password 사용자가 입력한 password값
+	 * @param model    alret를 하기 위해 model 사용
+	 * @param session  세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
+	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 alert(이동후 다시 로그인페이지)
+	 */
+	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
+	public String loginCtr(HttpSession session, Model model, String email, String password) throws Exception {
+		logger.info("Welcome UserController loginCtr! " + email);
+
+		try {
+			UserDto userDto = userService.userExist(email, password);
+			String viewUrl = "";
+			// 회원 확인
+			if (userDto == null) {
+				model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다");
+				model.addAttribute("url", "../auth/login.do");
+				return "auth/LoginFail";
+			} else {
+				session.setAttribute("_userDto_", userDto);
+				viewUrl = "main/MainPage";
+				return viewUrl;
+			}
+		} catch (Exception e) {
+			model.addAttribute("msg", "등록되지 않은 정보입니다.");
+			model.addAttribute("url", "../auth/login.do");
+
+			return "common/UserExistAlret";
+		}
+
 	}
 
 	/**
@@ -54,17 +89,17 @@ public class UserController {
 			String add_Detail) {
 		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
 		String address = add_1st + add_Extra + add_Detail;
-		
+
 		int salt = userDto.addSalt();
 		String password = userDto.setHashpwd(salt, userDto.getPassword());
 		userDto.setSalt(salt);
 		userDto.setPassword(password);
-		
+
 //		userService.userExist(userDto);
 		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
 //		userService.addRecommendItem(userDto);
-		
+
 		return "redirect:/auth/login.do";
 	}
 
@@ -112,7 +147,7 @@ public class UserController {
 
 		String oldPwd = uPwd.getPassword();
 		String sessionPwd = userDto.getPassword();
-		
+
 		String existPwd = userDto.setHashpwd(uPwd.getSalt(), sessionPwd);
 		if (existPwd.equals(oldPwd)) {
 			userService.userBmiDelete(userDto);
@@ -142,32 +177,6 @@ public class UserController {
 			viewPage = "redirect:/auth/login.do";
 		}
 		return viewPage;
-	}
-
-	/**
-	 * 
-	 * @param email    사용자가 입력한 email값
-	 * @param password 사용자가 입력한 password값
-	 * @param model    alret를 하기 위해 model 사용
-	 * @param session  세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
-	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 alert(이동후 다시 로그인페이지)
-	 */
-	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(HttpSession session, Model model, String email, String password) {
-		logger.info("Welcome UserController loginCtr! " + email);
-		
-		UserDto userDto = userService.userExist(email, password);
-
-		String viewUrl = "";
-		// 회원 확인
-		if (userDto == null) {
-			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다");
-			model.addAttribute("url", "../auth/login.do");
-			return "auth/LoginFail";
-		}
-		session.setAttribute("_userDto_", userDto);
-		viewUrl = "main/MainPage";
-		return viewUrl;
 	}
 
 	/**
@@ -326,7 +335,7 @@ public class UserController {
 	 * @return 내정보 보기
 	 */
 	@RequestMapping(value = "/user/Info.do")
-	public String userInfo(Model model, HttpSession session) {
+	public String userInfo(Model model, HttpSession session, @RequestParam(defaultValue = "1") int curPage) {
 
 		UserDto userdto = new UserDto();
 
@@ -335,8 +344,35 @@ public class UserController {
 
 		Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
 		model.addAttribute("myInfomap", myInfomap);
-
-		return "/user/UserMyInfo";
+		
+		int uNo = (int) userdto.getuNo();
+		
+		int totalCount = userService.getUserTotalCount(uNo);
+		
+		Paging userPaging = new Paging(totalCount, curPage);
+		
+		int start = userPaging.getPageBegin();
+		int end = userPaging.getPageEnd();
+		
+		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
+		
+		Map<String, Object> uPagingMap = new HashMap<String, Object>();
+		uPagingMap.put("userPaging", userPaging); 
+		uPagingMap.put("totalCount",totalCount);
+		uPagingMap.put("start", start);
+		uPagingMap.put("end", end);
+		
+		model.addAttribute("userMapList", userMapList);
+		model.addAttribute("uPagingMap", uPagingMap);
+		String viewUrl = "";
+		
+		if(uNo == 1) {
+			viewUrl = "user/UserManage";
+		} else {
+			viewUrl = "user/UserMyInfo";
+		}
+		
+		return viewUrl;
 	}
 
 	/**
@@ -356,7 +392,7 @@ public class UserController {
 
 		String existingPwd = uPwd.getPassword();
 		String sessionPwd = userDto.getPassword();
-		
+
 		if (!(sessionPwd.equals(existingPwd))) {
 			model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
 			model.addAttribute("url", "redirect:/user/Info.do");
@@ -365,7 +401,7 @@ public class UserController {
 		}
 		int salt = userDto.addSalt();
 		String password = userDto.setHashpwd(salt, newpassword);
-		
+
 		userService.userUpdate(userDto, nickName, password, salt);
 
 		return "redirect:/user/Info.do";
