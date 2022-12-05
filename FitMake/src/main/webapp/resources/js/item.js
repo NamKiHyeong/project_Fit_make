@@ -36,7 +36,14 @@ $(document).ready(function() {
 				if (data == 1) {
 					viewCartSummaryFnc();
 
-					alert("장바구니 추가완료");
+					var confirmCart = confirm("장바구니로 이동하시겠습니까?");
+					
+					if(confirmCart == true){
+						location.href ='../cart/list.do';
+					} else{
+						return false;
+					}
+					
 				} else if (data == 2) {
 
 					alert("이미 추가 된 상품입니다");

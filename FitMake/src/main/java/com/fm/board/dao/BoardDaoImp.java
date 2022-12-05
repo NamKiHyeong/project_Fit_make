@@ -69,6 +69,16 @@ public class BoardDaoImp implements BoardDao{
 	@Override
 	public int addReply(ReplyDto replyDto) {
 		
+		ReplyDto newReplyDto = new ReplyDto();
+		
+		newReplyDto = sqlSession.selectOne(namespace+ "getIrParentNo", replyDto);
+		
+		if(newReplyDto == null) {
+			replyDto.setIrParentNo(0);
+		} else {
+			replyDto.setIrParentNo(newReplyDto.getIrParentNo());
+		}
+		
 		return sqlSession.insert(namespace + "addReply", replyDto);
 	}
 	

@@ -3,14 +3,13 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-
 <style type="text/css">
 nav > ul{
 	list-style-type: none;
 	padding: 0px;
 	overflow: hidden;
-	background-color: #333333;
-/*  	width: 700px;  */
+	background: #d7266d;
+	border: 2px solid #d7266d;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
@@ -29,14 +28,14 @@ nav > ul > li > a{
 }
 
 nav > ul > li > a:hover {
-	color: #FFD9EC;
-	background-color: #5D5D5D;
+	color: #ffffff;
+	background-color: #a41d53;
 	font-weight: bold;
 }
 
 .active {
-	color: #FFD9EC;
-    background-color: #5D5D5D;
+	color: #ffffff;
+    background-color: #a41d53;
     font-weight: bold;
 }
 
@@ -63,36 +62,36 @@ nav > ul > li > a:hover {
 </script>
 
 <nav>
-		<ul>
-		<c:if test="${iqPagingMap.iqPaging.prevBlock ne 1}">
-			<li>
-				<a href="#" 
-					onclick="goPageFnc(${iqPagingMap.iqPaging.prevBlock});">
-					<span>«</span>
-				</a>
-			</li>
-		</c:if>
-		
-		<c:forEach var="num" 
-			begin="${iqPagingMap.iqPaging.blockBegin}" 
-			end="${iqPagingMap.iqPaging.blockEnd}">
-			<li id='pageButton${num}'>
-				<a href="#" onclick="goPageFnc(${num});">
-					<c:out value="${num}"/>
-				</a>
-			</li>
-		</c:forEach>
-		
-		<c:if test="${iqPagingMap.iqPaging.curBlock 
-			< iqPagingMap.iqPaging.totBlock}">
-			<li>
-				<a href="#" 
-					onclick="goPageFnc(${iqPagingMap.iqPaging.nextBlock});">
-					<span>»</span>
-				</a>
-			</li>			
-		</c:if>			
+	<ul>
+	<c:if test="${iqPagingMap.iqPaging.prevBlock ne 1}">
+		<li>
+			<a href="#" 
+				onclick="goPageFnc(${iqPagingMap.iqPaging.prevBlock});">
+				<span>«</span>
+			</a>
+		</li>
+	</c:if>
 	
-			
-		</ul>
-	</nav>
+	<c:forEach var="num" 
+		begin="${iqPagingMap.iqPaging.blockBegin}" 
+		end="${iqPagingMap.iqPaging.blockEnd}">
+		<li id='pageButton${num}'>
+			<a href="#" onclick="goPageFnc(${num});">
+				<c:out value="${num}"/>
+			</a>
+		</li>
+	</c:forEach>
+	
+	<c:if test="${iqPagingMap.iqPaging.curBlock 
+		< iqPagingMap.iqPaging.totBlock}">
+		<li>
+			<a href="#" 
+				onclick="goPageFnc(${iqPagingMap.iqPaging.nextBlock});">
+				<span>»</span>
+			</a>
+		</li>			
+	</c:if>			
+
+		
+	</ul>
+</nav>

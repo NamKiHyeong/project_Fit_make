@@ -12,7 +12,7 @@
 	
 </script>
 <style type="text/css">
-	#boardDetailRootDiv {
+	#inquiryDetailRootDiv {
 		display: flex;
 		width : 1200px;
 		margin: 0px auto;
@@ -58,8 +58,17 @@
 		vertical-align: top;
 	}
 	#inquiryDetailbtnArea{
-		width: 100px;
+		width: 200px;
 		text-align: right;
+	}
+	.inquiryBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
 	}
 </style>
 <title>FitMake</title>
@@ -68,7 +77,7 @@
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<div id="boardDetailRootDiv">
+	<div id="inquiryDetailRootDiv">
 	<jsp:include page="../MyPageLeft.jsp" />
 		<div id="inquiryDetail">
 			<div id="inquiryDetailReply">
@@ -83,28 +92,28 @@
 						<table id="inquiryDetailTable">
 							<tr>
 								<td colspan="4">
-									${boardMap.FM_INQUIRY_TITLE}
+									${inquiryMap.FM_INQUIRY_TITLE}
 								</td>
 								<td>
-									<input type="hidden" id="bNo" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
+									<input type="hidden" id="bNo" name="bNo" value="${inquiryMap.FM_INQUIRY_NO}">
 								</td>
 							</tr>
 							<tr>
 								<td colspan="2" id="inquiryDetailWriter">
-								${boardMap.FM_USER_NICKNAME}
+								${inquiryMap.FM_USER_NICKNAME}
 								</td>
 								<td >	
 								</td>
 								<td class="inquiryDetailHead">
-									작성일 ${boardMap.FM_INQUIRY_CRE_DATE}
+									작성일 ${inquiryMap.FM_INQUIRY_CRE_DATE}
 								</td>
 								<td class="inquiryDetailHead">
-									댓글수 ${boardMap.igrCount}
+									댓글수 ${inquiryMap.igrCount}
 								</td>
 							</tr>
 							<tr>
 								<td colspan="5" id="inquiryDetailContent">
-									${boardMap.FM_INQUIRY_CONTENT}
+									${inquiryMap.FM_INQUIRY_CONTENT}
 								</td>
 							</tr>
 							<tr>
@@ -112,9 +121,9 @@
 									
 								</td>
 								<td id="inquiryDetailbtnArea">
-									<input type="button" value="수정">
-									<input type="button" value="삭제" onclick="location.href='./delete.do?bNo=${boardMap.FM_INQUIRY_NO}'">
-									<input type="button" value="목록" onclick="location.href='./list.do'">
+									<input type="button" class="inquiryBtn" value="수정">
+									<input type="button" class="inquiryBtn" value="삭제" onclick="location.href='./delete.do?bNo=${inquiryMap.FM_INQUIRY_NO}'">
+									<input type="button" class="inquiryBtn" value="목록" onclick="location.href='./list.do'">
 								</td>
 							</tr>
 						</table>

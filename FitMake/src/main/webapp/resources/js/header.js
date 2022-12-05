@@ -95,7 +95,7 @@ function viewCartSummaryFnc() {
 
 				$("#cartPrice").html(cartTotal);
 				$("#cartView").html(str);
-
+			
 			},
 			error: function(request, status, error) {
 				alert("code:"

@@ -76,9 +76,14 @@
 		position: absolute;
 		left: 80%;
  		transform: translate(80%,5%); 
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
 	}
 	.viewReplyDetail{
-		width 800px;
+		width: 800px;
 		position: relative;
 		margin: 5px;
 	}

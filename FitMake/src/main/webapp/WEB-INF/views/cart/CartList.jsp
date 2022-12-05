@@ -29,8 +29,6 @@
 			}
 		});
 		
-		
-		
 		getTotalCartSum();
 		viewCartSummaryFnc();
 	});
@@ -174,7 +172,6 @@
 	}
 	.cartItemTable{
 		width: inherit;
-	
 	}
 	.cartBtn {
 		align-content: right;
@@ -221,6 +218,7 @@
 	}
 	#btnSection{
 		text-align: right;
+		margin-bottom: 100px;
 	}
 	#cartTotalPriceDiv{
 		font-size: 20px;
@@ -303,7 +301,6 @@
 			</form>	
 		</div>		
 	</div>
-	
 </div>
 </body>
 </html>

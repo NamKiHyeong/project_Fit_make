@@ -9,8 +9,8 @@ nav > ul{
 	list-style-type: none;
 	padding: 0px;
 	overflow: hidden;
-	background-color: #333333;
-/*  	width: 700px;  */
+	background: #d7266d;
+	border: 2px solid #ffffff;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
@@ -29,14 +29,14 @@ nav > ul > li > a{
 }
 
 nav > ul > li > a:hover {
-	color: #FFD9EC;
-	background-color: #5D5D5D;
+	color: #ffffff;
+	background-color: #a41d53;
 	font-weight: bold;
 }
 
 .active {
-	color: #FFD9EC;
-    background-color: #5D5D5D;
+	color: #ffffff;
+    background-color: #a41d53;
     font-weight: bold;
 }
 
@@ -63,36 +63,36 @@ nav > ul > li > a:hover {
 </script>
 
 <nav id="pagingNav">
+	<c:if test="${oPagingMap ne null}">
 		<ul>
-		<c:if test="${oPagingMap.orderPaging.prevBlock ne 1}">
-			<li>
-				<a href="#" 
-					onclick="goPageFnc(${oPagingMap.orderPaging.prevBlock});">
-					<span>«</span>
-				</a>
-			</li>
-		</c:if>
-		
-		<c:forEach var="num" 
-			begin="${oPagingMap.orderPaging.blockBegin}" 
-			end="${oPagingMap.orderPaging.blockEnd}">
-			<li id='pageButton${num}'>
-				<a href="#" onclick="goPageFnc(${num});">
-					<c:out value="${num}"/>
-				</a>
-			</li>
-		</c:forEach>
-		
-		<c:if test="${oPagingMap.orderPaging.curBlock 
-			< oPagingMap.orderPaging.totBlock}">
-			<li>
-				<a href="#" 
-					onclick="goPageFnc(${oPagingMap.orderPaging.nextBlock});">
-					<span>»</span>
-				</a>
-			</li>			
-		</c:if>			
-	
+			<c:if test="${oPagingMap.orderPaging.prevBlock ne 1}">
+				<li>
+					<a href="#" 
+						onclick="goPageFnc(${oPagingMap.orderPaging.prevBlock});">
+						<span>«</span>
+					</a>
+				</li>
+			</c:if>
 			
+			<c:forEach var="num" 
+				begin="${oPagingMap.orderPaging.blockBegin}" 
+				end="${oPagingMap.orderPaging.blockEnd}">
+				<li id='pageButton${num}'>
+					<a href="#" onclick="goPageFnc(${num});">
+						<c:out value="${num}"/>
+					</a>
+				</li>
+			</c:forEach>
+			
+			<c:if test="${oPagingMap.orderPaging.curBlock 
+				< oPagingMap.orderPaging.totBlock}">
+				<li>
+					<a href="#" 
+						onclick="goPageFnc(${oPagingMap.orderPaging.nextBlock});">
+						<span>»</span>
+					</a>
+				</li>			
+			</c:if>			
 		</ul>
-	</nav>
+	</c:if>
+</nav>

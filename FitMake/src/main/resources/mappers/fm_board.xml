@@ -61,10 +61,8 @@
 		AND FM_INQUIRY_NO = #{bNo}
 	</delete>
 	
-	<insert id="addReply" parameterType="replyDto"
-				useGeneratedKeys="true" keyProperty="irParentNo">
-		<selectKey keyProperty="irParentNo" resultType="int" order="BEFORE" >
-			SELECT irr.FM_INQUIRY_REPLY_NO
+	<select id="getIrParentNo" parameterType="int" resultMap="replyResultMap">
+		SELECT irr.FM_INQUIRY_REPLY_NO
 			FROM ( SELECT ROWNUM "rNum", igr.FM_INQUIRY_REPLY_NO, igr.FM_INQUIRY_NO
 					FROM( SELECT FM_INQUIRY_REPLY_NO, FM_INQUIRY_NO
 							FROM FM_INQUIRY_REPLY 
@@ -73,7 +71,9 @@
 						) igr
 					) irr
 			WHERE irr."rNum" = 1
- 		</selectKey>
+	</select>
+	
+	<insert id="addReply" parameterType="replyDto">
 		INSERT INTO FM_INQUIRY_REPLY
 		VALUE(FM_INQUIRY_REPLY_NO, FM_USER_NO, FM_INQUIRY_NO, FM_INQUIRY_REPLY_CONTENT, FM_INQUIRY_REPLY_CRE_DATE, FM_INQUIRY_REPLY_PARENT)
 		VALUES(SEQ_FM_INQUIRY_REPLY_NO.NEXTVAL, #{uNo}, #{bNo}, #{irContent}, SYSDATE, #{irParentNo, jdbcType=NUMERIC})

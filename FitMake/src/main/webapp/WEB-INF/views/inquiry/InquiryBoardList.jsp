@@ -12,7 +12,7 @@
 	
 </script>
 <style type="text/css">
-	#boardListRootDiv {
+	#inquiryListRootDiv {
 		display: flex;
 		width : 1200px;
 		margin: 0px auto;
@@ -29,35 +29,31 @@
 		position: relative;
 		overflow: hidden;
 	}
-	#inquiryBoardTitle{
+	#inquiryHeadTitle{
 		font-size: 26px;
 		font-weight: 600;
 	}
-	#inquiryForm{
-		margin-top: 20px; 
-	}
-	.boardListDiv{
+	.inquiryListDiv{
  		display: flex; 
 		flex-direction: column;
 	}
-	.boardListTableTitle{
+	.inquiryListTableTitle{
 		text-align: center;
 	}
-	#boardListTable{
+	#inquiryListTable{
 		border-spacing : 0px;
 	}
-	.boardListTr{
-		padding : 10px;
+	.inquiryListTr{
 		border-bottom: 1px solid black;
 		border-collapse: collapse; 
 	}
-	.boardListTitleTr > td{
+	.inquiryListTitleTr > td{
 		border-spacing : 0px;
-		border-bottom: 1px solid black;
+		border-bottom: 1px solid #afa9a9;
 		border-collapse: collapse; 
 		height: 30px;
 	}
-	.boardListContent{
+	.inquiryListContent{
 		text-align: center;
 		height: 30px;
 	}
@@ -72,61 +68,69 @@
 	#pagingNav {
 		display: flex;
 	}
-	
+	#AddInquiryBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
 </style>
 <title>FitMake</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	
-	<div id="boardListRootDiv">
+	<div id="inquiryListRootDiv">
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="pagingDiv">
 			<div id="inquiryList">
 				<jsp:include page="../MyPageNav.jsp" />
 				<div id="titleDiv">
-					<p id="inquiryBoardTitle">문의게시판</p>
+					<p id="inquiryHeadTitle">문의게시판</p>
 				</div>
 				<hr id="headHr">
 			
 	
 				<form id="inquiryForm">
-					<div class="boardListDiv">
-						<table id="boardListTable">
-							<c:if test="${BoardMapList.size() > 0}">
-								<tr class="boardListTitleTr">
+					<div class="inquiryListDiv">
+						<table id="inquiryListTable">
+							<c:if test="${inquiryMapList.size() > 0}">
+								<tr class="inquiryListTitleTr">
 									<td>
 										
 									</td>
-									<td class="boardListTableTitle">
+									<td class="inquiryListTableTitle">
 										문의제목
 									</td>
-									<td class="boardListTableTitle">
+									<td class="inquiryListTableTitle">
 										댓글수
 									</td>
-									<td class="boardListTableTitle">
+									<td class="inquiryListTableTitle">
 										작성일
 									</td>
 								</tr>
 							</c:if>
-							<c:forEach var="boardMap" items="${BoardMapList}">
-								<tr class="boardListTr">
-									<td class="boardListContent">
-										<input type="hidden" name="bNo" value="${boardMap.FM_INQUIRY_NO}">
+							<c:forEach var="inquiryMap" items="${inquiryMapList}">
+								<tr class="inquiryListTr">
+									<td class="inquiryListContent">
+										<input type="hidden" name="bNo" value="${inquiryMap.FM_INQUIRY_NO}">
 									</td>
-									<td class="boardListContent">
-										<a href="./detail.do?bNo=${boardMap.FM_INQUIRY_NO}">${boardMap.FM_INQUIRY_TITLE} </a>
+									<td class="inquiryListContent">
+										<a href="./detail.do?bNo=${inquiryMap.FM_INQUIRY_NO}">${inquiryMap.FM_INQUIRY_TITLE} </a>
 									</td>
-									<td class="boardListContent">
-										${boardMap.igrCount}
+									<td class="inquiryListContent">
+										${inquiryMap.igrCount}
 									</td>
-									<td class="boardListContent">
-										${boardMap.FM_INQUIRY_CRE_DATE}
+									<td class="inquiryListContent">
+										${inquiryMap.FM_INQUIRY_CRE_DATE}
 									</td>
 								</tr>
 							</c:forEach>
 						
-							<c:if test="${BoardMapList.size() == 0}">
+							<c:if test="${inquiryMapList.size() == 0}">
 								<tr>
 									<td id="emptyTable" colspan="4">
 										문의 내역이 없습니다
@@ -135,7 +139,7 @@
 							</c:if>
 							<tr>
 								<td colspan="4" id="AddInquiryBtnArea">
-									<input type="button" value="문의하기" onclick="location.href='./add.do'">
+									<input type="button" id="AddInquiryBtn" value="문의하기" onclick="location.href='./add.do'">
 								</td>
 							</tr>
 						</table>

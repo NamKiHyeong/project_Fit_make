@@ -235,7 +235,7 @@ public class OrderController {
 			
 			redirect.addAttribute("oNo", oNo);
 			
-			viewUrl = "redirect:/order/detail.do";
+			viewUrl = "redirect:/order/check.do";
 		} else if (ctNo.length > 0) {
 
 			orderService.addOrder(uNo);
@@ -248,7 +248,7 @@ public class OrderController {
 			redirect.addAttribute("ctNo", ctNo);
 			redirect.addAttribute("oNo", oNo);
 			
-			viewUrl = "redirect:/order/detail.do";
+			viewUrl = "redirect:/order/check.do";
 		} else {
 			viewUrl = "/main/MainPage";
 		}
@@ -277,6 +277,34 @@ public class OrderController {
 		return "redirect:/order/list.do";
 	}
 
+	
+	@Transactional
+	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST, RequestMethod.GET })
+	public String viewOrderConfirm(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo) {
+		logger.info("Welcome orderDetail!");
+		logger.info("oNo" + oNo);
+
+		String viewUrl = "";
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+
+		if(uNo > 0) {
+			
+			List<Map<String, Object>> orderDetailItemList = orderService.viewOrderDetailItem(oNo);
+			Map<String, Object> orderDetailMyInfo = orderService.viewMyInfo(uNo);
+			
+			model.addAttribute("orderDetailItemList", orderDetailItemList);
+			model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
+			model.addAttribute("oNo", oNo);
+			
+			viewUrl = "/order/MyOrderDetail";
+		} else {
+			viewUrl = "redirect:/auth/login.do";
+		}
+		return viewUrl;
+	}
+	
+
 	/**
 	 * 주문상세 및 확인 페이지를 호출하는 메서드
 	 * 
@@ -286,7 +314,7 @@ public class OrderController {
 	 * @return DB에서 Map으로 받은 값을 OrderDetail.jsp 페이지로 전송
 	 */
 	@Transactional
-	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/order/check.do", method = { RequestMethod.POST, RequestMethod.GET })
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
 			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo) {
 		logger.info("Welcome orderDetail!");
@@ -298,37 +326,21 @@ public class OrderController {
 		int uNo = (int) userDto.getuNo();
 
 		if (uNo > 0) {
+			oNo = orderService.viewOrderNo(uNo);
+			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
+			Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
 			
-			if (oNo != 0) {
-				oNo = orderService.viewOrderNo(uNo);
-				List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
-				Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
-				
-				model.addAttribute("orderConfirmItemList", orderConfirmItemList);
-				model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
-				model.addAttribute("ctNo", ctNo);
-				model.addAttribute("oNo", oNo);
-				
-				viewUrl = "/order/OrderConfirm";
-			} else {
-				
-				Map<String, Object> orderDetailItem = orderService.viewOrderDetailItem(oNo);
-				Map<String, Object> orderDetailMyInfo = orderService.viewMyInfo(uNo);
-				
-				model.addAttribute("orderDetailItem", orderDetailItem);
-				model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
-				model.addAttribute("oNo", oNo);
-				
-				viewUrl = "/order/MyOrderDetail";
-			}
+			model.addAttribute("orderConfirmItemList", orderConfirmItemList);
+			model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
+			model.addAttribute("ctNo", ctNo);
+			model.addAttribute("oNo", oNo);
 			
+			viewUrl = "/order/OrderConfirm";
 		} else {
-			viewUrl = "redirect:/auth/login.do";
+			viewUrl = "redirect:../auth/Login.do";
 		}
-		
 		return viewUrl;
 	}
-	
 	/**
 	 * 주문 확인에서 구매를 결정하거나 취소하는 단계
 	 * @param session 	세션에 저장된 uNo를 가져오기 위한 객체

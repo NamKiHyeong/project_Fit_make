@@ -23,7 +23,7 @@ public interface OrderService {
 	
 	public List<Map<String, Object>> viewOrderConfirmItem(int oNo);
 	
-	public Map<String, Object> viewOrderDetailItem(int oNo);
+	public List<Map<String, Object>> viewOrderDetailItem(int oNo);
 
 	public Map<String, Object> viewMyInfo(int uNo);
 
