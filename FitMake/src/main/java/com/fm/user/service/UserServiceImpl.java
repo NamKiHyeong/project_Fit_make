@@ -42,9 +42,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public UserDto userExist(String email, String password) {
+	public UserDto userExist(UserDto userDto) {
 		
-		return userDao.userExist(email, password);
+		return userDao.userExist(userDto);
 	}
 
 	@Override
@@ -177,6 +177,12 @@ public class UserServiceImpl implements UserService {
 	public void userBmiDelete(UserDto userDto) {
 		
 		userDao.userBmiDelete(userDto);
+	}
+
+	@Override
+	public void addRecommendItem(UserDto userDto) {
+			
+		 userDao.addRecommendItem(userDto);
 	}
 
 }

@@ -11,6 +11,7 @@
   	<typeAlias type="com.fm.order.model.OrderDto" alias="orderDto"/>
   	<typeAlias type="com.fm.util.BmiCalc" alias="bmiCalc"/>
   	<typeAlias type="com.fm.util.PointAdd" alias="pointAdd"/>
+  	<typeAlias type="com.fm.util.Recommand" alias="reCommand"/>
   	<typeAlias type="com.fm.item.model.ItemDto" alias="itemDto"/>
   	<typeAlias type="com.fm.order.model.CartDto" alias="cartDto"/>
   	<typeAlias type="com.fm.review.model.ReviewDto" alias="reviewDto"/>

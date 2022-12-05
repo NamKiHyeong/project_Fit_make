@@ -10,7 +10,7 @@ import com.fm.util.PointAdd;
 public interface UserService {
 	public List<Map<String, Object>> pointHistoryList(int uNo);
 
-	public UserDto userExist(String email, String password);
+	public UserDto userExist(UserDto userDto);
 
 	public void userInsertOne(UserDto userDto, String address);
 
@@ -41,5 +41,7 @@ public interface UserService {
 	public String resultUserpwd(String userEmail);
 
 	public void userBmiDelete(UserDto userDto);
+
+	public void addRecommendItem(UserDto userDto);
 
 }

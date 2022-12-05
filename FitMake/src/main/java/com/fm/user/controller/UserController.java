@@ -60,8 +60,11 @@ public class UserController {
 		userDto.setSalt(salt);
 		userDto.setPassword(password);
 		
+		userService.userExist(userDto);
 		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
+		userService.addRecommendItem(userDto);
+		
 		return "redirect:/auth/login.do";
 	}
 
@@ -150,12 +153,10 @@ public class UserController {
 	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 alert(이동후 다시 로그인페이지)
 	 */
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password, HttpSession session, Model model) {
-		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
+	public String loginCtr(UserDto userDto, HttpSession session, Model model) {
+		logger.info("Welcome UserController loginCtr! " + userDto);
 		
-		
-		
-		UserDto userDto = userService.userExist(email, password);
+		userService.userExist(userDto);
 
 		String viewUrl = "";
 		// 회원 확인

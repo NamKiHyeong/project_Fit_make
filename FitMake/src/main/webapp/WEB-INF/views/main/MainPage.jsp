@@ -11,7 +11,9 @@
 	width: 1200px;
 	margin: 0px auto;
 }
-
+.paddingPtag {
+	padding-top: 40px;
+}
 .titlePtag {
 	color: #222;
 	font-size: 27px;
@@ -27,16 +29,19 @@
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
 	<div id="containerMainDiv">
 		<div>
+			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="../item/list.do?cNo=2">다이어트</a>
 			</p>
 		</div>
 		<div>
+			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="#">베스트</a>
 			</p>
 		</div>
 		<div>
+			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="../review/list.do?cNo=1">리뷰</a>
 			</p>

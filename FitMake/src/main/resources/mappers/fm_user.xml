@@ -17,10 +17,11 @@
 		<result column="FM_USER_SALT" property="salt" />
 	</resultMap>
 	<!-- //회원확인 -->
-	<select id="userExist" parameterType="map"
-		resultMap="userResultMap">
-		SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
-		FM_USER_POINT, FM_USER_PASSWORD, FM_USER_SALT
+	<select id="userExist" parameterType="userDto">
+		SELECT FM_USER_NO,
+		FM_USER_NICKNAME, FM_USER_EMAIL,
+		FM_USER_POINT, FM_USER_PASSWORD,
+		FM_USER_SALT
 		FROM FM_USER
 		WHERE
 		FM_USER_EMAIL =
@@ -74,12 +75,30 @@
 
 	</insert>
 	<!-- 회원가입 // -->
+	<!-- //제품추천 -->
+	<insert id="addRecommendItem" parameterType="int">
+		INSERT INTO FM_RECOMMAND
+		VALUE(FM_USER_BMI_NO, FM_ITEM_NO)
+		VALUES((SELECT FM_USER_BMI_NO
+		FROM FM_USER_BMI
+		WHERE FM_USER_NO = #{uNo})
+		, (SELECT i.FM_ITEM_NO
+		FROM FM_USER u
+		INNER JOIN FM_USER_BMI ubi
+		ON u.FM_USER_NO = ubi.FM_USER_NO
+		INNER JOIN FM_ITEM i
+		ON ubi.FM_USER_GOAL_BMI = i.FM_CALORY_GRADE)
+		)
+	</insert>
+	<!-- 제품추천// -->
+
 
 	<!-- //회원탈퇴 -->
 	<delete id="userBmiDelete">
 		DELETE FROM FM_USER_BMI
 		WHERE FM_USER_NO = (
-		SELECT FM_USER_NO
+		SELECT
+		FM_USER_NO
 		FROM FM_USER
 		WHERE FM_USER_EMAIL = #{email})
 	</delete>

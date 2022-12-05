@@ -28,15 +28,10 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public UserDto userExist(String email, String password) {
-
-		HashMap<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("email", email);
+	public UserDto userExist(UserDto userDto) {
+		sqlSession.selectOne(namespaceuser + "userExist", userDto);
 		
-
-		UserDto userDto = sqlSession.selectOne(namespaceuser + "userExist", paramMap);
-		
-		String existPwd = userDto.setHashpwd(userDto.getSalt(), password);
+		String existPwd = userDto.setHashpwd(userDto.getSalt(), userDto.getPassword());
 		if (existPwd.equals(userDto.getPassword())) {
 			
 			return userDto;
@@ -143,8 +138,14 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public String resultUserpwd(String userEmail) {
-		// TODO Auto-generated method stub
+		
 		return sqlSession.selectOne(namespaceuser + "resultUserpwd", userEmail);
+	}
+
+	@Override
+	public void addRecommendItem(UserDto userDto) {
+
+		sqlSession.insert(namespaceuser + "addRecommendItem", userDto);
 	}
 
 }
