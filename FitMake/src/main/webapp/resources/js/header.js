@@ -66,7 +66,7 @@ function viewCartSummaryFnc() {
 					str += '<a href="/item/list.do?iNo='
 						+ value.FM_ITEM_NO
 						+ '">';
-					str += '<img alt="image not found" src="${pageContext.request.contextPath}/image/' + value.FM_ITEM_STORED_IMG_NAME + '"></a></td>';
+					str += '<img alt="image not found" src="../image/' + value.FM_ITEM_STORED_IMG_NAME + '"></a></td>';
 					str += '<td style="width:40px;vertical-align : bottom; font-size:13px;">';
 					str += '<a href="/item/list.do?iNo='
 						+ value.FM_ITEM_NO

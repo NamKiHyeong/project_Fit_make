@@ -108,7 +108,7 @@
 		justify-content: space-between
 	}
 </style>
-<title>주문관리</title>
+<title>FitMake</title>
 </head>
 <body>
 
@@ -119,7 +119,7 @@
 		<div id="pagingDiv">
 			<div id="orderManageDiv">
 				<div id="titleDiv">
-					<p id="orderManageTitle">주문관리</p>
+					<p id="orderManageTitle">주문조회</p>
 				</div>
 			
 				<form id="orderListForm">

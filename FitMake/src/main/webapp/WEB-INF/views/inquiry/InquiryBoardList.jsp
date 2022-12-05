@@ -74,7 +74,7 @@
 	}
 	
 </style>
-<title>주문관리</title>
+<title>FitMake</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />

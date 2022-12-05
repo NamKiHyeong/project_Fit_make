@@ -65,7 +65,7 @@
 		text-align: right;
 	}
 </style>
-<title>문의등록</title>
+<title>FitMake</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />

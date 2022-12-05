@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="/fitmake/resources/css/header.css">
-<title>헤더</title>
+<title>FitMake</title>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/header.js"></script>

@@ -83,7 +83,7 @@
 		text-align: center;
 	}
 </style>
-<title>내 주문</title>
+<title>FitMake</title>
 </head>
 <body>
 

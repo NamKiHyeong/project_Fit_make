@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>주문성공</title>
+<title>FitMake</title>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">

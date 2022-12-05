@@ -74,7 +74,7 @@
 		width: 80px;
 	}
 </style>
-<title>나의 주문상세</title>
+<title>FitMake</title>
 </head>
 <body>
 

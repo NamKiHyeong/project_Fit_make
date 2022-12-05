@@ -99,7 +99,7 @@
 		vertical-align: middle;
 	}
 </style>
-<title>댓글</title>
+<title>FitMake</title>
 </head>
 <body>
 	<div id="inquiryReplyDiv">

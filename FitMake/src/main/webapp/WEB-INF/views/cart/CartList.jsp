@@ -136,7 +136,7 @@
 					viewCartSummaryFnc();
 					location.reload();
 				}
-			})
+			});
 
 		} else {
 			return false;
@@ -154,7 +154,7 @@
 		align-items: center;
 	}
 	#cartDiv{
-		width : 1000px;
+		width : 1200px;
 	}
 	#titleDiv{
 		position: relative;
@@ -186,13 +186,13 @@
 		text-align: center;
 		width : 150px;
 		height: 150px;
-		padding-left: 1.5%;
 	}
 	.tailHr {
 		margin-top: 3%
 	}
-	.CartItemName {
-		text-align: center;
+	.cartItemName {
+		text-align: left;
+		padding-left: 20px;
 	}
 	.countModifyBtn{
 		text-align: center;
@@ -202,7 +202,8 @@
 		text-align: center;
 	}
 	.cartCountArea {
-		text-align: center;
+		text-align: left;
+		padding-left: 20px;
 	}
 	.cartPrice{
 		text-align: right;
@@ -227,8 +228,17 @@
 		text-align: right;
 		margin: 20px;
 	}
+	.cartBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
 </style>
-<title>장바구니</title>
+<title>FitMake</title>
 </head>
 <body>
 	
@@ -249,7 +259,7 @@
 							<table class="cartItemTable">
 								<tr>
 									<td class="imgArea" rowspan="3"><img alt="image not founded" src="<c:url value='/image/${cartMap.FM_ITEM_STORED_IMG_NAME}'/>"/></td>
-									<td class="CartItemName">${cartMap.FM_ITEM_NAME}</td>		
+									<td class="cartItemName">${cartMap.FM_ITEM_NAME}</td>		
 									<td></td>
 									<td class="deleteBtnArea"><input type="button" value="X" onclick="deleteCartFnc(${cartMap.FM_CART_NO});"></td>		
 								</tr>

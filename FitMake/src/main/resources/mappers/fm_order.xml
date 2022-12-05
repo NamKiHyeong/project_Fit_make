@@ -155,6 +155,7 @@
 		WHERE FM_USER_NO = #{uNo}
 		AND FM_ORDER_STATUS = #{oStatus}
 	</select>
+	
 	<select id="viewOrderDetailItem" parameterType="int" resultType="map">
 		SELECT od.FM_ORDER_DETAIL_NO, i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE
 			, o.FM_ORDER_DATE, ig.FM_ITEM_STORED_IMG_NAME

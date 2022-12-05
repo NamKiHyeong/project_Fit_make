@@ -88,9 +88,14 @@
 		margin: 10px;
 		overflow:hidden;
 	}
-	#orderConfirmP{
-		display: flex;
-		justify-content: space-around;
+	.orderConfirmP{
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+	}
+	.orderConfirmItem{
+		display:table-cell;
+   		vertical-align: middle;
 	}
 	#buyerInfoTitle{
 		font-size: 20px;
@@ -101,13 +106,13 @@
 		margin-left: 10px;
 	}
  	.buyerInfo{
- 		width: 300px;
- 		display: flex; 
- 		justify-content: space-between; 
+ 		display: table;
+		table-layout: fixed;
+		width: 100%;
  	} 
  	.buyerInfoContent{
- 		width: 200px;
- 		text-align: justify;
+ 		display:table-cell;
+   		vertical-align: middle;
  	}
  	
  	#deliveryInfoTitle{
@@ -119,13 +124,13 @@
 		margin-left: 10px;
 	}
  	.deliveryInfo{
- 		width: 300px;
- 		display: flex; 
- 		justify-content: space-between; 
+ 		display: table;
+		table-layout: fixed;
+		width: 100%;
  	} 
  	.deliveryInfoContent{
- 		width: 200px;
- 		text-align: justify;
+ 		display:table-cell;
+   		vertical-align: middle;
  	}
 	.deliveryAdress{
 		width: 300px;
@@ -147,7 +152,7 @@
 		
 	}
 </style>
-<title>주문내역 확인</title>
+<title>FitMake</title>
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
@@ -169,7 +174,7 @@
 				</div>
 				<div id="orderConfirmDiv">
 					<c:forEach var="orderConfirmItem" items="${orderConfirmItemList}">
-						<p id="orderConfirmP">
+						<p class="orderConfirmP">
 							<span class="orderConfirmItem">${orderConfirmItem.FM_ITEM_NAME}</span>
 							<span class="orderConfirmItem">
 								<span>${orderConfirmItem.FM_ORDER_DETAIL_COUNT}개</span>
@@ -207,6 +212,7 @@
 						<span class="deliveryInfoContent">이름</span>
 						<span class="deliveryInfoContent">
 							<span>${orderConfirmMyInfo.FM_USER_NICKNAME}</span>
+							<span></span>
 						</span>
 					</p>
 					<p class="deliveryInfo">
@@ -216,6 +222,7 @@
 						<span class="deliveryInfoContent">
 							<span>${orderConfirmMyInfo.FM_USER_ZIP_CODE}</span>
 							<span>${orderConfirmMyInfo.FM_USER_ADDRESS}</span>
+							<span></span>
 						</span>
 					</p>
 					<p class="deliveryInfo">
@@ -224,6 +231,7 @@
 						</span>
 						<span class="deliveryInfoContent">
 							<span>${orderConfirmMyInfo.FM_USER_MOBILE}</span>
+							<span></span>
 						</span>
 					</p>
 				</div>
