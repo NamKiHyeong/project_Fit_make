@@ -13,6 +13,7 @@
 	width: 800px;
 	margin: 0px auto;
 }
+
 #userTableDiv {
 	width: 600px;
 	margin: 0px auto;
@@ -41,26 +42,25 @@
 					<th>가입일</th>
 				</tr>
 				<c:forEach var="userMap" items="${userMapList}">
-				<tr>
-					<td>${userMap.FM_USER_NO}</td>
-					<td>${userMap.FM_USER_NICKNAME }</td>
-					<td>${userMap.FM_USER_EMAIL }</td>
-					<td>${userMap.FM_USER_MOBILE }</td>
-					<td>${userMap.FM_USER_POINT }</td>
-					<td>${userMap.FM_USER_BMI_GENDER }</td>
-					<td>
-					<fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
-									value="${userMap.FM_USER_CRE_DATE}" /></td>
-				</tr>
+					<tr>
+						<td>${userMap.FM_USER_NO}</td>
+						<td>${userMap.FM_USER_NICKNAME }</td>
+						<td>${userMap.FM_USER_EMAIL }</td>
+						<td>${userMap.FM_USER_MOBILE }</td>
+						<td>${userMap.FM_USER_POINT }</td>
+						<td>${userMap.FM_USER_BMI_GENDER }</td>
+						<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+								value="${userMap.FM_USER_CRE_DATE}" /></td>
+					</tr>
 				</c:forEach>
 			</table>
 		</div>
 		<jsp:include page="../user/UserPaging.jsp" />
 	</div>
-	
-	
-	
-	
+
+
+
+
 	<div id="pagingSection">
 		<form id="pagingForm" action="./Info.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"
