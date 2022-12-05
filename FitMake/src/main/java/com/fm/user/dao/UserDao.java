@@ -11,6 +11,8 @@ import com.fm.util.PointAdd;
 
 public interface UserDao {
 
+	public List<Map<String, Object>> pointHistoryList(int uNo);
+
 	public UserDto userExist(String email, String password);
 
 	public int userInsertOne(UserDto userDto, String address);
@@ -29,6 +31,14 @@ public interface UserDao {
 
 	public int myPointChk(int uNo);
 
-	
+	public void userDelete(UserDto userDto) throws Exception;
+
+	public void userUpdate(UserDto userDto, String newpassword, String newpassword2);
+
+	public String myNickNameChk(String nickName);
+
+	public String fintUserId(String userPhoneNumber);
+
+	public String resultUserpwd(String userEmail);
 
 }

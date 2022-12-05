@@ -1,4 +1,4 @@
-$("document").ready(function() {
+$(document).ready(function() {
 	$("#emailChk").keyup(function() {
 		//이메일 정규식
 		let emailRull = RegExp(/^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/);

@@ -1,0 +1,143 @@
+/* div { */
+/* 	border: 1px solid; */
+/* } */
+#tableDiv table {
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#tableDiv table, th, tr, td {
+	border: 1px solid #cbcbcb;
+	padding-left: 20px;
+}
+
+#tableDiv th {
+	background: #f5f5f5;
+	padding: 20px 0px 20px 0px;
+	width: 180px;
+	padding: 20px 0px 20px 0px;
+}
+
+#container {
+	display: flex;
+	width: 1200px;
+	margin: 0px auto;
+	justify-content: space-between;
+}
+
+#myInfoDiv {
+	width: 1000px;
+}
+
+#updateDelete {
+	position: relative;
+	overflow: hidden;
+}
+
+#myInfoP {
+	font-size: 26px;
+	font-weight: 600;
+}
+
+#myInfoSpan {
+	float: right;
+	color: #666;
+	text-decoration: underline;
+}
+
+#tableDiv {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+#pwdView {
+	margin-left: 40px;
+	cursor: pointer;
+}
+
+#result_check_Nickname {
+	font-size: 12px;
+	margin-left: 4px;
+}
+
+#result_check_Re_pwd {
+	font-size: 12px;
+	margin-left: 4px;
+}
+
+.mpInp {
+	width: 25%;
+	height: 35px;
+	padding-left: 11px;
+	line-height: 35px;
+	background: #f9f9f9;
+	border: 1px solid #d6d6d6;
+	color: #7e7e7e;
+	font-size: 13px;
+}
+
+.npInp {
+	width: 50%;
+	height: 35px;
+	padding-left: 11px;
+	line-height: 35px;
+	background: #f9f9f9;
+	border: 1px solid #d6d6d6;
+	color: #7e7e7e;
+	font-size: 13px;
+}
+
+.detailInp {
+	width: 13%;
+	height: 35px;
+	padding-left: 11px;
+	line-height: 35px;
+	background: #f9f9f9;
+	border: 1px solid #d6d6d6;
+	color: #7e7e7e;
+	font-size: 13px;
+}
+
+#infoBtn {
+	padding-top: 30px;
+}
+
+#topupBtn {
+	margin-left: 10px;
+	width: 70px;
+	background: #d7266d;
+	border: 2px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+}
+
+#submitInp {
+	width: 200px;
+	background: #d7266d;
+	margin-bottom: 70px;
+	padding: 10px 0px;
+	border: 1px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	font-size: 1em;
+	font-weight: bold;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+#cancelInp {
+	width: 200px;
+	background: #fff;
+	margin-bottom: 70px;
+	padding: 10px 0px;
+	border: 1px solid #565656;
+	color: #565656;
+	text-align: center;
+	font-size: 1em;
+	font-weight: bold;
+	border-radius: 3px;
+	cursor: pointer;
+	border-radius: 3px;
+}

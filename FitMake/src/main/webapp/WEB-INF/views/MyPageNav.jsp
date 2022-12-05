@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$.ajax({
 			url : "../order/count.do",
 			type : "get",
@@ -15,12 +15,12 @@
 				var pendingStr = data.oPending;
 				var confirmStr = data.oConfirm;
 				var pixedStr = data.oPixed;
-				
+
 				$("#orderPending").html(pendingStr);
 				$("#orderConfirm").html(confirmStr);
 				$("#orderPixed").html(pixedStr);
 			}
-			
+
 		});
 	});
 </script>
@@ -29,16 +29,17 @@
 	display: flex;
 	justify-content: flex-start;
 	align-items: center;
-	border-left: 1px solid;
-	border-top: 1px solid;
-	border-bottom: 1px solid;
+	border-left: 5px solid #757e86;
+	border-top: 5px solid #757e86;
+	border-bottom: 5px solid #757e86;
+	border-right: 4px solid #757e86;
 	height: 102px;
 	width: 435px;
 }
 
 .mapageNavDiv {
 	height: 100%;
-	border-right: 1px solid;
+	border-right: 1px solid #d5d8da;
 	text-align: right;
 }
 
@@ -47,7 +48,15 @@
 }
 
 .mapageNavDiv li {
+	color: #777;
+	font-weight: 700;
 	margin-right: 40px;
+}
+
+.emFont {
+	font-size: 22px;
+	color: #d12268;
+	font-weight: bold;
 }
 </style>
 </head>
@@ -56,21 +65,25 @@
 		<div class="mapageNavDiv">
 			<ol>
 				<li>주문대기</li>
-				<li><a href="../order/list.do?searchOption=oStatus&searchText=pending" id="orderPending"></a>
-					<em>개</em>
-				</li>
+				<li><a class="emFont"
+					href="../order/list.do?searchOption=oStatus&searchText=pending"
+					id="orderPending"></a> <em>개</em></li>
 			</ol>
 		</div>
 		<div class="mapageNavDiv">
 			<ol>
 				<li>주문승인</li>
-				<li><a href="../order/list.do?searchOption=oStatus&searchText=confirm" id="orderConfirm"></a><em>개</em></li>
+				<li><a class="emFont"
+					href="../order/list.do?searchOption=oStatus&searchText=confirm"
+					id="orderConfirm"></a> <em>개</em></li>
 			</ol>
 		</div>
 		<div class="mapageNavDiv">
 			<ol>
 				<li>구매확정</li>
-				<li><a href="../order/list.do?searchOption=oStatus&searchText=pixed" id="orderPixed"></a><em>개</em></li>
+				<li><a class="emFont"
+					href="../order/list.do?searchOption=oStatus&searchText=pixed"
+					id="orderPixed"></a> <em>개</em></li>
 			</ol>
 		</div>
 	</div>

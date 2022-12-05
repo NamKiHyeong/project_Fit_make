@@ -22,6 +22,12 @@ public class UserDaoImpl implements UserDao {
 	String namespaceuser = "com.fm.user.";
 
 	@Override
+	public List<Map<String, Object>> pointHistoryList(int uNo) {
+
+		return sqlSession.selectList(namespaceuser + "pointHistoryList", uNo);
+	}
+
+	@Override
 	public UserDto userExist(String email, String password) {
 
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
@@ -66,33 +72,64 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int addPoint(UserDto userDto, int point) {
-		
-		
+
 		userDto.setPoint(point);
-		
+
 		return sqlSession.update(namespaceuser + "addPoint", userDto);
 	}
-	
+
 	@Override
 	public int pointHisoty(PointAdd pointAdd, int point) {
-		
+
 		pointAdd.setpHistory(point);
-		
+
 		return sqlSession.insert(namespaceuser + "pointHisoty", pointAdd);
 	}
-	
+
 	@Override
 	public int checkNickName(String nickName) {
-		
+
 		return sqlSession.selectOne(namespaceuser + "checkNickName", nickName);
 	}
 
 	@Override
 	public int myPointChk(int uNo) {
-		
-		return sqlSession.selectOne(namespaceuser + "myPointChk", uNo); 
+
+		return sqlSession.selectOne(namespaceuser + "myPointChk", uNo);
 	}
 
-	
+	@Override
+	public void userDelete(UserDto userDto) {
+
+		sqlSession.delete(namespaceuser + "userDelete", userDto);
+	}
+
+	@Override
+	public void userUpdate(UserDto userDto, String nickName, String newpassword) {
+
+		userDto.setNickName(nickName);
+		userDto.setPassword(newpassword);
+
+		sqlSession.update(namespaceuser + "userUpdate", userDto);
+	}
+
+	@Override
+	public String myNickNameChk(String nickName) {
+
+		return sqlSession.selectOne(namespaceuser + "myNickNameChk", nickName);
+	}
+
+	@Override
+	public String fintUserId(String userPhoneNumber) {
+
+		return sqlSession.selectOne(namespaceuser + "fintUserId", userPhoneNumber);
+
+	}
+
+	@Override
+	public String resultUserpwd(String userEmail) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespaceuser + "resultUserpwd", userEmail);
+	}
 
 }

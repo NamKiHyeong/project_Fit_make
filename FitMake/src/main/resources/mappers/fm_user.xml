@@ -19,9 +19,10 @@
 	<select id="userExist" parameterType="map"
 		resultMap="userResultMap">
 		SELECT FM_USER_NO, FM_USER_NICKNAME, FM_USER_EMAIL,
-		FM_USER_POINT
+		FM_USER_POINT, FM_USER_PASSWORD
 		FROM FM_USER
-		WHERE FM_USER_EMAIL = #{email} AND
+		WHERE FM_USER_EMAIL =
+		#{email} AND
 		FM_USER_PASSWORD = #{password}
 	</select>
 	<!-- 회원확인// -->
@@ -71,6 +72,15 @@
 	</insert>
 	<!-- 회원가입 // -->
 
+	<!-- //회원탈퇴 -->
+	<delete id="userDelete">
+		DELETE FROM FM_USER
+		WHERE FM_USER_EMAIL = #{email}
+		AND
+		FM_USER_PASSWORD = #{password}
+	</delete>
+	<!-- 회원탈퇴// -->
+
 	<!-- //내정보조회 -->
 	<select id="userSelectInfo" parameterType="int" resultType="map">
 		SELECT u.*, b.*
@@ -80,6 +90,17 @@
 		where u.FM_USER_NO = #{uNo}
 	</select>
 	<!-- 내정보조회// -->
+
+	<!-- //내정보수정 -->
+	<update id="userUpdate" parameterType="userDto">
+		UPDATE FM_USER
+		<set>
+			<if test="nickName != ''">FM_USER_NICKNAME = #{nickName},</if>
+			<if test="password != ''">FM_USER_PASSWORD = #{password},</if>
+		</set>
+		WHERE FM_USER_NO = #{uNo}
+	</update>
+	<!-- 내정보수정// -->
 
 	<!-- //이메일 중복체크 -->
 	<select id="checkEmail" parameterType="String" resultType="int">
@@ -116,10 +137,52 @@
 
 	<!-- //포인트 조회 -->
 	<select id="myPointChk" parameterType="int" resultType="int">
-		select
-		fm_user_point
-		from fm_user
-		where fm_user_no = #{uNo}
+		SELECT
+		FM_USER_POINT
+		FROM FM_USER
+		WHERE FM_USER_NO = #{uNo}
 	</select>
 	<!-- 포인트 조회// -->
+
+	<!-- //닉네임 조회 -->
+	<select id="myNickNameChk" parameterType="String"
+		resultType="String">
+		SELECT FM_USER_NICKNAME
+		FROM FM_USER
+		WHERE FM_USER_NICKNAME =
+		#{nickName}
+	</select>
+	<!-- 닉네임 조회// -->
+
+	<!-- //아이디 찾기 -->
+	<select id="fintUserId" parameterType="String"
+		resultType="String">
+		SELECT FM_USER_EMAIL
+		FROM FM_USER
+		WHERE FM_USER_MOBILE =
+		#{mobile}
+	</select>
+	<!-- 아이디 찾기// -->
+
+	<!-- //비밀번호 찾기 -->
+	<select id="resultUserpwd" parameterType="String"
+		resultType="String">
+		SELECT FM_USER_PASSWORD
+		FROM FM_USER
+		WHERE FM_USER_EMAIL =
+		#{email}
+	</select>
+	<!-- 비밀번호 찾기// -->
+
+	<!-- //충전 내역// -->
+	<select id="pointHistoryList" parameterType="int"
+		resultType="map">
+		SELECT FM_POINT_NO, FM_USER_NO, FM_POINT_HISTORY,
+		FM_POINT_CRE_DATE
+		FROM FM_POINT
+		WHERE FM_USER_NO = #{uNo}
+		ORDER BY FM_POINT_NO DESC
+	</select>
+	<!-- //충전 내역 -->
+
 </mapper>

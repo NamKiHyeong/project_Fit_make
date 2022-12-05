@@ -94,8 +94,8 @@ em {
 			</div>
 			<p>
 				<a style="font-weight: bold;" href="../user/add.do">회원가입</a><em>ㅣ</em>
-				<a href="#">아이디 찾기</a><em>ㅣ</em>
-				<a href="#">비밀번호 찾기</a>
+				<a href="../user/findId.do">아이디 찾기</a><em>ㅣ</em>
+				<a href="../user/findPassword.do">비밀번호 찾기</a>
 			</p>
 		</div>
 	</div>

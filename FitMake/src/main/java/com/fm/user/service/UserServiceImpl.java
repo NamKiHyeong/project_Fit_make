@@ -36,8 +36,14 @@ public class UserServiceImpl implements UserService {
 	public UserDao userDao;
 
 	@Override
+	public List<Map<String, Object>> pointHistoryList(int uNo) {
+		
+		return userDao.pointHistoryList(uNo);
+	}
+
+	@Override
 	public UserDto userExist(String email, String password) {
-		// TODO Auto-generated method stub
+		
 		return userDao.userExist(email, password);
 	}
 
@@ -102,10 +108,10 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public void pointHisoty(PointAdd pointAdd, int point) {
-		
+
 		userDao.pointHisoty(pointAdd, point);
 	}
-	
+
 	@Override
 	public int checkNickName(String nickName) {
 		int result = 0;
@@ -117,10 +123,54 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int myPointChk(int uNo) {
-		
-		
+
 		return userDao.myPointChk(uNo);
 	}
 
+	@Override
+	public void userDelete(UserDto userDto) throws Exception {
+
+		userDao.userDelete(userDto);
+	}
+
+	@Override
+	public void userUpdate(UserDto userDto, String nickName, String newpassword) {
+
+		userDao.userUpdate(userDto, nickName, newpassword);
+
+	}
+
+	@Override
+	public String myNickNameChk(String nickName) {
+
+		return userDao.myNickNameChk(nickName);
+	}
+
+	@Override
+	public String fintUserId(String userPhoneNumber) {
+
+		String result = "";
+
+		try {
+			result = userDao.fintUserId(userPhoneNumber);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	@Override
+	public String resultUserpwd(String userEmail) {
+		String result = "";
+
+		try {
+			result = userDao.resultUserpwd(userEmail);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
 
 }

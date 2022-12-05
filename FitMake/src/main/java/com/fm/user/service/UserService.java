@@ -1,5 +1,6 @@
 package com.fm.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.fm.user.model.UserDto;
@@ -7,6 +8,7 @@ import com.fm.util.BmiCalc;
 import com.fm.util.PointAdd;
 
 public interface UserService {
+	public List<Map<String, Object>> pointHistoryList(int uNo);
 
 	public UserDto userExist(String email, String password);
 
@@ -27,5 +29,15 @@ public interface UserService {
 	public void pointHisoty(PointAdd pointAdd, int point);
 
 	public int myPointChk(int uNo);
+
+	public void userDelete(UserDto userDto) throws Exception;
+
+	public void userUpdate(UserDto userDto, String newpassword, String newpassword2);
+
+	public String myNickNameChk(String nickName);
+
+	public String fintUserId(String userPhoneNumber);
+
+	public String resultUserpwd(String userEmail);
 
 }

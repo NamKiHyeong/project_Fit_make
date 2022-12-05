@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
@@ -42,6 +43,60 @@ public class UserController {
 	}
 
 	/**
+	 * 
+	 * @return 아이디 찾기 view
+	 */
+	@RequestMapping(value = "/user/findId.do")
+	public String viewFindId() {
+
+		return "/user/FindId";
+	}
+
+	/**
+	 * 
+	 * @return 비밀번호 찾기 view
+	 */
+	@RequestMapping(value = "/user/findPassword.do")
+	public String viewFindpwd() {
+
+		return "/user/FindPassword";
+	}
+
+	/**
+	 * 
+	 * @return 회원탈퇴 view
+	 */
+	@RequestMapping(value = "/user/userDelete.do")
+	public String viewDelete(HttpSession session) {
+
+		return "/user/UserDelete";
+	}
+
+	/**
+	 * 
+	 * @param uNo
+	 * @param password
+	 * @return 회원탈퇴 기능
+	 */
+	@RequestMapping(value = "/user/deleteCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String userDelete(UserDto userDto, HttpSession session, RedirectAttributes ra) throws Exception {
+		logger.info("회원탈퇴 진행");
+
+		UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
+
+		String oldPwd = uPwd.getPassword();
+		String sessionPwd = userDto.getPassword();
+
+		if (!(sessionPwd.equals(oldPwd))) {
+			ra.addFlashAttribute("msg", false);
+			return "redirect:/user/userDelete.do";
+		}
+		userService.userDelete(userDto);
+		session.invalidate();
+		return "redirect:/auth/login.do";
+	}
+
+	/**
 	 * 헤더 메인로고 클릭 시 로그인 상태 -> 메인페이지, 비로그인 상태 -> 로그인페이지
 	 * 
 	 * @param session 회원정보 유무상태를 확인
@@ -64,13 +119,12 @@ public class UserController {
 	 * 
 	 * @param email    사용자가 입력한 email값
 	 * @param password 사용자가 입력한 password값
-	 * @param model alret를 하기 위해 model 사용
+	 * @param model    alret를 하기 위해 model 사용
 	 * @param session  세션에 userDto정보를 담는다 view페이지에서 현재 세션정보를 찾기 위함
 	 * @return 가입된 회원 -> 메인페이지, 가입되지 않은 회원 -> 로그인실패 alert(이동후 다시 로그인페이지)
 	 */
 	@RequestMapping(value = "/auth/loginCtr.do", method = RequestMethod.POST)
-	public String loginCtr(String email, String password, HttpSession session
-			, Model model) {
+	public String loginCtr(String email, String password, HttpSession session, Model model) {
 		logger.info("Welcome UserController loginCtr! " + email + ", " + password);
 
 		UserDto userDto = userService.userExist(email, password);
@@ -81,7 +135,7 @@ public class UserController {
 			model.addAttribute("msg", "아이디 또는 비밀번호가 잘못되었습니다");
 			model.addAttribute("url", "../auth/login.do");
 			return "auth/LoginFail";
-		} 
+		}
 		session.setAttribute("_userDto_", userDto);
 		viewUrl = "main/MainPage";
 		return viewUrl;
@@ -159,7 +213,6 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/phoneCheck.do", method = RequestMethod.GET)
-//	@GetMapping("/user/phoneCheck.do")
 	@ResponseBody
 	public String sendSMS(@RequestParam("phone") String userPhoneNumber) { // 휴대폰 문자보내기
 		int randomNumber = (int) ((Math.random() * (9999 - 1000 + 1)) + 1000);// 난수 생성
@@ -172,25 +225,70 @@ public class UserController {
 
 	/**
 	 * 
+	 * @param userPhoneNumber 입력한 핸드폰 번호
+	 * @return userPhoneNumber로 DB를 통해 EMAIL값을 가져옴 (EMAIL찾기)
+	 */
+	@RequestMapping(value = "/user/resultFindId.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String resultId(@RequestParam("phone") String userPhoneNumber) {
+
+		String result = userService.fintUserId(userPhoneNumber);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/user/resultFindPwd.do", method = RequestMethod.POST)
+	@ResponseBody
+	public String resultPwd(@RequestParam("email") String userEmail) {
+
+		String result = userService.resultUserpwd(userEmail);
+
+		return result;
+	}
+
+	/**
+	 * 
 	 * @param session
-	 * @return
+	 * @return 헤더 포인트 정보 확인
 	 */
 	@RequestMapping(value = "/user/pointChk.do", method = RequestMethod.GET)
 	@ResponseBody
 	public int myPointChk(HttpSession session) {
 
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		
-		if(userDto == null) {
-			int myPointChk  = 0;
+
+		if (userDto == null) {
+			int myPointChk = 0;
 			return myPointChk;
 		} else {
 			int uNo = (int) userDto.getuNo();
-			
+
 			int myPointChk = userService.myPointChk(uNo);
 			return myPointChk;
 		}
-		
+
+	}
+
+	/**
+	 * 
+	 * @param session
+	 * @return 헤더 닉네임 정보 확인
+	 */
+	@RequestMapping(value = "/user/nickNameChk.do", method = RequestMethod.GET, produces = "application/text; charset=utf8")
+	@ResponseBody
+	public String myNickNameChk(HttpSession session) {
+
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+
+		if (userDto == null) {
+			String myNicknameChk = "";
+			return myNicknameChk;
+		} else {
+			String nickName = userDto.getNickName();
+
+			String myNicknameChk = userService.myNickNameChk(nickName);
+			return myNicknameChk;
+		}
 	}
 
 	/**
@@ -215,21 +313,50 @@ public class UserController {
 	/**
 	 * 
 	 * @param model
-	 * @return
+	 * @return 내정보 보기
 	 */
 	@RequestMapping(value = "/user/Info.do")
 	public String userInfo(Model model, HttpSession session) {
-		
+
 		UserDto userdto = new UserDto();
-		
+
 		userdto = (UserDto) session.getAttribute("_userDto_");
 		logger.info("Welcome UserController userInfo enter! - {}", userdto.getuNo());
-		
-		
+
 		Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
 		model.addAttribute("myInfomap", myInfomap);
 
 		return "/user/UserMyInfo";
+	}
+
+	/**
+	 * 
+	 * @param userDto
+	 * @param model
+	 * @param session
+	 * @param nickName
+	 * @param newpassword
+	 * @return 회원정보 수정 기능
+	 */
+	@RequestMapping(value = "/user/userUpdate.do", method = RequestMethod.POST)
+	public String userUpdate(UserDto userDto, Model model, HttpSession session, String nickName, String newpassword) {
+		logger.info("회원정보 수정", userDto);
+
+		UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
+
+		String existingPwd = uPwd.getPassword();
+		String sessionPwd = userDto.getPassword();
+
+		if (!(sessionPwd.equals(existingPwd))) {
+			model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
+			model.addAttribute("url", "redirect:/user/Info.do");
+
+			return "common/UpdateAlert";
+		}
+
+		userService.userUpdate(userDto, nickName, newpassword);
+
+		return "redirect:/user/Info.do";
 	}
 
 	/**
@@ -244,6 +371,13 @@ public class UserController {
 		return "/user/PointPopup";
 	}
 
+	/**
+	 * 
+	 * @param point    사용자가 충전할 포인트 값
+	 * @param pointAdd DB에 저장할 충전값 (history)
+	 * @param session
+	 * @return 포인트 충전 기능
+	 */
 	@RequestMapping(value = "/user/pointAdd.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
 	public int pointAdd(@RequestParam("priceSelect") int point, PointAdd pointAdd, HttpSession session) {
@@ -264,28 +398,16 @@ public class UserController {
 	 * @return 충전/사용내역 View
 	 */
 	@RequestMapping(value = "/user/pointHistory.do")
-	public String viewHistory() {
-		logger.info("충전/사용내역");
+	public String viewHistory(HttpSession session, Model model) {
+		logger.info("충전내역");
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
 
-		return "/user/PointRechargehistory";
-	}
-	/**
-	 * 
-	 * @return 아이디 찾기
-	 */
-	@RequestMapping(value = "/user/findId.do")
-		public String viewFindId () {
+		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo);
 		
-		return null;
+		model.addAttribute("pointList", pointList);
+
+		return "user/PointRechargehistory";
 	}
 	
-	/**
-	 * 
-	 * @return 비밀번호 찾기
-	 */
-	@RequestMapping(value = "/user/findPassword.do")
-		public String viewFindpwd () {
-		
-		return null;
-	}
 }

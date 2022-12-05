@@ -21,6 +21,7 @@ a:visited {
 	color: #000000;
 	text-decoration: none;
 }
+
 a:hover {
 	color: #000000;
 	text-decoration: none;
@@ -49,7 +50,7 @@ a:active {
 
 #logo_infoDiv {
 	margin: 0 auto;
-    margin-top: 22px;
+	margin-top: 22px;
 	margin-bottom: 22px;
 	width: 1200px;
 	position: relative;
@@ -135,4 +136,41 @@ a:active {
 
 #footerDiv {
 	border: 1px solid white;
+}
+
+.dropdownCart {
+	position: relative;
+	display: inline-block;
+}
+
+#cartList {
+	display: none;
+	position: absolute;
+	z-index: 1;
+	min-width: 280px;
+	max-width: 280px;
+	min-height: 100px;
+	background: white;
+	border: 1px solid;
+	padding: 5px;
+	border-radius: 3px;
+	transition: 0.5s all;
+}
+
+#cartList table {
+	display: block;
+}
+
+.dropdownCart:hover #cartList {
+	display: block;
+}
+
+/* 마우스를 올리면 색이 바뀌는 Css */
+/* #cartList table:hover{
+  		background-color : #ececec
+	} */
+td img {
+	width: 150px;
+	height: 100px;
+	object-fit: cover;
 }

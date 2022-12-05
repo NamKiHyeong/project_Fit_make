@@ -5,22 +5,23 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<title>Insert title here</title>
+
+<style type="text/css">
+</style>
 
 <script type="text/javascript">
-
-var msg = "<c:out value='${msg}'/>";
-var url = "<c:out value='${url}'/>";
-alert(msg);
-location.href = url;
-
+	var msg = "<c:out value='${msg}'/>";
+	var url = "<c:out value='${url}'/>";
+	alert(msg);
+	location.href = url;
 </script>
-
-<title>FitMake</title>
 
 </head>
 
 <body>
-	
+
 </body>
+
 
 </html>
