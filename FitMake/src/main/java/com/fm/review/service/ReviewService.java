@@ -22,6 +22,8 @@ public interface ReviewService {
 	public int reviewSelectTotalReviewCount(int iNo);
 //	public Map<String, Object> reviewSelectTotalReviewCount(int iNo);
 //	public int reviewSelectTotalReviewCount(int iNo, String keyword);
+//-----------------
+//	public int reviewSelectTotalReviewCount2();
 	
 	
 }

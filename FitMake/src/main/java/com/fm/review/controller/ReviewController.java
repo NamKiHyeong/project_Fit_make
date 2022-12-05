@@ -103,7 +103,31 @@ public class ReviewController {
 		
 		return "/review/ReviewList";
 	}
+	//---------------------------------
 	
+//	@RequestMapping(value="/review/totalList.do", method = {RequestMethod.GET, RequestMethod.POST})
+//	public String reviewSelectTotalList(@RequestParam(defaultValue = "1") int curPage
+//			, Model model) {
+//		int totalReviewCount = reviewService.reviewSelectTotalReviewCount2();
+//		Paging reviewPaging = new Paging(totalReviewCount, curPage);
+//		int start = reviewPaging.getPageBegin();
+//		int end = reviewPaging.getPageEnd();
+//		Map<String, Object> searchMap = new HashMap<>();
+//		
+//		Map<String, Object> pagingMap = new HashMap<>();
+//		pagingMap.put("reviewPaging", reviewPaging);
+//		pagingMap.put("totalItemCount", totalReviewCount);
+//		
+//		model.addAttribute("reviewList", reviewList);
+//		model.addAttribute("pagingMap", pagingMap);
+//		model.addAttribute("searchMap", searchMap);
+//		
+//		return "/review/ReviewList";
+//	}
+	
+	
+	
+	//------------------------------------
 	@RequestMapping(value="/review/one.do", method = RequestMethod.GET)
 	public String reviewSelectOne(@RequestParam int iNo
 			, @RequestParam int curPage
