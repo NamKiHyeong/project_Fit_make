@@ -23,9 +23,6 @@ function myPointChkFnc() {
 		dataType: "json",
 		success: function(data) {
 			var data = data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-			if (data == 0) {
-				return false;
-			}
 			$("#pointChk").html(data + "원");
 		}
 

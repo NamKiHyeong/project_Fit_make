@@ -89,7 +89,7 @@
 					<ul>
 						<li><img alt="목록"
 							src="/fitmake/resources/image/Kategorie.png"> 전체 카테고리</li>
-						<li><a href="${pageContext.request.contextPath}/item/list.do">다이어트</a></li>
+						<li><a href="${pageContext.request.contextPath}/item/list.do?cNo=2">다이어트</a></li>
 						<li><a href="#">베스트</a></li>
 					</ul>
 				</c:if>

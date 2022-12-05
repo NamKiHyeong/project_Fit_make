@@ -134,9 +134,9 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void userUpdate(UserDto userDto, String nickName, String newpassword) {
+	public void userUpdate(UserDto userDto, String nickName, String password, int salt) {
 
-		userDao.userUpdate(userDto, nickName, newpassword);
+		userDao.userUpdate(userDto, nickName, password, salt);
 
 	}
 
@@ -171,6 +171,12 @@ public class UserServiceImpl implements UserService {
 		}
 
 		return result;
+	}
+
+	@Override
+	public void userBmiDelete(UserDto userDto) {
+		
+		userDao.userBmiDelete(userDto);
 	}
 
 }

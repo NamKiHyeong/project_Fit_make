@@ -32,17 +32,25 @@ public class UserDaoImpl implements UserDao {
 
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("email", email);
-		paramMap.put("password", password);
+		
 
 		UserDto userDto = sqlSession.selectOne(namespaceuser + "userExist", paramMap);
+		
+		String existPwd = userDto.setHashpwd(userDto.getSalt(), password);
+		if (existPwd.equals(userDto.getPassword())) {
+			
+			return userDto;
+		} else {
+			return null;
+		}
 
-		return userDto;
 	}
 
 	@Override
 	public int userInsertOne(UserDto userDto, String address) {
 
 		userDto.setAddress(address);
+		
 
 		return sqlSession.insert(namespaceuser + "userInsertOne", userDto);
 	}
@@ -100,15 +108,22 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void userDelete(UserDto userDto) {
-
+		
 		sqlSession.delete(namespaceuser + "userDelete", userDto);
+	}
+	
+	@Override
+	public void userBmiDelete(UserDto userDto) {
+		
+		sqlSession.delete(namespaceuser + "userBmiDelete", userDto);
 	}
 
 	@Override
-	public void userUpdate(UserDto userDto, String nickName, String newpassword) {
+	public void userUpdate(UserDto userDto, String nickName, String password, int salt) {
 
 		userDto.setNickName(nickName);
-		userDto.setPassword(newpassword);
+		userDto.setPassword(password);
+		userDto.setSalt(salt);
 
 		sqlSession.update(namespaceuser + "userUpdate", userDto);
 	}

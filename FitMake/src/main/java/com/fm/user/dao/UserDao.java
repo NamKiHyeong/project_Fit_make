@@ -33,12 +33,14 @@ public interface UserDao {
 
 	public void userDelete(UserDto userDto) throws Exception;
 
-	public void userUpdate(UserDto userDto, String newpassword, String newpassword2);
+	public void userUpdate(UserDto userDto, String nickName, String password, int salt);
 
 	public String myNickNameChk(String nickName);
 
 	public String fintUserId(String userPhoneNumber);
 
 	public String resultUserpwd(String userEmail);
+
+	public void userBmiDelete(UserDto userDto);
 
 }
