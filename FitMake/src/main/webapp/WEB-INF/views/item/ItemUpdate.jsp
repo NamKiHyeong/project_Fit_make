@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원 수정 하는 곳</title>
+<title>FitMake</title>
 <link rel="stylesheet" href="/fitmake/resources/css/itemUpdate.css">
 <script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>

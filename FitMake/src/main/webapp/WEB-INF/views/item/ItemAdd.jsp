@@ -7,7 +7,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>아이템을 추가해줘</title>
+<title>FitMake</title>
 <link rel="stylesheet" href="/fitmake/resources/css/itemOne.css">
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 

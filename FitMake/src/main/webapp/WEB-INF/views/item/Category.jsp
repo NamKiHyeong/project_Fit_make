@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>특가 더미 사이트(Item list 사이트)</title>
+<title>FitMake</title>
 
 <link rel="stylesheet" href="/fitmake/resources/css/itemList.css">
 <script type="text/javascript"

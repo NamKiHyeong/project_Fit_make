@@ -6,8 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>제품 상세정보</title>
-
+<title>FitMake</title>
 <link rel="stylesheet" href="/fitmake/resources/css/itemOne.css">
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
