@@ -91,7 +91,6 @@
 				<div id="titleDiv">
 					<p id="inquiryHeadTitle">문의게시판</p>
 				</div>
-				<hr id="headHr">
 			
 	
 				<form id="inquiryForm">

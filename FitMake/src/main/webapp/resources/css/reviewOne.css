@@ -87,7 +87,6 @@
 .reviewinfo{
 	margin-left:50px;
 }
-
 .reviewCtr {
 	margin-left: 10px;
 	margin-top: 10px;
@@ -100,6 +99,9 @@
 	font-size: 14px;
 }
 #reviewAddBtnArea{
+	text-align: right;
+}
+#reviewOneBtnArea{
 	text-align: right;
 }
 .reviewCtrCenter{

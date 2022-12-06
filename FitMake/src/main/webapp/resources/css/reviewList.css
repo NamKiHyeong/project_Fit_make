@@ -1,49 +1,88 @@
 @charset "UTF-8";
+#reviewListDiv{
+	display: flex;
+	width : 1200px;
+	margin: 0px auto;
+	justify-content: space-around;	
+}
+#pagingDiv{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+#titleDiv{
+	margin-top: 0px;
+	position: relative;
+	width : inherit;
+	overflow: hidden;
+}
+#reviewTitle{
+	font-size: 26px;
+	font-weight: 600;
+}
 
+#reviewListOuterDiv{
+	width : 1000px;
+}
+.reviewListInnerDiv{
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+}
+.frame > form{
+	margin-left: 50px;
+}
 .diet_wrap {
-	width:1200px;
-	margin:0 auto;
+	width:inherit;
+	margin: 0px auto;
 }
 
 .diet_wrap h3 {
-	font-weight:bold;font-size:24px;
+	font-weight:bold;
+	font-size:24px;
 }
 
 .diet_wrap h4 {
-	font-weight:bold;font-size:24px;
+	font-weight:bold;
+	font-size:24px;
 	margin: 0 0 10px;
 }
 
 .frame{
+	width: 100%;
 	margin-bottom:30px;
 }
 
-.frame .sortImg {float:left;}
+.frame .sortImg {
+	float:left;
+}
 
 .frame:after {
 	content:"";
 	clear:both;
 	display:block;
 }
-
 .frame .sort1 {
 	/*margin-right:40px;*/
-	width: 450px;
+	width: 200px;
 }
-
 .frame .sort1 > img {
-	padding:30px; border:1px solid #ddd;
-	
+	border:1px solid #ddd;
+	width: inherit;
 }
 .sortImg{
-	width: 400px;
+	padding-left: 30px; 
+	width: 200px;
 }
 .frame p{
-	width:450px;
+	width:200px;
 	padding:0 0 15px;
 	margin:0px;
 }
 
+.reviewListInnerDiv > div{
+	display:table-cell;
+}
 .info{
 	font-size: 20px;
 	padding:3px;

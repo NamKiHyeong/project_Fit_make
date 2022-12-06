@@ -35,8 +35,11 @@
 					<h3>제목</h3><input type="text" name="rTitle" style="padding:7px;width:600px;box-sizing:border-box;" value="${reviewDto.rTitle}" readonly="readonly"><br>
 					
 					<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> <textarea style="padding:10px;" rows="20" cols="80" name="rContent" readonly="readonly">${reviewDto.rContent}</textarea>
+					
 					<c:if test="${_userDto_.uNo == reviewDto.uNo}">
-						<input class="reviewCtr" type="submit" value="수정하기">
+						<div id="reviewOneBtnArea">
+							<input class="reviewCtr" type="submit" value="수정하기">
+						</div>
 					</c:if>
 				</div>
 			</div>

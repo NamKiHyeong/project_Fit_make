@@ -15,13 +15,6 @@ $(document).ready(function() {
 			iNo.push($("#iNoInput").val());			
 		}
 		
-//		$('input:checkbox[name="iCkBox"]').each(function() {
-//			
-//			if(this.checked == true){
-//				iNo.push(this.value);
-//			}
-//		});
-		
 		var itemCart = { 
 				"iNo" : iNo,
 				"ctCount" : ctCount

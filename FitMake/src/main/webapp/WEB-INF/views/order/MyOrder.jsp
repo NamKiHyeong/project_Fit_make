@@ -121,6 +121,9 @@
 		text-align: center;
 		cursor: pointer;
 	}
+	.myOrderStatusUpdateBtn{
+		text-align: right;
+	}
 	#writeReviewBtn{
 		margin-left: 10px;
 		width: auto;
@@ -129,6 +132,10 @@
 		color: #fff;
 		text-align: center;
 		cursor: pointer;
+	}
+	.myOrderStatus{
+		font-size: 20px;
+		font-weight: 600;
 	}
 </style>
 <title>FitMake</title>
@@ -165,25 +172,27 @@
 									<div id="orderUpdateDiv">
 										<c:choose>
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'pending'}">
-												주문대기
-													<span>
-														<input class="myOrderCacelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
-													</span>
-											</c:when>
-											<c:when test="${orderMap.FM_ORDER_STATUS eq 'confirm'}">
-												주문승인
+												<span class="myOrderStatus">주문대기</span>
 												<span>
 													<input class="myOrderCacelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
 												</span>
-												<span>
-													<input class="myOrderPixedBtn" type="button" value="구매확정" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
-												</span>
+											</c:when>
+											<c:when test="${orderMap.FM_ORDER_STATUS eq 'confirm'}">
+												<span class="myOrderStatus">주문승인</span>
+												<div class="myOrderStatusUpdateBtn">
+													<span>
+														<input class="myOrderPixedBtn" type="button" value="구매확정" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
+													</span>
+													<span>
+														<input class="myOrderCacelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
+													</span>
+												</div>
 											</c:when>
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'cancel'}">
-												주문취소
+												<span class="myOrderStatus">주문취소</span>
 											</c:when>
 											<c:otherwise>
-												구매확정
+												<span class="myOrderStatus">구매확정</span>
 												<span>
 													<input id="writeReviewBtn" type="button" value="리뷰쓰기" >
 												</span>

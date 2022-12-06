@@ -10,7 +10,7 @@ nav > ul{
 	padding: 0px;
 	overflow: hidden;
 	background: #d7266d;
-	border: 2px solid #d7266d;
+	border: 0px solid #ffffff;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;

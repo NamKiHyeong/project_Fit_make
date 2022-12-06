@@ -44,6 +44,7 @@
 	}
 	#inquiryDetailTable > tr > td{
 		margin-top: 10px;
+		border-collapse: collapse;
 	}
 	.inquiryDetailHead{
 		text-align: right;
@@ -55,6 +56,7 @@
 		width: 100%;
 	    height: 500px;
 		border: none;
+		padding: 30px;
 		vertical-align: top;
 	}
 	#inquiryDetailbtnArea{
@@ -84,7 +86,6 @@
 				<jsp:include page="../MyPageNav.jsp" />
 				<div id="titleDiv">
 					<p id="inquiryDetailTitle">문의상세내용</p>
-					<hr>
 				</div>
 	
 				<form id="inquiryDetailform">
@@ -98,17 +99,20 @@
 									<input type="hidden" id="bNo" name="bNo" value="${inquiryMap.FM_INQUIRY_NO}">
 								</td>
 							</tr>
-							<tr>
-								<td colspan="2" id="inquiryDetailWriter">
+							<tr class="inquiryDetailHead" style="border-bottom: 1px solid;">
+								<td colspan="3" id="inquiryDetailWriter" class="inquiryDetailHead">
 								${inquiryMap.FM_USER_NICKNAME}
-								</td>
-								<td >	
 								</td>
 								<td class="inquiryDetailHead">
 									작성일 ${inquiryMap.FM_INQUIRY_CRE_DATE}
 								</td>
 								<td class="inquiryDetailHead">
 									댓글수 ${inquiryMap.igrCount}
+								</td>
+							</tr>
+							<tr>
+								<td colspan="5">
+									<hr>
 								</td>
 							</tr>
 							<tr>

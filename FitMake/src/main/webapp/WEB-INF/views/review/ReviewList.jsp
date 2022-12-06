@@ -41,50 +41,52 @@ function deleteReviewFnc(rNo, iNo){
 </head>
 <body>
 	<jsp:include page="../Header.jsp" />
-	
-	
-	
-	
 <!-- 	<form action="./list.do"> -->
 <%-- 			<input type="hidden" name="iNo" value="${pagingMap.iNo}"> --%>
 <%-- 			<input type="text" name="keyword" value="${searchMap.keyword}"> --%>
 <!-- 			<input type="submit" value="검색"> -->
 <!-- 	<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
 <!-- 	</form> -->
-	<div class="diet_wrap">
-	<h3>리뷰 목록</h3>
-	<c:forEach var="review" items="${reviewList}">
-		<div class="frame">
-		<form id="reviewOneForm${review.reviewDto.rNo}" action="./one.do" method="get">
-<%-- 					<input type="hidden" name="cNo" value="${paging.cNo}"> --%>
-			<input type="hidden" name="iNo" value="${review.reviewDto.iNo}">
-			<input type="hidden" name="rNo" value="${review.reviewDto.rNo}">
-			<input type="hidden" name="curPage" value="${pagingMap.reviewPaging.curPage}">
-			
-				
-					<div class="sortImg sort1">
-						<img class="iImg" alt="image not found" src="<c:url value='/image/${review.fileMap.FM_REVIEW_STORED_NAME}'/>"/>
-					</div>
-					<div class="sortImg sort2">
-						<h4>
-							<a href="#" onclick="reviewOneFnc(${review.reviewDto.rNo});">
-								제목 ${review.reviewDto.rTitle}
-							</a>
-							<c:if test="${review.reviewDto.uNo eq _userDto_.uNo}">
-								<input class="itemCtr" type="button" value="삭제" onclick='deleteReviewFnc(${review.reviewDto.rNo}, ${review.reviewDto.iNo});'><br>
-							</c:if>
-						</h4>
-						<p>내용</p>
-						<textarea rows="25" cols="65" style="padding:10px;">${review.reviewDto.rContent}</textarea>
-					</div>
-				
-				
-			</form>
+	<div id="reviewListDiv">
+		<div id="pagingDiv">
+			<div id="titleDiv">
+				<p id="reviewTitle">리뷰목록</p>
+				<hr>
+			</div>
+			<div id="reviewListOuterDiv">
+				<div class="diet_wrap">
+					<c:forEach var="review" items="${reviewList}">
+						<div class="frame">
+							<form id="reviewOneForm${review.reviewDto.rNo}" action="./one.do" method="get">
+				<%-- 					<input type="hidden" name="cNo" value="${paging.cNo}"> --%>
+								<input type="hidden" name="iNo" value="${review.reviewDto.iNo}">
+								<input type="hidden" name="rNo" value="${review.reviewDto.rNo}">
+								<input type="hidden" name="curPage" value="${pagingMap.reviewPaging.curPage}">
+								<div class="reviewListInnerDiv">
+									<div class="sortImg sort1">
+										<img class="iImg" alt="image not found" src="<c:url value='/image/${review.fileMap.FM_REVIEW_STORED_NAME}'/>"/>
+									</div>
+									<div class="sortImg sort2">
+										<p class="reviewListTitleEach">
+											<a href="#" onclick="reviewOneFnc(${review.reviewDto.rNo});">
+												제목 ${review.reviewDto.rTitle}
+											</a>
+											<c:if test="${review.reviewDto.uNo eq _userDto_.uNo}">
+												<input class="itemCtr" type="button" value="삭제" onclick='deleteReviewFnc(${review.reviewDto.rNo}, ${review.reviewDto.iNo});'><br>
+											</c:if>
+										</p>
+										<p>내용</p>
+										<textarea style="width: 500px; height: 100px; padding:10px; border: none; resize: none;" readonly="readonly">${review.reviewDto.rContent}</textarea>
+									</div>
+								</div>
+							</form>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+			<jsp:include page="./ReviewPaging.jsp"/>	
 		</div>
-	</c:forEach>
 	</div>
-	<jsp:include page="./ReviewPaging.jsp"/>	
-	
 	<form action="./list.do" id="pagingForm" method="post">
 		<input type="hidden" id="curPage" name="curPage" value="${pagingMap.ReviewPaging.curPage}">
 		<input type="hidden" name="iNo" value="${pagingMap.iNo}">
