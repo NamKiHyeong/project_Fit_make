@@ -68,7 +68,8 @@ $(document).ready(function() {
 	var pointcomma = point.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
 	$('#myPonit').val(pointcomma);
 
-
+	
+	// DB에 저장된 M,W을 남성,여성으로 변환
 	var infoGender = $("#infoGender").val();
 
 	if (infoGender == "M") {

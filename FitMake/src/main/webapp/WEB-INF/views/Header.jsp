@@ -19,10 +19,40 @@
 		} else {
 			headerDiv.css("background", "#fff");
 		}
+
+		$("#testLi").on("mouseover", function() {
+			$("#ulDiv").stop().slideDown("slow");
+		});
 		
+		$("#testLi").on("mouseout", function() {
+			$("#ulDiv").stop().slideUp("slow");
+		});
+		
+// 		$("#testLi").hover(function() {
+// 			$("#ulDiv").slideDown(100);
+// 		}, function() {
+// 			$("#ulDiv").slideUp("slow");
+// 		});#
 	});
 	
 </script>
+<style type="text/css">
+
+#bigUl{
+	position: relative;
+}
+
+#ulDiv{
+	position: absolute;
+	display: none;
+	width: 200px;
+	background-color: white;
+}
+
+#title{
+margin: 0;
+}
+</style>
 </head>
 <body>
 	<div id="rootDiv">
@@ -66,7 +96,8 @@
 								<div>
 									<span class="" aria-hidden="true"></span>
 									<div id="cartList">
-										<table id="cartSummaryListTable" style="width: 100%" aria-hidden="true">
+										<table id="cartSummaryListTable" style="width: 100%"
+											aria-hidden="true">
 											<tbody id="cartView" aria-hidden="true">
 
 											</tbody>
@@ -86,10 +117,19 @@
 		<div id="menu">
 			<div id="navDiv">
 				<c:if test="${_userDto_.email ne null}">
-					<ul>
-						<li><img alt="목록"
-							src="/fitmake/resources/image/Kategorie.png"> 전체 카테고리</li>
-						<li><a href="${pageContext.request.contextPath}/item/list.do?cNo=2">추천상품</a></li>
+					<ul id="bigUl">
+						<li id="testLi">
+							<p id="title"><img alt="목록" src="/fitmake/resources/image/Kategorie.png"> 전체 카테고리</p>
+							<div id="ulDiv">
+								<p><a href="#">aa</a></p>
+								<p><a href="#">bb</a></p>
+								<p><a href="#">cc</a></p>
+								<p><a href="#">cc</a></p>
+								<p><a href="#">cc</a></p>
+							</div>
+						</li>
+						<li><a
+							href="${pageContext.request.contextPath}/item/list.do?cNo=2">추천상품</a></li>
 						<li><a href="#">베스트</a></li>
 					</ul>
 				</c:if>

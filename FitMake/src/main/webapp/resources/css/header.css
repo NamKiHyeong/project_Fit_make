@@ -41,7 +41,7 @@ a:active {
 }
 
 #padding_Div {
-	height: 200px;
+	height: 180px;
 }
 
 #logoInfo_Wrap {
@@ -114,6 +114,7 @@ a:active {
 #menu ul {
 	display: flex;
 	padding: 0px;
+	margin: 0px;
 }
 
 #menu ul li { /* menu -> ul -> li 태그의 스타일링 */
@@ -122,6 +123,7 @@ a:active {
 	margin-right: 70px;
 	font-weight: bold;
 	font-size: 1.2em;
+	padding: 16px 0px 11.2px 0px;
 }
 
 #menu a:link {
@@ -151,7 +153,7 @@ a:active {
 	max-width: 350px;
 	min-height: 100px;
 	background: white;
- 	border: 1px solid #e5e5e5;
+	border: 1px solid #e5e5e5;
 	padding: 5px;
 	border-radius: 3px;
 	transition: 0.5s all;
@@ -160,23 +162,28 @@ a:active {
 #cartSummaryListTable {
 	display: block;
 }
+
 .dropdownCart:hover #cartList {
 	display: block;
 }
-.cartSummaryImg > a > img {
+
+.cartSummaryImg>a>img {
 	width: 150px;
 	height: 100px;
 	object-fit: cover;
 }
-.cartSummaryImg{
+
+.cartSummaryImg {
 	width: 150px;
 	height: 100px;
 }
-#cartView{
+
+#cartView {
 	height: 100px;
 	border-bottom: 1px solid #e5e5e5;
 }
-.cartSummaryItemName{
+
+.cartSummaryItemName {
 	width: 150px;
 	font-size: 12px;
 	font-weight: 600;
@@ -184,25 +191,29 @@ a:active {
 	vertical-align: center;
 	height: 20px;
 }
-.cartSummaryDeleteBtnArea{
+
+.cartSummaryDeleteBtnArea {
 	width: 50px;
 	font-size: 6px;
 	vertical-align: center;
 }
-.cartSummaryPriceEach{
+
+.cartSummaryPriceEach {
 	padding: 0px;
 	font-size: 15px;
 	padding-left: 10px;
 	vertical-align: center;
 	height: 20px;
 }
-.cartSummaryCount{
+
+.cartSummaryCount {
 	padding: 0px;
 	font-size: 15px;
 	vertical-align: center;
 	height: 30px;
 }
-.cartSummaryPriceMultiplyWithCount{
+
+.cartSummaryPriceMultiplyWithCount {
 	font-size: 20px;
 	text-align: right;
 	padding: 0px;
