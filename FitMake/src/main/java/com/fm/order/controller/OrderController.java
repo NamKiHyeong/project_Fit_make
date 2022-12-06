@@ -66,7 +66,7 @@ public class OrderController {
 	  @ResponseBody
 	  @RequestMapping(value = "/cart/add.do", method = RequestMethod.POST)
 	  public int AddcartAsync(HttpSession session, Model model, @RequestParam(value="iNo[]", defaultValue = "0") int[] iNo
-			  , @RequestParam(value="ctCount", defaultValue = "0") int ctCount) throws Exception {
+			  , @RequestParam(value="ctCount", defaultValue = "1") int ctCount) throws Exception {
 		  logger.debug("welcome CartAdd");
 		  
 	      UserDto userDto = (UserDto) session.getAttribute("_userDto_");

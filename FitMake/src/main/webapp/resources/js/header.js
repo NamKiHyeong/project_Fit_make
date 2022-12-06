@@ -59,7 +59,7 @@ function viewCartSummaryFnc() {
 					var ctNo = parseInt(value.FM_CART_NO);
 
 					str += '<tr><td class="cartSummaryImg" rowspan="3">';
-					str += '<a href="/item/list.do?iNo='+ value.FM_ITEM_NO + '">';
+					str += '<a href="../item/one.do?iNo='+ value.FM_ITEM_NO + '">';
 					str += '<img alt="image not found" src="../image/' + value.FM_ITEM_STORED_IMG_NAME + '"></a></td>';
 					str += '<td class="cartSummaryItemName">';
 					str += '<a class="cartSummaryItemName" href="/item/list.do?iNo='

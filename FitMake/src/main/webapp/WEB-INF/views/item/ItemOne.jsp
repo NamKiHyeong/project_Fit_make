@@ -43,7 +43,7 @@
 								</c:otherwise>
 							</c:choose>
 							
-							<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo});">
+							<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo},${prevMap.curPage});">
 							<c:if test="${_userDto_.uNo != 1}">
 								<input class="itemCtr" type="button" id="addCartBtn" value="장바구니">
 								<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">

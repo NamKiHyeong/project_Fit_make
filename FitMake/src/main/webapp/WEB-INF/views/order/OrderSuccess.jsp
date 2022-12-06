@@ -48,7 +48,15 @@
 	#successBtn{
 		margin-top: 200px;
 	}
-	
+	.orderSuccessBtn{
+		margin-left: 10px;
+		width: 100px;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
 </style>
 </head>
 <body>
@@ -60,8 +68,8 @@
 					<p id="successTextArea">주문에 성공하셨습니다.</p>
 				</div>
 				<div id="successBtn">
-					<input id="orderListBtn" type="button" value="주문목록으로">
-					<input id="itemListBtn" type="button" value="제품목록으로">
+					<input class="orderSuccessBtn" id="orderListBtn" type="button" value="주문목록으로">
+					<input class="orderSuccessBtn" id="itemListBtn" type="button" value="제품목록으로">
 				</div>
 			</div>
 		</div>

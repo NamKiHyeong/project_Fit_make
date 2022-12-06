@@ -299,13 +299,11 @@
 							<p class="totalSummary">${orderConfirmItemList[0].FM_ITEM_NAME}</p>
 						</c:otherwise>
 					</c:choose>
-					<p id="totalPrice">${orderConfirmItemList[0].totalPrice}</p>
+					<p id="totalPrice"><fmt:formatNumber value="${orderConfirmItemList[0].totalPrice}" /></p>
 				</div>
 				<form id="confirmForm">
-					<c:if test="${ctNo[0] != -1}">
-						<input type="button" id="orderConfirmBtn" value="구매하기">
-						<input type="button" id="orderCancelBtn" value="취소">
-					</c:if>
+					<input type="button" id="orderConfirmBtn" value="구매하기">
+					<input type="button" id="orderCancelBtn" value="취소">
 					<input type="hidden" name="oNo" value="${oNo}">
 					<c:forEach var="ctNo" items="${ctNo}">
 						<input type="hidden" name="ctNo" value="${ctNo}">

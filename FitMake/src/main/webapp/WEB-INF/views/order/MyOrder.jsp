@@ -20,15 +20,30 @@
 		
 	});
 	
-	function orderUpdateFnc(oNo){
-		var checkOrderCancel = confirm("주문을 취소하시겠습니까?");
+	function orderUpdateFnc(oNo, oStatus){
 		
-		if(checkOrderCancel == true){
-			$('#orderListForm' + oNo).attr('action', './update.do');
-			$('#orderListForm' + oNo).attr('method', 'post');
-			$('#orderListForm' + oNo).submit();
-		} else {
-			return false;
+		if(oStatus === '주문취소'){
+			var checkOrderCancel = confirm("주문을 취소하시겠습니까?");
+			
+			if(checkOrderCancel == true){
+				$('#oStatusArr'+ oNo).val('cancel');
+				$('#orderListForm' + oNo).attr('action', './update.do');
+				$('#orderListForm' + oNo).attr('method', 'post');
+				$('#orderListForm' + oNo).submit();
+			} else {
+				return false;
+			}
+		} else{
+			var checkOrderPixed = confirm("구매를 확정하시겠습니까?");
+			
+			if(checkOrderPixed == true){
+				$('#oStatusArr'+ oNo).val('pixed');
+				$('#orderListForm' + oNo).attr('action', './update.do');
+				$('#orderListForm' + oNo).attr('method', 'post');
+				$('#orderListForm' + oNo).submit();
+			} else {
+				return false;
+			}
 		}
 	}
 </script>
@@ -97,7 +112,7 @@
 		width : 300px;
 		height: 200px;
 	}
-	.myOrderUpdateBtn {
+	.myOrderCacelBtn, .myOrderPixedBtn {
 		margin-left: 10px;
 		width: auto;
 		background: #d7266d;
@@ -136,7 +151,7 @@
 						<form id="orderListForm${orderMap.FM_ORDER_NO}">
 							<div class="orderListDiv">
 								<input type="hidden" name="oNoArr" value="${orderMap.FM_ORDER_NO}">
-								<input type="hidden" name="oStatusArr"  value="cancel">
+								<input type="hidden" id="oStatusArr${orderMap.FM_ORDER_NO}" name="oStatusArr"  value="">
 								
 								<div id="orderSummaryDiv">
 									${orderMap.FM_ORDER_DATE} 주문
@@ -152,23 +167,26 @@
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'pending'}">
 												주문대기
 													<span>
-														<input class="myOrderUpdateBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO});">
+														<input class="myOrderCacelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
 													</span>
 											</c:when>
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'confirm'}">
 												주문승인
-													<span>
-														<input class="myOrderUpdateBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO});">>
-													</span>
+												<span>
+													<input class="myOrderCacelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
+												</span>
+												<span>
+													<input class="myOrderPixedBtn" type="button" value="구매확정" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO}, this.value);">
+												</span>
 											</c:when>
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'cancel'}">
 												주문취소
 											</c:when>
 											<c:otherwise>
 												구매확정
-													<span>
-														<input id="writeReviewBtn" type="button" value="리뷰쓰기">
-													</span>
+												<span>
+													<input id="writeReviewBtn" type="button" value="리뷰쓰기" >
+												</span>
 											</c:otherwise>
 										</c:choose>
 									</div>
