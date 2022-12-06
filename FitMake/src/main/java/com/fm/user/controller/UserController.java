@@ -167,11 +167,21 @@ public class UserController {
 	 * @return 로그인상태 -> MainPage.jsp, 비로그인 상태 -> LoginForm.jsp
 	 */
 	@RequestMapping(value = "/main/main.do", method = RequestMethod.GET)
-	public String main(HttpSession session) {
+	public String main(HttpSession session, Model model) {
 		logger.info("메인로고 클릭! ");
-
+		
+		
 		String viewPage = "";
 		if (session.getAttribute("_userDto_") != null) {
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = userDto.getuNo();
+			
+			List<Map<String, Object>> mainRecommendItemList = userService.viewRecommendItemList(uNo);
+			List<Map<String, Object>> mainBestItemList = userService.viewBestItemList();
+			
+			model.addAttribute("mainRecommendItemList", mainRecommendItemList);
+			model.addAttribute("mainBestItemList", mainBestItemList);
+			
 			viewPage = "main/MainPage";
 		} else if (session.getAttribute("_userDto_") == null) {
 			viewPage = "redirect:/auth/login.do";

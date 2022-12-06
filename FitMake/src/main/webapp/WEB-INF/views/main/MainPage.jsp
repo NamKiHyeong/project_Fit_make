@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,6 +36,25 @@ div {
 			<p class="titlePtag">
 				<a href="../item/list.do?cNo=2">추천상품</a>
 			</p>
+			<div id="recommendItemArea">
+				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}"> 
+					<div>
+						${mainRecommendItem.FM_ITEM_NO}
+					</div>
+					<div>
+						${mainRecommendItem.FM_CATEGORY_NO}
+					</div>
+					<div>
+						${mainRecommendItem.FM_ITEM_NAME}
+					</div>
+					<div>
+						<img class="recommendImg" alt="image not found" src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />"/>
+					</div>
+					<div>
+						${mainRecommendItem.FM_ITEM_SELLPRICE}
+					</div>
+				</c:forEach>
+			</div>
 			<div>
 				<h2>상품을 등록해주세요</h2>
 			</div>
@@ -45,6 +64,25 @@ div {
 			<p class="titlePtag">
 				<a href="#">베스트</a>
 			</p>
+			<div id="bestItemArea">
+				<c:forEach var="mainBestItem" items="${mainBestItemList}"> 
+					<div>
+						${mainBestItem.FM_ITEM_NO}
+					</div>
+					<div>
+						${mainBestItem.FM_CATEGORY_NO}
+					</div>
+					<div>
+						${mainBestItem.FM_ITEM_NAME}
+					</div>
+					<div>
+						<img class="bestItem" alt="image not found" src="<c:url value='/image/${mainBestItem.FM_ITEM_STORED_IMG_NAME}' />"/>
+					</div>
+					<div>
+						${mainBestItem.FM_ITEM_SELLPRICE}
+					</div>
+				</c:forEach>
+			</div>
 			<div>
 				<h2>상품을 등록해주세요</h2>
 			</div>

@@ -1,5 +1,6 @@
 package com.fm.user.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,6 +169,26 @@ public class UserDaoImpl implements UserDao {
 		inputMap.put("end", end);
 		
 		return sqlSession.selectList(namespaceuser + "viewUserList", inputMap);
+	}
+
+	@Override
+	public List<Map<String, Object>> viewRecommendItemList(int uNo) {
+		
+		return sqlSession.selectList(namespaceuser + "viewRecommendItemList", uNo);
+	}
+
+	@SuppressWarnings("null")
+	@Override
+	public List<Map<String, Object>> viewBestItemList() {
+		
+		List<Integer> bestItemList = sqlSession.selectList(namespaceuser + "viewBestItemList");
+		List<Map<String, Object>> newBestItemList = new ArrayList<Map<String,Object>>();
+		for(int iNo : bestItemList) {
+			System.out.println(iNo);
+			newBestItemList.add(sqlSession.selectOne(namespaceuser + "viewTotalBestItemList", iNo));
+		}
+		
+		return newBestItemList;
 	}
 
 }

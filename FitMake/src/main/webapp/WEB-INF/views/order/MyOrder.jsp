@@ -82,6 +82,10 @@
 		font-weight: 600;
 		text-align: center;
 	}
+	.myOrderImg, .myOrderImg > img{
+		width : 300px;
+		height: 200px;
+	}
 </style>
 <title>FitMake</title>
 </head>
@@ -140,7 +144,7 @@
 									</div>
 									<table id="orderTable">
 										<tr>
-											<td colspan="2" rowspan="3">
+											<td class="myOrderImg" colspan="2" rowspan="3">
 												<img alt="image not founed" src="<c:url value='/image/${orderMap.FM_ITEM_STORED_IMG_NAME}'/>">
 											</td>
 											<td class="orderTableDetail" colspan="2">

@@ -11,20 +11,20 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#buyBtn").on("click", function() {
+		$('#buyBtn').on('click', function() {
 			
 			var countCheck = $('#itemClassCount').val();
 			
 			if(countCheck > 0){
-				var buyCheck = confirm("구매하시겠습니까?");
+				var buyCheck = confirm('구매하시겠습니까?');
 				
 				if(buyCheck == true){
-					$("#addForm").submit();
+					$('#addForm').submit();
 				} else {
 					return false;
 				}
 			} else{
-				alert("장바구니가 비어있습니다.");
+				alert('장바구니가 비어있습니다.');
 				return false;
 			}
 		});
@@ -35,22 +35,18 @@
 	
 	function getTotalCartSum(){
 		var totalPrice = 0;
-		$(".cartTotalPriceEach").each(function(){
-			totalPrice += parseInt($(this).text());
+		$('.cartTotalPriceEach').each(function(){
+			totalPrice += parseInt($(this).val());
 	    });
 		
-		var totalPriceTrans = new Intl.NumberFormat(
-				'ko-KR', {
-				style: 'currency',
-				currency: 'KRW'
-			}).format(totalPrice);
+		var totalPriceTrans = new Intl.NumberFormat().format(totalPrice);
 		
-		$("#cartTotalPrice").text(totalPriceTrans);
+		$('#cartTotalPrice').text(totalPriceTrans + '원');
 	}
 	
 	function countUpFnc(cartNo){
-		var ctNo = $("#ctNo" + cartNo).val();
-		var ModifiedCtCount = parseInt($("#ctCount" + cartNo).val()) + 1;
+		var ctNo = $('#ctNo' + cartNo).val();
+		var ModifiedCtCount = parseInt($('#ctCount' + cartNo).val()) + 1;
 		
 		$.ajax({
 			type : "POST",
@@ -80,9 +76,9 @@
 	}
 	
 	function countDownFnc(cartNo){
-		if($("#ctCount" + cartNo).val() > 1){
-			var ctNo = $("#ctNo" + cartNo).val();
-			var ModifiedCtCount = parseInt($("#ctCount" + cartNo).val()) - 1;
+		if($('#ctCount' + cartNo).val() > 1){
+			var ctNo = $('#ctNo' + cartNo).val();
+			var ModifiedCtCount = parseInt($('#ctCount' + cartNo).val()) - 1;
 			
 			$.ajax({
 				type : "POST",
@@ -109,10 +105,10 @@
 				}
 			});
 		} else {
-			var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
+			var deletecheck = confirm('장바구니에서 삭제하시겠습니까?');
 			
 			if(deletecheck == true){
-				location.href = "./delete.do?ctNo=" + cartNo;
+				location.href = './delete.do?ctNo=' + cartNo;
 			} else {
 				return false;
 			}
@@ -120,7 +116,7 @@
 	}
 	
 	function deleteCartFnc(cartNo){
-		var deletecheck = confirm("장바구니에서 삭제하시겠습니까?");
+		var deletecheck = confirm('장바구니에서 삭제하시겠습니까?');
 		
 		if(deletecheck == true){
 			
@@ -130,7 +126,7 @@
 				dataType : "json",
 				data : {"ctNo" : cartNo},
 				success : function(data){
-					alert("삭제완료");
+					alert('삭제완료');
 					viewCartSummaryFnc();
 					location.reload();
 				}
@@ -162,13 +158,13 @@
 		font-size: 26px;
 		font-weight: 600;	
 	}
-	#addForm {
-		width: 100%;
-		padding: 0px;
-	}
 	#cartListFormDiv{
  		display: flex; 
 		flex-direction: column;
+	}
+	#addForm {
+		width: 100%;
+		padding: 0px;
 	}
 	.cartItemTable{
 		width: inherit;
@@ -181,15 +177,20 @@
 	}
 	.imgArea {
 		text-align: center;
-		width : 150px;
-		height: 150px;
+		width : 300px;
+		height: 200px;
+	}
+	.imgArea > img {
+		width : 300px;
+		height: 200px;
 	}
 	.tailHr {
-		margin-top: 3%
+		margin-top: 5px;
 	}
 	.cartItemName {
 		text-align: left;
 		padding-left: 20px;
+		vertical-align: top;
 	}
 	.countModifyBtn{
 		text-align: center;
@@ -205,11 +206,12 @@
 	.cartPrice{
 		text-align: right;
 	}
-	.cartTotalPriceEach{
+	.cartTotalPriceEachTd{
 		text-align: right;
 	}
 	.deleteBtnArea{
 		text-align: right;
+		vertical-align: top;
 	}
 	#emptyCart{
 		font-size: 20px;
@@ -264,7 +266,10 @@
 								<tr>
 									<td></td>
 									<td class="cartPrice">단가</td>
-									<td class="cartPrice">${cartMap.FM_ITEM_SELLPRICE}</td>
+									<td class="cartPrice">
+										<fmt:formatNumber value="${cartMap.FM_ITEM_SELLPRICE}" />원
+									</td>
+									
 								</tr>
 								<tr>
 									<td class="cartCountArea">
@@ -276,7 +281,10 @@
 											onclick="countUpFnc(${cartMap.FM_CART_NO});">
 									</td>
 									<td class="cartPrice">총 금액</td>
-									<td class="cartTotalPriceEach">${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}</td>
+									<td class="cartTotalPriceEachTd">
+										<fmt:formatNumber value="${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}" />원
+										<input type="hidden" class="cartTotalPriceEach" value="${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}">
+									</td>
 								</tr>
 							</table>
 							<input class="hiddenInfo"  type="hidden" name="iNo" value="${cartMap.FM_ITEM_NO}">

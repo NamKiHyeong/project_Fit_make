@@ -147,30 +147,65 @@ a:active {
 	display: none;
 	position: absolute;
 	z-index: 1;
-	min-width: 280px;
-	max-width: 280px;
+	min-width: 350px;
+	max-width: 350px;
 	min-height: 100px;
 	background: white;
-	border: 1px solid;
+ 	border: 1px solid #e5e5e5;
 	padding: 5px;
 	border-radius: 3px;
 	transition: 0.5s all;
 }
 
-#cartList table {
+#cartSummaryListTable {
 	display: block;
 }
-
 .dropdownCart:hover #cartList {
 	display: block;
 }
-
-/* 마우스를 올리면 색이 바뀌는 Css */
-/* #cartList table:hover{
-  		background-color : #ececec
-	} */
-td img {
+.cartSummaryImg > a > img {
 	width: 150px;
 	height: 100px;
 	object-fit: cover;
+}
+.cartSummaryImg{
+	width: 150px;
+	height: 100px;
+}
+#cartView{
+	height: 100px;
+	border-bottom: 1px solid #e5e5e5;
+}
+.cartSummaryItemName{
+	width: 150px;
+	font-size: 12px;
+	font-weight: 600;
+	padding-left: 5px;
+	vertical-align: center;
+	height: 20px;
+}
+.cartSummaryDeleteBtnArea{
+	width: 50px;
+	font-size: 6px;
+	vertical-align: center;
+}
+.cartSummaryPriceEach{
+	padding: 0px;
+	font-size: 15px;
+	padding-left: 10px;
+	vertical-align: center;
+	height: 20px;
+}
+.cartSummaryCount{
+	padding: 0px;
+	font-size: 15px;
+	vertical-align: center;
+	height: 30px;
+}
+.cartSummaryPriceMultiplyWithCount{
+	font-size: 20px;
+	text-align: right;
+	padding: 0px;
+	height: 30px;
+	border-bottom: 1px solid #e5e5e5;;
 }

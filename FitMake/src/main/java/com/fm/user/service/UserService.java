@@ -48,4 +48,8 @@ public interface UserService {
 
 	public List<Map<String, Object>> viewUserList(int uNo, int start, int end);
 
+	public List<Map<String, Object>> viewRecommendItemList(int uNo);
+
+	public List<Map<String, Object>> viewBestItemList();
+
 }

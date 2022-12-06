@@ -52,46 +52,37 @@ function viewCartSummaryFnc() {
 
 
 				$.each(cartMapList, function(key, value) {
-					var iPriceRaw = parseInt(value.FM_ITEM_SELLPRICE);
+					var iPriceRaw = new Intl.NumberFormat().format(parseInt(value.FM_ITEM_SELLPRICE));
 					var ctCount = parseInt(value.FM_CART_COUNT);
-					var iPrice = new Intl.NumberFormat(
-						'ko-KR', {
-						style: 'currency',
-						currency: 'KRW'
-					}).format(iPriceRaw * ctCount);
+					var iPrice = new Intl.NumberFormat().format(parseInt(value.FM_ITEM_SELLPRICE) * ctCount);
 
 					var ctNo = parseInt(value.FM_CART_NO);
 
-					str += '<tr><td rowspan="3", style="width:40px">';
-					str += '<a href="/item/list.do?iNo='
-						+ value.FM_ITEM_NO
-						+ '">';
+					str += '<tr><td class="cartSummaryImg" rowspan="3">';
+					str += '<a href="/item/list.do?iNo='+ value.FM_ITEM_NO + '">';
 					str += '<img alt="image not found" src="../image/' + value.FM_ITEM_STORED_IMG_NAME + '"></a></td>';
-					str += '<td style="width:40px;vertical-align : bottom; font-size:13px;">';
-					str += '<a href="/item/list.do?iNo='
+					str += '<td class="cartSummaryItemName">';
+					str += '<a class="cartSummaryItemName" href="/item/list.do?iNo='
 						+ value.FM_ITEM_NO
 						+ '">'
 						+ value.FM_ITEM_NAME;
-					str += '<td style="width: 40px;text-align:right;"><a onclick="deleteCartFnc('
+					str += '<td class="cartSummaryDeleteBtnArea"><a onclick="deleteCartFnc('
 						+ ctNo
-						+ ');" style="font-size:6px" href="#">';
+						+ ');" href="#">';
 					str += '<u>삭제하기</u></a></td></tr>';
-					str += '<tr><td style="width: 20px ;vertical-align : bottom; font-size:13px;"><p>'
-						+ iPriceRaw + '원</p></td>'
-					str += '<td style="width: 15% ;vertical-align : bottom; font-size:13px; text-align:right;">';
-					str += '<p>' + value.FM_CART_COUNT
-						+ '개</p></td></tr>';
-					str += '<tr><td colspan="2" style="width:10px;vertical-align:middle;font-size:13px;text-align:right;">';
-					str += '<p>' + (iPrice) + '원</p></td></tr>';
-
+					str += '<tr><td class="cartSummaryPriceEach">'
+						+ iPriceRaw + '원</td>'
+					str += '<td class="cartSummaryCount">';
+					str += value.FM_CART_COUNT
+						+ '개</td></tr>';
+					str += '<tr><td colspan="2" class="cartSummaryPriceMultiplyWithCount">';
+					str += (iPrice) + '원</td></tr>';
+					
 					cartTotal = cartTotal
-						+ (parseInt(iPriceRaw) * ctCount);
+						+ (parseInt(value.FM_ITEM_SELLPRICE) * ctCount);
 				});
-
-				var cartTotal = new Intl.NumberFormat('ko-KR', {
-					style: 'currency',
-					currency: 'KRW'
-				}).format(cartTotal);
+		
+				var cartTotal = new Intl.NumberFormat().format(cartTotal)+'원';
 
 				$("#cartPrice").html(cartTotal);
 				$("#cartView").html(str);

@@ -66,7 +66,7 @@
 								<div>
 									<span class="" aria-hidden="true"></span>
 									<div id="cartList">
-										<table style="width: 100%" aria-hidden="true">
+										<table id="cartSummaryListTable" style="width: 100%" aria-hidden="true">
 											<tbody id="cartView" aria-hidden="true">
 
 											</tbody>

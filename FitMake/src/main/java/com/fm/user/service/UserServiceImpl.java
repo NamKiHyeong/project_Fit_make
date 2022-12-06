@@ -199,4 +199,16 @@ public class UserServiceImpl implements UserService {
 		return userDao.viewUserList(uNo, start, end);
 	}
 
+	@Override
+	public List<Map<String, Object>> viewRecommendItemList(int uNo) {
+		
+		return userDao.viewRecommendItemList(uNo);
+	}
+
+	@Override
+	public List<Map<String, Object>> viewBestItemList() {
+		
+		return userDao.viewBestItemList();
+	}
+
 }
