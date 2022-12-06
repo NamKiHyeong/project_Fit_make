@@ -155,7 +155,7 @@
 				    INNER JOIN FM_ITEM_IMG ig
 				        ON i.FM_ITEM_NO = ig.FM_ITEM_NO
 				WHERE U.FM_USER_NO = #{uNo})
-		WHERE ROWNUM<![CDATA[<]]> 3
+		WHERE ROWNUM<![CDATA[<=]]> 3
 	</select>
 	<!-- //메인화면 추천 제품 목록 구성 -->
 	<!-- 베스트 제품 제품 번호 획득 -->
