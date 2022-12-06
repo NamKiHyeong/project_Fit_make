@@ -30,7 +30,32 @@
 			}
 		});
 	});
-	
+	function orderUpdateFnc(oNo, oStatus){
+			
+		if(oStatus === '주문취소'){
+			var checkOrderCancel = confirm("주문을 취소하시겠습니까?");
+			
+			if(checkOrderCancel == true){
+				$('#oStatusArr').val('cancel');
+				$('#orderDetailForm').attr('action', './update.do');
+				$('#orderDetailForm').attr('method', 'post');
+				$('#orderDetailForm').submit();
+			} else {
+				return false;
+			}
+		} else{
+			var checkOrderPixed = confirm("구매를 확정하시겠습니까?");
+			
+			if(checkOrderPixed == true){
+				$('#oStatusArr').val('pixed');
+				$('#orderDetailForm').attr('action', './update.do');
+				$('#orderDetailForm').attr('method', 'post');
+				$('#orderDetailForm').submit();
+			} else {
+				return false;
+			}
+		}
+	}
 </script>
 <style type="text/css">
 	#orderDetailRootDiv {
@@ -88,7 +113,7 @@
 		width : 300px;
 		height: 200px;
 	}
-	.orderDetailUpdateBtn{
+	.orderDetailCancelBtn, .orderDetailPixedBtn{
 		margin-left: 10px;
 		width: auto;
 		background: #d7266d;
@@ -127,22 +152,25 @@
 						<div id="orderListDiv">
 							<div id="orderSummaryDiv">
 								<input type="hidden" name="oNoArr" value="${orderDetailItem.FM_ORDER_NO}">
-								<input type="hidden" name="oStatusArr" value="cancel">
+								<input type="hidden" name="oStatusArr" value="">
 								<c:choose>
 									<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'pending'}">
 										<div class="orderStatuswWithBtn">
 											주문대기
-												<span>
-													<input class="orderDetailUpdateBtn" type="button" value="주문취소">
-												</span>
+											<span>
+												<input class="orderDetailCancelBtn" type="button" value="주문취소">
+											</span>
 										</div>
 									</c:when>
 									<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'confirm'}">
 										<div class="orderStatuswWithBtn">
 											주문승인
-												<span>
-													<input class="orderDetailUpdateBtn" type="button" value="주문취소">
-												</span>
+											<span>
+												<input class="orderDetailCancelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(this.value);">
+											</span>
+											<span>
+												<input class="orderDetailPixedBtn" type="button" value="구매확정" onclick="orderUpdateFnc(this.value);">
+											</span>
 										</div>
 									</c:when>
 									<c:when test="${orderDetailItem.FM_ORDER_STATUS eq 'cancel'}">
@@ -153,9 +181,9 @@
 									<c:otherwise>
 										<div class="orderStatuswWithBtn">
 											구매확정
-												<span>
-													<input id="writeReviewBtn" type="button" value="리뷰쓰기">
-												</span>
+											<span>
+												<input id="writeReviewBtn" type="button" value="리뷰쓰기">
+											</span>
 										</div>
 									</c:otherwise>
 								</c:choose>

@@ -18,7 +18,7 @@
 	<div class="diet_wrap">
 		<div class="infoTop">
 			<h3>다이어트</h3>
-			<input class="itemCtr" type="button" id="addCartListBtn" value="장바구니 추가"><br>
+			<input class="itemCtr" type="button" id="addCartBtn" value="장바구니 추가"><br>
 			
 			<div class="serachGo">
 				<form action="./list.do">
