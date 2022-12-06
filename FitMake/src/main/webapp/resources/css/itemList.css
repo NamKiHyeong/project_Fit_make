@@ -91,7 +91,9 @@
 	object-fit: cover;
 }
 /* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */
-
+.itemListCB{
+	margin-left : 30px;
+}
 .itemCtr{
 	margin-left: 10px;
 	width: auto;

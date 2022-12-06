@@ -29,13 +29,6 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
-/**
- * Create!!
- * @param cNo
- * @param model
- * @return
- */
-	
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model) {
 		logger.info("리플을 달아보자", model);

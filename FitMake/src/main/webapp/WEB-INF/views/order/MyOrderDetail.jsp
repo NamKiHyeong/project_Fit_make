@@ -29,6 +29,16 @@
 				return false;
 			}
 		});
+		
+		$('#writeReviewBtn').on('click', function(){
+			var confirmWriteReview = confirm("리뷰 작성페이지로 이동하시겠습니까?");
+			
+			if(confirmWriteReview == true){
+				location.href='../review/list.do';
+			} else {
+				return false;
+			}
+		});
 	});
 	function orderUpdateFnc(oNo, oStatus){
 			

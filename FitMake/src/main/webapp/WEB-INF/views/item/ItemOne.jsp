@@ -30,9 +30,15 @@
 							</c:forEach>
 						</div>
 						<div class="sortImg sort2">
-							<p><span>제품명</span>	 <input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly"><br></p>
-							<p><span>가 &nbsp; 격</span>	 <input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}" readonly="readonly"></p>
-							<p><span>칼로리</span>	 <input class="info" type="number" name="iCalory" value="${itemDto.iCalory}" readonly="readonly"></p>
+							<p><span>제품명</span>	 <input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly" disabled="disabled"><br></p>
+							<p><span>가 &nbsp; 격</span>	 
+								<input class="info" type="text" value="<fmt:formatNumber value="${itemDto.iSellprice}" />" readonly="readonly" disabled="disabled">
+								<input type="hidden" name="iSellprice" value="${itemDto.iSellprice}">
+							</p>
+							<p>
+								<span>칼로리</span>
+								<input class="info" type="text" name="iCalory" value="${itemDto.iCalory}Kcal" readonly="readonly" disabled="disabled">
+							</p>
 			
 							<c:choose>
 								<c:when test="${_userDto_.uNo == 1}">

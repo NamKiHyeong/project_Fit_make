@@ -109,7 +109,8 @@ public class ItemController {
 	}
 
 	@RequestMapping(value = "/item/one.do", method = RequestMethod.GET)
-	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo, int iNo, Model model) {
+	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo, 
+			@RequestParam(defaultValue = "1") int iNo, Model model) {
 //		RedirectAttributes redirect
 		logger.trace("제품 상세정보" + model);
 

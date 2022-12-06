@@ -59,9 +59,16 @@ $(document).ready(function() {
 	});
 	
 	$("#addOrderBtn").on("click", function() {
-		$("#itemOneForm").attr("action", "../order/add.do");
-		$("#itemOneForm").attr("method", "post");
-		$("#itemOneForm").submit();
+		
+		var itemBuyCheck = confirm("해당 상품을 구매하시겠습니까?");
+		
+		if(itemBuyCheck == true){
+			$("#itemOneForm").attr("action", "../order/add.do");
+			$("#itemOneForm").attr("method", "post");
+			$("#itemOneForm").submit();
+		} else{
+			return false;
+		}
 		
 	});
 	

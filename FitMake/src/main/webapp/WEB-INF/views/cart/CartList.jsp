@@ -177,11 +177,11 @@
 	}
 	.imgArea {
 		text-align: center;
-		width : 300px;
+		width : 200px;
 		height: 200px;
 	}
-	.imgArea > img {
-		width : 300px;
+	.imgArea > a > img {
+		width : 200px;
 		height: 200px;
 	}
 	.tailHr {
@@ -197,17 +197,25 @@
 	}
 	.countOuput{
 		width: 50px;
-		text-align: center;
+		text-align: right;
+		border: none;
+		background-color: white;
+		color: black;
+		font-size: 20px;
 	}
 	.cartCountArea {
-		text-align: left;
+		text-align: center;
+		width: 150px;
+		vertical-align: middle;
 		padding-left: 20px;
+		
 	}
 	.cartPrice{
 		text-align: right;
 	}
 	.cartTotalPriceEachTd{
 		text-align: right;
+		width: 150px;
 	}
 	.deleteBtnArea{
 		text-align: right;
@@ -258,12 +266,21 @@
 							<input class="hiddenInfo" type="hidden" id="ctNo${cartMap.FM_CART_NO}" value="${cartMap.FM_CART_NO}" name="ctNo">
 							<table class="cartItemTable">
 								<tr>
-									<td class="imgArea" rowspan="3"><img alt="image not founded" src="<c:url value='/image/${cartMap.FM_ITEM_STORED_IMG_NAME}'/>"/></td>
-									<td class="cartItemName">${cartMap.FM_ITEM_NAME}</td>		
+									<td class="imgArea" rowspan="3">
+										<a href="../item/one.do?iNo=${cartMap.FM_ITEM_NO}" >
+											<img alt="image not founded" src="<c:url value='/image/${cartMap.FM_ITEM_STORED_IMG_NAME}'/>"/>
+										</a>
+									</td>
+									<td colspan="2" class="cartItemName">${cartMap.FM_ITEM_NAME}</td>		
 									<td></td>
-									<td class="deleteBtnArea"><input type="button" value="X" onclick="deleteCartFnc(${cartMap.FM_CART_NO});"></td>		
+									<td class="deleteBtnArea">
+										<a href="#" onclick="deleteCartFnc(${cartMap.FM_CART_NO});">
+											<img alt="image not founded" width="20px" height="20px" src="/fitmake/resources/image/xButton.png">
+										</a>
+									</td>		
 								</tr>
 								<tr>
+									<td></td>
 									<td></td>
 									<td class="cartPrice">단가</td>
 									<td class="cartPrice">
@@ -273,13 +290,17 @@
 								</tr>
 								<tr>
 									<td class="cartCountArea">
-										<input class="countModifyBtn" id="ctCountDown${cartMap.FM_CART_NO}" type="button" value="∨" 
-											onclick="countDownFnc(${cartMap.FM_CART_NO});">
+										<a href="#" onclick="countDownFnc(${cartMap.FM_CART_NO});">
+											<img alt="image not founded" width="20px" height="20px" src="/fitmake/resources/image/countDownButton.png">
+										</a>&nbsp;
 										<input class="countOuput" id="ctCount${cartMap.FM_CART_NO}" type="number" value="${cartMap.FM_CART_COUNT}" 
-											name="ctCount" readonly="readonly">
-										<input class="countModifyBtn" id="ctCountUp${cartMap.FM_CART_NO}" type="button" value="∧" 
-											onclick="countUpFnc(${cartMap.FM_CART_NO});">
+											name="ctCount" readonly="readonly" disabled="disabled">
+											&nbsp;
+										<a href="#" onclick="countUpFnc(${cartMap.FM_CART_NO});">
+											<img alt="image not founded" width="20px" height="20px" src="/fitmake/resources/image/countUpButton.png">
+										</a>
 									</td>
+									<td></td>
 									<td class="cartPrice">총 금액</td>
 									<td class="cartTotalPriceEachTd">
 										<fmt:formatNumber value="${cartMap.FM_ITEM_SELLPRICE * cartMap.FM_CART_COUNT}" />원

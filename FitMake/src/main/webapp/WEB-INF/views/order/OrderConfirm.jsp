@@ -235,7 +235,7 @@
 							<span class="orderConfirmItem">
 								<input class="orderConfirmPrice" type="hidden" 
 									value="${(orderConfirmItem.FM_ORDER_DETAIL_PRICE * orderConfirmItem.FM_ORDER_DETAIL_COUNT)}">							
-								가격 ${(orderConfirmItem.FM_ORDER_DETAIL_PRICE * orderConfirmItem.FM_ORDER_DETAIL_COUNT)}
+								<fmt:formatNumber value="${(orderConfirmItem.FM_ORDER_DETAIL_PRICE * orderConfirmItem.FM_ORDER_DETAIL_COUNT)}" />원  
 							</span>
 						</p>
 					</c:forEach>
@@ -299,7 +299,7 @@
 							<p class="totalSummary">${orderConfirmItemList[0].FM_ITEM_NAME}</p>
 						</c:otherwise>
 					</c:choose>
-					<p id="totalPrice"><fmt:formatNumber value="${orderConfirmItemList[0].totalPrice}" /></p>
+					<p id="totalPrice"><fmt:formatNumber value="${orderConfirmItemList[0].totalPrice}" />원</p>
 				</div>
 				<form id="confirmForm">
 					<input type="button" id="orderConfirmBtn" value="구매하기">

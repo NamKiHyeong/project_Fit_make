@@ -51,11 +51,13 @@
 					<c:forEach var="item" items = "${itemList}">
 						<div class="CategoryItem">
 							<form id="itemOneForm${item.itemDto.iNo}" action="./one.do" method="get">
-								<input type="checkbox" name="iCkBox" value="${item.itemDto.iNo}">
-								<input type="hidden" name="iNo" value="${item.itemDto.iNo}">
-								<input type="hidden" name="cNo" value="${item.itemDto.cNo}">
-								<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
-								<input type="hidden" name="keyword" value="${searchMap.keyword}">
+								<div style="text-align: left">
+									<input class="itemListCB" type="checkbox" name="iCkBox" value="${item.itemDto.iNo}">
+									<input type="hidden" name="iNo" value="${item.itemDto.iNo}">
+									<input type="hidden" name="cNo" value="${item.itemDto.cNo}">
+									<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
+									<input type="hidden" name="keyword" value="${searchMap.keyword}">
+								</div>
 								<div class="sortImg">
 									<a class="iImgATag" href=# onclick="itemOneFnc(${item.itemDto.iNo});" >
 										<img class="iImg" alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/>
@@ -67,7 +69,7 @@
 										${item.itemDto.iName}
 									</a>
 								</p>
-								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>
+								<p class="itemBoundary">가격 : <fmt:formatNumber value="${item.itemDto.iSellprice}" />원</p>
 								<p>리뷰 : ${item.review}</p>
 							</form>
 						</div>

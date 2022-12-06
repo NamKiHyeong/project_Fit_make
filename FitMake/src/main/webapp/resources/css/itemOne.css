@@ -93,6 +93,9 @@
 .info{
 	font-size: 20px;
 	padding:3px;
+	border: none;
+	background-color: white;
+	color: black; 
 }
 .iteminfo{
 	margin-left:50px;
