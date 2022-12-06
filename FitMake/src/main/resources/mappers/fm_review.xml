@@ -103,6 +103,6 @@
 						    INNER JOIN FM_REVIEW_IMG rg
 						        ON r.FM_REVIEW_NO = rg.FM_REVIEW_NO
 						ORDER BY r.FM_REVIEW_CRE_DATE DESC))
-		WHERE ROWNUM <![CDATA[<=]]> 5
+		WHERE ROWNUM <![CDATA[<=]]> 3
 	</select>
 </mapper>
