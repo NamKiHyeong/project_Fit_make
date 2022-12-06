@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	// 이메일 중복체크
 	$("#emailChk").keyup(function() {
 		//이메일 정규식
 		let emailRull = RegExp(/^([\w\.\_\-])*[a-zA-Z0-9]+([\w\.\_\-])*([a-zA-Z0-9])+([\w\.\_\-])+@([a-zA-Z0-9]+\.)+[a-zA-Z0-9]{2,8}$/);
@@ -32,6 +33,7 @@ $(document).ready(function() {
 			}
 		});
 	});
+	//닉네임 중복체크
 	$("#nickNameChk").keyup(function() {
 	//닉네임 정규식
 	var nicknameRull = RegExp(/^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,16}$/);

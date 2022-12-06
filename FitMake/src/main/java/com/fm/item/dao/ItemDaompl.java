@@ -20,6 +20,8 @@ public class ItemDaompl implements ItemDao{
 //	C
 	@Override
 	public int itemInsertOne(ItemDto itemDto) {
+		
+		itemDto.setiCGrade((int)Math.round(Math.ceil(itemDto.getiCalory()/100))+1);
 		return sqlSession.insert(namespace + "itemInsertOne", itemDto);
 	}
 //	R

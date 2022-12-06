@@ -4,12 +4,19 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
+
+
+<!-- CSS -->
 <link rel="stylesheet" href="/fitmake/resources/css/join.css">
+
+<!-- 기본 유효성검사 -->
 <script type="text/javascript" src="/fitmake/resources/js/join.js"></script>
-<script type="text/javascript"
-	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
-<script
-	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+<!-- 카카오 주소 API링크 -->
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	
+<!-- AJAX 유효성 검사 & 휴대폰 문자인증(이메일,닉네임 중복체크 & 휴대폰 번호 자동 하이픈) -->
 <script type="text/javascript" src="/fitmake/resources/js/jq_join.js"></script>
 
 <title>FitMake</title>

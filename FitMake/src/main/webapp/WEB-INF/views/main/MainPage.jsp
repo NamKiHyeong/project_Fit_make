@@ -7,9 +7,9 @@
 <meta charset="UTF-8">
 <title>FitMake</title>
 <style type="text/css">
-div {
-	border: 1px solid;
-}
+/* div { */
+/* 	border: 1px solid; */
+/* } */
 #containerMainDiv {
 	width: 1200px;
 	margin: 0px auto;

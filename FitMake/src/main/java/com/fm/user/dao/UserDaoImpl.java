@@ -173,7 +173,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Map<String, Object>> viewRecommendItemList(int uNo) {
-		
+			
 		return sqlSession.selectList("com.fm.item.viewRecommendItemList", uNo);
 	}
 
