@@ -57,11 +57,14 @@
 								<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
 								<input type="hidden" name="keyword" value="${searchMap.keyword}">
 								<div class="sortImg">
-									<img class="iImg" alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+									<a class="iImgATag" href=# onclick="itemOneFnc(${item.itemDto.iNo});" >
+										<img class="iImg" alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/>
+									</a>
+									<br>
 								</div>
 								<p class="content">
 									<a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">
-									${item.itemDto.iName}
+										${item.itemDto.iName}
 									</a>
 								</p>
 								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>

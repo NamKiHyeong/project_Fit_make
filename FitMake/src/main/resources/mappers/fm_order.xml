@@ -158,7 +158,7 @@
 	
 	<select id="viewOrderDetailItem" parameterType="int" resultType="map">
 		SELECT *
-		FROM(SELECT ROWNUM "rNum", odl.FM_ORDER_DETAIL_NO, odl.FM_ITEM_NAME, odl.FM_ORDER_DETAIL_COUNT, odl.FM_ORDER_DETAIL_PRICE
+		FROM(SELECT odl.FM_ORDER_DETAIL_NO, odl.FM_ITEM_NAME, odl.FM_ORDER_DETAIL_COUNT, odl.FM_ORDER_DETAIL_PRICE
 					, odl.FM_ORDER_DATE, odl.FM_ITEM_STORED_IMG_NAME, odl."totalPrice", odl."oCount", odl.FM_ORDER_NO, odl.FM_ORDER_STATUS
 		     FROM(SELECT od.FM_ORDER_DETAIL_NO, i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE
 	                    , o.FM_ORDER_DATE, ig.FM_ITEM_STORED_IMG_NAME, o.FM_ORDER_NO, o.FM_ORDER_STATUS
@@ -174,6 +174,6 @@
 	                    ORDER BY i.FM_ITEM_NAME ASC) odl 
 	                    ) odll 
 		WHERE odll.FM_ORDER_NO = #{oNo}
-		AND odll."rNum" = 1
+		AND ROWNUM = 1
 	</select>
 </mapper>

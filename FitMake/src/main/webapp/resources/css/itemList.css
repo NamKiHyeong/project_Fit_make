@@ -81,7 +81,10 @@
 	margin: 2px;
 	margin-left: 1px;
 }
-
+.iImgATag{
+	width: inherit;
+	height: inherit;
+}
 .iImg {
 	width: inherit;
 	height: inherit;
@@ -90,12 +93,12 @@
 /* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */
 
 .itemCtr{
-	padding: 10px 15px;
-    margin-right: 7px;
-    font-size: 14px;
-    background: #333;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;	
+	margin-left: 10px;
+	width: auto;
+	background: #d7266d;
+	border: 2px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	font-size: 14px;
 }

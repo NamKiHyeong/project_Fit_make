@@ -20,6 +20,17 @@
 		
 	});
 	
+	function orderUpdateFnc(oNo){
+		var checkOrderCancel = confirm("주문을 취소하시겠습니까?");
+		
+		if(checkOrderCancel == true){
+			$('#orderListForm' + oNo).attr('action', './update.do');
+			$('#orderListForm' + oNo).attr('method', 'post');
+			$('#orderListForm' + oNo).submit();
+		} else {
+			return false;
+		}
+	}
 </script>
 <style type="text/css">
 	#orderRootDiv {
@@ -86,6 +97,24 @@
 		width : 300px;
 		height: 200px;
 	}
+	.myOrderUpdateBtn {
+		margin-left: 10px;
+		width: auto;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
+	#writeReviewBtn{
+		margin-left: 10px;
+		width: auto;
+		background: #d7266d;
+		border: 2px solid #d7266d;
+		color: #fff;
+		text-align: center;
+		cursor: pointer;
+	}
 </style>
 <title>FitMake</title>
 </head>
@@ -102,10 +131,13 @@
 					<p id="orderViewTitle">주문/배송 조회</p>
 				</div>
 				
-				<form id="orderListForm">
-					<c:forEach var="orderMap" items="${orderMapList}">
-						<c:if test="${orderMap.oRownum eq '1'}">
+				<c:forEach var="orderMap" items="${orderMapList}">
+					<c:if test="${orderMap.oRownum eq '1'}">
+						<form id="orderListForm${orderMap.FM_ORDER_NO}">
 							<div class="orderListDiv">
+								<input type="hidden" name="oNoArr" value="${orderMap.FM_ORDER_NO}">
+								<input type="hidden" name="oStatusArr"  value="cancel">
+								
 								<div id="orderSummaryDiv">
 									${orderMap.FM_ORDER_DATE} 주문
 									<span id="orderDetailViewSpan">
@@ -120,16 +152,14 @@
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'pending'}">
 												주문대기
 													<span>
-														<input type="button" value="주문취소">
+														<input class="myOrderUpdateBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO});">
 													</span>
 											</c:when>
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'confirm'}">
 												주문승인
 													<span>
-														<input type="button" value="주문취소">
+														<input class="myOrderUpdateBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderMap.FM_ORDER_NO});">>
 													</span>
-												
-												
 											</c:when>
 											<c:when test="${orderMap.FM_ORDER_STATUS eq 'cancel'}">
 												주문취소
@@ -137,7 +167,7 @@
 											<c:otherwise>
 												구매확정
 													<span>
-														<input type="button" value="리뷰쓰기">
+														<input id="writeReviewBtn" type="button" value="리뷰쓰기">
 													</span>
 											</c:otherwise>
 										</c:choose>
@@ -168,18 +198,18 @@
 											<td>
 											</td>
 											<td class="orderTableDetail">
-											${orderMap.totalPrice}원
+											<fmt:formatNumber value="${orderMap.totalPrice}" />원
 											</td>
 										</tr>
 									</table>
 								</div>
 							</div>
-						</c:if>
-					</c:forEach>
-					<c:if test="${orderMapList.size() < 1}">
-						<p id="orderViewTitleEmpty">주문 내역이 없습니다</p>
+						</form>
 					</c:if>
-				</form>
+				</c:forEach>
+				<c:if test="${orderMapList.size() < 1}">
+					<p id="orderViewTitleEmpty">주문 내역이 없습니다</p>
+				</c:if>
 			</div>
 		<jsp:include page="/WEB-INF/views/order/OrderPaging.jsp" />
 		</div>

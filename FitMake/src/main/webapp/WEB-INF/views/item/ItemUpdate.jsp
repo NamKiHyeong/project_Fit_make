@@ -71,45 +71,47 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	
-	<form id='itemFormObj' action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
-
-		<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
-		<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
-		<input type="hidden" name="curPage" value="${prevMap.curPage}">
-			
-		<div class="diet_wrap">	
-			<div class="frame">
-				<div id="imgInfo" class="sortImg sort1">
-					<input id="itemImgNo" type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
-<!-- 					<div id="imgInfo2"> -->
-					<img id="itemImg" alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
-<!-- 					</div> -->
-					<input type="file" id="file" name="file">
-					<a href="#" onclick="deleteFileFnc();">삭제</a>
-				</div>
-				
-				<div class="sortImg sort2">
-					<p><span>제품명</span>		<input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}"></p>
-					<p><span>가 &nbsp; 격</span>	<input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}"></p>
-					<p><span>칼로리</span>	 	<input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
-					<p><span>재 &nbsp; 고</span>	<input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" ></p>
+	<div id="itemUpdateDiv">
+		<div id="itemUpdateOuterWrap">
+			<form id='itemFormObj' action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
+		
+				<input type="hidden" name="iNo"	value="${itemDto.iNo}"><br>
+				<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
+				<input type="hidden" name="curPage" value="${prevMap.curPage}">
 					
-					<input id='itemFormSubmitBtn' class="itemCtr" type="button" onclick="imgEmptyCheckFnc()" value="수정완료">
-					
-					<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveBefore(${prevMap.curPage}, ${prevMap.cNo}, ${itemDto.iNo});">
-					
-					<input class="itemCtr" type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
-					<input class="itemCtr" type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo}, ${prevMap.cNo});'><br>
+				<div class="diet_wrap">	
+					<div class="frame">
+						<div id="imgInfo" class="sortImg sort1">
+							<input id="itemImgNo" type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
+		<!-- 					<div id="imgInfo2"> -->
+							<img id="itemImg" alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+		<!-- 					</div> -->
+							<input type="file" id="file" name="file">
+							<a href="#" onclick="deleteFileFnc();">삭제</a>
+						</div>
+						
+						<div class="sortImg sort2">
+							<p><span>제품명</span>		<input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}"></p>
+							<p><span>가 &nbsp; 격</span>	<input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}"></p>
+							<p><span>칼로리</span>	 	<input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
+							<p><span>재 &nbsp; 고</span>	<input class="info" type="number" name="iCount" id="iCount" value="${itemDto.iCount}" ></p>
+							
+							<input id='itemFormSubmitBtn' class="itemCtr" type="button" onclick="imgEmptyCheckFnc()" value="수정완료">
+							
+							<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveBefore(${prevMap.curPage}, ${prevMap.cNo}, ${itemDto.iNo});">
+							
+							<input class="itemCtr" type="button" value="회원목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
+							<input class="itemCtr" type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo}, ${prevMap.cNo});'><br>
+						</div>
+						<div class="iteminfo">
+							<h3>제품상세정보</h3>
+							<textarea rows="20" cols="120" id='iOneDetail' name="iOneDetail">${itemDto.iOneDetail}</textarea>
+						</div>
+					</div>
 				</div>
-				<div class="iteminfo">
-					<h3>제품상세정보</h3>
-					<textarea rows="20" cols="120" id='iOneDetail' name="iOneDetail">${itemDto.iOneDetail}</textarea>
-				</div>
-			</div>
+			</form>
 		</div>
-	</form>
-	
+	</div>
 </body>
 	
 </html>
