@@ -65,7 +65,7 @@ public class UserController {
 				return "auth/LoginFail";
 			} else {
 				session.setAttribute("_userDto_", userDto);
-				viewUrl = "main/MainPage";
+				viewUrl = "redirect:/main/main.do";
 				return viewUrl;
 			}
 		} catch (Exception e) {
@@ -95,10 +95,8 @@ public class UserController {
 		userDto.setSalt(salt);
 		userDto.setPassword(password);
 
-//		userService.userExist(userDto);
 		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
-//		userService.addRecommendItem(userDto);
 
 		return "redirect:/auth/login.do";
 	}
@@ -178,9 +176,11 @@ public class UserController {
 			
 			List<Map<String, Object>> mainRecommendItemList = userService.viewRecommendItemList(uNo);
 			List<Map<String, Object>> mainBestItemList = userService.viewBestItemList();
+			List<Map<String, Object>> mainReviewList = userService.viewReviewList();
 			
 			model.addAttribute("mainRecommendItemList", mainRecommendItemList);
 			model.addAttribute("mainBestItemList", mainBestItemList);
+			model.addAttribute("mainReviewList", mainReviewList);
 			
 			viewPage = "main/MainPage";
 		} else if (session.getAttribute("_userDto_") == null) {

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰</title>
+<title>FitMake</title>
 
 <link rel="stylesheet" href="/fitmake/resources/css/reviewOne.css">
 
@@ -31,8 +31,9 @@
 					<input class="info" type="text" name="rTitle">
 				<h3>내용</h3>
 					<textarea rows="20" cols="80" name="rContent"></textarea>
-				
-				<input class="reviewCtr" type="submit" value="작성">
+				<div id="reviewAddBtnArea">
+					<input class="reviewCtr" type="submit" value="작성">
+				</div>
 			</div>
 		</div>
 <!-- 		<input type="button" value="이전페이지로" onclick="pageMoveListFnc();"> -->

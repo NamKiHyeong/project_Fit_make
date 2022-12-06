@@ -68,9 +68,7 @@
 									</a>
 								</p>
 								<p class="itemBoundary">가격 : ${item.itemDto.iSellprice}</p>
-<%-- 								<p>리뷰 : ${item.itemDto.iCount}</p> --%>
 								<p>리뷰 : ${item.review}</p>
-								
 							</form>
 						</div>
 					</c:forEach>

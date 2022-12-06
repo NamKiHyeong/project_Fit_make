@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 하나 보기</title>
+<title>FitMake</title>
 
 <link rel="stylesheet" href="/fitmake/resources/css/reviewOne.css">
 <script type="text/javascript"

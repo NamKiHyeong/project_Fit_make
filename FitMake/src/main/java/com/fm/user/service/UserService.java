@@ -52,4 +52,6 @@ public interface UserService {
 
 	public List<Map<String, Object>> viewBestItemList();
 
+	public List<Map<String, Object>> viewReviewList();
+
 }

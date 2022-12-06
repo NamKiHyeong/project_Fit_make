@@ -90,16 +90,20 @@
 }
 
 .itemCtr {
-	padding:10px 20px;
-	margin-right:15px;
-	font-size:16px;
-	background:#333;
-	color:#fff;
-	border:none;
-	border-radius:10px;
+	margin-left: 10px;
+	width: auto;
+	background: #d7266d;
+	border: 2px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	font-size: 14px;
 }
-
+#reviewUpdateBtnArea{
+	text-align: right;
+}
 .itemCtrCenter{
-	margin-left:240px; margin-right:240px;
+	margin-left:240px;
+	margin-right:240px;
 }
 /* 	미디어를 이용해서 최대 3개 최소 2개로 수정하기 */

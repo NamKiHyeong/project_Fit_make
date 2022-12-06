@@ -48,7 +48,9 @@ div {
 						${mainRecommendItem.FM_ITEM_NAME}
 					</div>
 					<div>
-						<img class="recommendImg" alt="image not found" src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />"/>
+						<a href="../item/one.do?iNo=${mainRecommendItem.FM_ITEM_NO}">
+							<img class="recommendImg" alt="image not found" src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />"/>
+						</a>
 					</div>
 					<div>
 						${mainRecommendItem.FM_ITEM_SELLPRICE}
@@ -92,6 +94,19 @@ div {
 			<p class="titlePtag">
 				<a href="../review/list.do?cNo=1">리뷰</a>
 			</p>
+			<div id="reviewListArea">
+				<c:forEach var="mainReview" items="${mainReviewList}">
+					<div>
+						<img class="bestItem" alt="image not found" src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />"/>
+					</div>
+					<div>
+						${mainReview.FM_REVIEW_TITLE}
+					</div>
+					<div>
+						${mainReview.FM_REVIEW_CONTENT}
+					</div>
+				</c:forEach>
+			</div>
 			<div>
 				<h2>리뷰를 등록해주세요</h2>
 			</div>

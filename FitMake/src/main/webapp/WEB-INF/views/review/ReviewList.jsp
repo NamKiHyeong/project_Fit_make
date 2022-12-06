@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>리뷰 목록</title>
+<title>FitMake</title>
 
 <link rel="stylesheet" href="/fitmake/resources/css/reviewList.css">
 <script type="text/javascript" src="/fitmake/resources/js/review.js"></script>

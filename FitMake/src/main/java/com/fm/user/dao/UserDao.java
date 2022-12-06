@@ -53,4 +53,6 @@ public interface UserDao {
 
 	public List<Map<String, Object>> viewBestItemList();
 
+	public List<Map<String, Object>> viewReviewList();
+
 }

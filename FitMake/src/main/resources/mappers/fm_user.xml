@@ -250,45 +250,5 @@
 		FM_POINT_NO DESC
 	</select>
 	<!-- //충전 내역 -->
-	<!-- 메인화면 추천 제품 목록 구성 -->
-	<select id="viewRecommendItemList" parameterType="int" resultType="map">
-		SELECT i.FM_ITEM_NO, i.FM_CATEGORY_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE 
-    		, ig.FM_ITEM_STORED_IMG_NAME
-		from FM_USER u
-		    INNER JOIN FM_USER_BMI ubi
-		        ON u.FM_USER_NO = ubi.FM_USER_NO
-		    INNER JOIN FM_ITEM i
-		        ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
-		            i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))
-		    INNER JOIN FM_ITEM_IMG ig
-		        ON i.FM_ITEM_NO = ig.FM_ITEM_NO
-		WHERE U.FM_USER_NO = #{uNo}
-	</select>
-	<!-- //메인화면 추천 제품 목록 구성 -->
-	<!-- 베스트 제품 제품 번호 획득 -->
-	<select id="viewBestItemList" resultType="int">
-		SELECT bil.FM_ITEM_NO
-		FROM(
-		    SELECT ROWNUM AS "rowNum", bi."SellCount", bi.FM_ITEM_NO
-		    FROM (SELECT COUNT(od.FM_ORDER_DETAIL_NO) as "SellCount", i.FM_ITEM_NO
-		            FROM FM_ITEM i
-		                INNER JOIN FM_ORDER_DETAIL od
-		                    ON i.FM_ITEM_NO = od.FM_ITEM_NO
-		                INNER JOIN FM_ORDER o
-		                    ON o.FM_ORDER_NO = od.FM_ORDER_NO
-		                WHERE O.FM_ORDER_STATUS <![CDATA[<>]]> 'CANCEL'
-		                GROUP BY i.FM_ITEM_NO
-		                ORDER BY "SellCount" DESC) bi)bil
-		WHERE bil."rowNum" <![CDATA[<]]> 5
-	</select>
-	<!-- //베스트 제품 제품 번호 획득 -->
-	<!-- 베스트 제품 제품 정보 획득 -->
-	<select id="viewTotalBestItemList" parameterType="int" resultType="map">
-		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, ig.FM_ITEM_STORED_IMG_NAME
-		FROM FM_ITEM i
-		    INNER JOIN FM_ITEM_IMG ig
-		        ON i.FM_ITEM_NO = ig.FM_ITEM_NO
-		WHERE i.FM_ITEM_NO = #{iNo}
-	</select>
-	<!-- //베스트 제품 제품 정보 획득 -->
+	
 </mapper>

@@ -22,33 +22,30 @@ import com.fm.util.Paging;
 
 @Controller
 public class ItemController {
-	private static final Logger logger
-		= LoggerFactory.getLogger(ItemController.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
+
 	@Autowired
 	private ItemService itemService;
-	
-	
-/**
- * Create!!! Item Add
- * @param itemDto
- * @param mulRequest
- * @param model
- * @return MultipartHttpServletRequest mulRequest
- *  나중에 sub을 사용할 때 사용하기
- */
-	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST})
+
+	/**
+	 * Create!!! Item Add
+	 * 
+	 * @param itemDto
+	 * @param mulRequest
+	 * @param model
+	 * @return MultipartHttpServletRequest mulRequest 나중에 sub을 사용할 때 사용하기
+	 */
+	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemAdd(Model model, int cNo) {
 		logger.trace("제품 추가해봅시다!" + model);
-		logger.info("cNo {} " );
-		
+		logger.info("cNo {} ");
+
 		model.addAttribute("cNo", cNo);
 		return "/item/ItemAdd"; // jsp 주소로
 	}
-	
-	@RequestMapping(value = "/item/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST})
-	public String itemAddCtr(ItemDto itemDto, Model model,
-			MultipartHttpServletRequest mulRequest) {
+
+	@RequestMapping(value = "/item/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
+	public String itemAddCtr(ItemDto itemDto, Model model, MultipartHttpServletRequest mulRequest) {
 		logger.trace("제품 추가합니다!" + itemDto);
 		try {
 			itemService.itemInsertOne(itemDto, mulRequest);
@@ -58,164 +55,154 @@ public class ItemController {
 			e.printStackTrace();
 		}
 		logger.info("카테고리 번호 있나?", itemDto.getcNo());
-		
+
 		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
-	
-/**
- * Read!!!
- * @param itemDto
- * @param model spirng에서 지원해준 화면 구성을 위해서 받아온 객체
- * @return
- * 1단계 리스트 나오는지 확인
- * 2단계 검색 기능 넣고서 나오는지 확인
- * 3단계 페이징 확인
- */
-	@RequestMapping(value="/item/list.do", method = {RequestMethod.GET, RequestMethod.POST})
+
+	/**
+	 * Read!!!
+	 * 
+	 * @param itemDto
+	 * @param model   spirng에서 지원해준 화면 구성을 위해서 받아온 객체
+	 * @return 1단계 리스트 나오는지 확인 2단계 검색 기능 넣고서 나오는지 확인 3단계 페이징 확인
+	 */
+	@RequestMapping(value = "/item/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
 //			, @RequestParam int cNo
-			, ItemDto itemDto
-			, @RequestParam(defaultValue = "") String keyword
-			, @RequestParam(defaultValue = "0") int older
-			, Model model) {
-		
-		
+			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword,
+			@RequestParam(defaultValue = "0") int older, Model model) {
+
 		logger.info("제품 리스트로 옴 {}" + model);
-		logger.info("curPage {} " , curPage);
-		logger.info("cNo {} " , itemDto.getcNo());
-		logger.info("older {} " , older);
+		logger.info("curPage {} ", curPage);
+		logger.info("cNo {} ", itemDto.getcNo());
+		logger.info("older {} ", older);
 		logger.info("keyword: {} ", keyword);
-		
-		
+
 		int totalItemCount = itemService.itemSelectTotalItemCount(itemDto.getcNo(), keyword);
-		
-		
+
 		Paging itemPaging = new Paging(totalItemCount, curPage);
 		int start = itemPaging.getPageBegin();
 		int end = itemPaging.getPageEnd();
 //		---------------
 		List<Map<String, Object>> itemList = itemService.itemSelectList(itemDto.getcNo(), keyword, start, end, older);
-		
+
 //		int totalReviewCount = itemService.reviewSelectTotalReviewCount(itemList.get);
-		logger.info("itemlList에 cNo {} " , itemDto.getcNo());
-		
+		logger.info("itemlList에 cNo {} ", itemDto.getcNo());
+
 		Map<String, Object> searchMap = new HashMap<>();
 		searchMap.put("keyword", keyword);
-		
+
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("itemPaging", itemPaging);
 		pagingMap.put("totalItemCount", totalItemCount);
 //		pagingMap.put("totalReviewCount", totalReviewCount);
 		pagingMap.put("older", older);
 		pagingMap.put("cNo", itemDto.getcNo());
-		
-		logger.info("itemlList에 cNo {} " , itemDto.getcNo());
-		
+
+		logger.info("itemlList에 cNo {} ", itemDto.getcNo());
+
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("searchMap", searchMap);
-		
-		return "/item/Category";
+
+		return "/item/ItemList";
 	}
-	
-	
-	@RequestMapping(value="/item/one.do", method = RequestMethod.GET)
-	public String itemOne(@RequestParam int curPage, int cNo, int iNo, Model model) {
+
+	@RequestMapping(value = "/item/one.do", method = RequestMethod.GET)
+	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo, int iNo, Model model) {
 //		RedirectAttributes redirect
 		logger.trace("제품 상세정보" + model);
-		
-		Map<String, Object>prevMap = new HashMap<>();
+
+		Map<String, Object> prevMap = new HashMap<>();
 		prevMap.put("cNo", cNo);
 		prevMap.put("curPage", curPage);
-		
+
 		Map<String, Object> map = itemService.itemSelectOne(iNo);
-		
+
 		ItemDto itemDto = (ItemDto) map.get("itemDto");
-		
+
 		logger.debug("one.do에서 itemDto에 iNo 값이 들어가 있니?{}", itemDto);
-		
-		List<Map<String, Object>> fileList =(List<Map<String,Object>>)map.get("fileList");
-		
-		
+
+		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
+
 		logger.info("one.do에서 cNo 확인해본다 {}", itemDto.getcNo());
 		logger.info("one.do에서 curPage확인해본다 {}", curPage);
-		
+
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("fileList", fileList);
 		model.addAttribute("prevMap", prevMap);
-		
-		
+
 		return "/item/ItemOne";
 	}
-	
-	
-/**
- * Update!!!!!!!
- * @param iNo를 Service랑 Dao는 안해도 되는데 왜 여기만 꼭 마바티스에서 바꿔준 걸로 써야할까? 
- * @param model
- * @return
- */
-	@RequestMapping(value="/item/update.do", method = RequestMethod.GET)
+
+	/**
+	 * Update!!!!!!!
+	 * 
+	 * @param iNo를  Service랑 Dao는 안해도 되는데 왜 여기만 꼭 마바티스에서 바꿔준 걸로 써야할까?
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/item/update.do", method = RequestMethod.GET)
 	public String itemUpdate(int curPage, int cNo, int iNo, Model model) {
-		logger.trace("수정하는 DB에 접속"+ curPage);
-		
-		Map<String, Object>prevMap = new HashMap<>();
+		logger.trace("수정하는 DB에 접속" + curPage);
+
+		Map<String, Object> prevMap = new HashMap<>();
 		prevMap.put("cNo", cNo);
 		prevMap.put("curPage", curPage);
-		
+
 		Map<String, Object> map = itemService.itemSelectOne(iNo);
-		
-		ItemDto itemDto = (ItemDto)map.get("itemDto");
-		
-		List<Map<String, Object>> fileList
-		= (List<Map<String, Object>>) map.get("fileList");
-		
+
+		ItemDto itemDto = (ItemDto) map.get("itemDto");
+
+		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
+
 		System.out.println("update.do에서 " + iNo);
-		
+
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("prevMap", prevMap);
 		if (fileList.size() != 0) {
 			model.addAttribute("img", fileList.get(0));
 //			model.addAttribute("fileList", fileList);
 		}
-		
+
 		return "item/ItemUpdate";
 	}
-	
-	@RequestMapping(value="/item/updateCtr.do", method = RequestMethod.POST)
-	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto
-			,@RequestParam(value = "imgNo", defaultValue = "-1") int imgNo
-			, MultipartHttpServletRequest mulRequest, Model model) {
-		logger.info("컨트롤러 서비스로 curPage {} " , curPage);
-		logger.info("컨트롤러 서비스로 cNo {} " , itemDto);
-		logger.info("컨트롤러 서비스로 imgNo {} " , imgNo);
+
+	@RequestMapping(value = "/item/updateCtr.do", method = RequestMethod.POST)
+	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto,
+			@RequestParam(value = "imgNo", defaultValue = "-1") int imgNo, MultipartHttpServletRequest mulRequest,
+			Model model) {
+		logger.info("컨트롤러 서비스로 curPage {} ", curPage);
+		logger.info("컨트롤러 서비스로 cNo {} ", itemDto);
+		logger.info("컨트롤러 서비스로 imgNo {} ", imgNo);
 		int cNo = itemDto.getcNo();
-		
+
 		try {
 			itemService.itemUpdateOne(itemDto, mulRequest, imgNo);
-			
+
 		} catch (Exception e) {
 			System.out.println("컨트롤 업데이트 예외 발생");
 			e.printStackTrace();
-			
+
 		}
-		
-		
+
 		return "redirect:/item/list.do?cNo=" + cNo;
-	
+
 	}
-/**Delete
- * 
- * @param iNo
- * @param model
- * @return
- */
-	@RequestMapping(value="/item/deleteOne.do", method = RequestMethod.GET)
-	public String itemDelete(int iNo,int cNo , Model model) {
+
+	/**
+	 * Delete
+	 * 
+	 * @param iNo
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping(value = "/item/deleteOne.do", method = RequestMethod.GET)
+	public String itemDelete(int iNo, int cNo, Model model) {
 		logger.info("삭제기능" + iNo);
-			itemService.itemDeleteOne(iNo);
+		itemService.itemDeleteOne(iNo);
 		logger.info("삭제기능");
 		return "redirect:/item/list.do?cNo=" + cNo;
-		
+
 	}
 }

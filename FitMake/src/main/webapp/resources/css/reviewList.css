@@ -53,13 +53,14 @@
 }
 
 .reviewCtr {
-	padding:10px 20px;
-	margin-right:15px;
-	font-size:16px;
-	background:#333;
-	color:#fff;
-	border:none;
-	border-radius:10px;
+	margin-left: 10px;
+	width: auto;
+	background: #d7266d;
+	border: 2px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	font-size: 14px;
 }
 
 .reviewCtrCenter{

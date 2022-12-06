@@ -58,7 +58,8 @@
 }
 	
 .frame .sort1 > img {
-	padding:30px; border:1px solid #ddd;
+	padding:30px; 
+	border:1px solid #ddd;
 }
 
 
@@ -88,15 +89,19 @@
 }
 
 .reviewCtr {
-	padding:10px 20px;
-	margin:20px 15px 0 0;
-	font-size:16px;
-	background:#333;
-	color:#fff;
-	border:none;
-	border-radius:10px;
+	margin-left: 10px;
+	margin-top: 10px;
+	width: auto;
+	background: #d7266d;
+	border: 2px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	cursor: pointer;
+	font-size: 14px;
 }
-
+#reviewAddBtnArea{
+	text-align: right;
+}
 .reviewCtrCenter{
 	margin-left:240px; margin-right:240px;
 }

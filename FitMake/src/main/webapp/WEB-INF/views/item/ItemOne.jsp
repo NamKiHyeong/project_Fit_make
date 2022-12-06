@@ -18,7 +18,7 @@
 	<div id="itemOneDiv">
 		<div id="itemOneOuterWrap">
 			<form id="itemOneForm" action="./update.do" method="get">
-				<input type="hidden" name="iNo"	id="iNoInput" value="${itemDto.iNo}" readonly="readonly"><br>
+				<input type="hidden" name="iNo"	id="iNoInput" value="${itemDto.iNo}"><br>
 				<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
 				<input type="hidden" name="curPage" value="${prevMap.curPage}">
 				
@@ -32,7 +32,7 @@
 						<div class="sortImg sort2">
 							<p><span>제품명</span>	 <input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly"><br></p>
 							<p><span>가 &nbsp; 격</span>	 <input class="info" type="number" name="iSellprice" value="${itemDto.iSellprice}" readonly="readonly"></p>
-							<p><span>칼로리</span>	 <input class="info" type="number" name="iCalory" value="${itemDto.iCalory}"></p>
+							<p><span>칼로리</span>	 <input class="info" type="number" name="iCalory" value="${itemDto.iCalory}" readonly="readonly"></p>
 			
 							<c:choose>
 								<c:when test="${_userDto_.uNo == 1}">

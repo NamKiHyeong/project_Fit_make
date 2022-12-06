@@ -211,4 +211,10 @@ public class UserServiceImpl implements UserService {
 		return userDao.viewBestItemList();
 	}
 
+	@Override
+	public List<Map<String, Object>> viewReviewList() {
+		
+		return userDao.viewReviewList();
+	}
+
 }
