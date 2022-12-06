@@ -5,7 +5,7 @@ $(document).ready(function() {
 		var iNo = [];
 		var ctCount = $("#ctCountInput").val();
 		
-		if($('input:checkbox[name="iCkBox"]').length < 0){
+		if($('input:checkbox[name="iCkBox"]').length > 0){
 			$('input:checkbox[name="iCkBox"]').each(function() {
 				if(this.checked == true){
 					iNo.push(this.value);
