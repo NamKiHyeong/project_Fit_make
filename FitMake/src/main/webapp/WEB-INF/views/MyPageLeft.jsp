@@ -58,7 +58,7 @@
 		<div>
 			<ol>
 				<li><strong>활동 관리</strong></li>
-				<li><a href="../review/list.do">리얼후기</a></li>
+				<li><a href="../review/list.do">리뷰목록</a></li>
 				<li><a href="../inquiry/list.do">1:1 문의</a></li>
 			</ol>
 		</div>

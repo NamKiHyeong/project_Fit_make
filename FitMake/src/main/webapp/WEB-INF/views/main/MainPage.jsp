@@ -23,6 +23,36 @@
 	font-weight: 500;
 	letter-spacing: -0.09em;
 }
+.ItemArea {
+	display: flex;
+	
+}
+.ItemDiv {
+	width: 400px;
+   	text-align: center;
+    	padding-bottom: 30px;
+}
+.ItemImg {
+	width: 357px;
+    	height: 305px;
+    	border: 1px solid #ddd;
+    	border-radius: 10px;
+    	object-fit: cover;
+}
+
+.pTitle {
+	text-align: left;
+    	font-size: 18px;
+    	font-weight: 700;
+    	margin-bottom: 0px;
+    	padding-left: 21px;
+    	letter-spacing: -0.1em;
+}
+.pPrice {
+	font-weight: 700;
+    	font-size: 1.5em;
+    	letter-spacing: -0.05em;
+}
 </style>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
@@ -36,79 +66,56 @@
 			<p class="titlePtag">
 				<a href="../item/list.do?cNo=2">추천상품</a>
 			</p>
-			<div id="recommendItemArea">
+			<div class="ItemArea">
 				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}"> 
-					<div>
-						${mainRecommendItem.FM_ITEM_NO}
-					</div>
-					<div>
-						${mainRecommendItem.FM_CATEGORY_NO}
-					</div>
-					<div>
-						${mainRecommendItem.FM_ITEM_NAME}
-					</div>
-					<div>
+					<div class="ItemDiv">
 						<a href="../item/one.do?iNo=${mainRecommendItem.FM_ITEM_NO}">
-							<img class="recommendImg" alt="image not found" src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />"/>
+							<img class="ItemImg" alt="image not found" src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />"/>
 						</a>
-					</div>
-					<div>
-						${mainRecommendItem.FM_ITEM_SELLPRICE}
+					<p class="pTitle">${mainRecommendItem.FM_ITEM_NAME}</p>
+					<p class="pPrice">${mainRecommendItem.FM_ITEM_SELLPRICE}원</p>
 					</div>
 				</c:forEach>
 			</div>
+			<c:if test="${mainRecommendItem.size() < 1}">
 			<div>
 				<h2>상품을 등록해주세요</h2>
 			</div>
+			</c:if>
 		</div>
 		<div>
 			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="#">베스트</a>
 			</p>
-			<div id="bestItemArea">
+			<div class="ItemArea">
 				<c:forEach var="mainBestItem" items="${mainBestItemList}"> 
-					<div>
-						${mainBestItem.FM_ITEM_NO}
-					</div>
-					<div>
-						${mainBestItem.FM_CATEGORY_NO}
-					</div>
-					<div>
-						${mainBestItem.FM_ITEM_NAME}
-					</div>
-					<div>
-						<img class="bestItem" alt="image not found" src="<c:url value='/image/${mainBestItem.FM_ITEM_STORED_IMG_NAME}' />"/>
-					</div>
-					<div>
-						${mainBestItem.FM_ITEM_SELLPRICE}
+					<div class="ItemDiv">
+						<img class="ItemImg" alt="image not found" src="<c:url value='/image/${mainBestItem.FM_ITEM_STORED_IMG_NAME}' />"/>
+						<p class="pTitle">${mainBestItem.FM_ITEM_NAME}</p>
+						<p class="pPrice">${mainBestItem.FM_ITEM_SELLPRICE}원</p>
 					</div>
 				</c:forEach>
 			</div>
+			<c:if test="${mainRecommendItem.size() < 1}">
 			<div>
 				<h2>상품을 등록해주세요</h2>
 			</div>
+			</c:if>
 		</div>
 		<div>
 			<p class="paddingPtag"></p>
 			<p class="titlePtag">
 				<a href="../review/list.do?cNo=1">리뷰</a>
 			</p>
-			<div id="reviewListArea">
+			<div class="ItemArea">
 				<c:forEach var="mainReview" items="${mainReviewList}">
-					<div>
-						<img class="bestItem" alt="image not found" src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />"/>
-					</div>
-					<div>
-						${mainReview.FM_REVIEW_TITLE}
-					</div>
-					<div>
-						${mainReview.FM_REVIEW_CONTENT}
+					<div class="ItemDiv">
+						<img class="ItemImg" alt="image not found" src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />"/>
+						<p class="pTitle">${mainReview.FM_REVIEW_TITLE}</p>
+						<p>${mainReview.FM_REVIEW_CONTENT}</p>
 					</div>
 				</c:forEach>
-			</div>
-			<div>
-				<h2>리뷰를 등록해주세요</h2>
 			</div>
 		</div>
 	</div>
