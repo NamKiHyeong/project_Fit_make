@@ -9,7 +9,7 @@
 <style type="text/css">
 #containerFid {
 	width: 1200px;
-	height: 500px;
+	height: 100%;
 	margin: 0px auto;
 }
 

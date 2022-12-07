@@ -112,5 +112,6 @@
 			</form>
 		</div>
 	</div>
+	<jsp:include page="../Footer.jsp" />
 </body>
 </html>

@@ -11,10 +11,11 @@
 <style type="text/css">
 #userContainerDiv {
 	width: 1200px;
+	height: 100%;
 	margin: 0px auto;
 }
 
-#userTableDiv table{
+#userTableDiv table {
 	border-collapse: collapse;
 	width: 100%;
 }
@@ -30,17 +31,18 @@
 }
 </style>
 
-<script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-		$('.userGender').each(function () {
+
+		$('.userGender').each(function() {
 			var userGender = $(this).text();
-		if (userGender == "M") {
-			$(".userGender").text("남성");
-		} else if (userGender == "W") {
-			$(".userGender").text("여성");
-		}
+			if (userGender == "M") {
+				$(".userGender").text("남성");
+			} else if (userGender == "W") {
+				$(".userGender").text("여성");
+			}
 		});
 	});
 </script>
@@ -70,7 +72,8 @@
 						<td><span>${userMap.FM_USER_EMAIL }</span></td>
 						<td><span>${userMap.FM_USER_MOBILE }</span></td>
 						<td><span>${userMap.FM_USER_ADDRESS }</span></td>
-						<td><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${userMap.FM_USER_POINT}"/></span></td>
+						<td><span><fmt:formatNumber type="number"
+									maxFractionDigits="3" value="${userMap.FM_USER_POINT}" /></span></td>
 						<td><span class="userGender">${userMap.FM_USER_BMI_GENDER }</span></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
 								value="${userMap.FM_USER_CRE_DATE}" /></td>
@@ -79,12 +82,10 @@
 			</table>
 		</div>
 		<jsp:include page="../user/UserPaging.jsp" />
-		<jsp:include page="../Footer.jsp" />
 	</div>
 
 
-
-
+	<jsp:include page="../Footer.jsp" />
 	<div id="pagingSection">
 		<form id="pagingForm" action="./Info.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"

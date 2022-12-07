@@ -205,8 +205,7 @@
 		FM_USER_POINT = FM_USER_POINT + #{pHistory}
 		WHERE FM_USER_NO = #{uNo}
 	</update>
-	<insert id="pointHistory" parameterType="com.fm.util.PointAdd"
-		keyProperty="uNo">
+	<insert id="pointHistory" parameterType="com.fm.util.PointAdd">
 		INSERT INTO FM_POINT
 		VALUE(FM_POINT_NO, FM_USER_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE)
 		VALUES(SEQ_FM_POINT_NO.NEXTVAL,

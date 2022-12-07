@@ -11,10 +11,11 @@
 <style type="text/css">
 #userContainerDiv {
 	width: 1200px;
+	height: 100%;
 	margin: 0px auto;
 }
 
-#userTableDiv table{
+#userTableDiv table {
 	border-collapse: collapse;
 	width: 100%;
 }
@@ -30,7 +31,8 @@
 }
 </style>
 
-<script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 
 </head>
 
@@ -51,8 +53,10 @@
 					<tr>
 						<td><span>${pointMap.FM_POINT_NO}</span></td>
 						<td><span>${pointMap.FM_USER_NICKNAME }</span></td>
-						<td><span>+<fmt:formatNumber type="number" maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}"/></span></td>
-						<td><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${pointMap.FM_USER_POINT}"/></span></td>
+						<td><span>+<fmt:formatNumber type="number"
+									maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}" /></span></td>
+						<td><span><fmt:formatNumber type="number"
+									maxFractionDigits="3" value="${pointMap.FM_USER_POINT}" /></span></td>
 						<td><fmt:formatDate pattern="yyyy년MM월dd일 hh시mm분ss초"
 								value="${pointMap.FM_POINT_CRE_DATE}" /></td>
 					</tr>
@@ -60,12 +64,9 @@
 			</table>
 		</div>
 		<jsp:include page="../user/UserPaging.jsp" />
-		<jsp:include page="../Footer.jsp" />
 	</div>
 
-
-
-
+	<jsp:include page="../Footer.jsp" />
 	<div id="pagingSection">
 		<form id="pagingForm" action="./pointHistory.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"
