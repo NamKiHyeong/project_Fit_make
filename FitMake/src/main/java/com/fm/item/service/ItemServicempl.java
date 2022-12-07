@@ -70,8 +70,8 @@ public class ItemServicempl implements ItemService {
  * 
  */
 	@Override
-	public List<Map<String, Object>> itemSelectList(int cNo, String keyword, int start, int end, int older) {
-		List<ItemDto> itemList = itemDao.itemSelectList(cNo, keyword, start, end, older);
+	public List<Map<String, Object>> itemSelectList(int cNo, String keyword, int start, int end, int older, int uNo) {
+		List<ItemDto> itemList = itemDao.itemSelectList(cNo, keyword, start, end, older, uNo);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
 		
@@ -95,9 +95,9 @@ public class ItemServicempl implements ItemService {
 	}
 
 	@Override
-	public int itemSelectTotalItemCount(int cNo, String keyword) {
+	public int itemSelectTotalItemCount(int cNo, String keyword, int uNo) {
 		
-		return itemDao.itemSelectTotalItemCount(cNo, keyword);
+		return itemDao.itemSelectTotalItemCount(cNo, keyword, uNo);
 	}
 //	@Override
 //	public int reviewSelectTotalReviewCount(int iNo) {
@@ -192,6 +192,22 @@ public class ItemServicempl implements ItemService {
 	@Override
 	public void itemDeleteOne(int iNo) {
 		itemDao.itemDeleteOne(iNo);
+	}
+	@Override
+	public String getCategoryName(int cNo) {
+		
+		return itemDao.getCategoryName(cNo);
+	}
+	@Override
+	public List<Map<String, Object>> viewBestItemList(int cNo, String keyword, int start, int end, int older, int uNo) {
+		
+		return itemDao.viewBestItemList(cNo, keyword, start, end, older, uNo);
+	}
+	@Override
+	public List<Map<String, Object>> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
+			int uNo) {
+		
+		return itemDao.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
 	}
 
 

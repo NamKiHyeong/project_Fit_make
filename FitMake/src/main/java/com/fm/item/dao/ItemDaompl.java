@@ -1,5 +1,6 @@
 package com.fm.item.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,13 +27,14 @@ public class ItemDaompl implements ItemDao{
 	}
 //	R
 	@Override
-	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older){
+	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older, int uNo){
 		Map<String, Object>map = new HashMap<String, Object>();
 		
 		map.put("cNo", cNo);
 		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
+		map.put("uNo", uNo);
 		
 		
 		if(older==1) {
@@ -91,10 +93,11 @@ public class ItemDaompl implements ItemDao{
 	
 	//---------------------------------------------------------- 카테고리의 제품 수
 	@Override
-	public int itemSelectTotalItemCount(int cNo, String keyword) {
+	public int itemSelectTotalItemCount(int cNo, String keyword, int uNo) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("cNo", cNo);
 		map.put("keyword", keyword);
+		map.put("uNo", uNo);
 		return sqlSession.selectOne(namespace + "itemSelectTotalItemCount", map);
 	}
 	
@@ -103,5 +106,43 @@ public class ItemDaompl implements ItemDao{
 //		public Map<String, Object> reviewSelectTotalReviewCount(int iNo){
 		System.out.println("item daompl에서 리뷰 값을 가져오기 위한 iNo 값이 제대로 들어오나?" + iNo);
 		return sqlSession.selectOne("com.fm.review.reviewSelectTotalReviewCount", iNo);
+	}
+	@Override
+	public String getCategoryName(int cNo) {
+		
+		return sqlSession.selectOne(namespace + "getCategoryName", cNo);
+	}
+	@Override
+	public List<Map<String, Object>> viewBestItemList(int cNo, String keyword, int start, int end, int older, int uNo) {
+
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		
+		inputMap.put("cNo", cNo);
+		inputMap.put("keyword", keyword);
+		inputMap.put("start", start);
+		inputMap.put("end", end);
+		inputMap.put("uNo", uNo);
+		
+		List<Integer> bestItemNoList = sqlSession.selectList(namespace + "viewBestItemNoList", inputMap);
+		List<Map<String, Object>> newBestItemList = new ArrayList<Map<String,Object>>();
+		
+		for(int iNo : bestItemNoList) {
+			newBestItemList.add(sqlSession.selectOne(namespace + "viewTotalBestItemList", iNo));
+		}
+		
+		return newBestItemList;
+	}
+	@Override
+	public List<Map<String, Object>> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
+			int uNo) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("keyword", keyword);
+		inputMap.put("start", start);
+		inputMap.put("end", end);
+		
+		
+		return sqlSession.selectList(namespace + "viewRecommendItemList", uNo);
 	}
 }
