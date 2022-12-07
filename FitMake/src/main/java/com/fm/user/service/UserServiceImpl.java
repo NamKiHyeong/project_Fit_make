@@ -217,4 +217,11 @@ public class UserServiceImpl implements UserService {
 		return userDao.viewReviewList();
 	}
 
+	@Override
+	public List<Map<String, Object>> viewPointList(int uNo, int start, int end) {
+		
+		
+		return userDao.viewPointList(uNo, start, end);
+	}
+
 }

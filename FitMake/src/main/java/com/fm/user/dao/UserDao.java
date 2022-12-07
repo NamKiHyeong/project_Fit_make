@@ -55,4 +55,6 @@ public interface UserDao {
 
 	public List<Map<String, Object>> viewReviewList();
 
+	public List<Map<String, Object>> viewPointList(int uNo, int start, int end);
+
 }

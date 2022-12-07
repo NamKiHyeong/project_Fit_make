@@ -467,9 +467,9 @@ public class UserController {
 		logger.info("충전내역");
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
-
+		
 		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo);
-
+		
 		model.addAttribute("pointList", pointList);
 		
 		int totalCount = userService.getUserTotalCount(uNo);
@@ -481,6 +481,10 @@ public class UserController {
 		
 		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
 		
+		List<Map<String, Object>> pointManage = userService.viewPointList(uNo, start, end);
+		
+		model.addAttribute("pointManage", pointManage);
+		
 		Map<String, Object> uPagingMap = new HashMap<String, Object>();
 		uPagingMap.put("userPaging", userPaging); 
 		uPagingMap.put("totalCount",totalCount);
@@ -489,12 +493,14 @@ public class UserController {
 		
 		model.addAttribute("userMapList", userMapList);
 		model.addAttribute("uPagingMap", uPagingMap);
+		
+		
 		String viewUrl = "";
 		
 		if(uNo == 1) {
-			viewUrl = "user/UserManage";
+			viewUrl = "user/PointManage";
 		} else {
-			viewUrl = "user/UserMyInfo";
+			viewUrl = "user/PointRechargehistory";
 		}
 		
 		return viewUrl;

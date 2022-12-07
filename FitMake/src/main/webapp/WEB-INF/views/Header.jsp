@@ -35,20 +35,23 @@
 	
 </script>
 <style type="text/css">
-
-#bigUl{
+#bigUl {
 	position: relative;
 }
 
-#ulDiv{
+#ulDiv {
 	position: absolute;
 	display: none;
-	width: 200px;
-	background-color: white;
+	width: 146px;
+	margin-top: 13px;
+	background-color: #E6E6E6;
 }
 
-#title{
-margin: 0;
+.ulPtag {
+	font-size: 15px;
+}
+#title {
+	margin: 0;
 }
 </style>
 </head>
@@ -117,16 +120,26 @@ margin: 0;
 				<c:if test="${_userDto_.email ne null}">
 					<ul id="bigUl">
 						<li id="testLi">
-							<p id="title"><img alt="목록" src="/fitmake/resources/image/Kategorie.png"> 전체 카테고리</p>
+							<p id="title">
+								<img alt="목록" src="/fitmake/resources/image/Kategorie.png">
+								전체 카테고리
+							</p>
 							<div id="ulDiv">
-								<p><a href="#">닭가슴살</a></p>
-								<p><a href="#">치즈</a></p>
-								<p><a href="#">우유</a></p>
+								<p class="ulPtag">
+									<a class="testA" href="#">닭가슴살</a>
+								</p>
+								<p class="ulPtag">
+									<a class="testA" href="#">치즈</a>
+								</p>
+								<p class="ulPtag">
+									<a class="testA" href="#">우유</a>
+								</p>
 							</div>
 						</li>
 						<li><a
 							href="${pageContext.request.contextPath}/item/list.do?cNo=1">추천상품</a></li>
-						<li><a href="${pageContext.request.contextPath}/item/list.do?cNo=2">베스트</a></li>
+						<li><a
+							href="${pageContext.request.contextPath}/item/list.do?cNo=2">베스트</a></li>
 					</ul>
 				</c:if>
 			</div>

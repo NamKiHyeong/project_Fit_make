@@ -195,4 +195,15 @@ public class UserDaoImpl implements UserDao {
 		return sqlSession.selectList("com.fm.review.viewReviewList");
 	}
 
+	@Override
+	public List<Map<String, Object>> viewPointList(int uNo, int start, int end) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("start", start);
+		inputMap.put("end", end);
+		
+		return sqlSession.selectList(namespaceuser + "viewPointList", inputMap);
+	}
+
 }
