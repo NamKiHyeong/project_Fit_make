@@ -13,6 +13,7 @@ public class ItemDto {
 	private String iOneDetail = "";
 	private int uNo = 0;
 	private String iImgStoredName = "";
+	private int rCount = 0;
 	
 	public ItemDto() {
 		super();
@@ -33,7 +34,7 @@ public class ItemDto {
 	}
 	
 	public ItemDto(int iNo, int cNo, String iName, int iCalory, int iRawprice, int iSellprice, int iCount, int iCGrade,
-			String iOneDetail, int uNo, String iImgStoredName) {
+			String iOneDetail, int uNo, String iImgStoredName, int rCount) {
 		super();
 		this.iNo = iNo;
 		this.cNo = cNo;
@@ -46,6 +47,7 @@ public class ItemDto {
 		this.iOneDetail = iOneDetail;
 		this.uNo = uNo;
 		this.iImgStoredName = iImgStoredName;
+		this.rCount = rCount;
 	}
 
 	public int getiNo() {
@@ -135,12 +137,22 @@ public class ItemDto {
 	public void setiImgStoredName(String iImgStoredName) {
 		this.iImgStoredName = iImgStoredName;
 	}
+	
+	public int getrCount() {
+		return rCount;
+	}
+
+	public void setrCount(int rCount) {
+		this.rCount = rCount;
+	}
 
 	@Override
 	public String toString() {
 		return "ItemDto [iNo=" + iNo + ", cNo=" + cNo + ", iName=" + iName + ", iCalory=" + iCalory + ", iRawprice="
 				+ iRawprice + ", iSellprice=" + iSellprice + ", iCount=" + iCount + ", iCGrade=" + iCGrade
-				+ ", iOneDetail=" + iOneDetail + ", uNo=" + uNo + ", iImgStoredName=" + iImgStoredName + "]";
+				+ ", iOneDetail=" + iOneDetail + ", uNo=" + uNo + ", iImgStoredName=" + iImgStoredName + ", rCount="
+				+ rCount + "]";
 	}
+
 	
 }

@@ -18,6 +18,7 @@ import org.springframework.transaction.interceptor.TransactionAspectSupport;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.fm.item.model.ItemDto;
 import com.fm.user.dao.UserDao;
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
@@ -200,13 +201,13 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewRecommendItemList(int uNo) {
+	public List<ItemDto> viewRecommendItemList(int uNo) {
 		
 		return userDao.viewRecommendItemList(uNo);
 	}
 
 	@Override
-	public List<Map<String, Object>> viewBestItemList() {
+	public List<ItemDto> viewBestItemList() {
 		
 		return userDao.viewBestItemList();
 	}

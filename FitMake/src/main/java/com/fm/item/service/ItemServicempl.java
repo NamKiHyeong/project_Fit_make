@@ -70,10 +70,10 @@ public class ItemServicempl implements ItemService {
  * 
  */
 	@Override
-	public List<Map<String, Object>> itemSelectList(int cNo, String keyword, int start, int end, int older, int uNo) {
+	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older, int uNo) {
 		List<ItemDto> itemList = itemDao.itemSelectList(cNo, keyword, start, end, older, uNo);
 		
-		List<Map<String, Object>> list = new ArrayList<>();
+		List<ItemDto> list = new ArrayList<>();
 		
 		for (ItemDto itemDto : itemList) {
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -81,13 +81,10 @@ public class ItemServicempl implements ItemService {
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
 			int review = reviewDao.reviewSelectTotalReviewCount(iNo);
-			log.info("review의 값이 잘 들어옴? {}" , review);
-//			Map<String, Object> reviewMap = (Map<String, Object>) review;
 			
-			map.put("fileMap", fileMap);
-			map.put("itemDto", itemDto);
-			map.put("review", review);
-			list.add(map);
+			itemDto.setrCount(review);
+			
+			list.add(itemDto);
 		}
 		
 		return list;
@@ -199,15 +196,20 @@ public class ItemServicempl implements ItemService {
 		return itemDao.getCategoryName(cNo);
 	}
 	@Override
-	public List<Map<String, Object>> viewBestItemList(int cNo, String keyword, int start, int end, int older, int uNo) {
+	public List<ItemDto> viewBestItemList(int cNo, String keyword, int start, int end, int older, int uNo) {
 		
 		return itemDao.viewBestItemList(cNo, keyword, start, end, older, uNo);
 	}
 	@Override
-	public List<Map<String, Object>> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
+	public List<ItemDto> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
 			int uNo) {
 		
 		return itemDao.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
+	}
+	@Override
+	public int selectRecommendItemCount(int cNo, String keyword, int uNo) {
+		// TODO Auto-generated method stub
+		return itemDao.selectRecommendItemCount(cNo, keyword, uNo);
 	}
 
 

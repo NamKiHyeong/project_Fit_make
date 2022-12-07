@@ -89,7 +89,7 @@
 	</delete>
 	
 	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
-		SELECT COUNT(*)
+		SELECT COUNT(*) as "rCount"
 		FROM FM_REVIEW
 		WHERE FM_ITEM_NO = ${value}
 	</select>

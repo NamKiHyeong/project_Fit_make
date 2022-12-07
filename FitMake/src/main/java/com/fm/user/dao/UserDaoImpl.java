@@ -9,6 +9,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.fm.item.model.ItemDto;
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
 import com.fm.util.PointAdd;
@@ -178,7 +179,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewRecommendItemList(int uNo) {
+	public List<ItemDto> viewRecommendItemList(int uNo) {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", uNo);
@@ -190,7 +191,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewBestItemList() {
+	public List<ItemDto> viewBestItemList() {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", -1);
@@ -199,7 +200,7 @@ public class UserDaoImpl implements UserDao {
 		inputMap.put("keyword", "");
 		
 		List<Integer> bestItemList = sqlSession.selectList("com.fm.item.viewBestItemNoList", inputMap);
-		List<Map<String, Object>> newBestItemList = new ArrayList<Map<String,Object>>();
+		List<ItemDto> newBestItemList = new ArrayList<ItemDto>();
 		for(int iNo : bestItemList) {
 			newBestItemList.add(sqlSession.selectOne("com.fm.item.viewTotalBestItemList", iNo));
 		}

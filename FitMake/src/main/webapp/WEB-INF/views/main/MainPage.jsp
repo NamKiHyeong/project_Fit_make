@@ -129,16 +129,16 @@
 			</p>
 			</c:if>
 			<div class="ItemArea">
-				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}">
+				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}" begin="1" end="3">
 					<div class="ItemDiv">
-						<a href="../item/one.do?iNo=${mainRecommendItem.FM_ITEM_NO}">
+						<a href="../item/one.do?iNo=${mainRecommendItem.getiNo()}">
 							<img class="ItemImg" alt="image not found"
-							src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />" />
+							src="<c:url value='/image/${mainRecommendItem.getiImgStoredName()}' />" />
 						</a>
-						<p class="pTitle">${mainRecommendItem.FM_ITEM_NAME}</p>
+						<p class="pTitle">${mainRecommendItem.getiName()}</p>
 						<p class="pPrice">
 							<fmt:formatNumber type="number" maxFractionDigits="3"
-								value="${mainRecommendItem.FM_ITEM_SELLPRICE}" />
+								value="${mainRecommendItem.getiSellprice()}" />
 							원
 						</p>
 					</div>
@@ -155,16 +155,16 @@
 				<a href="../item/list.do?cNo=2">베스트</a>
 			</p>
 			<div class="ItemArea">
-				<c:forEach var="mainBestItem" items="${mainBestItemList}">
+				<c:forEach var="mainBestItem" items="${mainBestItemList}" begin="1" end="3">
 					<div class="ItemDiv">
-						<a href="../item/one.do?iNo=${mainBestItem.FM_ITEM_NO}"> <img
+						<a href="../item/one.do?iNo=${mainBestItem.getiNo()}"> <img
 							class="ItemImg" alt="image not found"
-							src="<c:url value='/image/${mainBestItem.FM_ITEM_STORED_IMG_NAME}' />" />
+							src="<c:url value='/image/${mainBestItem.getiImgStoredName()}' />" />
 						</a>
-						<p class="pTitle">${mainBestItem.FM_ITEM_NAME}</p>
+						<p class="pTitle">${mainBestItem.getiName()}</p>
 						<p class="pPrice">
 							<fmt:formatNumber type="number" maxFractionDigits="3"
-								value="${mainBestItem.FM_ITEM_SELLPRICE}" />
+								value="${mainBestItem.getiSellprice()}" />
 							원
 						</p>
 					</div>
@@ -181,7 +181,7 @@
 				<a href="../review/list.do?cNo=1">리뷰</a>
 			</p>
 			<div class="ItemArea">
-				<c:forEach var="mainReview" items="${mainReviewList}">
+				<c:forEach var="mainReview" items="${mainReviewList}" begin="1" end="3">
 					<div class="ItemDiv">
 						<img class="ItemImg" alt="image not found"
 							src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />" />

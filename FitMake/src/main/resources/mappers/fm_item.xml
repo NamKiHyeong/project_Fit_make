@@ -9,11 +9,6 @@
 		<when test="uNo == 0">
 			AND FM_CATEGORY_NO = #{cNo}
 		</when>
-		<when test="uNo == -1">
-		</when>
-		<otherwise>
-			AND FM_USER_NO = #{uNo}
-		</otherwise>
 	</choose>
 	
 </sql>
@@ -142,23 +137,26 @@
 		WHERE FM_ITEM_NO = ${value}
 	</delete>
 	
-	
-	
 	<select id="itemSelectTotalItemCount" parameterType="map" resultType="int" >
-		SELECT COUNT(*)
-		FROM FM_ITEM
-		<if test="uNo > 0">
-	        INNER JOIN FM_USER_BMI ubi
+		SELECT COUNT(i.FM_ITEM_NO)
+		FROM FM_ITEM i
+		<include refid="search"></include>
+	</select>
+	
+	<select id="selectRecommendItemCount" parameterType="map" resultType="int" >
+		SELECT COUNT(i.FM_ITEM_NO)
+		FROM FM_ITEM i
+			INNER JOIN FM_USER_BMI ubi
 	        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
 	            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
 	        INNER JOIN FM_USER u
                 ON u.FM_USER_NO = ubi.FM_USER_NO
-         </if>
 		<include refid="search"></include>
+		AND u.FM_USER_NO = ${uNo}
 	</select>
 	
 	<!-- 메인화면 추천 제품 목록 구성 -->
-	<select id="viewRecommendItemList" parameterType="map" resultType="map">
+	<select id="viewRecommendItemList" parameterType="map" resultMap="itemResultMap" >
 		SELECT *
 		FROM(
 				SELECT ROWNUM AS "rNum", rci.*
@@ -176,6 +174,7 @@
 				            LEFT OUTER JOIN FM_REVIEW r
 				                ON i.FM_ITEM_NO = r.FM_ITEM_NO
 				            <include refid="search"></include>
+				            AND u.FM_USER_NO = #{uNo}
 							<choose>
 					            <when test="older == 1">
 					            	ORDER BY i.FM_ITEM_SELLPRICE ASC
@@ -211,7 +210,7 @@
 	</select>
 	<!-- //베스트 제품 제품 번호 획득 -->
 	<!-- 베스트 제품 제품 정보 획득 -->
-	<select id="viewTotalBestItemList" parameterType="int" resultType="map">
+	<select id="viewTotalBestItemList" parameterType="int" resultMap="itemResultMap">
 		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, ig.FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM i
 		    INNER JOIN FM_ITEM_IMG ig

@@ -47,27 +47,27 @@
 				<div id="frame">
 					<c:forEach var="item" items = "${itemList}">
 						<div class="CategoryItem">
-							<form id="itemOneForm${item.itemDto.iNo}" action="./one.do" method="get">
+							<form id="itemOneForm${item.getiNo()}" action="./one.do" method="get">
 								<div style="text-align: left">
-									<input class="itemListCB" type="checkbox" name="iCkBox" value="${item.itemDto.iNo}">
-									<input type="hidden" name="iNo" value="${item.itemDto.iNo}">
-									<input type="hidden" name="cNo" value="${item.itemDto.cNo}">
+									<input class="itemListCB" type="checkbox" name="iCkBox" value="${item.getiNo()}">
+									<input type="hidden" name="iNo" value="${item.getiNo()}">
+									<input type="hidden" name="cNo" value="${item.getcNo()}">
 									<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
 									<input type="hidden" name="keyword" value="${searchMap.keyword}">
 								</div>
 								<div class="sortImg">
-									<a class="iImgATag" href=# onclick="itemOneFnc(${item.itemDto.iNo});" >
-										<img class="iImg" alt="image not found" src="<c:url value='/image/${item.fileMap.FM_ITEM_STORED_IMG_NAME}'/>"/>
+									<a class="iImgATag" href=# onclick="itemOneFnc(${item.getiNo()});" >
+										<img class="iImg" alt="image not found" src="<c:url value='/image/${item.getiImgStoredName()}'/>"/>
 									</a>
 									<br>
 								</div>
 								<p class="content">
-									<a href="#" onclick="itemOneFnc(${item.itemDto.iNo});">
-										${item.itemDto.iName}
+									<a href="#" onclick="itemOneFnc(${item.getiNo()});">
+										${item.getiName()}
 									</a>
 								</p>
-								<p class="itemBoundary">가격 : <fmt:formatNumber value="${item.itemDto.iSellprice}" />원</p>
-								<p>리뷰 : ${item.review}</p>
+								<p class="itemBoundary">가격 : <fmt:formatNumber value="${item.getiSellprice()}" />원</p>
+<%-- 								<p>리뷰 : ${item.review}</p> --%>
 							</form>
 						</div>
 					</c:forEach>

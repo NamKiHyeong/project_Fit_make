@@ -113,7 +113,7 @@ public class ItemDaompl implements ItemDao{
 		return sqlSession.selectOne(namespace + "getCategoryName", cNo);
 	}
 	@Override
-	public List<Map<String, Object>> viewBestItemList(int cNo, String keyword, int start, int end, int older, int uNo) {
+	public List<ItemDto> viewBestItemList(int cNo, String keyword, int start, int end, int older, int uNo) {
 
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		
@@ -124,7 +124,7 @@ public class ItemDaompl implements ItemDao{
 		inputMap.put("uNo", uNo);
 		
 		List<Integer> bestItemNoList = sqlSession.selectList(namespace + "viewBestItemNoList", inputMap);
-		List<Map<String, Object>> newBestItemList = new ArrayList<Map<String,Object>>();
+		List<ItemDto> newBestItemList = new ArrayList<ItemDto>();
 		
 		for(int iNo : bestItemNoList) {
 			newBestItemList.add(sqlSession.selectOne(namespace + "viewTotalBestItemList", iNo));
@@ -133,7 +133,7 @@ public class ItemDaompl implements ItemDao{
 		return newBestItemList;
 	}
 	@Override
-	public List<Map<String, Object>> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
+	public List<ItemDto> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
 			int uNo) {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
@@ -144,5 +144,13 @@ public class ItemDaompl implements ItemDao{
 		
 		
 		return sqlSession.selectList(namespace + "viewRecommendItemList", uNo);
+	}
+	@Override
+	public int selectRecommendItemCount(int cNo, String keyword, int uNo) {
+			Map<String, Object> inputMap = new HashMap<String, Object>();
+			inputMap.put("uNo", uNo);
+			inputMap.put("keyword", keyword);
+			inputMap.put("start", cNo);
+		return sqlSession.selectOne(namespace + "selectRecommendItemCount", inputMap);
 	}
 }

@@ -77,9 +77,10 @@ public class ItemController {
 		int uNo = userDto.getuNo();
 		int cNo = itemDto.getcNo();
 		int totalItemCount = 0;
-		List<Map<String, Object>> itemList = null;
+		List<ItemDto> itemList = null;
 		Paging itemPaging = null;
 		String categoryName = ""; 
+		
 		
 		if(cNo > 2) {
 			
@@ -100,15 +101,18 @@ public class ItemController {
 			int end = itemPaging.getPageEnd();
 			
 			itemList = itemService.viewBestItemList(cNo, keyword, start, end, older, -1);
+			categoryName = itemService.getCategoryName(cNo);
 		} else {
 			
-			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
+			totalItemCount = itemService.selectRecommendItemCount(cNo, keyword, uNo);
 			
 			itemPaging = new Paging(totalItemCount, curPage);
 			int start = itemPaging.getPageBegin();
 			int end = itemPaging.getPageEnd();
 			
 			itemList = itemService.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
+			categoryName = itemService.getCategoryName(cNo);
+			
 		}
 		
 		

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fm.item.model.ItemDto;
 import com.fm.user.model.UserDto;
 import com.fm.user.service.UserService;
 import com.fm.util.BmiCalc;
@@ -181,8 +182,8 @@ public class UserController {
 			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 			int uNo = userDto.getuNo();
 			
-			List<Map<String, Object>> mainRecommendItemList = userService.viewRecommendItemList(uNo);
-			List<Map<String, Object>> mainBestItemList = userService.viewBestItemList();
+			List<ItemDto> mainRecommendItemList = userService.viewRecommendItemList(uNo);
+			List<ItemDto> mainBestItemList = userService.viewBestItemList();
 			List<Map<String, Object>> mainReviewList = userService.viewReviewList();
 			
 			model.addAttribute("mainRecommendItemList", mainRecommendItemList);

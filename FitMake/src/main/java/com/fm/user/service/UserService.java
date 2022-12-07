@@ -3,6 +3,7 @@ package com.fm.user.service;
 import java.util.List;
 import java.util.Map;
 
+import com.fm.item.model.ItemDto;
 import com.fm.user.model.UserDto;
 import com.fm.util.BmiCalc;
 import com.fm.util.PointAdd;
@@ -48,9 +49,9 @@ public interface UserService {
 
 	public List<Map<String, Object>> viewUserList(int uNo, int start, int end);
 
-	public List<Map<String, Object>> viewRecommendItemList(int uNo);
+	public List<ItemDto> viewRecommendItemList(int uNo);
 
-	public List<Map<String, Object>> viewBestItemList();
+	public List<ItemDto> viewBestItemList();
 
 	public List<Map<String, Object>> viewReviewList();
 
