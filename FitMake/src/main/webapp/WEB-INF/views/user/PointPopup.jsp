@@ -6,7 +6,18 @@
 <meta charset="UTF-8">
 <title>FitMake</title>
 <style type="text/css">
-#
+@import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
+
+.notosanskr * { 
+ font-family: 'Noto Sans KR', sans-serif;
+}
+
+html, body{
+	font-family: 'Noto Sans KR', sans-serif;
+	margin: 0px;
+	padding: 0px;
+	height: 100%;
+}
 #selectContainer {
 	
 }
