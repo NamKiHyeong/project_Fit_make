@@ -451,7 +451,7 @@ public class UserController {
 		UserDto userdto = new UserDto();
 		userdto = (UserDto) session.getAttribute("_userDto_");
 		pointAdd.setuNo(userdto.getuNo());
-
+		
 		userService.addPoint(userdto, point);
 		userService.pointHisoty(pointAdd, point);
 
