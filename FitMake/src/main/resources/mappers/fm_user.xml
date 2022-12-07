@@ -199,7 +199,7 @@
 	<!-- 닉네임 중복체크// -->
 
 	<!-- //포인트 충전 -->
-	<update id="addPoint" parameterType="userDto">
+	<update id="addPoint" parameterType="com.fm.util.PointAdd">
 		UPDATE FM_USER
 		SET
 		FM_USER_POINT = FM_USER_POINT + #{point}
