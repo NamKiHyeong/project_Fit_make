@@ -71,19 +71,21 @@
 	#orderConfirmSummary{
 		border : 1px solid black;
 		border-collapse: collapse;
-		border-radius : 5px;
+		border-radius : 10px;
 		padding: 10px;
+		margin-bottom: 30px;
 	}
 	#buyerInfoOuterDiv, #deliveryInfoOuterDiv {
 		border : 1px solid black;
 		border-collapse: collapse;
-		border-radius : 5px;
+		border-radius : 10px;
+		margin-bottom: 30px;
 	}
 	#totalSummaryOuterDiv{
 		border : 1px solid black;
-		border-radius : 5px;
-		margin-bottom: 50px;
+		border-radius : 10px;
 		border-collapse: collapse;
+		padding: 10px;
 	}
 	
 	#orderSummaryDiv{
@@ -101,6 +103,7 @@
 	}
 	.orderConfirmP{
 		display: table;
+		font-size: 18px;
 		table-layout: fixed;
 		width: 90%;
 		text-align: center;
@@ -119,7 +122,7 @@
 		padding-left: 20px;
 	}
 	#buyerInfoTitle{
-		font-size: 20px;
+		font-size: 23px;
 		font-weight: 450;
 	}
 	#buyerInfoDiv{
@@ -143,15 +146,18 @@
    		vertical-align: middle;
    		background: #f5f5f5;
 		padding: 20px 0px 20px 0px; 
+		font-weight: 600;
+    		font-size: 17px;
  	}
  	.buyerInfoContent{
  		display:table-cell;
+ 		font-size: 18px;
    		vertical-align: middle;
    		padding: 20px 20px 20px 20px;
  	}
  	
  	#deliveryInfoTitle{
-		font-size: 20px;
+		font-size: 23px;
 		font-weight: 450;
 	}
  	
@@ -176,9 +182,12 @@
    		vertical-align: middle;
    		background: #f5f5f5;
 		padding: 20px 0px 20px 0px;
+		font-weight: 600;
+    		font-size: 17px;
  	}
  	.deliveryInfoContent{
  		display:table-cell;
+ 		font-size: 18px;
    		vertical-align: middle;
    		padding: 20px 20px 20px 20px;
  	}
@@ -195,24 +204,47 @@
 	#totalPrice{
 		font-size: 30px;
 		font-weight: 450;
-		padding-right: 40px;
+	     padding-right: 10px;
 		text-align: right;
+		float: right;
 	}
-	#confirmForm {
-		padding: 10px;
-		text-align: right;
+	#orderConfirmBtn {
+		width: 300px;
+		height: 58px;
+    		background: #d7266d;
+    		margin-bottom: 70px;
+    		padding: 10px 0px;
+    		border: 1px solid #d7266d;
+    		color: #fff;
+    		font-size: 18px;
+    		font-weight: bold;
+    		border-radius: 3px;
+    		cursor: pointer;
 	}
-	#orderCancelBtn, #orderConfirmBtn{
-		margin-left: 10px;
-		width: 100px;
-		background: #d7266d;
-		border: 2px solid #d7266d;
-		color: #fff;
-		text-align: center;
-		cursor: pointer;
+	#orderCancelBtn{
+		width: 300px;
+    		height: 58px;
+    		background: #fff;
+    		margin-bottom: 70px;
+    		padding: 10px 0px;
+    		border: 1px solid #565656;
+    		color: #565656;
+    		font-size: 18px;
+    		font-weight: bold;
+    		border-radius: 3px;
+    		cursor: pointer;
+    		margin-left: 20px;
 	}
 	#totalSummaryDiv{
 		padding-left: 10px;
+	}
+	#orderFormDiv {
+		margin: 40px 0px 0px 0px;
+		text-align: center;
+	}
+	#totalPtitle {
+		font-size: 23px;
+    		margin-top: 10px;
 	}
 </style>
 <title>FitMake</title>
@@ -301,17 +333,20 @@
 			</div>
 			<div id="totalSummaryOuterDiv">
 				<div id="totalSummaryDiv">
+					<p id="totalPtitle">총 결제정보</p>
 					<c:choose>
 						<c:when test="${orderConfirmItemList.size() > 1}">
-							<p class="totalSummary">${orderConfirmItemList[0].FM_ITEM_NAME} 외 ${orderConfirmItemList.size() - 1}개</p>
+							<span class="totalSummary">${orderConfirmItemList[0].FM_ITEM_NAME} 외 ${orderConfirmItemList.size() - 1}개</span>
 						</c:when>
 						<c:otherwise>
-							<p class="totalSummary">${orderConfirmItemList[0].FM_ITEM_NAME}</p>
+							<span class="totalSummary">${orderConfirmItemList[0].FM_ITEM_NAME}</span>
 						</c:otherwise>
 					</c:choose>
-					<p id="totalPrice"><fmt:formatNumber value="${orderConfirmItemList[0].totalPrice}" />원</p>
+					<span id="totalPrice">총 가격: <fmt:formatNumber value="${orderConfirmItemList[0].totalPrice}" />원</span>
 				</div>
-				<form id="confirmForm">
+			</div>
+			<div id="orderFormDiv">
+			<form id="confirmForm">
 					<input type="hidden" name="orderTotalPrice" id="orderTotalPrice" value="${orderConfirmItemList[0].totalPrice}">
 					<input type="button" id="orderConfirmBtn" value="구매하기">
 					<input type="button" id="orderCancelBtn" value="취소">
@@ -319,9 +354,14 @@
 					<c:forEach var="ctNo" items="${ctNo}">
 						<input type="hidden" name="ctNo" value="${ctNo}">
 					</c:forEach>
-				</form>
+			</form>
 			</div>
 		</div>
 	</div>
+	<!-- footer 시작 -->
+	
+	<jsp:include page="../Footer.jsp" />
+	
+	<!-- footer 끝 -->
 </body>
 </html>

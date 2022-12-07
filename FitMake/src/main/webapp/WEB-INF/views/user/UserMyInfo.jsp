@@ -99,7 +99,11 @@
 			</form>
 		</div>
 	</div>
+		<!-- footer 시작 -->
+	
 		<jsp:include page="../Footer.jsp" />
+	
+		<!-- footer 끝 -->
 </body>
 
 </html>

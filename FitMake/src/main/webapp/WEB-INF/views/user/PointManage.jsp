@@ -66,7 +66,11 @@
 		<jsp:include page="../user/UserPaging.jsp" />
 	</div>
 
+	<!-- footer 시작 -->
+	
 	<jsp:include page="../Footer.jsp" />
+	
+	<!-- footer 끝 -->
 	<div id="pagingSection">
 		<form id="pagingForm" action="./pointHistory.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"

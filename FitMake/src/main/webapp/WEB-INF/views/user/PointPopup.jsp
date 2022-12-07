@@ -27,6 +27,27 @@
 #optionUl {
 	width: 135px;
 }
+
+
+#bigUl {
+	position: relative;
+}
+
+#ulDiv {
+	position: absolute;
+	display: none;
+	width: 146px;
+	margin-top: 13px;
+	background-color: white;
+}
+
+.ulPtag {
+	font-size: 15px;
+}
+#title {
+	margin: 0;
+	cursor: pointer;
+}
 </style>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
@@ -70,7 +91,7 @@
 
 					},
 					error : function() {
-						console.log("안됨;");
+						console.log("오류발생");
 					}
 				});
 			}

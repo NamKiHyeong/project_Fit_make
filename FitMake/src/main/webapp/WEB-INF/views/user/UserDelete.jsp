@@ -18,7 +18,6 @@
 
 #deleteDiv {
 	width: 1000px;
-	padding-top: 100px;
 }
 
 #deletePtag {
@@ -112,9 +111,11 @@
 
 <body>
 	<jsp:include page="../Header.jsp" />
+	<div style="height: 50px;"></div>
 	<div id="deleteContainer">
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="deleteDiv">
+			<jsp:include page="../MyPageNav.jsp" />
 			<p id="deletePtag">회원탈퇴</p>
 			<form action="../user/deleteCtr.do" method="post">
 				<div id="deleteTableDiv">
@@ -142,6 +143,11 @@
 			</form>
 		</div>
 	</div>
+	<!-- footer 시작 -->
+	
+	<jsp:include page="../Footer.jsp" />
+	
+	<!-- footer 끝 -->
 </body>
 
 

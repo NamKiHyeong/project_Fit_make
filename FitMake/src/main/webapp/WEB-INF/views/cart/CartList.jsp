@@ -191,12 +191,11 @@
 		width : 200px;
 		height: 200px;
 	}
-	.cartImgAnchor{
-		border: 1px solid #e5e5e5;
-	}
 	.imgArea > a > img {
-		width : 200px;
-		height: 200px;
+		width: 200px;
+    		height: 200px;
+    		border: 1px solid silver;
+    		border-radius: 10px;
 	}
 	.tailHr {
 		margin-top: 5px;
@@ -210,12 +209,12 @@
 		text-align: center;
 	}
 	.countOuput{
-		width: 50px;
-		text-align: right;
-		border: none;
-		background-color: white;
-		color: black;
-		font-size: 20px;
+		width: 40px;
+    		text-align: right;
+   		background-color: white;
+    		padding-bottom: 1px;
+    		color: black;
+    		font-size: 20px;
 	}
 	.cartCountArea {
 		text-align: center;
@@ -288,7 +287,7 @@
 									<td colspan="2" class="cartItemName">${cartMap.FM_ITEM_NAME}</td>		
 									<td></td>
 									<td class="deleteBtnArea">
-										<a class="cartImgAnchor" id="cartImgAnchor${cartMap.FM_CART_NO}" href="#" onclick="deleteCartFnc(${cartMap.FM_CART_NO});">
+										<a id="cartImgAnchor${cartMap.FM_CART_NO}" href="#" onclick="deleteCartFnc(${cartMap.FM_CART_NO});">
 											<img id="cartImg${cartMap.FM_CART_NO}"alt="image not founded" width="20px" height="20px" src="/fitmake/resources/image/xButton.png">
 										</a>
 									</td>		

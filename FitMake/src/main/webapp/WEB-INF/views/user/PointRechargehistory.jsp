@@ -63,7 +63,7 @@
 						<tr>
 							<td>${pointMap.FM_POINT_NO}</td>
 							<td>충전</td>
-							<td>+${pointMap.FM_POINT_HISTORY}</td>
+							<td>${pointMap.FM_POINT_HISTORY}</td>
 							<td><fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"
 									value="${pointMap.FM_POINT_CRE_DATE}" /></td>
 						</tr>
