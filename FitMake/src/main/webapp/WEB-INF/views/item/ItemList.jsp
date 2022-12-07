@@ -15,6 +15,7 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
+	<div style="height: 50px;"></div>
 	<div class="diet_wrap">
 		<div class="infoTop">
 			<h3>다이어트</h3>
@@ -84,7 +85,7 @@
 	
 		
 	<jsp:include page="./ItemPaging.jsp"/>
-	
+	<jsp:include page="../Footer.jsp" />
 	<form action="./list.do" id="pagingForm" method="post">
 		<input type="hidden" id="curPage" name="curPage" value="${pagingMap.itemPaging.curPage}">
 		<input type="hidden" name="cNo" value="${pagingMap.cNo}">

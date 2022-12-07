@@ -17,6 +17,7 @@ em {
 
 #login_Root_Div {
 	width: 1200px;
+	height: 700px;
 	margin: 0 auto;
 }
 
@@ -100,5 +101,6 @@ em {
 			</p>
 		</div>
 	</div>
+	<jsp:include page="../Footer.jsp" />
 </body>
 </html>

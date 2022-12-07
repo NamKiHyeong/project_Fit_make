@@ -10,18 +10,39 @@
 
 <style type="text/css">
 #userContainerDiv {
-	width: 800px;
+	width: 1200px;
 	margin: 0px auto;
 }
 
-#userTableDiv {
-	width: 600px;
-	margin: 0px auto;
+#userTableDiv table{
+	border-collapse: collapse;
+	width: 100%;
+}
+
+#userTableDiv table, th, tr, td {
+	border: 1px solid #cbcbcb;
+	padding-left: 5px;
+}
+
+#userTableDiv th {
+	background: #f5f5f5;
+	padding: 10px 0px 10px 0px;
 }
 </style>
 
+<script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-	
+	$(document).ready(function() {
+		
+		$('.userGender').each(function () {
+			var userGender = $(this).text();
+		if (userGender == "M") {
+			$(".userGender").text("남성");
+		} else if (userGender == "W") {
+			$(".userGender").text("여성");
+		}
+		});
+	});
 </script>
 
 </head>
@@ -37,18 +58,20 @@
 					<th>닉네임</th>
 					<th>이메일</th>
 					<th>전화번호</th>
+					<th>집주소</th>
 					<th>포인트</th>
 					<th>성별</th>
 					<th>가입일</th>
 				</tr>
 				<c:forEach var="userMap" items="${userMapList}">
 					<tr>
-						<td>${userMap.FM_USER_NO}</td>
-						<td>${userMap.FM_USER_NICKNAME }</td>
-						<td>${userMap.FM_USER_EMAIL }</td>
-						<td>${userMap.FM_USER_MOBILE }</td>
-						<td>${userMap.FM_USER_POINT }</td>
-						<td>${userMap.FM_USER_BMI_GENDER }</td>
+						<td><span>${userMap.FM_USER_NO}</span></td>
+						<td><span>${userMap.FM_USER_NICKNAME }</span></td>
+						<td><span>${userMap.FM_USER_EMAIL }</span></td>
+						<td><span>${userMap.FM_USER_MOBILE }</span></td>
+						<td><span>${userMap.FM_USER_ADDRESS }</span></td>
+						<td><span><fmt:formatNumber type="number" maxFractionDigits="3" value="${userMap.FM_USER_POINT}"/></span></td>
+						<td><span class="userGender">${userMap.FM_USER_BMI_GENDER }</span></td>
 						<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
 								value="${userMap.FM_USER_CRE_DATE}" /></td>
 					</tr>
@@ -56,6 +79,7 @@
 			</table>
 		</div>
 		<jsp:include page="../user/UserPaging.jsp" />
+		<jsp:include page="../Footer.jsp" />
 	</div>
 
 

@@ -10,10 +10,10 @@
 #history_Container {
 	display: flex;
 	width: 1200px;
+/* 	height: 1000px; */
 	margin: 0px auto;
 	justify-content: space-between;
 }
-
 
 #historytableDiv table {
 	border-collapse: collapse;
@@ -21,14 +21,14 @@
 	text-align: center;
 	width: 100%;
 }
-    
-#historytableDiv th{
+
+#historytableDiv th {
 	border-top: 2px solid #737373;
 	border-bottom: 1px solid #cbcbcb;
 	height: 40px;
 }
 
-#historytableDiv tr, td{
+#historytableDiv tr, td {
 	height: 30px;
 }
 
@@ -45,6 +45,7 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp" />
+	<div style="height: 50px;"></div>
 	<div id="history_Container">
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="historyDiv">
@@ -73,7 +74,18 @@
 						내역이 없습니다</p>
 				</c:if>
 			</div>
+			<jsp:include page="../user/UserPaging.jsp" />
 		</div>
+	</div>
+	<jsp:include page="../Footer.jsp" />
+
+
+
+	<div id="pagingSection">
+		<form id="pagingForm" action="./Info.do" method="get">
+			<input type="hidden" id="curPage" name="curPage"
+				value="${uPagingMap.userPaging.curPage}">
+		</form>
 	</div>
 </body>
 </html>

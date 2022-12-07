@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>	
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +22,7 @@
 .titlePtag {
 	color: #222;
 	font-size: 33px;
-    	font-weight: 540;
+	font-weight: 540;
 	letter-spacing: -0.09em;
 }
 
@@ -76,36 +76,46 @@
 .mainImg.on {
 	display: block;
 }
+
 #reviewDiv {
 	margin-bottom: 50px
+}
+
+#reviewContent {
+	text-align: left;
+	font-weight: 500;
+	font-size: 1.5em;
+	letter-spacing: -0.05em;
+	margin-top: 2px;
+	padding-left: 21px;
 }
 </style>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	
-	const images = document.querySelectorAll('.mainImg');
-	let current = 0;
+	$(document).ready(function() {
 
-	function showSlide() {
-	  for(let i=0; i<images.length; i++) {
-	    images[i].classList.remove('on');
-	  }
-	  current++;
-	  if(current > images.length) {
-	    current = 1;
-	  }
-	  images[current - 1].classList.add('on');
-	  setTimeout(showSlide, 4000);
-	}
+		const images = document.querySelectorAll('.mainImg');
+		let current = 0;
 
-	showSlide();
-});
+		function showSlide() {
+			for (let i = 0; i < images.length; i++) {
+				images[i].classList.remove('on');
+			}
+			current++;
+			if (current > images.length) {
+				current = 1;
+			}
+			images[current - 1].classList.add('on');
+			setTimeout(showSlide, 4000);
+		}
+
+		showSlide();
+	});
 </script>
 </head>
 <body>
-	<jsp:include page="../Header.jsp"/>
+	<jsp:include page="../Header.jsp" />
 	<div id="containerImg">
 		<img class="mainImg" src="/fitmake/resources/image/salad.jpg" /> <img
 			class="mainImg" src="/fitmake/resources/image/dietMeat.jpg" /> <img
@@ -124,7 +134,11 @@ $(document).ready(function() {
 							src="<c:url value='/image/${mainRecommendItem.FM_ITEM_STORED_IMG_NAME}' />" />
 						</a>
 						<p class="pTitle">${mainRecommendItem.FM_ITEM_NAME}</p>
-						<p class="pPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${mainRecommendItem.FM_ITEM_SELLPRICE}"/>원</p>
+						<p class="pPrice">
+							<fmt:formatNumber type="number" maxFractionDigits="3"
+								value="${mainRecommendItem.FM_ITEM_SELLPRICE}" />
+							원
+						</p>
 					</div>
 				</c:forEach>
 			</div>
@@ -141,10 +155,16 @@ $(document).ready(function() {
 			<div class="ItemArea">
 				<c:forEach var="mainBestItem" items="${mainBestItemList}">
 					<div class="ItemDiv">
-						<img class="ItemImg" alt="image not found"
+						<a href="../item/one.do?iNo=${mainBestItem.FM_ITEM_NO}">
+							<img class="ItemImg" alt="image not found"
 							src="<c:url value='/image/${mainBestItem.FM_ITEM_STORED_IMG_NAME}' />" />
+						</a>
 						<p class="pTitle">${mainBestItem.FM_ITEM_NAME}</p>
-						<p class="pPrice"><fmt:formatNumber type="number" maxFractionDigits="3" value="${mainBestItem.FM_ITEM_SELLPRICE}" />원</p>
+						<p class="pPrice">
+							<fmt:formatNumber type="number" maxFractionDigits="3"
+								value="${mainBestItem.FM_ITEM_SELLPRICE}" />
+							원
+						</p>
 					</div>
 				</c:forEach>
 			</div>
@@ -164,12 +184,12 @@ $(document).ready(function() {
 						<img class="ItemImg" alt="image not found"
 							src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />" />
 						<p class="pTitle">${mainReview.FM_REVIEW_TITLE}</p>
-						<p>${mainReview.FM_REVIEW_CONTENT}</p>
+						<p id="reviewContent">${mainReview.FM_REVIEW_CONTENT}</p>
 					</div>
 				</c:forEach>
 			</div>
 		</div>
 	</div>
-	<jsp:include page="../Footer.jsp"/>
+	<jsp:include page="../Footer.jsp" />
 </body>
 </html>

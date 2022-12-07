@@ -9,8 +9,8 @@ nav > ul{
 	list-style-type: none;
 	padding: 0px;
 	overflow: hidden;
-	background-color: #333333;
-/*  	width: 700px;  */
+	background: #d7266d;
+	border: 0px solid #ffffff;
 	display: table;
 	margin-left: auto;
 	margin-right: auto;
@@ -29,16 +29,17 @@ nav > ul > li > a{
 }
 
 nav > ul > li > a:hover {
-	color: #FFD9EC;
-	background-color: #5D5D5D;
+	color: #ffffff;
+	background-color: #a41d53;
 	font-weight: bold;
 }
 
 .active {
-	color: #FFD9EC;
-    background-color: #5D5D5D;
+	color: #ffffff;
+    background-color: #a41d53;
     font-weight: bold;
 }
+
 
 </style>
 
@@ -64,18 +65,18 @@ nav > ul > li > a:hover {
 
 <nav id="pagingNav">
 		<ul>
-		<c:if test="${oPagingMap.orderPaging.prevBlock ne 1}">
+		<c:if test="${uPagingMap.userPaging.prevBlock ne 1}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${oPagingMap.orderPaging.prevBlock});">
+					onclick="goPageFnc(${uPagingMap.userPaging.prevBlock});">
 					<span>«</span>
 				</a>
 			</li>
 		</c:if>
 		
 		<c:forEach var="num" 
-			begin="${oPagingMap.orderPaging.blockBegin}" 
-			end="${oPagingMap.orderPaging.blockEnd}">
+			begin="${uPagingMap.userPaging.blockBegin}" 
+			end="${uPagingMap.userPaging.blockEnd}">
 			<li id='pageButton${num}'>
 				<a href="#" onclick="goPageFnc(${num});">
 					<c:out value="${num}"/>
@@ -83,11 +84,11 @@ nav > ul > li > a:hover {
 			</li>
 		</c:forEach>
 		
-		<c:if test="${oPagingMap.orderPaging.curBlock 
-			< oPagingMap.orderPaging.totBlock}">
+		<c:if test="${uPagingMap.userPaging.curBlock 
+			< uPagingMap.userPaging.totBlock}">
 			<li>
 				<a href="#" 
-					onclick="goPageFnc(${oPagingMap.orderPaging.nextBlock});">
+					onclick="goPageFnc(${uPagingMap.userPaging.nextBlock});">
 					<span>»</span>
 				</a>
 			</li>			

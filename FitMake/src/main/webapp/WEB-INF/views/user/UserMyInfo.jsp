@@ -30,6 +30,7 @@
 
 <body>
 	<jsp:include page="../Header.jsp" />
+	<div style="height: 50px;"></div>
 	<div id="container">
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="myInfoDiv">
@@ -98,6 +99,7 @@
 			</form>
 		</div>
 	</div>
+		<jsp:include page="../Footer.jsp" />
 </body>
 
 </html>

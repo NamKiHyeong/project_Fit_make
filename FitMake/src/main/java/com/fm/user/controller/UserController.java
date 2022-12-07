@@ -97,7 +97,7 @@ public class UserController {
 
 		userService.userInsertOne(userDto, address);
 		userService.bmiInsertOne(bmiCalc);
-
+		
 		return "redirect:/auth/login.do";
 	}
 
@@ -456,7 +456,7 @@ public class UserController {
 	 * @return 충전/사용내역 View
 	 */
 	@RequestMapping(value = "/user/pointHistory.do")
-	public String viewHistory(HttpSession session, Model model) {
+	public String viewHistory(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage) {
 		logger.info("충전내역");
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
@@ -464,8 +464,34 @@ public class UserController {
 		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo);
 
 		model.addAttribute("pointList", pointList);
-
-		return "user/PointRechargehistory";
+		
+		int totalCount = userService.getUserTotalCount(uNo);
+		
+		Paging userPaging = new Paging(totalCount, curPage);
+		
+		int start = userPaging.getPageBegin();
+		int end = userPaging.getPageEnd();
+		
+		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
+		
+		Map<String, Object> uPagingMap = new HashMap<String, Object>();
+		uPagingMap.put("userPaging", userPaging); 
+		uPagingMap.put("totalCount",totalCount);
+		uPagingMap.put("start", start);
+		uPagingMap.put("end", end);
+		
+		model.addAttribute("userMapList", userMapList);
+		model.addAttribute("uPagingMap", uPagingMap);
+		String viewUrl = "";
+		
+		if(uNo == 1) {
+			viewUrl = "user/UserManage";
+		} else {
+			viewUrl = "user/UserMyInfo";
+		}
+		
+		return viewUrl;
+		
 	}
 
 }

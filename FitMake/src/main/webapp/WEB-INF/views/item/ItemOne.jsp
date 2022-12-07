@@ -14,7 +14,6 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
-	
 	<div id="itemOneDiv">
 		<div id="itemOneOuterWrap">
 			<form id="itemOneForm" action="./update.do" method="get">
@@ -70,5 +69,6 @@
 			</form>
 		</div>
 	</div>
+	<jsp:include page="../Footer.jsp" />
 </body>
 </html>

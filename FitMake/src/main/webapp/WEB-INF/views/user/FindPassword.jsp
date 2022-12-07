@@ -9,6 +9,7 @@
 <style type="text/css">
 #containerFid {
 	width: 1200px;
+	height: 500px;
 	margin: 0px auto;
 }
 
@@ -103,36 +104,38 @@
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
-$(document).ready(function() {
-	findPasswordFnc();
-	$("#cancelInp").click(function() {
-		location.href = "../auth/login.do";
-	});
-});
-function findPasswordFnc() {
-	$("#submitInp").click(function() {
-		var email = $("#email").val();
-		$.ajax({
-			type : "post",
-			url : "resultFindPwd.do",
-			dataType : "text",
-			data : {
-				email : email
-			},
-			success : function(data) {
-				if (data != 0) {
-					$("#contentSpan3").html("찾으시는 Password는 " + data + " 입니다");
-				} else {
-					$("#contentSpan3").html("등록된 이메일이 없습니다");
-				}
-			},
-			error : function() {
-				console.log("통신실패");
-			}
+	$(document).ready(function() {
+		findPasswordFnc();
+		$("#cancelInp").click(function() {
+			location.href = "../auth/login.do";
 		});
-
 	});
-}
+	function findPasswordFnc() {
+		$("#submitInp").click(
+				function() {
+					var email = $("#email").val();
+					$.ajax({
+						type : "post",
+						url : "resultFindPwd.do",
+						dataType : "text",
+						data : {
+							email : email
+						},
+						success : function(data) {
+							if (data != 0) {
+								$("#contentSpan3").html(
+										"찾으시는 Password는 " + data + " 입니다");
+							} else {
+								$("#contentSpan3").html("등록된 이메일이 없습니다");
+							}
+						},
+						error : function() {
+							console.log("통신실패");
+						}
+					});
+
+				});
+	}
 </script>
 </head>
 
@@ -152,6 +155,7 @@ function findPasswordFnc() {
 				type="button" id="cancelInp" value="취소">
 		</div>
 	</div>
+	<jsp:include page="../Footer.jsp" />
 </body>
 
 

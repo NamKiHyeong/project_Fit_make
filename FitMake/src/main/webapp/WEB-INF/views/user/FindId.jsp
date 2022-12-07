@@ -46,7 +46,7 @@
 			this.value = autoHypenPhone(_val);
 		}
 	});
-	
+
 	function findIdFnc() {
 		$("#submitInp").click(function() {
 			var phone = $("#phone").val();
@@ -71,7 +71,7 @@
 
 		});
 	}
-	
+
 	function cancelBtnFnc() {
 		$("#cancelInp").click(function() {
 			location.href = "../auth/login.do";
@@ -82,6 +82,7 @@
 <style type="text/css">
 #containerFid {
 	width: 1200px;
+	height: 500px;
 	margin: 0px auto;
 }
 
@@ -92,7 +93,8 @@
 }
 
 #fidMainDiv2 {
-	margin-top: 20px; margin : 0px auto;
+	margin-top: 20px;
+	margin: 0px auto;
 	width: 600px;
 	margin: 0px auto;
 }
@@ -190,6 +192,7 @@
 				type="button" id="cancelInp" value="취소">
 		</div>
 	</div>
+	<jsp:include page="../Footer.jsp" />
 </body>
 
 

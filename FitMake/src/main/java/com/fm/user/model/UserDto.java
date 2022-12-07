@@ -32,12 +32,13 @@ public class UserDto {
 		this.address = address;
 		this.createDate = createDate;
 		this.point = point;
-//		int addSalt = addSalt();
 		this.password = password;
+		
+		// 사용자가 입력한 비밀번호 salt화
 		this.salt = salt;
-//		this.password = setHashpwd(addSalt, password);
 	}
-
+	
+	//salt 로직(함수화)
 	public int addSalt() {
 		Date today = new Date();
 
@@ -47,7 +48,8 @@ public class UserDto {
 
 		return randomSalt;
 	}
-
+	
+	// SHA-256사용 16진수로 패스워드 해시화
 	public String setHashpwd(int salt, String password) {
 		StringBuffer sb = new StringBuffer();
 		try {
