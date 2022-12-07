@@ -217,6 +217,12 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectList(namespace + "viewOrderDetailItem", oNo);
 	}
 
+	@Override
+	public int getTotalCartPrice(int uNo) {
+		
+		return sqlSession.selectOne(namespace + "getTotalCartPrice", uNo);
+	}
+
 		
 
 }

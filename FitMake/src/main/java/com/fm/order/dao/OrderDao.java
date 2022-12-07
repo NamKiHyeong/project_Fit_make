@@ -45,5 +45,7 @@ public interface OrderDao {
 
 	public List<Map<String, Object>> viewOrderDetailItem(int oNo);
 
+	public int getTotalCartPrice(int uNo);
+
 	
 }

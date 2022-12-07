@@ -176,4 +176,11 @@
 		WHERE odll.FM_ORDER_NO = #{oNo}
 		AND ROWNUM = 1
 	</select>
+	<select id="getTotalCartPrice" parameterType="int" resultType="int">
+		SELECT SUM(ct.FM_CART_COUNT * i.FM_ITEM_SELLPRICE) AS "cartSum"
+		FROM FM_CART ct
+			INNER JOIN FM_ITEM i
+				ON ct.FM_ITEM_NO = i.FM_ITEM_NO
+		WHERE ct.FM_USER_NO = #{uNo}
+	</select>
 </mapper>

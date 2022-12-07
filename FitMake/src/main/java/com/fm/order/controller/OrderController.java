@@ -97,15 +97,15 @@ public class OrderController {
 	  public int updateCartAsync(HttpSession session, CartDto cartDto) throws Exception {
 			logger.debug("Welcome cartUpdate" + cartDto.getCtNo() + "" + cartDto.getCtCount());
 			
-			int count = 0;
-
 			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 
 			cartDto.setuNo(userDto.getuNo());
 
-			count = orderService.updateCart(cartDto);
-
-			return count;
+			orderService.updateCart(cartDto);
+			int totalPrice = orderService.getTotalCartPrice(userDto.getuNo());
+			
+			
+			return totalPrice;
 		}	  
 	  
 	/**
@@ -221,7 +221,15 @@ public class OrderController {
 			@RequestParam(defaultValue = "1") int[] ctCount, @RequestParam(defaultValue = "0") int[] iSellprice,
 			@RequestParam(defaultValue = "0") int[] ctNo) {
 		logger.debug("welcome orderAdd");
-
+		logger.debug("welcome ctCount" + ctCount[0]);
+		logger.debug("welcome ctNo" + ctNo[0]);
+		logger.debug("welcome iNo" + iNo[0]);
+		logger.debug("welcome iSellprice" + iSellprice[0]);
+		logger.debug("welcome ctNo.length" + ctNo.length);
+		logger.debug("welcome ctNo.length" + ctCount.length);
+		logger.debug("welcome ctNo.length" + iSellprice.length);
+		logger.debug("welcome iNo.length" + iNo.length);
+		
 		String viewUrl = "";
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();

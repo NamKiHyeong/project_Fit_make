@@ -137,4 +137,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.viewOrderDetailItem(oNo);
 	}
 
+	@Override
+	public int getTotalCartPrice(int uNo) {
+		
+		return orderDao.getTotalCartPrice(uNo);
+	}
+
 }

@@ -19,6 +19,9 @@
 				var buyCheck = confirm('구매하시겠습니까?');
 				
 				if(buyCheck == true){
+					$('input[name="ctCount"]').each(function(){
+						$(this).prop('disabled', false);
+					});
 					$('#addForm').submit();
 				} else {
 					return false;
@@ -31,8 +34,13 @@
 		
 		getTotalCartSum();
 		viewCartSummaryFnc();
+		
+		
 	});
 	
+	function getFocusFnc(cartNo){
+		$('#cartImgAnchor'+ cartNo).focus();
+	}
 	function getTotalCartSum(){
 		var totalPrice = 0;
 		$('.cartTotalPriceEach').each(function(){
@@ -67,12 +75,13 @@
 						+ error);
 			},
 			success : function(data) {
-
+				var cartTotalPrice = new Intl.NumberFormat().format(data);
 				viewCartSummaryFnc();
-				location.reload();
-
+				$('#ctCount' + cartNo).val(ModifiedCtCount);
+				$('#cartTotalPrice').text(cartTotalPrice+'원');
+				getFocusFnc(cartNo);
 			}
-		});
+		})
 	}
 	
 	function countDownFnc(cartNo){
@@ -99,9 +108,11 @@
 							+ error);
 				},
 				success : function(data) {
-			
+					var cartTotalPrice = new Intl.NumberFormat().format(data);
 					viewCartSummaryFnc();
-					location.reload();
+					$('#ctCount' + cartNo).val(ModifiedCtCount);
+					$('#cartTotalPrice').text(cartTotalPrice);
+					getFocusFnc(cartNo);
 				}
 			});
 		} else {
@@ -179,6 +190,9 @@
 		text-align: center;
 		width : 200px;
 		height: 200px;
+	}
+	.cartImgAnchor{
+		border: 1px solid #e5e5e5;
 	}
 	.imgArea > a > img {
 		width : 200px;
@@ -268,14 +282,14 @@
 								<tr>
 									<td class="imgArea" rowspan="3">
 										<a href="../item/one.do?iNo=${cartMap.FM_ITEM_NO}" >
-											<img alt="image not founded" src="<c:url value='/image/${cartMap.FM_ITEM_STORED_IMG_NAME}'/>"/>
+											<img id="cartImg${cartMap.FM_ITEM_NO}" alt="image not founded" tabindex="${cartMap.FM_ITEM_NO}" src="<c:url value='/image/${cartMap.FM_ITEM_STORED_IMG_NAME}'/>"/>
 										</a>
 									</td>
 									<td colspan="2" class="cartItemName">${cartMap.FM_ITEM_NAME}</td>		
 									<td></td>
 									<td class="deleteBtnArea">
-										<a href="#" onclick="deleteCartFnc(${cartMap.FM_CART_NO});">
-											<img alt="image not founded" width="20px" height="20px" src="/fitmake/resources/image/xButton.png">
+										<a class="cartImgAnchor" id="cartImgAnchor${cartMap.FM_CART_NO}" href="#" onclick="deleteCartFnc(${cartMap.FM_CART_NO});">
+											<img id="cartImg${cartMap.FM_CART_NO}"alt="image not founded" width="20px" height="20px" src="/fitmake/resources/image/xButton.png">
 										</a>
 									</td>		
 								</tr>

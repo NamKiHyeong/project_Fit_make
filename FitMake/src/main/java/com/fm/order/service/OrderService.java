@@ -45,5 +45,7 @@ public interface OrderService {
 
 	public Map<String, Object> countMyOrderStatus(int uNo);
 
+	public int getTotalCartPrice(int uNo);
+
 
 }
