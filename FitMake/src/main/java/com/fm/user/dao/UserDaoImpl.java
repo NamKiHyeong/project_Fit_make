@@ -29,6 +29,7 @@ public class UserDaoImpl implements UserDao {
 		inputMap.put("uNo", uNo);
 		inputMap.put("start", start);
 		inputMap.put("end", end);
+		inputMap.put("oNo", 0);
 		
 		return sqlSession.selectList(namespaceuser + "pointHistoryList", inputMap);
 	}

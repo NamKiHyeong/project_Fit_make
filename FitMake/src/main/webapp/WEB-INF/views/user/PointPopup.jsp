@@ -32,6 +32,7 @@
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	function closeTabClick() {
+		opener.parent.location.reload();
 		window.close();
 	}
 
@@ -52,6 +53,9 @@
 		
 		$("#pointAdd").click(function() {
 			var priceSelect = parseInt($("#priceSelect").val());
+			if (condition) {
+				
+			}
 			$.ajax({
 				type : "post",
 				dataType : "json",
