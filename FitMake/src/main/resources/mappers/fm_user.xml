@@ -207,9 +207,17 @@
 	</update>
 	<insert id="pointHistory" parameterType="com.fm.util.PointAdd">
 		INSERT INTO FM_POINT
-		VALUE(FM_POINT_NO, FM_USER_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE)
-		VALUES(SEQ_FM_POINT_NO.NEXTVAL,
-		#{uNo}, #{pHistory}, SYSDATE)
+		<choose>
+			<when test="oNo != 0">
+				VALUE(FM_POINT_NO, FM_USER_NO, FM_ORDER_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE)
+				VALUES(SEQ_FM_POINT_NO.NEXTVAL, #{uNo}, #{oNo}, #{pHistory}, SYSDATE)
+			</when>
+			<otherwise>
+				VALUE(FM_POINT_NO, FM_USER_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE)
+				VALUES(SEQ_FM_POINT_NO.NEXTVAL,
+				#{uNo}, #{pHistory}, SYSDATE)
+			</otherwise>
+		</choose>
 	</insert>
 	<!-- 포인트 충전// -->
 
