@@ -24,13 +24,45 @@
 	height: 200px;
 }
 
-#optionUl {
-	width: 135px;
+/* 인풋 type number 표시버튼 없앰 */
+input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
 }
 
+#priceSelect {
+	width: 42%;
+	height: 35px;
+	padding-left: 11px;
+	line-height: 35px;
+	background: #f9f9f9;
+	border: 1px solid #d6d6d6;
+	color: #7e7e7e;
+	font-size: 13px;
+}
 
-#bigUl {
-	position: relative;
+#optionUl {
+	width: 218px;
+	display: none;
+	height: 210px;
+	background-color: silver;
+	height: 191px;
+	margin: 0px;
+	padding: 0px;
+	background-color: silver;
+}
+
+#optionli {
+	width: 100%;
+	height: 35px;
+	border: 1px solid #d6d6d6;
+	text-align: right;
+}
+
+.optionli {
+	width: 100%;
+	height: 35px;
+	border: 1px solid #d6d6d6;
+	text-align: right;
 }
 
 #ulDiv {
@@ -44,10 +76,6 @@
 .ulPtag {
 	font-size: 15px;
 }
-#title {
-	margin: 0;
-	cursor: pointer;
-}
 </style>
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
@@ -58,20 +86,30 @@
 	}
 
 	$(document).ready(function() {
-		$("#priceSelect").click(function() {
-			if ($("#optionUl").is(':visible') == false) {
-				$("#optionUl").show();
-				$('#optionUl').animate({
-					height : '100px'
-				}, 300, 'swing');
-			}
+		
+		// 내가 정한 영역 클릭시 show 제외 부분 클릭시 hide
+		$('#priceSelect').click(function(event) {
+			event.stopPropagation();
+			$("#optionUl").show();
 		});
-
+		$(document).click(function() {
+			$('#optionUl').hide();
+		});
+	
+		// 직접입력 버튼 클릭시 들어간 밸류값 초기화 후 포커스. 버튼 부분 hide
+		$("#optionli").click(function() {
+			$("#priceSelect").val("");
+			$("#priceSelect").focus();
+			$("#optionUl").hide();
+		});
+		
+		// 금액 버튼 클릭시 해당 밸류값 금액 인풋에 담기. 버튼 부분 hide
 		$(".optionli").click(function() {
 			$("#priceSelect").val($(this).val());
 			$("#optionUl").hide();
 		});
 		
+		// 팝업창에서 충전 버튼을 누르면 ajax실행 금액 인풋에 담긴 밸류값을 전송하여 처리
 		$("#pointAdd").click(function() {
 			var priceSelect = parseInt($("#priceSelect").val());
 			if (!confirm("충전하시겠습니까?")) {
@@ -105,18 +143,19 @@
 		<p id="pTagId">포인트 충전</p>
 		<input type="number" id="priceSelect" placeholder="금액입력">
 		<div id="popUpDiv">
-			<ul id="optionUl" style="display: none; height: 0px;">
-				<li><input class="optionli" type="button" value="직접입력"></li>
-				<li><input class="optionli" type="button" value="5000"></li>
-				<li><input class="optionli" type="button" value="10000"></li>
-				<li><input class="optionli" type="button" value="30000"></li>
-				<li><input class="optionli" type="button" value="50000"></li>
-				<li><input class="optionli" type="button" value="100000"></li>
+			<ul id="optionUl">
+				<li><button id="optionli" value="0">직접입력</button></li>
+				<li><button class="optionli" value="5000">5,000</button></li>
+				<li><button class="optionli" value="10000">10,000</button></li>
+				<li><button class="optionli" value="30000">30,000</button></li>
+				<li><button class="optionli" value="50000">50,000</button></li>
+				<li><button class="optionli" value="100000">100,000</button></li>
 			</ul>
 		</div>
-
-		<input type="button" id="pointAdd" value="충전"> <input
-			type="button" value="취소" onclick="closeTabClick();">
+		<div style="float: right;">
+			<input type="button" id="pointAdd" value="충전"> <input
+				type="button" value="취소" onclick="closeTabClick();">
+		</div>
 	</div>
 </body>
 </html>
