@@ -84,19 +84,19 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public int addPoint(UserDto userDto, int point) {
-
-		userDto.setPoint(point);
-
-		return sqlSession.update(namespaceuser + "addPoint", userDto);
+	public int addPoint(PointAdd pointAdd, int point) {
+		
+		pointAdd.setpHistory(point);
+		
+		return sqlSession.update(namespaceuser + "addPoint", pointAdd);
 	}
 
 	@Override
-	public int pointHisoty(PointAdd pointAdd, int point) {
+	public int pointHistory(PointAdd pointAdd, int point) {
 
 		pointAdd.setpHistory(point);
 
-		return sqlSession.insert(namespaceuser + "pointHisoty", pointAdd);
+		return sqlSession.insert(namespaceuser + "pointHistory", pointAdd);
 	}
 
 	@Override

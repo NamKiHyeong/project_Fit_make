@@ -23,11 +23,11 @@ public interface UserDao {
 
 	public int checkEmail(String email);
 
-	public int addPoint(UserDto userDto, int point);
+	public int addPoint(PointAdd pointAdd, int point);
 
 	public int checkNickName(String nickName);
 
-	public int pointHisoty(PointAdd pointAdd, int point);
+	public int pointHistory(PointAdd pointAdd, int point);
 
 	public int myPointChk(int uNo);
 

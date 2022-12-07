@@ -24,9 +24,9 @@ public interface UserService {
 
 	public int checkNickName(String nickName);
 
-	public void addPoint(UserDto userDto, int point);
+	public void addPoint(PointAdd pointAdd, int point);
 
-	public void pointHisoty(PointAdd pointAdd, int point);
+	public void pointHistory(PointAdd pointAdd, int point);
 
 	public int myPointChk(int uNo);
 

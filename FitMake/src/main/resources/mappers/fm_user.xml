@@ -202,10 +202,10 @@
 	<update id="addPoint" parameterType="com.fm.util.PointAdd">
 		UPDATE FM_USER
 		SET
-		FM_USER_POINT = FM_USER_POINT + #{point}
+		FM_USER_POINT = FM_USER_POINT + #{pHistory}
 		WHERE FM_USER_NO = #{uNo}
 	</update>
-	<insert id="pointHisoty" parameterType="com.fm.util.PointAdd"
+	<insert id="pointHistory" parameterType="com.fm.util.PointAdd"
 		keyProperty="uNo">
 		INSERT INTO FM_POINT
 		VALUES(SEQ_FM_POINT_NO.NEXTVAL,
