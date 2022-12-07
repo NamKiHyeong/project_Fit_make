@@ -109,6 +109,7 @@ function deleteReviewFnc(rNo, iNo){
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
+	<div style="height: 50px;"></div>
 	<div id="reviewUpdateDiv">
 		<div id="reviewUpdateInnerDiv">
 			<form action ="./updateCtr.do" method = "post" enctype="multipart/form-data">
@@ -136,15 +137,20 @@ function deleteReviewFnc(rNo, iNo){
 			<%-- 						<a href="#this" id="delete_${img.FM_REVIEW_IMG_NO}">삭제</a> --%>
 			<%-- 					</c:otherwise> --%>
 			<%-- 				</c:choose> --%>
-							<input type = "hidden" name="imgNo" value="${img.FM_ITEM_IMG_NO}">
-							<img id="reviewImg" alt="image not fount" style="width:400px;margin-left:50px;height:530px; src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
+							<input type = "hidden" name="imgNo" value="${fileList2}">
+								
+							<c:forEach var="review" items="${fileList2}">
+								<img alt="image not found" src="<c:url value='/image/${review.FM_REVIEW_STORED_NAME}'/>"/><br>
+							</c:forEach>
 							<input type="file" id="file" name="file">
 							<a href="#" onclick="deleteFileFnc();">삭제</a>
 						</div>
 						<div class="sortImg sort2">
 							<h3>제목</h3>
-							<input type="text" name="rTitle" value="${reviewDto.rTitle}" style="padding:7px;width:600px;box-sizing:border-box;"><br>
-							<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> <textarea style="padding:10px; margin-bottom:15px;" rows="20" cols="80" name="rContent">${reviewDto.rContent}</textarea>
+							<input type="text" class="reviewTitle" name="rTitle" value="${reviewDto.rTitle}"><br>
+<!-- 							<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> -->
+							<h3>내용</h3>
+							<textarea class="reviewInfo" rows="20" cols="80" name="rContent">${reviewDto.rContent}</textarea>
 							<div id="reviewUpdateBtnArea">
 								<input class="itemCtr" type="submit" value="수정완료">
 								

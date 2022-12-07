@@ -28,7 +28,7 @@
 			
 			<div class="sortImg sort2">
 				<h3>제목</h3>
-					<input class="info" type="text" name="rTitle">
+					<input class="addInfo" type="text" name="rTitle">
 				<h3>내용</h3>
 					<textarea rows="20" cols="80" name="rContent"></textarea>
 				<div id="reviewAddBtnArea">

@@ -29,6 +29,13 @@
 	table-layout: fixed;
 	width: 100%;
 }
+.listInfo{
+	width: 500px;
+	height: 100px;
+	padding:10px;
+	border: none;
+	resize: none;
+}
 .frame > form{
 	margin-left: 50px;
 }

@@ -41,12 +41,8 @@ function deleteReviewFnc(rNo, iNo){
 </head>
 <body>
 	<jsp:include page="../Header.jsp" />
-<!-- 	<form action="./list.do"> -->
-<%-- 			<input type="hidden" name="iNo" value="${pagingMap.iNo}"> --%>
-<%-- 			<input type="text" name="keyword" value="${searchMap.keyword}"> --%>
-<!-- 			<input type="submit" value="검색"> -->
-<!-- 	<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
-<!-- 	</form> -->
+	<div style="height: 50px;"></div>
+	
 	<div id="reviewListDiv">
 		<div id="pagingDiv">
 			<div id="titleDiv">
@@ -76,7 +72,7 @@ function deleteReviewFnc(rNo, iNo){
 											</c:if>
 										</p>
 										<p>내용</p>
-										<textarea style="width: 500px; height: 100px; padding:10px; border: none; resize: none;" readonly="readonly">${review.reviewDto.rContent}</textarea>
+										<textarea class="listInfo" readonly="readonly">${review.reviewDto.rContent}</textarea>
 									</div>
 								</div>
 							</form>

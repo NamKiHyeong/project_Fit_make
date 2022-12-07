@@ -161,16 +161,16 @@ public class ReviewController {
 		
 		ReviewDto reviewDto = (ReviewDto)map.get("reviewDto");
 		logger.info("컨트롤러에 ReviewDto가 들어왔나? {} 확인", reviewDto);
-		List<Map<String, Object>> fileList2
-		= (List<Map<String, Object>>) map.get("fileList2");
+		List<Map<String, Object>> fileList2	= (List<Map<String, Object>>) map.get("fileList2");
 		
 		System.out.println("update.do에서 " + rNo);
 		
 		model.addAttribute("reviewDto", reviewDto);
 		model.addAttribute("prevMap", prevMap);
-		if (fileList2.size() != 0) {
-			model.addAttribute("img", fileList2.get(0));
-		}
+		model.addAttribute("fileList2", fileList2);
+//		if (fileList2.size() != 0) {
+//			model.addAttribute("Img", fileList2.get(0));
+//		}
 		
 		return "review/ReviewUpdate";
 	}
