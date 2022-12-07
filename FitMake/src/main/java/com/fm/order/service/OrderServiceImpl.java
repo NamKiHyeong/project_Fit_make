@@ -144,8 +144,19 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public void updatePoint(int uNo, int orderTotalPrice) {
-		orderDao.updatePoint(uNo, orderTotalPrice);
+	public void updatePoint(int uNo, int orderTotalPrice, int oNo) {
+		orderDao.updatePoint(uNo, orderTotalPrice, oNo);
+	}
+
+	@Override
+	public void addPointHistory(int uNo, int orderTotalPrice, int oNo) {
+		orderDao.addPointHistory(uNo, orderTotalPrice, oNo);
+	}
+	
+	@Override
+	public void refundPoint(int uNo, int oNo) {
+		
+		orderDao.refundPoint(uNo, oNo);
 	}
 
 

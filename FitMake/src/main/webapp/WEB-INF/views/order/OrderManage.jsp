@@ -13,6 +13,10 @@
 		
 		$('select[name="oStatus"]').each(function() {
 			$(this).val($(this).siblings('input').val());
+			
+			if($(this).val() === 'cancel'){
+				$(this).attr("disabled", true);				
+			}
 		});
 		
 		$('#orderUpdateBtn').on('click', function(){

@@ -278,8 +278,15 @@ public class OrderController {
 			@RequestParam(defaultValue = "0") String[] oStatusArr) {
 		logger.debug("welcome orderUpdate");
 		
+		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+		int uNo = (int) userDto.getuNo();
+		
 		for(int i = 0; i < oNoArr.length ; i++) {
 			orderService.updateOrder(oNoArr[i], oStatusArr[i]);
+			
+			if(oStatusArr[i].equals("cancel")) {
+				orderService.refundPoint(oNoArr[i], uNo);
+			}
 		}
 		
 		return "redirect:/order/list.do";
@@ -361,14 +368,16 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value="/order/confirm.do", method = {RequestMethod.POST})
 	public String orderConfirm(HttpSession session, @RequestParam(value="ctNo", defaultValue = "0") int[] ctNo
-			, @RequestParam int orderTotalPrice) {
+			, @RequestParam int orderTotalPrice
+			, @RequestParam int oNo) {
 		logger.debug("Welcome orderConfirm");
 		
 		String viewUrl = "";
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		
-		orderService.updatePoint(uNo, orderTotalPrice);
+		orderService.updatePoint(uNo, orderTotalPrice, oNo);
+		orderService.addPointHistory(uNo, orderTotalPrice, oNo);
 		
 		if(ctNo[0] != 0) {
 			

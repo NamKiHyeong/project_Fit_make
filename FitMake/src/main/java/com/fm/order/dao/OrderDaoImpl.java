@@ -4,14 +4,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.jasper.tagplugins.jstl.core.Choose;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.fm.order.model.CartDto;
-import com.fm.order.model.OrderDto;
-import com.fm.user.model.UserDto;
+import com.fm.util.PointAdd;
 
 
 @Repository
@@ -224,14 +222,51 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public void updatePoint(int uNo, int orderTotalPrice) {
+	public void updatePoint(int uNo, int orderTotalPrice, int oNo) {
+		
+		PointAdd pointAdd = new PointAdd();
+		
+		pointAdd.setuNo(uNo);
+		pointAdd.setpHistory(-1*orderTotalPrice);
+		pointAdd.setoNo(oNo);
+		
+		sqlSession.update("com.fm.user.addPoint", pointAdd);
+		
+	}
+
+	@Override
+	public void addPointHistory(int uNo, int orderTotalPrice, int oNo) {
+		PointAdd pointAdd = new PointAdd();
+		
+		pointAdd.setuNo(uNo);
+		pointAdd.setpHistory(-1*orderTotalPrice);
+		pointAdd.setoNo(oNo);
+		
+		sqlSession.update("com.fm.user.pointHistory", pointAdd);
+	}
+	
+	@Override
+	public void refundPoint(int uNo, int oNo) {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", uNo);
-		inputMap.put("point", (-1 * orderTotalPrice));
+		inputMap.put("start", 1);
+		inputMap.put("end", 2);
 		
-		sqlSession.update("com.fm.user.addPoint", inputMap);
+		Map<String, Object> outputMap = new HashMap<String, Object>();
+		outputMap = sqlSession.selectOne("com.fm.user.pointHistoryList", inputMap);
+		
+		PointAdd pointAdd = new PointAdd();
+		
+		pointAdd.setuNo(uNo);
+		pointAdd.setpHistory(-1*(int)(outputMap.get("FM_POINT_HISTORY")));
+		pointAdd.setoNo(oNo);
+		
+		sqlSession.insert(namespace + "addPoint", pointAdd);
+		sqlSession.update(namespace + "pointHistory", pointAdd);
+		
 	}
+
 
 
 		
