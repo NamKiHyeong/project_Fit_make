@@ -18,7 +18,7 @@
 	<div style="height: 50px;"></div>
 	<div class="diet_wrap">
 		<div class="infoTop">
-			<h3>다이어트</h3>
+			<span>${categoryName}</span>
 			<input class="itemCtr" type="button" id="addCartBtn" value="장바구니 추가"><br>
 			
 			<div class="serachGo">
@@ -26,13 +26,9 @@
 					<input type="hidden" name="cNo" value="${pagingMap.cNo}">
 					<input type="text" name="keyword" style= "padding: 10px 15px; margin-right: 7px; font-size: 14px;box-sizing:border-box;" value="${searchMap.keyword}">
 					<input class="itemCtr" type="submit" value="검색">
-			<!-- 		src="/fitmake/resources/image/keyword.png" alt="제출버튼" -->
-				
 				</form>
 			</div>
 		</div>
-	
-		
 		
 		<c:choose>
 			<c:when test="${empty itemList}">
@@ -77,13 +73,9 @@
 					</c:forEach>
 				</div>
 				</c:otherwise>
-				
 			</c:choose>
 			
 		</div>
-		
-	
-		
 	<jsp:include page="./ItemPaging.jsp"/>
 	<jsp:include page="../Footer.jsp" />
 	<form action="./list.do" id="pagingForm" method="post">

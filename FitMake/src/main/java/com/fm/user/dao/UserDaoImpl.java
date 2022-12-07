@@ -179,14 +179,26 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Map<String, Object>> viewRecommendItemList(int uNo) {
-			
-		return sqlSession.selectList("com.fm.item.viewRecommendItemList", uNo);
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("start", 1);
+		inputMap.put("end", 4);
+		inputMap.put("keyword", "");
+		
+		return sqlSession.selectList("com.fm.item.viewRecommendItemList", inputMap);
 	}
 
 	@Override
 	public List<Map<String, Object>> viewBestItemList() {
 		
-		List<Integer> bestItemList = sqlSession.selectList("com.fm.item.viewBestItemList");
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", -1);
+		inputMap.put("start", 1);
+		inputMap.put("end", 4);
+		inputMap.put("keyword", "");
+		
+		List<Integer> bestItemList = sqlSession.selectList("com.fm.item.viewBestItemNoList", inputMap);
 		List<Map<String, Object>> newBestItemList = new ArrayList<Map<String,Object>>();
 		for(int iNo : bestItemList) {
 			newBestItemList.add(sqlSession.selectOne("com.fm.item.viewTotalBestItemList", iNo));

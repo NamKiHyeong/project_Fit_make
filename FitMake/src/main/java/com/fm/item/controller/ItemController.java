@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.item.model.ItemDto;
 import com.fm.item.service.ItemService;
+import com.fm.user.model.UserDto;
 import com.fm.util.Paging;
 
 @Controller
@@ -68,43 +69,62 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
-//			, @RequestParam int cNo
 			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "0") int older, Model model) {
-
-		logger.info("제품 리스트로 옴 {}" + model);
-		logger.info("curPage {} ", curPage);
-		logger.info("cNo {} ", itemDto.getcNo());
-		logger.info("older {} ", older);
-		logger.info("keyword: {} ", keyword);
-
-		int totalItemCount = itemService.itemSelectTotalItemCount(itemDto.getcNo(), keyword);
-
-		Paging itemPaging = new Paging(totalItemCount, curPage);
-		int start = itemPaging.getPageBegin();
-		int end = itemPaging.getPageEnd();
-//		---------------
-		List<Map<String, Object>> itemList = itemService.itemSelectList(itemDto.getcNo(), keyword, start, end, older);
-
-//		int totalReviewCount = itemService.reviewSelectTotalReviewCount(itemList.get);
-		logger.info("itemlList에 cNo {} ", itemDto.getcNo());
-
+			@RequestParam(defaultValue = "0") int older
+			, Model model, HttpSession session) {
+		
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = userDto.getuNo();
+		int cNo = itemDto.getcNo();
+		int totalItemCount = 0;
+		List<Map<String, Object>> itemList = null;
+		Paging itemPaging = null;
+		String categoryName = ""; 
+		
+		if(cNo > 2) {
+			
+			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, 0);
+			
+			itemPaging = new Paging(totalItemCount, curPage);
+			int start = itemPaging.getPageBegin();
+			int end = itemPaging.getPageEnd();
+			
+			itemList = itemService.itemSelectList(cNo, keyword, start, end, older, 0);
+			categoryName = itemService.getCategoryName(cNo);
+		} else if (cNo == 2) {
+			
+			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, -1);
+			
+			itemPaging = new Paging(totalItemCount, curPage);
+			int start = itemPaging.getPageBegin();
+			int end = itemPaging.getPageEnd();
+			
+			itemList = itemService.viewBestItemList(cNo, keyword, start, end, older, -1);
+		} else {
+			
+			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
+			
+			itemPaging = new Paging(totalItemCount, curPage);
+			int start = itemPaging.getPageBegin();
+			int end = itemPaging.getPageEnd();
+			
+			itemList = itemService.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
+		}
+		
+		
 		Map<String, Object> searchMap = new HashMap<>();
 		searchMap.put("keyword", keyword);
-
+		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("itemPaging", itemPaging);
 		pagingMap.put("totalItemCount", totalItemCount);
-//		pagingMap.put("totalReviewCount", totalReviewCount);
 		pagingMap.put("older", older);
-		pagingMap.put("cNo", itemDto.getcNo());
-
-		logger.info("itemlList에 cNo {} ", itemDto.getcNo());
-
+		pagingMap.put("cNo", cNo);
+		
 		model.addAttribute("itemList", itemList);
 		model.addAttribute("pagingMap", pagingMap);
 		model.addAttribute("searchMap", searchMap);
-
+		model.addAttribute("categoryName", categoryName);
 		return "/item/ItemList";
 	}
 
