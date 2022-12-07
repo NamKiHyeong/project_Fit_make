@@ -223,6 +223,17 @@ public class OrderDaoImpl implements OrderDao {
 		return sqlSession.selectOne(namespace + "getTotalCartPrice", uNo);
 	}
 
+	@Override
+	public void updatePoint(int uNo, int orderTotalPrice) {
+		
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("point", (-1 * orderTotalPrice));
+		
+		sqlSession.update("com.fm.user.addPoint", inputMap);
+	}
+
+
 		
 
 }

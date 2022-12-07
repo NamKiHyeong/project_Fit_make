@@ -143,4 +143,10 @@ public class OrderServiceImpl implements OrderService {
 		return orderDao.getTotalCartPrice(uNo);
 	}
 
+	@Override
+	public void updatePoint(int uNo, int orderTotalPrice) {
+		orderDao.updatePoint(uNo, orderTotalPrice);
+	}
+
+
 }

@@ -11,25 +11,35 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 	
-		$("#orderConfirmBtn").on("click", function(){
-			var checkOrderConfirm = confirm("구매 하시겠습니까?");
+		$('#orderConfirmBtn').on('click', function(){
+			var checkOrderConfirm = confirm('구매 하시겠습니까?');
 			
 			if(checkOrderConfirm == true){
-				$("#confirmForm").attr("action", "./confirm.do");
-				$("#confirmForm").attr("method", "post");
-				$("#confirmForm").submit();
+				var uPointStr = $('#pointChk').text(); 
+				var uPoint = parseInt(uPointStr.substring(0, uPointStr.indexOf(" 원")));
+				var totalPrice = parseInt($('#orderTotalPrice').val());
+				
+				if(totalPrice > uPoint) {
+					alert("보유 포인트가 부족합니다.");
+					return false;
+				} else{
+					$('#confirmForm').attr('action', './confirm.do');
+					$('#confirmForm').attr('method', 'post');
+					$('#confirmForm').submit();
+				} 
+				
 			} else {
 				return false;
 			}
 		})
 		
-		$("#orderCancelBtn").on("click", function() {
-			var checkOrderCancel = confirm("구매를 취소 하시겠습니까?");
+		$('#orderCancelBtn').on('click', function() {
+			var checkOrderCancel = confirm('구매를 취소 하시겠습니까?');
 			
 			if(checkOrderCancel == true){
-				$("#confirmForm").attr("action", "./cancel.do");
-				$("#confirmForm").attr("method", "post");
-				$("#confirmForm").submit();
+				$('#confirmForm').attr('action', './cancel.do');
+				$('#confirmForm').attr('method', 'post');
+				$('#confirmForm').submit();
 			}
 		})
 	})
@@ -302,6 +312,7 @@
 					<p id="totalPrice"><fmt:formatNumber value="${orderConfirmItemList[0].totalPrice}" />원</p>
 				</div>
 				<form id="confirmForm">
+					<input type="hidden" name="orderTotalPrice" id="orderTotalPrice" value="${orderConfirmItemList[0].totalPrice}">
 					<input type="button" id="orderConfirmBtn" value="구매하기">
 					<input type="button" id="orderCancelBtn" value="취소">
 					<input type="hidden" name="oNo" value="${oNo}">

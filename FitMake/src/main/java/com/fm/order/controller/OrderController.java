@@ -215,7 +215,7 @@ public class OrderController {
 	 * @return 주문이 완료 된 후 주문 리스트 jsp를 호출한다
 	 */
 	@Transactional
-	@RequestMapping(value = "/order/add.do", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "/order/add.do", method = {RequestMethod.POST })
 	public String addOrder(HttpSession session, Model model, RedirectAttributes redirect, 
 			@RequestParam(defaultValue = "0") int[] iNo,
 			@RequestParam(defaultValue = "1") int[] ctCount, @RequestParam(defaultValue = "0") int[] iSellprice,
@@ -287,7 +287,7 @@ public class OrderController {
 
 	
 	@Transactional
-	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST})
 	public String viewOrderConfirm(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo) {
 		logger.info("Welcome orderDetail!");
 		logger.info("oNo" + oNo);
@@ -322,9 +322,10 @@ public class OrderController {
 	 * @return DB에서 Map으로 받은 값을 OrderDetail.jsp 페이지로 전송
 	 */
 	@Transactional
-	@RequestMapping(value = "/order/check.do", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/order/check.do", method = { RequestMethod.POST})
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
-			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo) {
+			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo
+			, Error error) {
 		logger.info("Welcome orderDetail!");
 		logger.info("ctNo" + ctNo[0]);
 		logger.info("oNo" + oNo);
@@ -335,6 +336,7 @@ public class OrderController {
 
 		if (uNo > 0) {
 			oNo = orderService.viewOrderNo(uNo);
+			
 			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
 			Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
 			
@@ -344,6 +346,7 @@ public class OrderController {
 			model.addAttribute("oNo", oNo);
 			
 			viewUrl = "/order/OrderConfirm";
+		
 		} else {
 			viewUrl = "redirect:../auth/Login.do";
 		}
@@ -356,13 +359,16 @@ public class OrderController {
 	 * @return			주문리스트 호출
 	 */
 	@Transactional
-	@RequestMapping(value="/order/confirm.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String orderConfirm(HttpSession session, @RequestParam(value="ctNo", defaultValue = "0") int[] ctNo) {
+	@RequestMapping(value="/order/confirm.do", method = {RequestMethod.POST})
+	public String orderConfirm(HttpSession session, @RequestParam(value="ctNo", defaultValue = "0") int[] ctNo
+			, @RequestParam int orderTotalPrice) {
 		logger.debug("Welcome orderConfirm");
 		
 		String viewUrl = "";
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
+		
+		orderService.updatePoint(uNo, orderTotalPrice);
 		
 		if(ctNo[0] != 0) {
 			
@@ -372,7 +378,7 @@ public class OrderController {
 			
 			viewUrl = "/order/OrderSuccess";
 		} else {
-			viewUrl = "redirect:/order/list.do";
+			viewUrl = "/order/OrderSuccess";
 		}
 		return viewUrl;
 	}
@@ -400,7 +406,7 @@ public class OrderController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="/order/count.do", method= {RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/order/count.do", method= {RequestMethod.GET})
 	public Map<String, Object> countMyOrderStatus(HttpSession session) {
 		
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");

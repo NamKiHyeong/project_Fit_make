@@ -47,5 +47,7 @@ public interface OrderService {
 
 	public int getTotalCartPrice(int uNo);
 
+	public void updatePoint(int uNo, int orderTotalPrice);
+
 
 }

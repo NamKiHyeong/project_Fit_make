@@ -47,5 +47,7 @@ public interface OrderDao {
 
 	public int getTotalCartPrice(int uNo);
 
+	public void updatePoint(int uNo, int orderTotalPrice);
+
 	
 }
