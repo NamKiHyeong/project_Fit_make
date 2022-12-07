@@ -31,11 +31,6 @@
 			$("#ulDiv").stop().slideUp("slow");
 		});
 		
-// 		$("#testLi").hover(function() {
-// 			$("#ulDiv").slideDown(100);
-// 		}, function() {
-// 			$("#ulDiv").slideUp("slow");
-// 		});#
 	});
 	
 </script>
@@ -124,16 +119,14 @@ margin: 0;
 						<li id="testLi">
 							<p id="title"><img alt="목록" src="/fitmake/resources/image/Kategorie.png"> 전체 카테고리</p>
 							<div id="ulDiv">
-								<p><a href="#">aa</a></p>
-								<p><a href="#">bb</a></p>
-								<p><a href="#">cc</a></p>
-								<p><a href="#">cc</a></p>
-								<p><a href="#">cc</a></p>
+								<p><a href="#">닭가슴살</a></p>
+								<p><a href="#">치즈</a></p>
+								<p><a href="#">우유</a></p>
 							</div>
 						</li>
 						<li><a
-							href="${pageContext.request.contextPath}/item/list.do?cNo=2">추천상품</a></li>
-						<li><a href="#">베스트</a></li>
+							href="${pageContext.request.contextPath}/item/list.do?cNo=1">추천상품</a></li>
+						<li><a href="${pageContext.request.contextPath}/item/list.do?cNo=2">베스트</a></li>
 					</ul>
 				</c:if>
 			</div>
