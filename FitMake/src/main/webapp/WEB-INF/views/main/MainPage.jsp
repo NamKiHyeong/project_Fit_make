@@ -124,7 +124,7 @@
 	<div id="containerMainDiv">
 		<div>
 			<p class="titlePtag">
-				<a href="../item/list.do?cNo=2">추천상품</a>
+				<a href="../item/list.do?cNo=1">추천상품</a>
 			</p>
 			<div class="ItemArea">
 				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}">
@@ -150,7 +150,7 @@
 		</div>
 		<div>
 			<p class="titlePtag">
-				<a href="#">베스트</a>
+				<a href="../item/list.do?cNo=2">베스트</a>
 			</p>
 			<div class="ItemArea">
 				<c:forEach var="mainBestItem" items="${mainBestItemList}">

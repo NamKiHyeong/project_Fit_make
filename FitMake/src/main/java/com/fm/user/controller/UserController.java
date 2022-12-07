@@ -87,18 +87,25 @@ public class UserController {
 	@RequestMapping(value = "/user/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String userAdd(UserDto userDto, Model model, BmiCalc bmiCalc, String add_1st, String add_Extra,
 			String add_Detail) {
-		logger.trace("Welcome UserController userAdd 신규등록 처리! " + userDto);
-		String address = add_1st + add_Extra + add_Detail;
-
-		int salt = userDto.addSalt();
-		String password = userDto.setHashpwd(salt, userDto.getPassword());
-		userDto.setSalt(salt);
-		userDto.setPassword(password);
-
-		userService.userInsertOne(userDto, address);
-		userService.bmiInsertOne(bmiCalc);
+		logger.info("Welcome UserController userAdd 신규등록 처리! " + userDto);
 		
-		return "redirect:/auth/login.do";
+		try {
+			String address = add_1st + add_Extra + add_Detail;
+			int salt = userDto.addSalt();
+			String password = userDto.setHashpwd(salt, userDto.getPassword());
+			userDto.setSalt(salt);
+			userDto.setPassword(password);
+			userService.userInsertOne(userDto, address);
+			userService.bmiInsertOne(bmiCalc);
+		
+			model.addAttribute("msg", "가입이 완료되었습니다!");
+			model.addAttribute("url", "../auth/login.do");
+			return "common/UserJoinSuccess";
+		
+		} catch (Exception e) {
+			
+			return null;
+		}
 	}
 
 	/**
