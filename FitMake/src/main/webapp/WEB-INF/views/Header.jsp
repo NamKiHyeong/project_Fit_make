@@ -11,6 +11,9 @@
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript" src="/fitmake/resources/js/header.js"></script>
 <script type="text/javascript">
+	// 세션에 contextPath를 추출하여 세팅함(js로 옮기지 말 것)
+	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+	
 	$(document).ready(function () {
 		
 		var headerDiv = $("#headerDiv");

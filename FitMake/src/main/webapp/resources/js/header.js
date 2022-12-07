@@ -29,7 +29,14 @@ function myPointChkFnc() {
 	});
 }
 
+function getContextPath() {
+	
+	return sessionStorage.getItem("contextpath");
+}
 function viewCartSummaryFnc() {
+	
+	
+	
 	$
 		.ajax({
 			url: "../cart/summary.do",
@@ -44,13 +51,12 @@ function viewCartSummaryFnc() {
 				var cartMapList = $.parseJSON(data);
 				var str = '';
 				var cartTotal = 0;
-
+				var ctx = getContextPath();
 
 				if (cartMapList < 1) {
 					str += '<div style="text-align:center">장바구니가 비었습니다</div>';
 				}
-
-
+				
 				$.each(cartMapList, function(key, value) {
 					var iPriceRaw = new Intl.NumberFormat().format(parseInt(value.FM_ITEM_SELLPRICE));
 					var ctCount = parseInt(value.FM_CART_COUNT);
@@ -59,10 +65,10 @@ function viewCartSummaryFnc() {
 					var ctNo = parseInt(value.FM_CART_NO);
 
 					str += '<tr><td class="cartSummaryImg" rowspan="3">';
-					str += '<a href="../item/one.do?iNo='+ value.FM_ITEM_NO + '">';
+					str += '<a href="' + ctx + '/item/one.do?iNo='+ value.FM_ITEM_NO + '">';
 					str += '<img alt="image not found" src="../image/' + value.FM_ITEM_STORED_IMG_NAME + '"></a></td>';
 					str += '<td class="cartSummaryItemName">';
-					str += '<a class="cartSummaryItemName" href="/item/list.do?iNo='
+					str += '<a class="cartSummaryItemName" href="' + ctx + '/item/one.do?iNo='
 						+ value.FM_ITEM_NO
 						+ '">'
 						+ value.FM_ITEM_NAME;
