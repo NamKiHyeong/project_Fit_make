@@ -16,7 +16,7 @@
 			
 			if(checkOrderConfirm == true){
 				var uPointStr = $('#pointChk').text(); 
-				var uPoint = parseInt(uPointStr.substring(0, uPointStr.indexOf(" 원")));
+				var uPoint = Number(uPointStr.substring(0, uPointStr.indexOf("원")));
 				var totalPrice = parseInt($('#orderTotalPrice').val());
 				
 				if(totalPrice > uPoint) {

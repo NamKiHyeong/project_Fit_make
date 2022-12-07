@@ -280,12 +280,15 @@ public class OrderController {
 		
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
-		
+		Map<String, Object> refundMap= new HashMap<String, Object>();
+				
 		for(int i = 0; i < oNoArr.length ; i++) {
 			orderService.updateOrder(oNoArr[i], oStatusArr[i]);
-			
 			if(oStatusArr[i].equals("cancel")) {
-				orderService.refundPoint(oNoArr[i], uNo);
+				refundMap = orderService.getPointHistory(oNoArr[i], uNo);
+				orderService.updatePoint(uNo, Integer.parseInt(String.valueOf(refundMap.get("FM_POINT_HISTORY"))), oNoArr[i]);
+				orderService.addPointHistory(uNo, Integer.parseInt(String.valueOf(refundMap.get("FM_POINT_HISTORY"))), oNoArr[i]);
+				
 			}
 		}
 		
@@ -329,7 +332,7 @@ public class OrderController {
 	 * @return DB에서 Map으로 받은 값을 OrderDetail.jsp 페이지로 전송
 	 */
 	@Transactional
-	@RequestMapping(value = "/order/check.do", method = { RequestMethod.POST})
+	@RequestMapping(value = "/order/check.do", method = { RequestMethod.POST, RequestMethod.GET})
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
 			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo
 			, Error error) {

@@ -246,25 +246,15 @@ public class OrderDaoImpl implements OrderDao {
 	}
 	
 	@Override
-	public void refundPoint(int uNo, int oNo) {
+	public Map<String, Object> getPointHistory(int oNo, int uNo) {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("oNo", oNo);
 		inputMap.put("uNo", uNo);
 		inputMap.put("start", 1);
 		inputMap.put("end", 2);
 		
-		Map<String, Object> outputMap = new HashMap<String, Object>();
-		outputMap = sqlSession.selectOne("com.fm.user.pointHistoryList", inputMap);
-		
-		PointAdd pointAdd = new PointAdd();
-		
-		pointAdd.setuNo(uNo);
-		pointAdd.setpHistory(-1*(int)(outputMap.get("FM_POINT_HISTORY")));
-		pointAdd.setoNo(oNo);
-		
-		sqlSession.insert(namespace + "addPoint", pointAdd);
-		sqlSession.update(namespace + "pointHistory", pointAdd);
-		
+		return sqlSession.selectOne("com.fm.user.pointHistoryList", inputMap);
 	}
 
 

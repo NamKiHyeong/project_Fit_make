@@ -51,7 +51,7 @@ public interface OrderService {
 
 	public void addPointHistory(int uNo, int orderTotalPrice, int oNo);
 
-	public void refundPoint(int oNo, int uNo);
+	public Map<String, Object> getPointHistory(int oNo, int uNo);
 
 
 }

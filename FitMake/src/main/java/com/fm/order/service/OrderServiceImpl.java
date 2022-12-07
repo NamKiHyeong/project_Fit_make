@@ -154,9 +154,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void refundPoint(int uNo, int oNo) {
+	public Map<String, Object> getPointHistory(int oNo, int uNo) {
 		
-		orderDao.refundPoint(uNo, oNo);
+		return orderDao.getPointHistory(oNo, uNo);
 	}
 
 
