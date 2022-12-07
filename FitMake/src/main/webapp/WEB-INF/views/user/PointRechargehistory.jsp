@@ -10,6 +10,7 @@
 #history_Container {
 	display: flex;
 	width: 1200px;
+	height: 100%;
 	margin: 0px auto;
 	justify-content: space-between;
 }
