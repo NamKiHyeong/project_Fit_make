@@ -20,7 +20,10 @@
 	width: 100%;
 }
 
-#userTableDiv table, th, tr, td {
+#userTableDiv table, 
+#userTableDiv th, 
+#userTableDiv tr, 
+#userTableDiv td {
 	border: 1px solid #cbcbcb;
 	padding-left: 5px;
 }
