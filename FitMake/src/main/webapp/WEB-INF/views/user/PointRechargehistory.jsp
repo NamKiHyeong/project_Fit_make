@@ -10,7 +10,6 @@
 #history_Container {
 	display: flex;
 	width: 1200px;
-/* 	height: 1000px; */
 	margin: 0px auto;
 	justify-content: space-between;
 }
@@ -64,7 +63,7 @@
 							<td>${pointMap.FM_POINT_NO}</td>
 							<td>충전</td>
 							<td>+${pointMap.FM_POINT_HISTORY}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+							<td><fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"
 									value="${pointMap.FM_POINT_CRE_DATE}" /></td>
 						</tr>
 					</c:forEach>
@@ -82,7 +81,7 @@
 
 
 	<div id="pagingSection">
-		<form id="pagingForm" action="./Info.do" method="get">
+		<form id="pagingForm" action="./pointHistory.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"
 				value="${uPagingMap.userPaging.curPage}">
 		</form>

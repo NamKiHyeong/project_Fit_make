@@ -36,9 +36,9 @@ public class UserServiceImpl implements UserService {
 	public UserDao userDao;
 
 	@Override
-	public List<Map<String, Object>> pointHistoryList(int uNo) {
+	public List<Map<String, Object>> pointHistoryList(int uNo, int start, int end) {
 		
-		return userDao.pointHistoryList(uNo);
+		return userDao.pointHistoryList(uNo, start, end);
 	}
 
 	@Override

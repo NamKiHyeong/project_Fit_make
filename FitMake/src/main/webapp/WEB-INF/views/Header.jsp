@@ -44,7 +44,7 @@
 	display: none;
 	width: 146px;
 	margin-top: 13px;
-	background-color: #E6E6E6;
+	background-color: white;
 }
 
 .ulPtag {
@@ -52,6 +52,7 @@
 }
 #title {
 	margin: 0;
+	cursor: pointer;
 }
 </style>
 </head>

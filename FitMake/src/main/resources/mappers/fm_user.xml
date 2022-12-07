@@ -19,8 +19,10 @@
 	<!-- //회원정보 페이징카운트 -->
 	<select id="getUserTotalCount" resultType="int">
 		SELECT
-		COUNT(FM_USER_NO)
-		FROM FM_USER
+		(SELECT COUNT(FM_USER_NO)
+			FROM FM_USER),(SELECT COUNT(FM_POINT_NO)
+				FROM FM_POINT)
+		FROM DUAL
 	</select>
 	<!-- 회원정보 페이징카운트// -->
 
@@ -251,14 +253,17 @@
 	<!-- 비밀번호 찾기// -->
 
 	<!-- //충전 내역// -->
-	<select id="pointHistoryList" parameterType="int"
-		resultType="map">
-		SELECT FM_POINT_NO, FM_USER_NO, FM_POINT_HISTORY,
-		FM_POINT_CRE_DATE
-		FROM FM_POINT
-		WHERE FM_USER_NO = #{uNo}
-		ORDER BY
-		FM_POINT_NO DESC
+	<select id="pointHistoryList" parameterType="map" resultType="map">
+		SELECT rp.*
+		FROM(
+		    SELECT ROWNUM rnum, p.*
+		    FROM(
+		            SELECT FM_POINT_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE
+		            FROM FM_POINT 
+		            WHERE FM_USER_NO = #{uNo}
+		            ORDER BY FM_POINT_NO DESC) p
+		    ) rp
+		    WHERE rp.rnum BETWEEN #{start} AND #{end}
 	</select>
 	<!-- //충전 내역 -->
 	

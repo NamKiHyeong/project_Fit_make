@@ -151,7 +151,7 @@ a:active {
 	z-index: 1;
 	min-width: 350px;
 	max-width: 350px;
-	min-height: 100px;
+	height: 180px;
 	max-height: 400px;
 	background: white;
 	border: 1px solid #e5e5e5;

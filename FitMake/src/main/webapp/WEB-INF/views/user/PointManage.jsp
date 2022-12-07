@@ -31,19 +31,6 @@
 </style>
 
 <script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
-<script type="text/javascript">
-	$(document).ready(function() {
-		
-		$('.userGender').each(function () {
-			var userGender = $(this).text();
-		if (userGender == "M") {
-			$(".userGender").text("남성");
-		} else if (userGender == "W") {
-			$(".userGender").text("여성");
-		}
-		});
-	});
-</script>
 
 </head>
 

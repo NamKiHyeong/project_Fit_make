@@ -8,7 +8,7 @@ import com.fm.util.BmiCalc;
 import com.fm.util.PointAdd;
 
 public interface UserService {
-	public List<Map<String, Object>> pointHistoryList(int uNo);
+	public List<Map<String, Object>> pointHistoryList(int uNo, int start, int end);
 
 	public UserDto userExist(String email, String password);
 

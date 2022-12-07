@@ -28,6 +28,10 @@ nav > ul > li > a{
 	text-decoration: none;
 }
 
+nav > ul > li > a:link {
+	color: #ffffff;
+}
+
 nav > ul > li > a:hover {
 	color: #ffffff;
 	background-color: #a41d53;

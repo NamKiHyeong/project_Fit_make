@@ -123,9 +123,11 @@
 	</div>
 	<div id="containerMainDiv">
 		<div>
+			<c:if test="${_userDto_.getuNo() > 1}">
 			<p class="titlePtag">
 				<a href="../item/list.do?cNo=1">추천상품</a>
 			</p>
+			</c:if>
 			<div class="ItemArea">
 				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}">
 					<div class="ItemDiv">
@@ -155,8 +157,8 @@
 			<div class="ItemArea">
 				<c:forEach var="mainBestItem" items="${mainBestItemList}">
 					<div class="ItemDiv">
-						<a href="../item/one.do?iNo=${mainBestItem.FM_ITEM_NO}">
-							<img class="ItemImg" alt="image not found"
+						<a href="../item/one.do?iNo=${mainBestItem.FM_ITEM_NO}"> <img
+							class="ItemImg" alt="image not found"
 							src="<c:url value='/image/${mainBestItem.FM_ITEM_STORED_IMG_NAME}' />" />
 						</a>
 						<p class="pTitle">${mainBestItem.FM_ITEM_NAME}</p>
@@ -190,6 +192,8 @@
 			</div>
 		</div>
 	</div>
+	<!-- footer 시작 -->
 	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 </body>
 </html>

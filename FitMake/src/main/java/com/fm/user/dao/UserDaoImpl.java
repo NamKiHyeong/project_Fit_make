@@ -23,9 +23,14 @@ public class UserDaoImpl implements UserDao {
 	String namespaceuser = "com.fm.user.";
 
 	@Override
-	public List<Map<String, Object>> pointHistoryList(int uNo) {
-
-		return sqlSession.selectList(namespaceuser + "pointHistoryList", uNo);
+	public List<Map<String, Object>> pointHistoryList(int uNo, int start, int end) {
+			
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("start", start);
+		inputMap.put("end", end);
+		
+		return sqlSession.selectList(namespaceuser + "pointHistoryList", inputMap);
 	}
 
 	@Override

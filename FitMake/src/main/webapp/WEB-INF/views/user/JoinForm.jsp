@@ -85,9 +85,9 @@
 					<p class="join_P">
 						성별<em class="join_em_Cl">⭐</em>
 					</p>
-					<label><input type="radio" id="men" name="gender" value="M" />남성</label>
+					<label><input type="radio" id="men" name="gender" value="M" checked/>남성</label>
 					<label><input type="radio" name="gender" id="women"
-						value="W" checked />여성</label> <span id="result_Check_gender"></span>
+						value="W" />여성</label> <span id="result_Check_gender"></span>
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">

@@ -468,9 +468,6 @@ public class UserController {
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		
-		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo);
-		
-		model.addAttribute("pointList", pointList);
 		
 		int totalCount = userService.getUserTotalCount(uNo);
 		
@@ -478,6 +475,10 @@ public class UserController {
 		
 		int start = userPaging.getPageBegin();
 		int end = userPaging.getPageEnd();
+		
+		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo, start, end);
+		
+		model.addAttribute("pointList", pointList);
 		
 		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
 		
