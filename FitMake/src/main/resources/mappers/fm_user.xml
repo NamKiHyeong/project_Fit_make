@@ -261,7 +261,10 @@
 		            SELECT FM_POINT_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE
 		            FROM FM_POINT 
 		            WHERE FM_USER_NO = #{uNo}
-		            ORDER BY FM_POINT_NO DESC) p
+		            <if test="oNo != 0">
+		            	AND FM_ORDER_NO = #{oNo}
+		            </if>
+		            ORDER BY FM_POINT_NO DESC	) p
 		    ) rp
 		    WHERE rp.rnum BETWEEN #{start} AND #{end}
 	</select>
