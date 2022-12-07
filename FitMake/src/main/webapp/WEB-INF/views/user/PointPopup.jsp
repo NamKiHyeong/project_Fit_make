@@ -49,7 +49,7 @@
 			$("#priceSelect").val($(this).val());
 			$("#optionUl").hide();
 		});
-
+		
 		$("#pointAdd").click(function() {
 			var priceSelect = parseInt($("#priceSelect").val());
 			$.ajax({
@@ -57,7 +57,8 @@
 				dataType : "json",
 				url : "pointAdd.do",
 				data : {
-					"priceSelect" : priceSelect
+					"priceSelect" : priceSelect,
+					"oNo" : 0
 				},
 				success : function(data) {
 					alert("충전이 완료되었습니다");

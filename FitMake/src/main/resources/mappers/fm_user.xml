@@ -208,6 +208,7 @@
 	<insert id="pointHistory" parameterType="com.fm.util.PointAdd"
 		keyProperty="uNo">
 		INSERT INTO FM_POINT
+		VALUE(FM_POINT_NO, FM_USER_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE)
 		VALUES(SEQ_FM_POINT_NO.NEXTVAL,
 		#{uNo}, #{pHistory}, SYSDATE)
 	</insert>

@@ -445,12 +445,13 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/pointAdd.do", method = { RequestMethod.GET, RequestMethod.POST })
 	@ResponseBody
-	public int pointAdd(@RequestParam("priceSelect") int point, PointAdd pointAdd, HttpSession session) {
+	public int pointAdd(@RequestParam("priceSelect") int point, PointAdd pointAdd, HttpSession session, @RequestParam(defaultValue = "0") int oNo) {
 		logger.info("포인트 충전 - {}", point);
 
 		UserDto userdto = new UserDto();
 		userdto = (UserDto) session.getAttribute("_userDto_");
 		pointAdd.setuNo(userdto.getuNo());
+		pointAdd.setoNo(oNo);
 		
 		userService.addPoint(pointAdd, point);
 		userService.pointHistory(pointAdd, point);
