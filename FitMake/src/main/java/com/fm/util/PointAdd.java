@@ -7,6 +7,7 @@ public class PointAdd {
 	private int pNo = 0;
 	private int pHistory = 0;
 	private Date pcreateDate = null;
+	private int oNo = 0;
 
 	public PointAdd() {
 		super();
@@ -18,6 +19,15 @@ public class PointAdd {
 		this.pNo = pNo;
 		this.pHistory = pHistory;
 		this.pcreateDate = pcreateDate;
+	}
+	
+	public PointAdd(int uNo, int pNo, int pHistory, Date pcreateDate, int oNo) {
+		super();
+		this.uNo = uNo;
+		this.pNo = pNo;
+		this.pHistory = pHistory;
+		this.pcreateDate = pcreateDate;
+		this.oNo = oNo;
 	}
 
 	public int getuNo() {
@@ -50,6 +60,14 @@ public class PointAdd {
 
 	public void setPcreateDate(Date pcreateDate) {
 		this.pcreateDate = pcreateDate;
+	}
+
+	public int getoNo() {
+		return oNo;
+	}
+
+	public void setoNo(int oNo) {
+		this.oNo = oNo;
 	}
 	
 	
