@@ -20,7 +20,10 @@
 	width: 100%;
 }
 
-#userTableDiv table, th, tr, td {
+#userTableDiv table, 
+#userTableDiv th, 
+#userTableDiv tr, 
+#userTableDiv td {
 	border: 1px solid #cbcbcb;
 	padding-left: 5px;
 }
@@ -85,7 +88,11 @@
 	</div>
 
 
+	<!-- footer 시작 -->
+	
 	<jsp:include page="../Footer.jsp" />
+	
+	<!-- footer 끝 -->
 	<div id="pagingSection">
 		<form id="pagingForm" action="./Info.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"
