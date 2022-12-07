@@ -53,28 +53,28 @@
 		
 		$("#pointAdd").click(function() {
 			var priceSelect = parseInt($("#priceSelect").val());
-			if (condition) {
-				
+			if (!confirm("충전하시겠습니까?")) {
+				alert("취소하셨습니다.");
+			} else {
+				$.ajax({
+					type : "post",
+					dataType : "json",
+					url : "pointAdd.do",
+					data : {
+						"priceSelect" : priceSelect,
+						"oNo" : 0
+					},
+					success : function(data) {
+						alert("충전이 완료되었습니다");
+						closeTabClick();
+
+					},
+					error : function() {
+						console.log("안됨;");
+					}
+				});
 			}
-			$.ajax({
-				type : "post",
-				dataType : "json",
-				url : "pointAdd.do",
-				data : {
-					"priceSelect" : priceSelect,
-					"oNo" : 0
-				},
-				success : function(data) {
-					alert("충전이 완료되었습니다");
-					closeTabClick();
-
-				},
-				error : function() {
-					console.log("안됨;");
-				}
-			});
 		});
-
 	});
 </script>
 </head>
