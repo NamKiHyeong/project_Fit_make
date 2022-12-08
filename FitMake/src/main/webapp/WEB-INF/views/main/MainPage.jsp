@@ -191,6 +191,7 @@
 					<div class="ItemDiv">
 						<img class="ItemImg" alt="image not found"
 							src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />" />
+
 						<p class="pTitle">${mainReview.FM_REVIEW_TITLE}</p>
 						<p id="reviewContent">${mainReview.FM_REVIEW_CONTENT}</p>
 					</div>

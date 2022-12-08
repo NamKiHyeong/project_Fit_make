@@ -50,7 +50,7 @@
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="historyDiv">
 			<jsp:include page="../MyPageNav.jsp" />
-			<p id="topupPtag">충전내역</p>
+			<p id="topupPtag">포인트내역</p>
 			<div id="historytableDiv">
 				<table>
 					<tr>
@@ -64,14 +64,14 @@
 							<td>${pointMap.FM_POINT_NO}</td>
 							<td><c:choose>
 									<c:when test="${pointMap.FM_POINT_HISTORY < 0}">
-										차감
+										[차감]
 									</c:when>
 									<c:when
 										test="${pointMap.FM_POINT_HISTORY > 0 && pointMap.FM_ORDER_NO ne null}">
-										환불
+										[환불]
 									</c:when>
 									<c:otherwise>
-										충전
+										[충전]
 									</c:otherwise>
 								</c:choose></td>
 							<td>${pointMap.FM_POINT_HISTORY}</td>

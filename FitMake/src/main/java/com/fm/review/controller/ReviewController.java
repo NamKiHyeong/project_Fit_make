@@ -171,12 +171,9 @@ public class ReviewController {
 
 			Map<String, Object> map = reviewService.reviewSelectOne(rNo);
 
-			logger.debug("컨트롤러 one에 원하는 정보를 서비스에서 갖고옴? {}", map);
 			ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
-			logger.info("컨트롤러 one에 {}", reviewDto);
 
 			List<Map<String, Object>> fileList2 = (List<Map<String, Object>>) map.get("fileList2");
-			logger.info("컨트롤러 one에 fileList2{}", fileList2);
 
 			model.addAttribute("reviewDto", reviewDto);
 			model.addAttribute("fileList2", fileList2);
@@ -212,8 +209,6 @@ public class ReviewController {
 			ReviewDto reviewDto = (ReviewDto) map.get("reviewDto");
 
 			List<Map<String, Object>> fileList2 = (List<Map<String, Object>>) map.get("fileList2");
-
-			System.out.println("update.do에서 " + rNo);
 
 			model.addAttribute("reviewDto", reviewDto);
 			model.addAttribute("prevMap", prevMap);

@@ -1,6 +1,7 @@
 @charset "UTF-8";
 #itemOneDiv{
 	width:1200px;
+	min-height: 100%;
 	margin:0 auto;
 	display: flex;
 	justify-content: space-around;

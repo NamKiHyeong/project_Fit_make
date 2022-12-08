@@ -6,6 +6,7 @@ $(document).ready(function() {
 		let nickNameChk = $("#nickNameChk").val();
 		if (nickNameChk == null || nickNameChk == '') {
 			$("#result_check_Nickname").html("· 변경할 닉네임을 입력해주세요");
+			$("#result_check_Nickname").css("color", "black");
 			return false;
 		}
 
@@ -24,7 +25,7 @@ $(document).ready(function() {
 					result = "· 사용가능한 닉네임입니다";
 					$("#result_check_Nickname").html(result).css("color", "green");
 				} else {
-					result = "· 이미 사용중인 닉네임입니다";
+					result = "· 동일 닉네임이거나 이미 사용중인 닉네임입니다";
 					$("#result_check_Nickname").html(result).css("color", "red");
 				}
 			},

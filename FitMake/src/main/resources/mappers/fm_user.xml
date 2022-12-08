@@ -57,7 +57,7 @@
 		    SELECT ROWNUM rnum, up.*
 		    FROM(
 		            SELECT u.FM_USER_NO, u.FM_USER_NICKNAME
-                    , u.FM_USER_POINT, p.FM_POINT_NO, p.FM_POINT_HISTORY, p.FM_POINT_CRE_DATE
+                    , u.FM_USER_POINT, p.FM_ORDER_NO ,p.FM_POINT_NO, p.FM_POINT_HISTORY, p.FM_POINT_CRE_DATE
 		            FROM FM_USER u , FM_POINT p
 		            WHERE u.FM_USER_NO = p.FM_USER_NO
 		            ORDER BY u.FM_USER_CRE_DATE DESC) up

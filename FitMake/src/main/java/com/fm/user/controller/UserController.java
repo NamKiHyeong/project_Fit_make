@@ -433,7 +433,7 @@ public class UserController {
 
 			if (!(sessionPwd.equals(existingPwd))) {
 				model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
-				model.addAttribute("url", "redirect:/user/Info.do");
+				model.addAttribute("url", "../user/Info.do");
 
 				return "common/UpdateAlert";
 			}

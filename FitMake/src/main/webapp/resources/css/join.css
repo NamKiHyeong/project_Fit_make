@@ -3,6 +3,7 @@
 /* 전체 div */
 #container {
 	width: 1200px;
+	min-height: 100%;
 	margin: 0 auto;
 }
 /* 회원 div */
