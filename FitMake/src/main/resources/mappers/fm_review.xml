@@ -24,8 +24,8 @@
 			FROM DUAL
 		</selectKey>
 			INSERT INTO FM_REVIEW
-			VALUE(FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT, FM_REVIEW_CRE_DATE, FM_REVIEW_MOD_DATE)
-			VALUES(${rNo}, ${iNo}, #{uNo}, #{rTitle}, #{rContent}, SYSDATE, SYSDATE)
+			VALUE(FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_ORDER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT, FM_REVIEW_CRE_DATE, FM_REVIEW_MOD_DATE)
+			VALUES(${rNo}, ${iNo}, #{uNo}, #{oNo}, #{rTitle}, #{rContent}, SYSDATE, SYSDATE)
 		</insert>
 	<!-- 	review File -->
 	<insert id="insertFile" parameterType="map">
@@ -111,4 +111,10 @@
 		WHERE FM_REVIEW_IMG_NO = ${value}
 	</delete>
 	
+	<select id="getCountReviewList" parameterType="map" resultType="int">
+		SELECT count(FM_USER_NO)
+		FROM FM_REVIEW
+		WHERE FM_USER_NO = #{uNo}
+		AND FM_ORDER_NO = #{oNo}
+	</select>
 </mapper>

@@ -18,21 +18,48 @@
 			location.href = './list.do?searchOption=' + searchOptionVal + '&searchText=' + searchTextVal;
 		});
 		
-		$('#writeReviewBtn').on('click', function(){
-			var confirmWriteReview = confirm("리뷰 작성페이지로 이동하시겠습니까?");
-			
-			if(confirmWriteReview == true){
-				location.href='../review/list.do';
-			} else {
-				return false;
-			}
-		});
 	});
+	
+	function writeReviewFnc(oNo){
+		var confirmWriteReview = confirm("리뷰 작성페이지로 이동하시겠습니까?");
+		
+		if(confirmWriteReview == true){
+			
+			$.ajax({
+				type : 'POST',
+				url : '../review/check.do',
+				dataType : 'json',
+				data : {
+					'oNo' : oNo},
+				error : function(request, status, error) {
+					alert('code:' + request.status + '\n' + 'message:'
+							+ request.responseText + '\n' + 'error:' + error);
+				},
+				success : function(data) {
+						
+					if(data == 0) {
+						alert('작성 가능한 리뷰가 없습니다.');
+						$('#writeReviewBtn'+oNo).attr('disabled', true);
+						$('#writeReviewBtn'+oNo).css('background', 'grey');
+						$('#writeReviewBtn'+oNo).css('border', '2px solid grey');
+						
+						return false;
+					} else {
+						location.href='../review/add.do?oNo='+oNo;
+					}
+				}
+			})
+			
+		} else {
+			return false;
+		}
+	}
+	
 	
 	function orderUpdateFnc(oNo, oStatus){
 		
 		if(oStatus === '주문취소'){
-			var checkOrderCancel = confirm("주문을 취소하시겠습니까?");
+			var checkOrderCancel = confirm('주문을 취소하시겠습니까?');
 			
 			if(checkOrderCancel == true){
 				$('#oStatusArr'+ oNo).val('cancel');
@@ -43,7 +70,7 @@
 				return false;
 			}
 		} else{
-			var checkOrderPixed = confirm("구매를 확정하시겠습니까?");
+			var checkOrderPixed = confirm('구매를 확정하시겠습니까?');
 			
 			if(checkOrderPixed == true){
 				$('#oStatusArr'+ oNo).val('pixed');
@@ -134,7 +161,7 @@
 	.myOrderStatusUpdateBtn{
 		text-align: right;
 	}
-	#writeReviewBtn{
+	.writeReviewBtn{
 		margin-left: 10px;
 		width: auto;
 		background: #d7266d;
@@ -204,7 +231,7 @@
 											<c:otherwise>
 												<span class="myOrderStatus">구매확정</span>
 												<span>
-													<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="location.href='../review/add.do'">
+													<input id="writeReviewBtn${orderMap.FM_ORDER_NO}" class="writeReviewBtn" type="button" value="리뷰쓰기" onclick="writeReviewFnc(${orderMap.FM_ORDER_NO});">
 												</span>
 											</c:otherwise>
 										</c:choose>

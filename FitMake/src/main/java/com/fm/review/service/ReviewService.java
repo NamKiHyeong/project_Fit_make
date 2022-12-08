@@ -20,6 +20,9 @@ public interface ReviewService {
 //	D
 	public void reviewDeleteOne(int rNo);
 
-	public List<Map<String, Object>> getOrderList(int uNo);
+	public List<Map<String, Object>> getOrderList(int uNo, int oNo);
+
+	public int getCountReviewList(int uNo, int oNo);
+
 	
 }

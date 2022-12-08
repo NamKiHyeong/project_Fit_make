@@ -198,17 +198,21 @@
 		AND FM_ORDER_STATUS = #{oStatus}
 	</select>
 	
-	<select id="getOrderList" parameterType="int" resultType="map">
-		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME 
+	<select id="getOrderList" parameterType="map" resultType="map">
+		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME, o.FM_ORDER_NO, r.FM_ORDER_NO 
 		FROM FM_USER u
 			INNER JOIN FM_ORDER o
 				ON u.FM_USER_NO = o.FM_USER_NO
 			INNER JOIN FM_ORDER_DETAIL od
 				ON o.FM_ORDER_NO = od.FM_ORDER_NO
 			INNER JOIN FM_ITEM i
-				ON od.FM_ITEM_NO = i.FM_ITEM_NO 
-		WHERE u.FM_USER_NO = #{uNo}
-		AND o.FM_ORDER_STATUS = 'pixed'
-		GROUP BY i.FM_ITEM_NO, i.FM_ITEM_NAME
+				ON od.FM_ITEM_NO = i.FM_ITEM_NO
+            LEFT OUTER JOIN FM_REVIEW r
+                ON i.FM_ITEM_NO = r.FM_ITEM_NO
+            WHERE u.FM_USER_NO = #{uNo}
+            AND o.FM_ORDER_STATUS = 'pixed'
+            AND o.FM_ORDER_NO = #{oNo}
+            AND r.FM_ORDER_NO IS NULL
+            GROUP BY i.FM_ITEM_NO, i.FM_ITEM_NAME, o.FM_ORDER_NO, r.FM_ORDER_NO
 	</select>
 </mapper>

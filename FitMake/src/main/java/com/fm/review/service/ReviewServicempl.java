@@ -178,10 +178,17 @@ public class ReviewServicempl implements ReviewService {
 	}
 
 	@Override
-	public List<Map<String, Object>> getOrderList(int uNo) {
+	public List<Map<String, Object>> getOrderList(int uNo, int oNo) {
 		
-		return reviewDao.getOrderList(uNo);
+		return reviewDao.getOrderList(uNo, oNo);
 	}
+
+	@Override
+	public int getCountReviewList(int uNo, int oNo) {
+		
+		return reviewDao.getCountReviewList(uNo, oNo);
+	}
+
 	
 	
 }

@@ -7,25 +7,27 @@ public class ReviewDto {
 	private int rNo = 0;
 	private int iNo = 0;
 	private int uNo = 0;
+	private int oNo = 0;
 	private String rTitle = "";
 	private String rContent = "";
 	private Date rCreDate = null;
 	private Date rModDate = null;
 
-	public ReviewDto(int rNo, int iNo, int uNo, String rTitle, String rContent, Date rCreDate, Date rModDate) {
+	public ReviewDto() {
+		super();
+	}
+	
+	public ReviewDto(int rNo, int iNo, int uNo, int oNo, String rTitle, String rContent, Date rCreDate, Date rModDate) {
 		super();
 		this.rNo = rNo;
 		this.iNo = iNo;
 		this.uNo = uNo;
+		this.oNo = oNo;
 		this.rTitle = rTitle;
 		this.rContent = rContent;
 		this.rCreDate = rCreDate;
 		this.rModDate = rModDate;
 	}
-	public ReviewDto() {
-		super();
-	}
-
 
 	public int getrNo() {
 		return rNo;
@@ -69,6 +71,13 @@ public class ReviewDto {
 	public void setrModDate(Date rModDate) {
 		this.rModDate = rModDate;
 	}
+	public int getoNo() {
+		return oNo;
+	}
+	public void setoNo(int oNo) {
+		this.oNo = oNo;
+	}
+
 	@Override
 	public String toString() {
 		return "ReviewDto [rNo=" + rNo + ", iNo=" + iNo + ", uNo=" + uNo + ", rTitle=" + rTitle + ", rContent="

@@ -18,13 +18,14 @@
 		location.href = "./list.do";
 	}
 	function getMyOrderItemListFnc() {
-		var uNo = sessionStorage.getItem('uNo');
+		var oNo = $('#oNo').val();
 
 		$.ajax({
 			type : "POST",
 			url : "../review/compose.do",
 			dataType : "json",
-			data : {},
+			data : {
+				"oNo" : oNo},
 			error : function(request, status, error) {
 				alert("code:" + request.status + "\n" + "message:"
 						+ request.responseText + "\n" + "error:" + error);
@@ -42,7 +43,7 @@
 
 				$('#myOrderItem').html(str);
 			}
-		})
+		});
 	}
 </script>
 <style type="text/css">
@@ -57,6 +58,7 @@
 	<div id="raContainerDiv">
 		<form action="./addCtr.do" method="post" enctype="multipart/form-data" style="height: 1000px;">
 			<input type="hidden" name="uNo" value="${_userDto_.uNo}">
+			<input type="hidden" name="oNo" id="oNo" value="${oNo}">
 			<div class="diet_wrap">
 				<div class="frame">
 					<div class="sortImg sort1">

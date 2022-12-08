@@ -82,10 +82,20 @@ public class ReviewDaompl implements ReviewDao {
 		return sqlSession.delete(namespace + "fileDelete", rNo);
 	}
 	@Override
-	public List<Map<String, Object>> getOrderList(int uNo) {
+	public List<Map<String, Object>> getOrderList(int uNo, int oNo) {
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("oNo", oNo);
 		
 		
-		return sqlSession.selectList("com.fm.order.getOrderList", uNo);
+		return sqlSession.selectList("com.fm.order.getOrderList", inputMap);
+	}
+	@Override
+	public int getCountReviewList(int uNo, int oNo) {
+		Map<String, Object> inputMap = new HashMap<String, Object>();
+		inputMap.put("uNo", uNo);
+		inputMap.put("oNo", oNo);
+		return sqlSession.selectOne(namespace + "getCountReviewList", inputMap);
 	}
 	
 	

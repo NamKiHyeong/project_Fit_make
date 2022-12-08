@@ -1,5 +1,6 @@
 package com.fm.review.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,9 +39,11 @@ public class ReviewController {
 	 * @return
 	 */
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model, HttpSession session) {
+	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, @RequestParam(defaultValue = "0") int oNo
+				, Model model, HttpSession session) {
 		
 		model.addAttribute("iNo", iNo);
+		model.addAttribute("oNo", oNo);
 		return "/review/ReviewAdd";
 	}
 	
@@ -51,13 +54,33 @@ public class ReviewController {
 	 */
 	@ResponseBody
 	@RequestMapping(value="/review/compose.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public List<Map<String, Object>> reviewCompose(HttpSession session) {
+	public List<Map<String, Object>> reviewCompose(HttpSession session, @RequestParam(value = "oNo") int oNo) {
 		UserDto userDto= (UserDto)session.getAttribute("_userDto_");
 		int uNo = userDto.getuNo();
 		
-		List<Map<String, Object>> myOrderList = reviewService.getOrderList(uNo);
+		List<Map<String, Object>> myReviewOrderItemList = reviewService.getOrderList(uNo, oNo);
 		
-		return myOrderList;
+		return myReviewOrderItemList;
+	}
+	
+	/**
+	 * 비동기 리뷰 작성 확인
+	 * @param session	회원번호를 얻기 위한 객체
+	 * @param oNo		리뷰 작성할 주문 번호
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="/review/check.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public int reviewCheck(HttpSession session, @RequestParam(value = "oNo") int oNo) {
+		UserDto userDto= (UserDto)session.getAttribute("_userDto_");
+		int uNo = userDto.getuNo();
+		
+		int myRCount = reviewService.getCountReviewList(uNo, oNo);
+		List<Map<String, Object>> myReviewOrderItemList = reviewService.getOrderList(uNo, oNo);
+		
+		int result = (myRCount-myReviewOrderItemList.size());
+		
+		return result;
 	}
 	
 	/** 
