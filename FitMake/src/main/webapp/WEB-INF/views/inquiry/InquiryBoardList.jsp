@@ -121,7 +121,7 @@
 										<a href="./detail.do?bNo=${inquiryMap.FM_INQUIRY_NO}">${inquiryMap.FM_INQUIRY_TITLE} </a>
 									</td>
 									<td class="inquiryListContent">
-										${inquiryMap.igrCount}
+										${inquiryMap.rCount}
 									</td>
 									<td class="inquiryListContent">
 										${inquiryMap.FM_INQUIRY_CRE_DATE}
@@ -138,7 +138,9 @@
 							</c:if>
 							<tr>
 								<td colspan="4" id="AddInquiryBtnArea">
-									<input type="button" id="AddInquiryBtn" value="문의하기" onclick="location.href='./add.do'">
+									<c:if test="${_userDto_.getuNo() != 1}">
+										<input type="button" id="AddInquiryBtn" value="문의하기" onclick="location.href='./add.do'">
+									</c:if>
 								</td>
 							</tr>
 						</table>

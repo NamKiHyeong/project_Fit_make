@@ -3,6 +3,7 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.order">
 	
+	<!-- 검색옵션 -->
 	<sql id="search">
 		WHERE ${searchOption} LIKE '%' || #{searchText} || '%'
 		<if test="uNo != 1">
@@ -10,15 +11,7 @@
 		</if>
 	</sql>
 	
-	<resultMap type="orderDto" id="orderResultMap">
-		<id column="FM_ORDER_NO" property="oNo"/>
-		<result column="FM_USER_NO" property="uNo"/>
-		<result column="FM_ORDER_DATE" property="createDate" javaType="java.util.Date"/>
-		<result column="FM_ORDER_STATUS" property="oStatus"/>
-		<result column="FM_USER_NICKNAME" property="uNickname"/>
-		<result column="FM_ORDER_DETAIL_PRICE" property="totalPrice"/>
-	</resultMap>
-	
+	<!-- 장바구니 리스트 확인 -->
 	<select id="viewCartList" parameterType="int" resultType="map">
 		SELECT c.FM_CART_NO, c.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, c.FM_CART_COUNT 
 				, ig.FM_ITEM_STORED_IMG_NAME
@@ -33,18 +26,60 @@
 		ORDER BY c.FM_CART_NO DESC
 	</select>
 	
+	<!-- 장바구니 추가 -->
 	<insert id="addCart" parameterType="map">
 		INSERT INTO FM_CART
 		VALUE(FM_CART_NO, FM_ITEM_NO, FM_USER_NO, FM_CART_COUNT)
 		VALUES(SEQ_FM_CART_NO.NEXTVAL, #{iNo}, #{uNo}, #{iCount})
 	</insert>
 	
+	<!-- 장바구니 삭제 -->
 	<delete id="deleteCart" parameterType="map">
 		DELETE FROM FM_CART
 		WHERE FM_USER_NO = #{uNo}
 		AND FM_CART_NO = #{ctNo}
 	</delete>
 	
+	<!-- 장바구니 총 금액 -->
+	<select id="getTotalCartPrice" parameterType="int" resultType="int">
+		SELECT SUM(ct.FM_CART_COUNT * i.FM_ITEM_SELLPRICE) AS "cartSum"
+		FROM FM_CART ct
+			INNER JOIN FM_ITEM i
+				ON ct.FM_ITEM_NO = i.FM_ITEM_NO
+		WHERE ct.FM_USER_NO = #{uNo}
+	</select>
+	
+	<!-- 장바구니 제품 갯수 변경 -->
+	<update id="updateCart" parameterType="cartDto">
+		UPDATE FM_CART
+		SET FM_CART_COUNT = #{ctCount}
+		WHERE FM_CART_NO = #{ctNo}
+	</update>
+	
+	<!-- 장바구니 중복 확인 -->
+	<select id="checkCart" parameterType="map" resultType="int">
+		SELECT COUNT(FM_USER_NO)
+		FROM FM_CART
+		WHERE FM_ITEM_NO = #{iNo}
+		AND FM_USER_NO = #{uNo}
+	</select>
+	
+	<!-- 장바구니 사진 리스트 -->
+	<select id="viewCartFileList" parameterType="int" resultType="map">
+		SELECT ig.FM_ITEM_IMG_NO, ig.FM_ITEM_NO, ig.FM_ITEM_IMG_NAME, ig.FM_ITEM_STORED_IMG_NAME
+		FROM FM_CART c
+		    INNER JOIN FM_ITEM i
+		        ON c.FM_ITEM_NO = i.FM_ITEM_NO
+		    INNER JOIN FM_ITEM_IMG ig
+		        ON i.FM_ITEM_NO = ig.FM_ITEM_NO
+		WHERE c.FM_USER_NO = #{uNo}
+		ORDER BY c.FM_CART_NO DESC
+	</select>
+	
+	
+	<!-- @@@ 주문 기능 @@@ -->
+	
+	<!-- 주문리스트 확인 -->
 	<select id="viewOrderList" parameterType="map" resultType="map">
 		SELECT *
 		FROM ( SELECT ol.FM_USER_NICKNAME, ol.FM_ORDER_NO, ol.FM_ORDER_DATE, ol.FM_ORDER_STATUS
@@ -71,12 +106,14 @@
 		WHERE oll."rNum" BETWEEN #{start} AND #{end}
 	</select>
 	
+	<!-- 주문생성 -->
 	<insert id="addOrder" parameterType="int">
 		INSERT INTO FM_ORDER
 		VALUE(FM_ORDER_NO, FM_USER_NO, FM_ORDER_DATE, FM_ORDER_STATUS)
 		VALUES(SEQ_FM_ORDER_NO.NEXTVAL, #{uNo}, SYSDATE, 'pending')
 	</insert>
 	
+	<!-- 주문확정 전 제품리스트 -->
 	<select id="viewOrderConfirmItem" parameterType="int" resultType="map">
 		SELECT od.FM_ORDER_DETAIL_NO, i.FM_ITEM_NAME, od.FM_ORDER_DETAIL_COUNT, od.FM_ORDER_DETAIL_PRICE
 			, SUM(od.FM_ORDER_DETAIL_PRICE * od.FM_ORDER_DETAIL_COUNT) OVER(PARTITION by o.FM_ORDER_NO) AS "totalPrice"
@@ -89,18 +126,14 @@
 		ORDER BY i.FM_ITEM_NAME ASC
 	</select>
 	
+	<!-- 주문상세 추가 -->
 	<insert id="addOrderDetail" parameterType="map">
 		INSERT INTO FM_ORDER_DETAIL
 		VALUE(FM_ORDER_DETAIL_NO, FM_ORDER_NO, FM_ITEM_NO, FM_ORDER_DETAIL_COUNT, FM_ORDER_DETAIL_PRICE)
 		VALUES(SEQ_FM_ORDER_DETAIL_NO.NEXTVAL, SEQ_FM_ORDER_NO.CURRVAL, #{iNo}, #{iCount}, #{price})
 	</insert>
 	
-	<update id="updateCart" parameterType="cartDto">
-		UPDATE FM_CART
-		SET FM_CART_COUNT = #{ctCount}
-		WHERE FM_CART_NO = #{ctNo}
-	</update>
-	
+	<!-- 주문번호 확인 -->
 	<select id="viewOrderNo" parameterType="int" resultType="int">
 		SELECT *
 		FROM (SELECT o.FM_ORDER_NO 
@@ -111,51 +144,8 @@
 				ORDER BY o.FM_ORDER_DATE DESC)
 		WHERE ROWNUM = 1
 	</select>
-	<delete id="deleteOrder" parameterType="map">
-		DELETE FROM FM_ORDER 
-		WHERE FM_ORDER_NO = #{oNo}
-		AND FM_USER_NO = #{uNo}
-	</delete>
 	
-	<update id="updateOrder" parameterType="map">
-		UPDATE FM_ORDER
-		SET FM_ORDER_STATUS = #{oStatus}
-		WHERE FM_ORDER_NO = #{oNo}
-	</update>
-	
-	<select id="getOrderTotalCount" parameterType="map"  resultType="int">
-		SELECT COUNT(FM_ORDER_NO)
-		FROM FM_ORDER o
-			INNER JOIN FM_USER u
-				ON o.FM_USER_NO = u.FM_USER_NO
-		<include refid="search"></include>
-	</select>
-	
-	<select id="checkCart" parameterType="map" resultType="int">
-		SELECT COUNT(FM_USER_NO)
-		FROM FM_CART
-		WHERE FM_ITEM_NO = #{iNo}
-		AND FM_USER_NO = #{uNo}
-	</select>
-	
-	<select id="viewCartFileList" parameterType="int" resultType="map">
-		SELECT ig.FM_ITEM_IMG_NO, ig.FM_ITEM_NO, ig.FM_ITEM_IMG_NAME, ig.FM_ITEM_STORED_IMG_NAME
-		FROM FM_CART c
-		    INNER JOIN FM_ITEM i
-		        ON c.FM_ITEM_NO = i.FM_ITEM_NO
-		    INNER JOIN FM_ITEM_IMG ig
-		        ON i.FM_ITEM_NO = ig.FM_ITEM_NO
-		WHERE c.FM_USER_NO = #{uNo}
-		ORDER BY c.FM_CART_NO DESC
-	</select>
-	
-	<select id="countMyOrderStatus" parameterType="map" resultType="int">
-		SELECT COUNT(FM_ORDER_NO)
-		FROM FM_ORDER
-		WHERE FM_USER_NO = #{uNo}
-		AND FM_ORDER_STATUS = #{oStatus}
-	</select>
-	
+	<!-- 주문상세 제품 -->
 	<select id="viewOrderDetailItem" parameterType="int" resultType="map">
 		SELECT *
 		FROM(SELECT odl.FM_ORDER_DETAIL_NO, odl.FM_ITEM_NAME, odl.FM_ORDER_DETAIL_COUNT, odl.FM_ORDER_DETAIL_PRICE
@@ -176,11 +166,36 @@
 		WHERE odll.FM_ORDER_NO = #{oNo}
 		AND ROWNUM = 1
 	</select>
-	<select id="getTotalCartPrice" parameterType="int" resultType="int">
-		SELECT SUM(ct.FM_CART_COUNT * i.FM_ITEM_SELLPRICE) AS "cartSum"
-		FROM FM_CART ct
-			INNER JOIN FM_ITEM i
-				ON ct.FM_ITEM_NO = i.FM_ITEM_NO
-		WHERE ct.FM_USER_NO = #{uNo}
+	
+	<!-- 주문삭제 -->
+	<delete id="deleteOrder" parameterType="map">
+		DELETE FROM FM_ORDER 
+		WHERE FM_ORDER_NO = #{oNo}
+		AND FM_USER_NO = #{uNo}
+	</delete>
+	
+	<!-- 주문 상태 업데이트 -->
+	<update id="updateOrder" parameterType="map">
+		UPDATE FM_ORDER
+		SET FM_ORDER_STATUS = #{oStatus}
+		WHERE FM_ORDER_NO = #{oNo}
+	</update>
+	
+	<!-- 주문 총 갯수 확인 -->
+	<select id="getOrderTotalCount" parameterType="map"  resultType="int">
+		SELECT COUNT(FM_ORDER_NO)
+		FROM FM_ORDER o
+			INNER JOIN FM_USER u
+				ON o.FM_USER_NO = u.FM_USER_NO
+		<include refid="search"></include>
 	</select>
+	
+	<!-- 내 주문 상태 별 갯수 확인 -->	
+	<select id="countMyOrderStatus" parameterType="map" resultType="int">
+		SELECT COUNT(FM_ORDER_NO)
+		FROM FM_ORDER
+		WHERE FM_USER_NO = #{uNo}
+		AND FM_ORDER_STATUS = #{oStatus}
+	</select>
+	
 </mapper>

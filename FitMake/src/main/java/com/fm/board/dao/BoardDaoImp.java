@@ -65,7 +65,7 @@ public class BoardDaoImp implements BoardDao{
 		
 		return sqlSession.selectList(namespace + "viewReplyList", replyDto);
 	}
-
+	
 	@Override
 	public int addReply(ReplyDto replyDto) {
 		

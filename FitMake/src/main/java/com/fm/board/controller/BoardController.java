@@ -29,6 +29,13 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
+	/**
+	 * 문의게시판 리스트를 반환하는 기능
+	 * @param session	세션에 저장된 회원번호를 구하기 위한 객체
+	 * @param model		화면 구성을 위한 객체
+	 * @param curPage	현재 페이지 정보
+	 * @return
+	 */
 	@RequestMapping(value = "/inquiry/list.do", method = RequestMethod.GET)
 	public String viewBoardList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage) {
 		
@@ -62,6 +69,12 @@ public class BoardController {
 		return viewUrl;
 	}
 	
+	/**
+	 * 문의게시판 작성을 위한 기능
+	 * @param session	회원번호를 가져오기 위한 객체
+	 * @param boardDto	작성된 내용을 DB에 전달하기 위한 객체
+	 * @return	
+	 */
 	@RequestMapping(value = "/inquiry/add.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addBoardDetail(HttpSession session, BoardDto boardDto) {
 		String viewUrl = "";
@@ -83,6 +96,13 @@ public class BoardController {
 		return viewUrl;
 	}
 	
+	/**
+	 * 문의게시판 내용을 보기 위한 기능 
+	 * @param session	회원번호를 가져오기 위한 객체
+	 * @param model		화면구성을 위한 객체
+	 * @param bNo		게시글번호
+	 * @return
+	 */
 	@RequestMapping(value="/inquiry/detail.do", method = RequestMethod.GET)
 	public String viewBoardDetail(HttpSession session, Model model, @RequestParam int bNo) {
 		
@@ -100,6 +120,12 @@ public class BoardController {
 		return viewUrl;
 	}
 	
+	/**
+	 * 게시판 글 삭제를 위한 기능
+	 * @param session	회원번호를 가져오기 위한 객체
+	 * @param boardDto	게시판 번호를 가져오기 위한 객체
+	 * @return			
+	 */
 	@RequestMapping(value="/inquiry/delete.do")
 	public String deleteBoardDetail(HttpSession session, BoardDto boardDto) {
 		
@@ -118,6 +144,12 @@ public class BoardController {
 		return viewUrl;
 	}
 	
+	/**
+	 * 비동기 댓글 작성을 위한 기능
+	 * @param session	회원번호를 가져오기 위한 객체
+	 * @param replyDto	DB에 담을 내용을 가져오기 위한 객체
+	 * @return			댓글 작성 성공 여부 1 성공 
+	 */
 	@ResponseBody
 	@RequestMapping(value="/reply/add.do", method = RequestMethod.POST)
 	public int addReply(HttpSession session, ReplyDto replyDto) {
@@ -131,6 +163,12 @@ public class BoardController {
 		return result;
 	}
 	
+	/**
+	 * 비동기 댓글 리스트를 가져오기 위한 기능 
+	 * @param session	회원번호를 가져오기 위한 객체
+	 * @param replyDto	댓글 내용 잡합을 가져오기 위한 객체
+	 * @return			댓글 리스트를 반환
+	 */
 	@ResponseBody
 	@RequestMapping(value="/reply/list.do", method = RequestMethod.POST)
 	public List<Map<String, Object>> viewReplyList (HttpSession session, ReplyDto replyDto) {

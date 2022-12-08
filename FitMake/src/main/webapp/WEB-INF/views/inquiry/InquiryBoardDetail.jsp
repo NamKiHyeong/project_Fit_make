@@ -107,7 +107,7 @@
 									작성일 ${inquiryMap.FM_INQUIRY_CRE_DATE}
 								</td>
 								<td class="inquiryDetailHead">
-									댓글수 ${inquiryMap.igrCount}
+									댓글수 ${inquiryMap.rCount}
 								</td>
 							</tr>
 							<tr>

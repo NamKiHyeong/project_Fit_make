@@ -9,18 +9,20 @@ public class BoardDto {
 	private String bTitle = "";
 	private String bContent = "";
 	private Date bqDate = null;
+	private int rCount = 0;
 	
 	public BoardDto() {
 		super();
 	}
 
-	public BoardDto(int bNo, int uNo, String bTitle, String bContent, Date bqDate) {
+	public BoardDto(int bNo, int uNo, String bTitle, String bContent, Date bqDate, int rCount) {
 		super();
 		this.bNo = bNo;
 		this.uNo = uNo;
 		this.bTitle = bTitle;
 		this.bContent = bContent;
 		this.bqDate = bqDate;
+		this.rCount = rCount;
 	}
 
 	public int getbNo() {
@@ -63,6 +65,12 @@ public class BoardDto {
 		this.bqDate = bqDate;
 	}
 
-	
+	public int getrCount() {
+		return rCount;
+	}
+
+	public void setrCount(int rCount) {
+		this.rCount = rCount;
+	}
 	
 }

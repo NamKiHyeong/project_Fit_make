@@ -3,13 +3,6 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.fm.board">
 	
-<!-- 	<sql id="search"> -->
-<!-- 		WHERE ${searchOption} LIKE '%' || #{searchText} || '%' -->
-<!-- 		<if test="uNo != 1"> -->
-<!-- 			AND u.FM_USER_NO = #{uNo} -->
-<!-- 		</if> -->
-<!-- 	</sql> -->
-	
 	<resultMap type="replyDto" id="replyResultMap">
 		<id column="FM_INQUIRY_REPLY_NO" property="irNo"/>
 		<result column="FM_USER_NO" property="uNo"/>
@@ -19,13 +12,17 @@
 		<result column="FM_INQUIRY_REPLY_PARENT" property="irParentNo"/>
 	</resultMap>
 	
+	<!-- 게시판리스트 -->
 	<select id="viewBoardList" parameterType="map" resultType="map">
 		SELECT *
 		FROM (SELECT iql.FM_INQUIRY_NO, iql.FM_INQUIRY_TITLE, iql.FM_INQUIRY_CRE_DATE, iql.FM_USER_NO
-					, ROW_NUMBER() OVER(PARTITION BY iql.FM_INQUIRY_NO ORDER BY iql.FM_INQUIRY_CRE_DATE DESC) as "bCount"
-					, DENSE_RANK() OVER(ORDER BY iql.FM_INQUIRY_NO DESC) as "rNum" 
-				FROM(	SELECT FM_INQUIRY_NO, FM_INQUIRY_TITLE, FM_INQUIRY_CRE_DATE, FM_USER_NO
-						FROM FM_INQUIRY 
+					, ROW_NUMBER() OVER(PARTITION BY iql.FM_INQUIRY_NO ORDER BY iql.FM_INQUIRY_CRE_DATE DESC) AS "bCount"
+					, DENSE_RANK() OVER(ORDER BY iql.FM_INQUIRY_NO DESC) AS "rNum"
+					, COUNT(iql.FM_INQUIRY_REPLY_NO) OVER(PARTITION BY iql.FM_INQUIRY_NO) AS "rCount"
+				FROM(	SELECT iq.FM_INQUIRY_NO, iq.FM_INQUIRY_TITLE, iq.FM_INQUIRY_CRE_DATE, iq.FM_USER_NO, iqr.FM_INQUIRY_REPLY_NO
+						FROM FM_INQUIRY iq
+							LEFT OUTER JOIN FM_INQUIRY_REPLY iqr
+								ON iq.FM_INQUIRY_NO = iqr.FM_INQUIRY_NO 
 					) iql
 			) iqll
 		WHERE iqll."rNum" BETWEEN #{start} AND #{end}
@@ -34,33 +31,41 @@
 		</if>
 	</select>
 	
+	<!-- 게시판 페이징을 위한 게시글 갯수 -->
 	<select id="getBoardTotalCount" parameterType="int" resultType="int">
 		SELECT COUNT(FM_USER_NO)
 		FROM FM_INQUIRY
 		WHERE FM_USER_NO = #{uNo}
 	</select>
 	
+	<!-- 게시판 상세보기 -->
 	<select id="viewBoardDetail" parameterType="map" resultType="map">
-		SELECT *
+		SELECT iq.*, COUNT(iqr.FM_INQUIRY_REPLY_NO) OVER(PARTITION BY iq.FM_INQUIRY_NO) AS "rCount", u.FM_USER_NO
+				, u.FM_USER_NICKNAME
 		FROM FM_INQUIRY iq
 			INNER JOIN FM_USER u
 				ON iq.FM_USER_NO = u.FM_USER_NO
+			LEFT OUTER JOIN FM_INQUIRY_REPLY iqr
+				ON iq.FM_INQUIRY_NO = iqr.FM_INQUIRY_NO 
 		WHERE iq.FM_USER_NO = #{uNo}
 		AND iq.FM_INQUIRY_NO = #{bNo}
 	</select>
 	
+	<!-- 게시글 작성 -->
 	<insert id="addBoardDetail" parameterType="boardDto">
 		INSERT INTO FM_INQUIRY
 		VALUE(FM_INQUIRY_NO, FM_USER_NO, FM_INQUIRY_TITLE, FM_INQUIRY_CONTENT, FM_INQUIRY_CRE_DATE, FM_INQUIRY_MOD_DATE)
 		VALUES(SEQ_FM_INQUIRY_NO.NEXTVAL, #{uNo}, #{bTitle}, #{bContent}, SYSDATE, SYSDATE)
 	</insert>
 	
+	<!-- 게시글 삭제 -->
 	<delete id="deleteBoardDetail" parameterType="boardDto">
 		DELETE FROM FM_INQUIRY
 		WHERE FM_USER_NO = #{uNo}
 		AND FM_INQUIRY_NO = #{bNo}
 	</delete>
 	
+	<!-- 부모댓글번호 확인 -->
 	<select id="getIrParentNo" parameterType="int" resultMap="replyResultMap">
 		SELECT irr.FM_INQUIRY_REPLY_NO
 			FROM ( SELECT ROWNUM "rNum", igr.FM_INQUIRY_REPLY_NO, igr.FM_INQUIRY_NO
@@ -73,12 +78,14 @@
 			WHERE irr."rNum" = 1
 	</select>
 	
+	<!-- 댓글작성 -->
 	<insert id="addReply" parameterType="replyDto">
 		INSERT INTO FM_INQUIRY_REPLY
 		VALUE(FM_INQUIRY_REPLY_NO, FM_USER_NO, FM_INQUIRY_NO, FM_INQUIRY_REPLY_CONTENT, FM_INQUIRY_REPLY_CRE_DATE, FM_INQUIRY_REPLY_PARENT)
 		VALUES(SEQ_FM_INQUIRY_REPLY_NO.NEXTVAL, #{uNo}, #{bNo}, #{irContent}, SYSDATE, #{irParentNo, jdbcType=NUMERIC})
 	</insert>
 	
+	<!-- 댓글리스트 확인 -->
 	<select id="viewReplyList" parameterType="replyDto" resultType="map">
 		SELECT iqr.FM_INQUIRY_REPLY_NO, iqr.FM_INQUIRY_NO, iqr.FM_INQUIRY_REPLY_CONTENT, iqr.FM_INQUIRY_REPLY_CRE_DATE, u.FM_USER_NICKNAME
 		FROM FM_INQUIRY_REPLY iqr

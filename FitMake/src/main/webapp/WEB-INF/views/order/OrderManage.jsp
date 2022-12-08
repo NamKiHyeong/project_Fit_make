@@ -14,7 +14,7 @@
 		$('select[name="oStatus"]').each(function() {
 			$(this).val($(this).siblings('input').val());
 			
-			if($(this).val() === 'cancel'){
+			if($(this).val() === 'cancel' || $(this).val() === 'pixed'){
 				$(this).attr("disabled", true);				
 			}
 		});
@@ -73,18 +73,17 @@
 		display: flex;
 		width : 1200px;
 		margin: 0px auto;
-		justify-content: space-between;
+		justify-content: center;
 	}
 	#pagingDiv{
 		display: flex;
 		flex-direction: column;
 	}
 	#orderManageDiv{
-		width: 1000px;
+		width: 1200px;
 		
 	}
 	#titleDiv{
-		margin-top: 100px;
 		position: relative;
 		overflow: hidden;
 	}
@@ -135,13 +134,11 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	<div style="height: 50px;"></div>
 	<div id="orderRootDiv">
-	<jsp:include page="../MyPageLeft.jsp" />
 		<div id="pagingDiv">
 			<div id="orderManageDiv">
 				<div id="titleDiv">
-					<p id="orderManageTitle">주문조회</p>
+					<p id="orderManageTitle">주문관리</p>
 				</div>
 			
 				<form id="orderListForm">
