@@ -79,8 +79,6 @@ public class ItemController {
 		int totalItemCount = 0;
 		List<ItemDto> itemList = null;
 		Paging itemPaging = null;
-		String categoryName = ""; 
-		
 		
 		if(cNo > 2) {
 			
@@ -91,7 +89,7 @@ public class ItemController {
 			int end = itemPaging.getPageEnd();
 			
 			itemList = itemService.itemSelectList(cNo, keyword, start, end, older, 0);
-			categoryName = itemService.getCategoryName(cNo);
+			
 		} else if (cNo == 2) {
 			
 			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, -1);
@@ -101,7 +99,6 @@ public class ItemController {
 			int end = itemPaging.getPageEnd();
 			
 			itemList = itemService.viewBestItemList(cNo, keyword, start, end, older, -1);
-			categoryName = itemService.getCategoryName(cNo);
 		} else {
 			
 			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
@@ -111,10 +108,10 @@ public class ItemController {
 			int end = itemPaging.getPageEnd();
 			
 			itemList = itemService.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
-			categoryName = itemService.getCategoryName(cNo);
 			
 		}
 		
+		String categoryName = itemService.getCategoryName(cNo);
 		
 		Map<String, Object> searchMap = new HashMap<>();
 		searchMap.put("keyword", keyword);

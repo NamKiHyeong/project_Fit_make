@@ -153,6 +153,10 @@
 		            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
 		        INNER JOIN FM_USER u
 	                ON u.FM_USER_NO = ubi.FM_USER_NO 
+	            INNER JOIN FM_ITEM_IMG ig
+	                ON i.FM_ITEM_NO = ig.FM_ITEM_NO
+	            LEFT OUTER JOIN FM_REVIEW r
+	                ON i.FM_ITEM_NO = r.FM_ITEM_NO
 			</when>
 			<when test="uNo == -1" >
 				SELECT COUNT(COUNT(i.FM_ITEM_NO))
@@ -203,7 +207,6 @@
 				            LEFT OUTER JOIN FM_REVIEW r
 				                ON i.FM_ITEM_NO = r.FM_ITEM_NO
 				            <include refid="search"></include>
-				            AND u.FM_USER_NO = #{uNo}
 							<choose>
 					            <when test="older == 1">
 					            	ORDER BY i.FM_ITEM_SELLPRICE ASC
