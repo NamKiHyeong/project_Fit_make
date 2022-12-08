@@ -80,9 +80,9 @@ public class ItemServicempl implements ItemService {
 			int iNo = itemDto.getiNo();
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
-			int review = reviewDao.reviewSelectTotalReviewCount(iNo);
+			int reviewCount = reviewDao.reviewSelectTotalReviewCount(iNo);
 			
-			itemDto.setrCount(review);
+			itemDto.setrCount(reviewCount);
 			itemDto.setiImgStoredName((String)fileMap.get("FM_ITEM_STORED_IMG_NAME"));
 			list.add(itemDto);
 		}

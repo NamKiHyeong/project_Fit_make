@@ -48,43 +48,27 @@
 	</insert>
 	
 	<select id="itemSelectList" parameterType="map"	resultMap="itemResultMap">
-		SELECT pi.FM_ITEM_NO, pi.FM_ITEM_NAME, pi.FM_ITEM_SELLPRICE, pi.FM_ITEM_COUNT, pi.FM_CATEGORY_NO
+		SELECT pi.FM_ITEM_NO, pi.FM_ITEM_NAME, pi.FM_ITEM_SELLPRICE, pi.FM_ITEM_COUNT, pi.FM_CATEGORY_NO, pi."rCount"
 		FROM(
-			SELECT ROWNUM AS RNUM, ii.FM_ITEM_NO, ii.FM_ITEM_NAME, ii.FM_ITEM_SELLPRICE, ii.FM_ITEM_COUNT, ii.FM_CATEGORY_NO
+			SELECT ROWNUM AS RNUM, ii.FM_ITEM_NO, ii.FM_ITEM_NAME
+                , ii.FM_ITEM_SELLPRICE, ii.FM_ITEM_COUNT, ii.FM_CATEGORY_NO, ii."rCount"
 			FROM(
-				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
-				FROM FM_ITEM
-				<include refid="search"></include>
-			)ii
-		)pi
-		WHERE pi.RNUM BETWEEN #{start} AND #{end}
-	</select>
-	
-	<select id="itemSelectListGold" parameterType="map"	resultMap="itemResultMap">
-		SELECT pi.FM_ITEM_NO, pi.FM_ITEM_NAME, pi.FM_ITEM_SELLPRICE, pi.FM_ITEM_COUNT, pi.FM_CATEGORY_NO
-		FROM(
-			SELECT ROWNUM AS RNUM, ii.FM_ITEM_NO, ii.FM_ITEM_NAME, ii.FM_ITEM_SELLPRICE, ii.FM_ITEM_COUNT, ii.FM_CATEGORY_NO
-			FROM(
-				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
-				FROM FM_ITEM
-				<include refid="search"></include>
-				ORDER BY FM_ITEM_SELLPRICE
-			)i
-		)pi
-		WHERE pi.RNUM BETWEEN #{start} AND #{end}
-		
-	</select>
-	
-	<select id="itemSelectListReview" parameterType="map" resultMap="itemResultMap">
-		SELECT pi.FM_ITEM_NO, pi.FM_ITEM_NAME, pi.FM_ITEM_SELLPRICE, pi.FM_ITEM_COUNT, pi.FM_CATEGORY_NO
-		FROM(
-			SELECT ROWNUM AS RNUM, ii.FM_ITEM_NO, ii.FM_ITEM_NAME, ii.FM_ITEM_SELLPRICE, ii.FM_ITEM_COUNT, ii.FM_CATEGORY_NO
-			FROM(
-				SELECT FM_ITEM_NO, FM_ITEM_NAME, FM_ITEM_SELLPRICE, FM_ITEM_COUNT, FM_CATEGORY_NO
-				FROM FM_ITEM
-				<include refid="search"></include>
-				ORDER BY FM_ITEM_COUNT DESC
-			)ii
+				SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, i.FM_ITEM_COUNT, i.FM_CATEGORY_NO
+                    , Count(r.FM_REVIEW_NO) as "rCount"
+				FROM FM_ITEM i
+                    LEFT OUTER JOIN FM_REVIEW r
+                        ON i.FM_ITEM_NO = r.FM_ITEM_NO
+             	<include refid="search"></include>
+              	GROUP BY i.FM_ITEM_NO, i.FM_ITEM_NAME, i.FM_ITEM_SELLPRICE, i.FM_ITEM_COUNT, i.FM_CATEGORY_NO
+              	<choose>
+              		<when test="older == 1">
+              			ORDER BY FM_ITEM_SELLPRICE ASC
+              		</when>
+              		<when test="older == 2">
+              			ORDER BY "rCount" DESC
+              		</when>
+              	</choose>
+               )ii
 		)pi
 		WHERE pi.RNUM BETWEEN #{start} AND #{end}
 	</select>
