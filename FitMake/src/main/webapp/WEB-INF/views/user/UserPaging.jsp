@@ -27,19 +27,17 @@ nav > ul > li > a{
 	padding: 16px;
 	text-decoration: none;
 }
-
-nav > ul > li > a:link {
-	color: #ffffff;
+nav > ul > li > a:link{
+	color: white;
 }
-
 nav > ul > li > a:hover {
-	color: #ffffff;
+	color: white;
 	background-color: #a41d53;
 	font-weight: bold;
 }
 
 .active {
-	color: #ffffff;
+	color: white;
     background-color: #a41d53;
     font-weight: bold;
 }

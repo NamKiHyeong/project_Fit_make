@@ -62,7 +62,18 @@
 					<c:forEach var="pointMap" items="${pointList}">
 						<tr>
 							<td>${pointMap.FM_POINT_NO}</td>
-							<td>충전</td>
+							<td><c:choose>
+									<c:when test="${pointMap.FM_POINT_HISTORY < 0}">
+										차감
+									</c:when>
+									<c:when
+										test="${pointMap.FM_POINT_HISTORY > 0 && pointMap.FM_ORDER_NO ne null}">
+										환불
+									</c:when>
+									<c:otherwise>
+										충전
+									</c:otherwise>
+								</c:choose></td>
 							<td>${pointMap.FM_POINT_HISTORY}</td>
 							<td><fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"
 									value="${pointMap.FM_POINT_CRE_DATE}" /></td>
@@ -77,8 +88,12 @@
 			<jsp:include page="../user/UserPaging.jsp" />
 		</div>
 	</div>
+	<!-- footer 시작 -->
+
 	<jsp:include page="../Footer.jsp" />
-	
+
+	<!-- footer 끝 -->
+
 	<div id="pagingSection">
 		<form id="pagingForm" action="./pointHistory.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"

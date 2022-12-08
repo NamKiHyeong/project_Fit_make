@@ -66,7 +66,7 @@
 			<ol>
 				<li><strong>정보 관리</strong></li>
 				<li><a href="../user/Info.do">내정보 수정</a></li>
-				<li><a href="../user/pointHistory.do">충전내역</a></li>
+				<li><a href="../user/pointHistory.do">포인트내역</a></li>
 			</ol>
 		</div>
 	</div>

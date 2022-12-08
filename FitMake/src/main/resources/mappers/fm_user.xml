@@ -258,7 +258,7 @@
 		FROM(
 		    SELECT ROWNUM rnum, p.*
 		    FROM(
-		            SELECT FM_POINT_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE
+		            SELECT FM_POINT_NO, FM_ORDER_NO, FM_POINT_HISTORY, FM_POINT_CRE_DATE
 		            FROM FM_POINT 
 		            WHERE FM_USER_NO = #{uNo}
 		            <if test="oNo != 0">

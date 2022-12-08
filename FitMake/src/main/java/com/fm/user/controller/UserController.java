@@ -107,7 +107,7 @@ public class UserController {
 
 		} catch (Exception e) {
 
-			return null;
+			return "redirect:/auth/login.do";
 		}
 	}
 
@@ -152,22 +152,27 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/deleteCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String userDelete(UserDto userDto, HttpSession session, RedirectAttributes ra) throws Exception {
+		
+		try {
+			UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
 
-		UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
+			String oldPwd = uPwd.getPassword();
+			String sessionPwd = userDto.getPassword();
 
-		String oldPwd = uPwd.getPassword();
-		String sessionPwd = userDto.getPassword();
-
-		String existPwd = userDto.setHashpwd(uPwd.getSalt(), sessionPwd);
-		if (existPwd.equals(oldPwd)) {
-			userService.userBmiDelete(userDto);
-			userService.userDelete(userDto);
-			session.invalidate();
+			String existPwd = userDto.setHashpwd(uPwd.getSalt(), sessionPwd);
+			if (existPwd.equals(oldPwd)) {
+				userService.userBmiDelete(userDto);
+				userService.userDelete(userDto);
+				session.invalidate();
+				return "redirect:/auth/login.do";
+			} else {
+				ra.addFlashAttribute("msg", false);
+				return "redirect:/user/userDelete.do";
+			}
+		} catch (Exception e) {
 			return "redirect:/auth/login.do";
-		} else {
-			ra.addFlashAttribute("msg", false);
-			return "redirect:/user/userDelete.do";
 		}
+		
 	}
 
 	/**
@@ -178,25 +183,29 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/main/main.do", method = RequestMethod.GET)
 	public String main(HttpSession session, Model model) {
+		try {
+			String viewPage = "";
+			if (session.getAttribute("_userDto_") != null) {
+				UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+				int uNo = userDto.getuNo();
 
-		String viewPage = "";
-		if (session.getAttribute("_userDto_") != null) {
-			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-			int uNo = userDto.getuNo();
+				List<ItemDto> mainRecommendItemList = userService.viewRecommendItemList(uNo);
+				List<ItemDto> mainBestItemList = userService.viewBestItemList();
+				List<Map<String, Object>> mainReviewList = userService.viewReviewList();
 
-			List<ItemDto> mainRecommendItemList = userService.viewRecommendItemList(uNo);
-			List<ItemDto> mainBestItemList = userService.viewBestItemList();
-			List<Map<String, Object>> mainReviewList = userService.viewReviewList();
+				model.addAttribute("mainRecommendItemList", mainRecommendItemList);
+				model.addAttribute("mainBestItemList", mainBestItemList);
+				model.addAttribute("mainReviewList", mainReviewList);
 
-			model.addAttribute("mainRecommendItemList", mainRecommendItemList);
-			model.addAttribute("mainBestItemList", mainBestItemList);
-			model.addAttribute("mainReviewList", mainReviewList);
-
-			viewPage = "main/MainPage";
-		} else if (session.getAttribute("_userDto_") == null) {
-			viewPage = "redirect:/auth/login.do";
+				viewPage = "main/MainPage";
+			} else if (session.getAttribute("_userDto_") == null) {
+				viewPage = "redirect:/auth/login.do";
+			}
+			return viewPage;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-		return viewPage;
+		
 	}
 
 	/**
@@ -231,7 +240,7 @@ public class UserController {
 	@RequestMapping(value = "/user/emailCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkEmail(@RequestParam("emailChk") String email) {
-
+		
 		String result = "N";
 		int flag = userService.checkEmail(email);
 
@@ -363,42 +372,47 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/Info.do")
 	public String userInfo(Model model, HttpSession session, @RequestParam(defaultValue = "1") int curPage) {
+		
+		try {
+			UserDto userdto = new UserDto();
 
-		UserDto userdto = new UserDto();
+			userdto = (UserDto) session.getAttribute("_userDto_");
 
-		userdto = (UserDto) session.getAttribute("_userDto_");
+			Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
+			model.addAttribute("myInfomap", myInfomap);
 
-		Map<String, Object> myInfomap = userService.userSelectInfo(userdto.getuNo());
-		model.addAttribute("myInfomap", myInfomap);
+			int uNo = (int) userdto.getuNo();
 
-		int uNo = (int) userdto.getuNo();
+			int totalCount = userService.getUserInfoTotalCount();
 
-		int totalCount = userService.getUserInfoTotalCount();
+			Paging userPaging = new Paging(totalCount, curPage);
 
-		Paging userPaging = new Paging(totalCount, curPage);
+			int start = userPaging.getPageBegin();
+			int end = userPaging.getPageEnd();
+			System.out.println(totalCount);
+			List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
 
-		int start = userPaging.getPageBegin();
-		int end = userPaging.getPageEnd();
-		System.out.println(totalCount);
-		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
+			Map<String, Object> uPagingMap = new HashMap<String, Object>();
+			uPagingMap.put("userPaging", userPaging);
+			uPagingMap.put("totalCount", totalCount);
+			uPagingMap.put("start", start);
+			uPagingMap.put("end", end);
 
-		Map<String, Object> uPagingMap = new HashMap<String, Object>();
-		uPagingMap.put("userPaging", userPaging);
-		uPagingMap.put("totalCount", totalCount);
-		uPagingMap.put("start", start);
-		uPagingMap.put("end", end);
+			model.addAttribute("userMapList", userMapList);
+			model.addAttribute("uPagingMap", uPagingMap);
+			String viewUrl = "";
 
-		model.addAttribute("userMapList", userMapList);
-		model.addAttribute("uPagingMap", uPagingMap);
-		String viewUrl = "";
+			if (uNo == 1) {
+				viewUrl = "user/UserManage";
+			} else {
+				viewUrl = "user/UserMyInfo";
+			}
 
-		if (uNo == 1) {
-			viewUrl = "user/UserManage";
-		} else {
-			viewUrl = "user/UserMyInfo";
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-
-		return viewUrl;
+		
 	}
 
 	/**
@@ -410,24 +424,29 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/userUpdate.do", method = RequestMethod.POST)
 	public String userUpdate(UserDto userDto, Model model, HttpSession session, String nickName, String newpassword) {
+		
+		try {
+			UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
 
-		UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
+			String existingPwd = uPwd.getPassword();
+			String sessionPwd = userDto.getPassword();
 
-		String existingPwd = uPwd.getPassword();
-		String sessionPwd = userDto.getPassword();
+			if (!(sessionPwd.equals(existingPwd))) {
+				model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
+				model.addAttribute("url", "redirect:/user/Info.do");
 
-		if (!(sessionPwd.equals(existingPwd))) {
-			model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
-			model.addAttribute("url", "redirect:/user/Info.do");
+				return "common/UpdateAlert";
+			}
+			int salt = userDto.addSalt();
+			String password = userDto.setHashpwd(salt, newpassword);
 
-			return "common/UpdateAlert";
+			userService.userUpdate(userDto, nickName, password, salt);
+
+			return "redirect:/user/Info.do";
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-		int salt = userDto.addSalt();
-		String password = userDto.setHashpwd(salt, newpassword);
-
-		userService.userUpdate(userDto, nickName, password, salt);
-
-		return "redirect:/user/Info.do";
+		
 	}
 
 	/**
@@ -468,44 +487,50 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/pointHistory.do")
 	public String viewHistory(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage) {
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
+		
+		try {
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
 
-		int totalCount = userService.getUserTotalCount(uNo);
+			int totalCount = userService.getUserTotalCount(uNo);
 
-		Paging userPaging = new Paging(totalCount, curPage);
+			Paging userPaging = new Paging(totalCount, curPage);
 
-		int start = userPaging.getPageBegin();
-		int end = userPaging.getPageEnd();
+			int start = userPaging.getPageBegin();
+			int end = userPaging.getPageEnd();
 
-		List<Map<String, Object>> pointList = userService.pointHistoryList(uNo, start, end);
+			List<Map<String, Object>> pointList = userService.pointHistoryList(uNo, start, end);
 
-		model.addAttribute("pointList", pointList);
+			model.addAttribute("pointList", pointList);
 
-		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
+			List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
 
-		List<Map<String, Object>> pointManage = userService.viewPointList(uNo, start, end);
+			List<Map<String, Object>> pointManage = userService.viewPointList(uNo, start, end);
 
-		model.addAttribute("pointManage", pointManage);
+			model.addAttribute("pointManage", pointManage);
 
-		Map<String, Object> uPagingMap = new HashMap<String, Object>();
-		uPagingMap.put("userPaging", userPaging);
-		uPagingMap.put("totalCount", totalCount);
-		uPagingMap.put("start", start);
-		uPagingMap.put("end", end);
+			Map<String, Object> uPagingMap = new HashMap<String, Object>();
+			uPagingMap.put("userPaging", userPaging);
+			uPagingMap.put("totalCount", totalCount);
+			uPagingMap.put("start", start);
+			uPagingMap.put("end", end);
 
-		model.addAttribute("userMapList", userMapList);
-		model.addAttribute("uPagingMap", uPagingMap);
+			model.addAttribute("userMapList", userMapList);
+			model.addAttribute("uPagingMap", uPagingMap);
 
-		String viewUrl = "";
+			String viewUrl = "";
 
-		if (uNo == 1) {
-			viewUrl = "user/PointManage";
-		} else {
-			viewUrl = "user/PointRechargehistory";
+			if (uNo == 1) {
+				viewUrl = "user/PointManage";
+			} else {
+				viewUrl = "user/PointRechargehistory";
+			}
+
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-
-		return viewUrl;
+		
 
 	}
 
