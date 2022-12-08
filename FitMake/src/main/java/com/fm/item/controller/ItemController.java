@@ -28,23 +28,20 @@ public class ItemController {
 	@Autowired
 	private ItemService itemService;
 
-	/**
-	 * Create!!! Item Add
+	/** Create
 	 * 
-	 * @param itemDto
-	 * @param mulRequest
 	 * @param model
-	 * @return MultipartHttpServletRequest mulRequest 나중에 sub을 사용할 때 사용하기
+	 * @param cNo	카테고리No	카테고리에 맞는 제품을 추가하기 위함
+	 * @return
 	 */
 	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemAdd(Model model, int cNo) {
-		logger.trace("제품 추가해봅시다!" + model);
-		logger.info("cNo {} ");
 
 		model.addAttribute("cNo", cNo);
-		return "/item/ItemAdd"; // jsp 주소로
+		
+		return "/item/ItemAdd"; 
 	}
-
+	//아이템 추가 버튼
 	@RequestMapping(value = "/item/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemAddCtr(ItemDto itemDto, Model model, MultipartHttpServletRequest mulRequest) {
 		logger.trace("제품 추가합니다!" + itemDto);
@@ -60,17 +57,20 @@ public class ItemController {
 		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 
-	/**
-	 * Read!!!
+	/** Read
 	 * 
-	 * @param itemDto
-	 * @param model   spirng에서 지원해준 화면 구성을 위해서 받아온 객체
-	 * @return 1단계 리스트 나오는지 확인 2단계 검색 기능 넣고서 나오는지 확인 3단계 페이징 확인
+	 * @param curPage	현재 페이지
+	 * @param itemDto	제품Dto로 많은 것을 받아야 함으로 Dto로 받음
+	 * @param keyword	검색 기능
+	 * @param older		높은 , 낮은 가격순으로 정렬하기 위한 변수
+	 * @param model
+	 * @param session	유저의 정보만 담겨 있는데 사용하기 위해서 가져옴
+	 * @return
 	 */
 	@RequestMapping(value = "/item/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
-			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword,
-			@RequestParam(defaultValue = "0") int older
+			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "0") int older
 			, Model model, HttpSession session) {
 		
 		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
@@ -130,10 +130,8 @@ public class ItemController {
 	}
 
 	@RequestMapping(value = "/item/one.do", method = RequestMethod.GET)
-	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo, 
-			@RequestParam(defaultValue = "1") int iNo, Model model) {
-//		RedirectAttributes redirect
-		logger.trace("제품 상세정보" + model);
+	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo
+			, @RequestParam(defaultValue = "1") int iNo, Model model) {
 
 		Map<String, Object> prevMap = new HashMap<>();
 		prevMap.put("cNo", cNo);
@@ -143,12 +141,7 @@ public class ItemController {
 
 		ItemDto itemDto = (ItemDto) map.get("itemDto");
 
-		logger.debug("one.do에서 itemDto에 iNo 값이 들어가 있니?{}", itemDto);
-
 		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
-
-		logger.info("one.do에서 cNo 확인해본다 {}", itemDto.getcNo());
-		logger.info("one.do에서 curPage확인해본다 {}", curPage);
 
 		model.addAttribute("itemDto", itemDto);
 		model.addAttribute("fileList", fileList);
@@ -157,10 +150,11 @@ public class ItemController {
 		return "/item/ItemOne";
 	}
 
-	/**
-	 * Update!!!!!!!
+	/** Update
 	 * 
-	 * @param iNo를  Service랑 Dao는 안해도 되는데 왜 여기만 꼭 마바티스에서 바꿔준 걸로 써야할까?
+	 * @param curPage
+	 * @param cNo
+	 * @param iNo
 	 * @param model
 	 * @return
 	 */
@@ -184,7 +178,6 @@ public class ItemController {
 		model.addAttribute("prevMap", prevMap);
 		if (fileList.size() != 0) {
 			model.addAttribute("img", fileList.get(0));
-//			model.addAttribute("fileList", fileList);
 		}
 
 		return "item/ItemUpdate";
@@ -192,20 +185,15 @@ public class ItemController {
 
 	@RequestMapping(value = "/item/updateCtr.do", method = RequestMethod.POST)
 	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto,
-			@RequestParam(value = "imgNo", defaultValue = "-1") int imgNo, MultipartHttpServletRequest mulRequest,
-			Model model) {
-		logger.info("컨트롤러 서비스로 curPage {} ", curPage);
-		logger.info("컨트롤러 서비스로 cNo {} ", itemDto);
-		logger.info("컨트롤러 서비스로 imgNo {} ", imgNo);
+			@RequestParam(value = "imgNo", defaultValue = "-1") int imgNo
+			, MultipartHttpServletRequest mulRequest , Model model) {
+		
 		int cNo = itemDto.getcNo();
 
 		try {
 			itemService.itemUpdateOne(itemDto, mulRequest, imgNo);
-
 		} catch (Exception e) {
-			System.out.println("컨트롤 업데이트 예외 발생");
 			e.printStackTrace();
-
 		}
 
 		return "redirect:/item/list.do?cNo=" + cNo;
@@ -221,9 +209,7 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/deleteOne.do", method = RequestMethod.GET)
 	public String itemDelete(int iNo, int cNo, Model model) {
-		logger.info("삭제기능" + iNo);
 		itemService.itemDeleteOne(iNo);
-		logger.info("삭제기능");
 		return "redirect:/item/list.do?cNo=" + cNo;
 
 	}

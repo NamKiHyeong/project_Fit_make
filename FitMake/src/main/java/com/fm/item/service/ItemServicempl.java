@@ -35,9 +35,9 @@ public class ItemServicempl implements ItemService {
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtiles;
 	
-/**Crdate
- * 
- */
+	/** Create
+	 * 
+	 */
 	@Override
 	public void itemInsertOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest) throws Exception {
 		itemDao.itemInsertOne(itemDto);
@@ -66,9 +66,9 @@ public class ItemServicempl implements ItemService {
 		}
 
 	}
-/** Read
- * 
- */
+	/** Read
+	 * 
+	 */
 	@Override
 	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older, int uNo) {
 		List<ItemDto> itemList = itemDao.itemSelectList(cNo, keyword, start, end, older, uNo);
@@ -90,31 +90,29 @@ public class ItemServicempl implements ItemService {
 		return list;
 
 	}
-
+	// 페이징을 하기 위한 제품 수를 구함
 	@Override
 	public int itemSelectTotalItemCount(int cNo, String keyword, int uNo) {
 		
 		return itemDao.itemSelectTotalItemCount(cNo, keyword, uNo);
 	}
-//	@Override
-//	public int reviewSelectTotalReviewCount(int iNo) {
-//		return itemDao.reviewSelectTotalReviewCount(iNo);
-//	}
 	@Override
 	public Map<String, Object> itemSelectOne(int iNo) {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		ItemDto itemDto = itemDao.itemSelectOne(iNo);
-		resultMap.put("itemDto", itemDto);
-
-		
 		List<Map<String, Object>> fileList = itemDao.fileSelectList(iNo);
+		
+		resultMap.put("itemDto", itemDto);
 		resultMap.put("fileList", fileList);
 		
 		return resultMap;
 
 	}
 	
+	/** Update
+	 *  업데이트가 완료되면 실행되도록 @Transactional을 씀 되지 않으면 롤백
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int itemUpdateOne(ItemDto itemDto, MultipartHttpServletRequest mulRequest
@@ -126,20 +124,15 @@ public class ItemServicempl implements ItemService {
 			
 			// item 정보 업데이트하는 dao
 			resultNum = itemDao.itemUpdateOne(itemDto);
-			log.info("서비스mpl에서 itemDto는?? {}", itemDto);
 			
-			log.info("서비스mpl에서 업데이트는 성공했나? {}",resultNum);
 			int iNo = itemDto.getiNo();
 			
 			// 선택한 item에 이미지 정보를 불러오는 dao
 			Map<String, Object> tempFileMap = itemDao.fileSelectOne(iNo);
-			log.info("서비스mpl에서 파일 하나를 잘 찾아왔나? {}",tempFileMap);
 			
 			// 실제 파일을 등록하고 등록한 파일의 정보를 가져오는 메서드
 			// 파일이 없으면 알아서 등록이 안되고 있으면 등록이 됌
 			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(iNo, mulRequest);
-			
-			log.info("서비스mpl에서 list를 잘 찾아왔나? {}",list);
 			
 			// 리스트안에 요소가 있을때
 			// 리스트안에 요소가 있다는것은 파일을 새로 등록햇을때만 요소가 있음
@@ -161,7 +154,6 @@ public class ItemServicempl implements ItemService {
 				}
 			// 이미지를 삭제해서 존재 않을 때
 			}else if(imgNo == -1){
-				log.debug("수정되는 것 확인4", itemDto.getiName());
 				
 				if(tempFileMap != null){
 					//db에서 파일정보 삭제
@@ -169,27 +161,29 @@ public class ItemServicempl implements ItemService {
 					//실제 드라이브에 파일을 삭제
 					fileUtiles.parseUpdateFileInfo(tempFileMap);
 					
-					log.debug("수정되는 것 확인5", itemDto.getiName());
 				}
 			}
 			
 			
 			
 		} catch (Exception e) {
-			log.debug("서비스 mpl에서 예외 발생", itemDto.getiName());
 			TransactionAspectSupport.currentTransactionStatus()
 			.setRollbackOnly();
 		}
 		
-		log.debug("수정이 완료되었습니다. {}", itemDto.getiName());
-		
 		return resultNum;
 	}
-
+	/** Delete
+	 * 
+	 */
 	@Override
 	public void itemDeleteOne(int iNo) {
 		itemDao.itemDeleteOne(iNo);
 	}
+	
+	
+	
+//	-------------------------------------------------------
 	@Override
 	public String getCategoryName(int cNo) {
 		
@@ -201,14 +195,13 @@ public class ItemServicempl implements ItemService {
 		return itemDao.viewBestItemList(cNo, keyword, start, end, older, uNo);
 	}
 	@Override
-	public List<ItemDto> viewRecommendItemList(int cNo, String keyword, int start, int end, int older,
-			int uNo) {
+	public List<ItemDto> viewRecommendItemList(int cNo, String keyword, int start, int end, int older
+			, int uNo) {
 		
 		return itemDao.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
 	}
 	@Override
 	public int selectRecommendItemCount(int cNo, String keyword, int uNo) {
-		// TODO Auto-generated method stub
 		return itemDao.selectRecommendItemCount(cNo, keyword, uNo);
 	}
 
