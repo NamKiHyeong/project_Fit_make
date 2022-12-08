@@ -142,9 +142,9 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public String fintUserId(String userPhoneNumber) {
+	public String findUserId(String userPhoneNumber) {
 
-		return sqlSession.selectOne(namespaceuser + "fintUserId", userPhoneNumber);
+		return sqlSession.selectOne(namespaceuser + "findUserId", userPhoneNumber);
 
 	}
 
@@ -159,7 +159,13 @@ public class UserDaoImpl implements UserDao {
 
 		sqlSession.insert(namespaceuser + "addRecommendItem", userDto);
 	}
-
+	
+	@Override
+	public int getUserInfoTotalCount() {
+		
+		return sqlSession.selectOne(namespaceuser + "getUserInfoTotalCount");
+	}
+	
 	@Override
 	public int getUserTotalCount(int uNo) {
 		Map<String, Integer> inputMap = new HashMap<String, Integer>();
@@ -225,5 +231,7 @@ public class UserDaoImpl implements UserDao {
 		
 		return sqlSession.selectList(namespaceuser + "viewPointList", inputMap);
 	}
+
+	
 
 }

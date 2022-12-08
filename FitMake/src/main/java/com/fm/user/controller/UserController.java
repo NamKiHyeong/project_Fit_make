@@ -287,7 +287,7 @@ public class UserController {
 	@ResponseBody
 	public String resultId(@RequestParam("phone") String userPhoneNumber) {
 
-		String result = userService.fintUserId(userPhoneNumber);
+		String result = userService.findUserId(userPhoneNumber);
 
 		return result;
 	}
@@ -373,13 +373,13 @@ public class UserController {
 
 		int uNo = (int) userdto.getuNo();
 
-		int totalCount = userService.getUserTotalCount(uNo);
+		int totalCount = userService.getUserInfoTotalCount();
 
 		Paging userPaging = new Paging(totalCount, curPage);
 
 		int start = userPaging.getPageBegin();
 		int end = userPaging.getPageEnd();
-
+		System.out.println(totalCount);
 		List<Map<String, Object>> userMapList = userService.viewUserList(uNo, start, end);
 
 		Map<String, Object> uPagingMap = new HashMap<String, Object>();

@@ -148,12 +148,12 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String fintUserId(String userPhoneNumber) {
+	public String findUserId(String userPhoneNumber) {
 
 		String result = "";
 
 		try {
-			result = userDao.fintUserId(userPhoneNumber);
+			result = userDao.findUserId(userPhoneNumber);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -185,7 +185,13 @@ public class UserServiceImpl implements UserService {
 			
 		 userDao.addRecommendItem(userDto);
 	}
-
+	
+	@Override
+	public int getUserInfoTotalCount() {
+		
+		return userDao.getUserInfoTotalCount();
+	}
+	
 	@Override
 	public int getUserTotalCount(int uNo) {
 		
@@ -224,5 +230,7 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.viewPointList(uNo, start, end);
 	}
+
+	
 
 }

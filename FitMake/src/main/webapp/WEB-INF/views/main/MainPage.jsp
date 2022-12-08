@@ -12,6 +12,7 @@
 <style type="text/css">
 #containerMainDiv {
 	width: 1200px;
+	min-height: 100%;
 	margin: 0px auto;
 }
 

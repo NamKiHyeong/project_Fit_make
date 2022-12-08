@@ -38,13 +38,15 @@ public interface UserDao {
 
 	public String myNickNameChk(String nickName);
 
-	public String fintUserId(String userPhoneNumber);
+	public String findUserId(String userPhoneNumber);
 
 	public String resultUserpwd(String userEmail);
 
 	public void userBmiDelete(UserDto userDto);
 
 	public void addRecommendItem(UserDto userDto);
+	
+	public int getUserInfoTotalCount();
 
 	public int getUserTotalCount(int uNo);
 
@@ -57,5 +59,7 @@ public interface UserDao {
 	public List<Map<String, Object>> viewReviewList();
 
 	public List<Map<String, Object>> viewPointList(int uNo, int start, int end);
+
+	
 
 }

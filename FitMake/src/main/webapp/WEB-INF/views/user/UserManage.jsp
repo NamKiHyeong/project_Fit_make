@@ -11,7 +11,7 @@
 <style type="text/css">
 #userContainerDiv {
 	width: 1200px;
-	height: 100%;
+	min-height: 100%;
 	margin: 0px auto;
 }
 
@@ -69,6 +69,7 @@
 					<th>가입일</th>
 				</tr>
 				<c:forEach var="userMap" items="${userMapList}">
+					<c:if test="${userMap.FM_USER_NO != 1}">
 					<tr>
 						<td><span>${userMap.FM_USER_NO}</span></td>
 						<td><span>${userMap.FM_USER_NICKNAME }</span></td>
@@ -81,6 +82,7 @@
 						<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
 								value="${userMap.FM_USER_CRE_DATE}" /></td>
 					</tr>
+					</c:if>
 				</c:forEach>
 			</table>
 		</div>

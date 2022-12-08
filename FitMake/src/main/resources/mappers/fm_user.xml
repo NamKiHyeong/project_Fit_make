@@ -16,7 +16,14 @@
 			javaType="java.util.Date" />
 		<result column="FM_USER_SALT" property="salt" />
 	</resultMap>
-	<!-- //회원정보 페이징카운트 -->
+	
+	<!-- 회원정보 페이징카운트 -->
+	<select id="getUserInfoTotalCount" resultType="int">
+		SELECT COUNT(FM_USER_NO)
+		FROM FM_USER
+	</select>
+	
+	<!-- //포인트정보 페이징카운트 -->
 	<select id="getUserTotalCount" resultType="int" parameterType="map">
 		SELECT COUNT(u.FM_USER_NO)
 		FROM FM_USER u LEFT OUTER JOIN FM_POINT p
@@ -25,7 +32,6 @@
 		<if test="uNo != 1">AND u.FM_USER_NO = #{uNo}</if>
 		
 	</select>
-	<!-- 회원정보 페이징카운트// -->
 
 	<!-- //회원 정보 -->
 	<select id="viewUserList" parameterType="map" resultType="map">
@@ -42,7 +48,6 @@
 		    ) ubb
 		    WHERE ubb.rnum BETWEEN #{start} AND #{end}
 	</select>
-	<!-- 회원 정보// -->
 	
 	<!-- //회원 포인트 내역 -->
 	<select id="viewPointList" parameterType="map"
@@ -59,7 +64,6 @@
 		    ) upp
 		    WHERE upp.rnum BETWEEN #{start} AND #{end}
 	</select>
-	<!-- 회원 포인트 내역// -->
 	
 	<!-- //회원확인 -->
 	<select id="userExist" parameterType="map"
@@ -73,7 +77,6 @@
 		FM_USER_EMAIL =
 		#{email}
 	</select>
-	<!-- 회원확인// -->
 
 	<!-- // 회원가입 -->
 	<insert id="userInsertOne"
@@ -120,7 +123,7 @@
 		#{goalBmi}, #{goalCalory})
 
 	</insert>
-	<!-- 회원가입 // -->
+	
 	<!-- //제품추천 -->
 	<insert id="addRecommendItem" parameterType="int">
 		INSERT INTO
@@ -141,8 +144,6 @@
 		i.FM_CALORY_GRADE)
 		)
 	</insert>
-	<!-- 제품추천// -->
-
 
 	<!-- //회원탈퇴 -->
 	<delete id="userBmiDelete">
@@ -157,7 +158,6 @@
 		DELETE FROM FM_USER
 		WHERE FM_USER_EMAIL = #{email}
 	</delete>
-	<!-- 회원탈퇴// -->
 
 	<!-- //내정보조회 -->
 	<select id="userSelectInfo" parameterType="int" resultType="map">
@@ -167,7 +167,6 @@
 		= b.FM_USER_NO
 		where u.FM_USER_NO = #{uNo}
 	</select>
-	<!-- 내정보조회// -->
 
 	<!-- //내정보수정 -->
 	<update id="userUpdate" parameterType="userDto">
@@ -179,7 +178,6 @@
 		</set>
 		WHERE FM_USER_NO = #{uNo}
 	</update>
-	<!-- 내정보수정// -->
 
 	<!-- //이메일 중복체크 -->
 	<select id="checkEmail" parameterType="String" resultType="int">
@@ -187,7 +185,6 @@
 		FROM FM_USER
 		WHERE FM_USER_EMAIL = #{email}
 	</select>
-	<!-- 이메일 중복체크// -->
 
 	<!-- //닉네임 중복체크 -->
 	<select id="checkNickName" parameterType="String"
@@ -197,7 +194,6 @@
 		WHERE FM_USER_NICKNAME =
 		#{nickName}
 	</select>
-	<!-- 닉네임 중복체크// -->
 
 	<!-- //포인트 충전 -->
 	<update id="addPoint" parameterType="com.fm.util.PointAdd">
@@ -220,7 +216,6 @@
 			</otherwise>
 		</choose>
 	</insert>
-	<!-- 포인트 충전// -->
 
 	<!-- //포인트 조회 -->
 	<select id="myPointChk" parameterType="int" resultType="int">
@@ -229,7 +224,6 @@
 		FROM FM_USER
 		WHERE FM_USER_NO = #{uNo}
 	</select>
-	<!-- 포인트 조회// -->
 
 	<!-- //닉네임 조회 -->
 	<select id="myNickNameChk" parameterType="String"
@@ -239,17 +233,15 @@
 		WHERE FM_USER_NICKNAME =
 		#{nickName}
 	</select>
-	<!-- 닉네임 조회// -->
 
 	<!-- //아이디 찾기 -->
-	<select id="fintUserId" parameterType="String"
+	<select id="findUserId" parameterType="String"
 		resultType="String">
 		SELECT FM_USER_EMAIL
 		FROM FM_USER
 		WHERE FM_USER_MOBILE =
 		#{mobile}
 	</select>
-	<!-- 아이디 찾기// -->
 
 	<!-- //비밀번호 찾기 -->
 	<select id="resultUserpwd" parameterType="String"
@@ -259,7 +251,6 @@
 		WHERE FM_USER_EMAIL =
 		#{email}
 	</select>
-	<!-- 비밀번호 찾기// -->
 
 	<!-- //충전 내역// -->
 	<select id="pointHistoryList" parameterType="map" resultType="map">
@@ -277,6 +268,5 @@
 		    ) rp
 		    WHERE rp.rnum BETWEEN #{start} AND #{end}
 	</select>
-	<!-- //충전 내역 -->
 	
 </mapper>
