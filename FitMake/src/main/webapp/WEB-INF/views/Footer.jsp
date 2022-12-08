@@ -12,7 +12,7 @@
 </script>
 <style type="text/css">
 #footerArea {
-	border-top: 1px solid #666;
+	border-top: 1px solid #e5e5e5;
     width: 100%;
 }
 
