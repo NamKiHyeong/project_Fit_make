@@ -38,15 +38,10 @@ public class ItemDaompl implements ItemDao{
 		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
+		map.put("older", older);
 		map.put("uNo", uNo);
 		
-		if(older==1) {
-			return sqlSession.selectList(namespace + "itemSelectListGold", map);
-		} else if(older==2) {
-			return sqlSession.selectList(namespace + "itemSelectListReview", map);
-		} else {
-			return sqlSession.selectList(namespace + "itemSelectList", map);
-		}
+		return sqlSession.selectList(namespace + "itemSelectList", map);
 		
 	}
 	@Override
