@@ -37,7 +37,7 @@
 
 	<!--	Read list -->
 	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
-		SELECT COUNT(*) as "rCount"
+		SELECT COUNT(*) AS "rCount"
 		FROM FM_REVIEW
 		WHERE FM_ITEM_NO = ${value}
 	</select>

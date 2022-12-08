@@ -76,7 +76,7 @@ public class ItemServicempl implements ItemService {
 		List<ItemDto> list = new ArrayList<>();
 		
 		for (ItemDto itemDto : itemList) {
-			Map<String, Object> map = new HashMap<String, Object>();
+			
 			int iNo = itemDto.getiNo();
 			
 			Map<String, Object> fileMap = itemDao.fileSelectOne(iNo);
