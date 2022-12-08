@@ -61,8 +61,7 @@ public class ItemDaompl implements ItemDao{
 	}
 	@Override
 	public Map<String, Object> fileSelectOne(int iNo) {
-		// TODO Auto-generated method stub
-		System.out.println(iNo);
+		
 		return sqlSession.selectOne(namespace + "fileSelectOne", iNo);
 	}
 	
