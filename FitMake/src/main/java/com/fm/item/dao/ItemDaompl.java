@@ -21,10 +21,14 @@ public class ItemDaompl implements ItemDao{
 //	C
 	@Override
 	public int itemInsertOne(ItemDto itemDto) {
-		
 		itemDto.setiCGrade((int)Math.round(Math.ceil(itemDto.getiCalory()/100))+1);
 		return sqlSession.insert(namespace + "itemInsertOne", itemDto);
 	}
+	@Override
+	public void insertFile(Map<String, Object> map) {
+		sqlSession.insert(namespace + "insertFile", map);
+	}
+	
 //	R
 	@Override
 	public List<ItemDto> itemSelectList(int cNo, String keyword, int start, int end, int older, int uNo){
@@ -36,7 +40,6 @@ public class ItemDaompl implements ItemDao{
 		map.put("end", end);
 		map.put("uNo", uNo);
 		
-		
 		if(older==1) {
 			return sqlSession.selectList(namespace + "itemSelectListGold", map);
 		} else if(older==2) {
@@ -46,31 +49,9 @@ public class ItemDaompl implements ItemDao{
 		}
 		
 	}
-	
 	@Override
 	public ItemDto itemSelectOne(int iNo) {
-		
 		return sqlSession.selectOne(namespace + "itemSelectOne", iNo);
-	}
-	
-//	U
-	@Override
-	public int itemUpdateOne(ItemDto itemDto) {
-		return sqlSession.update(namespace + "itemUpdateOne", itemDto);
-	}
-//	D
-	@Override
-	public void itemDeleteOne(int iNo){
-		sqlSession.delete(namespace + "itemDeleteOne", iNo);
-	
-	}
-	
-	//---------------------------------------------------------- 제품 이미지
-	
-	@Override
-	public void insertFile(Map<String, Object> map) {
-		
-		sqlSession.insert(namespace + "insertFile", map);
 	}
 	
 	@Override
@@ -85,10 +66,25 @@ public class ItemDaompl implements ItemDao{
 		return sqlSession.selectOne(namespace + "fileSelectOne", iNo);
 	}
 	
+//	U
+	@Override
+	public int itemUpdateOne(ItemDto itemDto) {
+		return sqlSession.update(namespace + "itemUpdateOne", itemDto);
+	}
+//	D
+	@Override
+	public void itemDeleteOne(int iNo){
+		sqlSession.delete(namespace + "itemDeleteOne", iNo);
+	
+	}
 	@Override
 	public int fileDelete(int iNo) {
 		return sqlSession.delete(namespace + "fileDelete", iNo);
 	}
+	
+	
+	
+	
 	
 	
 	//---------------------------------------------------------- 카테고리의 제품 수
@@ -103,13 +99,10 @@ public class ItemDaompl implements ItemDao{
 	
 	@Override
 	public int reviewSelectTotalReviewCount(int iNo){
-//		public Map<String, Object> reviewSelectTotalReviewCount(int iNo){
-		System.out.println("item daompl에서 리뷰 값을 가져오기 위한 iNo 값이 제대로 들어오나?" + iNo);
 		return sqlSession.selectOne("com.fm.review.reviewSelectTotalReviewCount", iNo);
 	}
 	@Override
 	public String getCategoryName(int cNo) {
-		
 		return sqlSession.selectOne(namespace + "getCategoryName", cNo);
 	}
 	@Override

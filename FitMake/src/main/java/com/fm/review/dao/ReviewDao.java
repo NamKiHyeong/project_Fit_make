@@ -11,13 +11,13 @@ public interface ReviewDao {
 	public void insertFile(Map<String,Object> map);
 	
 //	R
-	public int reviewSelectTotalReviewCount(int iNo);
-	
 	public List<ReviewDto> reviewSelectList(int iNo, int start, int end);
-	public Map<String, Object> fileSelectOne(int rNo);
 	public ReviewDto reviewSelectOne(int rNo);
+	
+	public Map<String, Object> fileSelectOne(int rNo);
 	public List<Map<String, Object>> fileSelectList(int rNo);
 	
+	public int reviewSelectTotalReviewCount(int iNo);
 //	U
 	int reviewUpdateOne(ReviewDto reviewDto);
 	

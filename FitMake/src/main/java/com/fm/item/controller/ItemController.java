@@ -58,7 +58,7 @@ public class ItemController {
 	}
 
 	/** Read
-	 * 
+	 * list
 	 * @param curPage	현재 페이지
 	 * @param itemDto	제품Dto로 많은 것을 받아야 함으로 Dto로 받음
 	 * @param keyword	검색 기능
@@ -128,7 +128,14 @@ public class ItemController {
 		model.addAttribute("categoryName", categoryName);
 		return "/item/ItemList";
 	}
-
+	/**
+	 * one
+	 * @param curPage
+	 * @param cNo
+	 * @param iNo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value = "/item/one.do", method = RequestMethod.GET)
 	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo
 			, @RequestParam(defaultValue = "1") int iNo, Model model) {
@@ -183,6 +190,7 @@ public class ItemController {
 		return "item/ItemUpdate";
 	}
 
+	// 업데이트 버튼
 	@RequestMapping(value = "/item/updateCtr.do", method = RequestMethod.POST)
 	public String itemUpdateCtr(int curPage, HttpSession session, ItemDto itemDto,
 			@RequestParam(value = "imgNo", defaultValue = "-1") int imgNo
@@ -195,9 +203,7 @@ public class ItemController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return "redirect:/item/list.do?cNo=" + cNo;
-
 	}
 
 	/**
