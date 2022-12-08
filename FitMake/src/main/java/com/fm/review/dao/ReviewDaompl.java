@@ -81,6 +81,12 @@ public class ReviewDaompl implements ReviewDao {
 	public int fileDelete(int rNo) {
 		return sqlSession.delete(namespace + "fileDelete", rNo);
 	}
+	@Override
+	public List<Map<String, Object>> getOrderList(int uNo) {
+		
+		
+		return sqlSession.selectList("com.fm.order.getOrderList", uNo);
+	}
 	
 	
 }

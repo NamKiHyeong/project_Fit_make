@@ -176,6 +176,12 @@ public class ReviewServicempl implements ReviewService {
 	public void reviewDeleteOne(int rNo) {
 		reviewDao.reviewDeleteOne(rNo);
 	}
+
+	@Override
+	public List<Map<String, Object>> getOrderList(int uNo) {
+		
+		return reviewDao.getOrderList(uNo);
+	}
 	
 	
 }

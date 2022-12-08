@@ -198,4 +198,17 @@
 		AND FM_ORDER_STATUS = #{oStatus}
 	</select>
 	
+	<select id="getOrderList" parameterType="int" resultType="map">
+		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME 
+		FROM FM_USER u
+			INNER JOIN FM_ORDER o
+				ON u.FM_USER_NO = o.FM_USER_NO
+			INNER JOIN FM_ORDER_DETAIL od
+				ON o.FM_ORDER_NO = od.FM_ORDER_NO
+			INNER JOIN FM_ITEM i
+				ON od.FM_ITEM_NO = i.FM_ITEM_NO 
+		WHERE u.FM_USER_NO = #{uNo}
+		AND o.FM_ORDER_STATUS = 'pixed'
+		GROUP BY i.FM_ITEM_NO, i.FM_ITEM_NAME
+	</select>
 </mapper>

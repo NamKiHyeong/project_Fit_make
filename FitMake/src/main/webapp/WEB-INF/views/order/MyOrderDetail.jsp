@@ -193,7 +193,7 @@
 										<div class="orderStatuswWithBtn">
 											구매확정
 											<span>
-												<input id="writeReviewBtn" type="button" value="리뷰쓰기">
+												<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="location.href='../review/add.do'">
 											</span>
 										</div>
 									</c:otherwise>

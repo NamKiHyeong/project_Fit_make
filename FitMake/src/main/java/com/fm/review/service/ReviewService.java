@@ -19,5 +19,7 @@ public interface ReviewService {
 	public int reviewUpdateOne(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest, int imgNo) throws Exception;
 //	D
 	public void reviewDeleteOne(int rNo);
+
+	public List<Map<String, Object>> getOrderList(int uNo);
 	
 }

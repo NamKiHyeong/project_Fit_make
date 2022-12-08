@@ -24,4 +24,5 @@ public interface ReviewDao {
 //	D
 	public void reviewDeleteOne(int iNo);
 	public int fileDelete(int iNo);
+	public List<Map<String, Object>> getOrderList(int uNo);
 }

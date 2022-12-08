@@ -204,7 +204,7 @@
 											<c:otherwise>
 												<span class="myOrderStatus">구매확정</span>
 												<span>
-													<input id="writeReviewBtn" type="button" value="리뷰쓰기" >
+													<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="location.href='../review/add.do'">
 												</span>
 											</c:otherwise>
 										</c:choose>

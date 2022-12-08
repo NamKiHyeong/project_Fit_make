@@ -14,10 +14,12 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.fm.review.model.ReviewDto;
 import com.fm.review.service.ReviewService;
+import com.fm.user.model.UserDto;
 import com.fm.util.Paging;
 
 @Controller
@@ -36,12 +38,26 @@ public class ReviewController {
 	 * @return
 	 */
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model) {
+	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model, HttpSession session) {
 		
-//		제품 번호를 Web에 다른 컨트롤러에서도 값을 쓸 수 있도록 보냄
 		model.addAttribute("iNo", iNo);
-		
 		return "/review/ReviewAdd";
+	}
+	
+	/**
+	 * 비동기 리뷰를 작성하고자 하는 제품 정보 확인
+	 * @param session	회원정보를 확인하기 위한 객체
+	 * @return			회원이 리뷰를 작성할 수 있는 제품 정보
+	 */
+	@ResponseBody
+	@RequestMapping(value="/review/compose.do", method = {RequestMethod.GET, RequestMethod.POST})
+	public List<Map<String, Object>> reviewCompose(HttpSession session) {
+		UserDto userDto= (UserDto)session.getAttribute("_userDto_");
+		int uNo = userDto.getuNo();
+		
+		List<Map<String, Object>> myOrderList = reviewService.getOrderList(uNo);
+		
+		return myOrderList;
 	}
 	
 	/** 
