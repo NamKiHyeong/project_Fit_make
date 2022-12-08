@@ -144,10 +144,10 @@
 	</delete>
 	
 	<select id="itemSelectTotalItemCount" parameterType="map" resultType="int" >
-		SELECT COUNT(i.FM_ITEM_NO)
-		FROM FM_ITEM i
 		<choose>
-			<when test="uNo > 0">
+			<when test="uNo >= 0">
+			SELECT COUNT(i.FM_ITEM_NO)
+			FROM FM_ITEM i
 				INNER JOIN FM_USER_BMI ubi
 		        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
 		            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
@@ -155,6 +155,8 @@
 	                ON u.FM_USER_NO = ubi.FM_USER_NO 
 			</when>
 			<when test="uNo == -1" >
+				SELECT COUNT(COUNT(i.FM_ITEM_NO))
+				FROM FM_ITEM i
 				INNER JOIN FM_ORDER_DETAIL od
 	                ON i.FM_ITEM_NO = od.FM_ITEM_NO
 	            INNER JOIN FM_ORDER o
