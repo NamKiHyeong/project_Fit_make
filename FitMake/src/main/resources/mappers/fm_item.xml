@@ -133,7 +133,7 @@
 	</select>
 	
 	<select id="fileSelectOne" parameterType="int" resultType="map">
-		SELECT FM_ITEM_IMG_NO, FM_ITEM_NO, FM_ITEM_IMG_NAME, FM_ITEM_STORED_IMG_NAME
+		SELECT FM_ITEM_STORED_IMG_NAME
 		FROM FM_ITEM_IMG
 		WHERE FM_ITEM_NO = #{iNo}
 	</select>
@@ -145,18 +145,9 @@
 	
 	<select id="itemSelectTotalItemCount" parameterType="map" resultType="int" >
 		<choose>
-			<when test="uNo >= 0">
-			SELECT COUNT(i.FM_ITEM_NO)
-			FROM FM_ITEM i
-				INNER JOIN FM_USER_BMI ubi
-		        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
-		            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
-		        INNER JOIN FM_USER u
-	                ON u.FM_USER_NO = ubi.FM_USER_NO 
-	            INNER JOIN FM_ITEM_IMG ig
-	                ON i.FM_ITEM_NO = ig.FM_ITEM_NO
-	            LEFT OUTER JOIN FM_REVIEW r
-	                ON i.FM_ITEM_NO = r.FM_ITEM_NO
+			<when test="uNo == 0">
+				SELECT COUNT(i.FM_ITEM_NO)
+				FROM FM_ITEM i
 			</when>
 			<when test="uNo == -1" >
 				SELECT COUNT(COUNT(i.FM_ITEM_NO))
@@ -168,25 +159,25 @@
 	            LEFT OUTER JOIN FM_REVIEW r
 	            	ON r.FM_ITEM_NO = i.FM_ITEM_NO
 			</when>
+			<otherwise>
+				SELECT COUNT(i.FM_ITEM_NO)
+				FROM FM_ITEM i
+					INNER JOIN FM_USER_BMI ubi
+			        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
+			            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
+			        INNER JOIN FM_USER u
+		                ON u.FM_USER_NO = ubi.FM_USER_NO 
+		            INNER JOIN FM_ITEM_IMG ig
+		                ON i.FM_ITEM_NO = ig.FM_ITEM_NO
+		            LEFT OUTER JOIN FM_REVIEW r
+		                ON i.FM_ITEM_NO = r.FM_ITEM_NO
+			</otherwise>
 		</choose>
 		<include refid="search"></include>
 		<if test="uNo == -1">
 			group by i.fm_item_no
 		</if>
 	</select>
-	
-	<!-- 실험 중 지우지 말것 -->
-<!-- 	<select id="selectRecommendItemCount" parameterType="map" resultType="int" > -->
-<!-- 		SELECT COUNT(i.FM_ITEM_NO) -->
-<!-- 		FROM FM_ITEM i -->
-<!-- 			INNER JOIN FM_USER_BMI ubi -->
-<!-- 	        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND -->
-<!-- 	            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                    -->
-<!-- 	        INNER JOIN FM_USER u -->
-<!--                 ON u.FM_USER_NO = ubi.FM_USER_NO -->
-<!-- 		<include refid="search"></include> -->
-<!-- 		AND u.FM_USER_NO = ${uNo} -->
-<!-- 	</select> -->
 	
 	<!-- 메인화면 추천 제품 목록 구성 -->
 	<select id="viewRecommendItemList" parameterType="map" resultMap="itemResultMap" >
