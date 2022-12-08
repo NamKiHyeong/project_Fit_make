@@ -18,7 +18,7 @@
 	<jsp:include page="../Header.jsp" />
 	<div style="height: 50px;"></div>
 	
-	<form action="./update.do" method="get">
+	<form action="./update.do" method="get" style="height: 1000px;">
 		<input type="hidden" name="rNo" value="${reviewDto.rNo}">
 		<input type="hidden" name="iNo" value="${reviewDto.iNo}">
 		<input type="hidden" name="curPage" value="${prevMap.curPage}">
@@ -45,5 +45,10 @@
 			</div>
 		</div>
 	</form>
+	<!-- footer 시작 -->
+	
+	<jsp:include page="../Footer.jsp" />
+	
+	<!-- footer 끝 -->
 </body>
 </html>

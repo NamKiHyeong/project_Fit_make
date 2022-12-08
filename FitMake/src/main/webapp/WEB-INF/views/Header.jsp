@@ -41,28 +41,32 @@
 	
 </script>
 <style type="text/css">
-#bigUl {
-	position: relative;
-}
 .btnHover {
     font-weight: bold;
 }
 #ulDiv {
 	position: absolute;
 	display: none;
-	width: 146px;
-	margin-top: 13px;
-	background-color: white;
+	width: 137px;
+	margin-top: 11px;
+	background-color: #FAFAFA;
 }
 
-.ulPtag {
-	font-size: 15px;
-}
+
 #title {
 	margin: 0;
 }
 #testLi{
 	cursor: pointer;
+}
+
+#chickenTag, #cheezeTag, #milkTag {
+	font-size: 15px;
+     font-weight: normal;
+}
+
+#chickenTag, #cheezeTag, #milkTag{
+	font-weight: bold;
 }
 </style>
 </head>
@@ -137,13 +141,13 @@
 							</p>
 							<div id="ulDiv">
 								<p class="ulPtag">
-									<a class="testA" href="${pageContext.request.contextPath}/item/list.do?cNo=4">닭가슴살</a>
+									<a id="chickenTag" href="${pageContext.request.contextPath}/item/list.do?cNo=4">닭가슴살</a>
 								</p>
 								<p class="ulPtag">
-									<a class="testA" href="${pageContext.request.contextPath}/item/list.do?cNo=6">치즈</a>
+									<a id="cheezeTag" href="${pageContext.request.contextPath}/item/list.do?cNo=6">치즈</a>
 								</p>
 								<p class="ulPtag">
-									<a class="testA" href="${pageContext.request.contextPath}/item/list.do?cNo=7">우유</a>
+									<a id="milkTag" href="${pageContext.request.contextPath}/item/list.do?cNo=7">우유</a>
 								</p>
 							</div>
 						</li>

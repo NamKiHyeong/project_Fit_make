@@ -119,22 +119,20 @@ a:active {
 	margin: 0 auto;
 }
 
-#menu ul {
+#menu  ul {
 	display: flex;
 	padding: 0px;
 	margin: 0px;
 }
 
 #menu ul li { /* menu -> ul -> li 태그의 스타일링 */
-	background-color: white;
-	list-style: none;
 	margin-right: 70px;
 	font-weight: bold;
 	font-size: 1.2em;
-	padding: 16px 0px 11.2px 0px;
+	padding: 16px 0px 11.4px 0px;
 }
 
-#menu a:link {
+#menu > a:link {
 	color: black;
 	font-weight: bold;
 }
@@ -142,10 +140,6 @@ a:active {
 #menu .link:hover {
 	background-color: white;
 	color: #ff42e7;
-}
-
-#footerDiv {
-	border: 1px solid white;
 }
 
 .dropdownCart {
