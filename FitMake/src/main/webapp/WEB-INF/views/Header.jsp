@@ -129,13 +129,13 @@
 							</p>
 							<div id="ulDiv">
 								<p class="ulPtag">
-									<a class="testA" href="#">닭가슴살</a>
+									<a class="testA" href="${pageContext.request.contextPath}/item/list.do?cNo=4">닭가슴살</a>
 								</p>
 								<p class="ulPtag">
-									<a class="testA" href="#">치즈</a>
+									<a class="testA" href="${pageContext.request.contextPath}/item/list.do?cNo=6">치즈</a>
 								</p>
 								<p class="ulPtag">
-									<a class="testA" href="#">우유</a>
+									<a class="testA" href="${pageContext.request.contextPath}/item/list.do?cNo=7">우유</a>
 								</p>
 							</div>
 						</li>
