@@ -51,8 +51,9 @@
 	margin-top: 11px;
 	background-color: #FAFAFA;
 }
-
-
+.ulPtag{
+    padding-left: 12px;
+}
 #title {
 	margin: 0;
 }
@@ -65,7 +66,8 @@
      font-weight: normal;
 }
 
-#chickenTag, #cheezeTag, #milkTag{
+#chickenTag:hover, #cheezeTag:hover, #milkTag:hover{
+	font-size: 16px;
 	font-weight: bold;
 }
 </style>
