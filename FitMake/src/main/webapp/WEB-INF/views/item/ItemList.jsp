@@ -66,7 +66,7 @@
 									</a>
 								</p>
 								<p class="itemBoundary">가격 : <fmt:formatNumber value="${item.getiSellprice()}" />원</p>
-<%-- 								<p>리뷰 : ${item.review}</p> --%>
+								<p>리뷰 : ${item.getrCount()}</p>
 							</form>
 						</div>
 					</c:forEach>
