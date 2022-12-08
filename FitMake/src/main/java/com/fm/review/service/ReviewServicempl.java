@@ -34,7 +34,9 @@ public class ReviewServicempl implements ReviewService {
 	@Resource(name = "fileUtils")
 	private FileUtils fileUtiles;
 	
-	
+	/** Create
+	 * 
+	 */
 	@Override
 	public void reviewInsert(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest) throws Exception{
 		log.info("서비스mpl에서 {} 를 넣을 값임" , reviewDto);
@@ -43,7 +45,8 @@ public class ReviewServicempl implements ReviewService {
 		
 		Iterator<String> iterator = mulRequest.getFileNames();
 		MultipartFile multipartFile = null;
-//		
+		
+//		파일이 잘 들어왔는지 디버깅
 		while(iterator.hasNext()) {
 			multipartFile = mulRequest.getFile(iterator.next());
 			
@@ -55,8 +58,10 @@ public class ReviewServicempl implements ReviewService {
 				log.debug("---------------file end -------------\n");
 			}
 		}
+//		rNo 리뷰No
 		int parentSeq = reviewDto.getrNo();
 		log.info("서비스 mpl에서 사진 파일하기 위한 rNo? {}", parentSeq);
+//		리뷰 사진과 내용을 하나씩 리스트에 저장
 		List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(parentSeq, mulRequest);
 		
 		for(int i=0; i<list.size(); i++) {
@@ -65,7 +70,13 @@ public class ReviewServicempl implements ReviewService {
 		
 	}
 	
-	
+	/**Read
+	 * 
+	 */
+	@Override
+	public int reviewSelectTotalReviewCount(int iNo){
+		return reviewDao.reviewSelectTotalReviewCount(iNo);
+	}
 	
 	@Override
 //	public List<Map<String, Object>> reviewSelectList(int iNo){
@@ -179,13 +190,5 @@ public class ReviewServicempl implements ReviewService {
 		reviewDao.reviewDeleteOne(rNo);
 	}
 	
-	@Override
-//	public int reviewSelectTotalReviewCount(int iNo, String keyword){
-//		return reviewDao.reviewSelectTotalReviewCount(iNo, keyword);
-//	}
 	
-	public int reviewSelectTotalReviewCount(int iNo){
-//		public Map<String, Object> reviewSelectTotalReviewCount(int iNo){
-		return reviewDao.reviewSelectTotalReviewCount(iNo);
-	}
 }

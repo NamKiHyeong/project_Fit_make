@@ -29,24 +29,38 @@ public class ReviewController {
 	@Autowired
 	private ReviewService reviewService;
 	
+	/** Create
+	 * 리뷰 추가 화면으로 보내는 컨트롤러인데 어느 제품의 리뷰인지를 알기위함
+	 * @param iNo	제품No
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model) {
 		logger.info("리플을 달아보자", model);
 		
 		logger.info("리플에 iNo 값이 들어옴? {}" + iNo);
+//		제품 번호를 Web에 다른 컨트롤러에서도 값을 쓸 수 있도록 보냄
 		model.addAttribute("iNo", iNo);
 		
 		return "/review/ReviewAdd";
 	}
 	
+	/** 
+	 * 리뷰 추가 버튼
+	 * @param reviewDto		리뷰를 추가하기 위해서 받아야하는 값이 많은데 그 값을 한번에 받기 위한 Dto
+	 * @param model
+	 * @param mulRequest	Info와 이미지를 한번에 요청하기 위함
+	 * @return
+	 */
 	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAddCtr(ReviewDto reviewDto, Model model, MultipartHttpServletRequest mulRequest) {
-		logger.info("컨트롤에서 리플을 작성합니다1. {}" , reviewDto);
+		logger.info("컨트롤에서 리플을 작성합니다. {}" , reviewDto);
 		
 		try {
 			reviewService.reviewInsert(reviewDto, mulRequest);
+			logger.info("리플에 값이 성공적으로 들어감 {}" , reviewDto);
 			
-			logger.info("컨트롤에서 리플을 작성합니다2. {}" , reviewDto);
 			
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -55,35 +69,33 @@ public class ReviewController {
 		}
 			logger.info("컨트롤러에서 추가버튼을 눌렀을 때 list.do로 iNo 값을 쏴주나? {}" ,reviewDto.getiNo());
 		return "redirect:/review/list.do?iNo=" + reviewDto.getiNo();
-//		location.href="../review/list.do?iNo=" + iNo;
-//		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 	
-/**
- * Read!!
- * @param cNo
- * @param model
- * @return
- */
+	/** Read!!
+	 * 
+	 * @param iNo		제품No
+	 * @param curPage	현재 페이지
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/review/list.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewSelectList(@RequestParam(defaultValue = "0") int iNo
 			, @RequestParam(defaultValue = "1") int curPage
-//			, @RequestParam(defaultValue = "") String keyword
 			, Model model) {
-		logger.info("리플리스트를 확인해 봅시다.{}" ,iNo);
+		logger.info("리플 목록으로 가기 위한 iNo를 확인 {}" ,iNo);
+		
+//		페이지 수를 정하기 위해서 리뷰의 총 수를 정함
 		int totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo);
-//		Map<String, Object> totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo);
-//		int totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo, keyword);
+
+//		페이지를 구성하기 위한 변수명들
 		Paging reviewPaging = new Paging(totalReviewCount, curPage);
-//		Paging reviewPaging = new Paging(totalReviewCount);
 		int start = reviewPaging.getPageBegin();
 		int end = reviewPaging.getPageEnd();
+
+//		리
 		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo, start, end);
-//		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo, keyword, start, end);
-//		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo);
 		logger.info("리뷰리스트의 값이 잘 오나?? {}" + reviewList);
 		Map<String, Object> searchMap = new HashMap<>();
-//		searchMap.put("keyword", keyword);
 		
 		Map<String, Object> pagingMap = new HashMap<>();
 		pagingMap.put("iNo", iNo);
