@@ -18,9 +18,8 @@
 	<div style="height: 50px;"></div>
 	<div class="diet_wrap">
 		<div class="infoTop">
-			<span>${categoryName}</span>
-			<input class="itemCtr" type="button" id="addCartBtn" value="장바구니 추가"><br>
-			
+			<p id="categoryPtitle">${categoryName}</p>
+			<input class="itemCtr" type="button" id="addCartBtn" value="장바구니 추가">
 			<div class="serachGo">
 				<form action="./list.do">
 					<input type="hidden" name="cNo" value="${pagingMap.cNo}">

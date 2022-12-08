@@ -57,8 +57,8 @@
 	text-align: left;
 }
 #addCartBtn{
-	margin-top:10px;
-	float: right;
+	margin-top: 7px;
+    float: right;
 }
 .serachGo{
 	float: right;
@@ -104,3 +104,8 @@
 	cursor: pointer;
 	font-size: 14px;
 }
+#categoryPtitle{
+	margin: 0px;
+    font-size: 30px;
+}
+
