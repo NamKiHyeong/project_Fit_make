@@ -18,28 +18,31 @@ public class ReviewDaompl implements ReviewDao {
 	SqlSessionTemplate sqlSession;
 	String namespace = "com.fm.review.";
 	
-//	C
+	/** Create
+	 *  review Info
+	 */
 	@Override
 	public int reviewInsert(ReviewDto reviewDto) {
-		System.out.println("Daompl에서" + reviewDto);
 		return sqlSession.insert(namespace + "reviewInsert", reviewDto);
-		
 	}
+	//review File
 	@Override
 	public void insertFile(Map<String, Object> map) {
-		System.out.println("map의 parent seq" + map.get("parentSeq"));
-		
 		sqlSession.insert(namespace + "insertFile", map);	//여기가 문제라고?
 	}
 	
-//	R list
+	/** Read
+	 * 
+	 */
 	@Override
-//	public List<ReviewDto> reviewSelectList(int iNo){
-		public List<ReviewDto> reviewSelectList(int iNo, int start, int end){
-//		public List<ReviewDto> reviewSelectList(int iNo, String keyword, int start, int end){
+	public int reviewSelectTotalReviewCount(int iNo) {
+		return sqlSession.selectOne(namespace + "reviewSelectTotalReviewCount", iNo);
+	}
+	
+	@Override
+	public List<ReviewDto> reviewSelectList(int iNo, int start, int end){
 		Map<String, Object>map = new HashMap<String, Object>();
 		map.put("iNo", iNo);
-//		map.put("keyword", keyword);
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -48,48 +51,36 @@ public class ReviewDaompl implements ReviewDao {
 		
 	@Override
 	public Map<String, Object> fileSelectOne(int rNo){
-		System.out.println("Daompl에서 rNo은? " + rNo);
 		return sqlSession.selectOne(namespace + "fileSelectOne", rNo);
 	}
 	
-//	R One
+	//	R One
 	@Override
 	public ReviewDto reviewSelectOne(int rNo) {
-		System.out.println("Daompl에서 rNo" + rNo);
 		return sqlSession.selectOne(namespace + "reviewSelectOne", rNo);
 	}
-
+	//저장된 사진을 리스트로 가져옴
 	@Override
 	public List<Map<String, Object>> fileSelectList(int rNo){
-		System.out.println("Daompl에서 파일리스트는? rNo" + rNo);
 		return sqlSession.selectList(namespace + "fileSelectList", rNo);
 	}
-//	U
+	//	U
 	@Override
 	public int reviewUpdateOne(ReviewDto reviewDto) {
-		System.out.println("Dao mpl에서 업데이트 Dto?" + reviewDto);
 		return sqlSession.update(namespace + "reviewUpdateOne", reviewDto);
 	}
-//	D
+	
+	
+	//	D review Info 삭제
 	@Override
 	public void reviewDeleteOne(int rNo){
 		sqlSession.delete(namespace + "reviewDeleteOne", rNo);
 	}
-	
+	//	D review 사진 삭제 
 	@Override
 	public int fileDelete(int rNo) {
 		return sqlSession.delete(namespace + "fileDelete", rNo);
 	}
 	
-	@Override
-	public int reviewSelectTotalReviewCount(int iNo) {
-//		public Map<String, Object> reviewSelectTotalReviewCount(int iNo) {
-//		public int  reviewSelectTotalReviewCount(int iNo, String keyword) {
-//		Map<String, Object> map = new HashMap<>();
-//		map.put("iNo", iNo);
-		
-//		map.put("keyword", keyword);
-		return sqlSession.selectOne(namespace + "reviewSelectTotalReviewCount", iNo);
-		
-	}
+	
 }

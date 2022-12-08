@@ -37,9 +37,7 @@ public class ReviewController {
 	 */
 	@RequestMapping(value="/review/add.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAdd(@RequestParam(defaultValue = "0") int iNo, Model model) {
-		logger.info("리플을 달아보자", model);
 		
-		logger.info("리플에 iNo 값이 들어옴? {}" + iNo);
 //		제품 번호를 Web에 다른 컨트롤러에서도 값을 쓸 수 있도록 보냄
 		model.addAttribute("iNo", iNo);
 		
@@ -55,23 +53,16 @@ public class ReviewController {
 	 */
 	@RequestMapping(value="/review/addCtr.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String reviewAddCtr(ReviewDto reviewDto, Model model, MultipartHttpServletRequest mulRequest) {
-		logger.info("컨트롤에서 리플을 작성합니다. {}" , reviewDto);
 		
 		try {
 			reviewService.reviewInsert(reviewDto, mulRequest);
-			logger.info("리플에 값이 성공적으로 들어감 {}" , reviewDto);
-			
-			
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("예외 발생");
 			e.printStackTrace();
 		}
-			logger.info("컨트롤러에서 추가버튼을 눌렀을 때 list.do로 iNo 값을 쏴주나? {}" ,reviewDto.getiNo());
 		return "redirect:/review/list.do?iNo=" + reviewDto.getiNo();
 	}
 	
-	/** Read!!
+	/** Read list
 	 * 
 	 * @param iNo		제품No
 	 * @param curPage	현재 페이지
@@ -82,22 +73,22 @@ public class ReviewController {
 	public String reviewSelectList(@RequestParam(defaultValue = "0") int iNo
 			, @RequestParam(defaultValue = "1") int curPage
 			, Model model) {
-		logger.info("리플 목록으로 가기 위한 iNo를 확인 {}" ,iNo);
 		
-//		페이지 수를 정하기 위해서 리뷰의 총 수를 정함
+		//	페이지 수를 정하기 위해서 리뷰의 총 수를 정함
 		int totalReviewCount = reviewService.reviewSelectTotalReviewCount(iNo);
 
-//		페이지를 구성하기 위한 변수명들
+		//	페이지를 구성하기 위한 변수명들
 		Paging reviewPaging = new Paging(totalReviewCount, curPage);
 		int start = reviewPaging.getPageBegin();
 		int end = reviewPaging.getPageEnd();
 
-//		리
+		//	모든 리뷰를 가져온다.
 		List<Map<String, Object>> reviewList = reviewService.reviewSelectList(iNo, start, end);
-		logger.info("리뷰리스트의 값이 잘 오나?? {}" + reviewList);
-		Map<String, Object> searchMap = new HashMap<>();
 		
+		Map<String, Object> searchMap = new HashMap<>();
 		Map<String, Object> pagingMap = new HashMap<>();
+		
+		//모든 리뷰를 화면에서 다른 컨트롤러로 쓸 수 있도록 보냄
 		pagingMap.put("iNo", iNo);
 		pagingMap.put("reviewPaging", reviewPaging);
 		pagingMap.put("totalItemCount", totalReviewCount);
@@ -108,36 +99,19 @@ public class ReviewController {
 		
 		return "/review/ReviewList";
 	}
-	//---------------------------------
-	
-//	@RequestMapping(value="/review/totalList.do", method = {RequestMethod.GET, RequestMethod.POST})
-//	public String reviewSelectTotalList(@RequestParam(defaultValue = "1") int curPage
-//			, Model model) {
-//		int totalReviewCount = reviewService.reviewSelectTotalReviewCount2();
-//		Paging reviewPaging = new Paging(totalReviewCount, curPage);
-//		int start = reviewPaging.getPageBegin();
-//		int end = reviewPaging.getPageEnd();
-//		Map<String, Object> searchMap = new HashMap<>();
-//		
-//		Map<String, Object> pagingMap = new HashMap<>();
-//		pagingMap.put("reviewPaging", reviewPaging);
-//		pagingMap.put("totalItemCount", totalReviewCount);
-//		
-//		model.addAttribute("reviewList", reviewList);
-//		model.addAttribute("pagingMap", pagingMap);
-//		model.addAttribute("searchMap", searchMap);
-//		
-//		return "/review/ReviewList";
-//	}
-	
-	
-	
-	//------------------------------------
+	/** Read one
+	 * 
+	 * @param iNo		제품No
+	 * @param curPage	현제 페이지
+	 * @param rNo		리뷰No
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/review/one.do", method = RequestMethod.GET)
 	public String reviewSelectOne(@RequestParam int iNo
 			, @RequestParam int curPage
 			, int rNo, Model model) {
-		logger.info("컨트롤러 one에 원하는 정보 들어옴? {}", model);
+		
 		Map<String, Object>prevMap = new HashMap<String, Object>();
 		prevMap.put("iNo", iNo);
 		prevMap.put("curPage", curPage);
@@ -158,7 +132,14 @@ public class ReviewController {
 		
 		return "/review/ReviewOne";
 	}
-	
+	/** update
+	 * 
+	 * @param iNo
+	 * @param curPage
+	 * @param rNo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/review/update.do", method = RequestMethod.GET)
 	public String reviewUpdate(int iNo
 			, int curPage
@@ -169,10 +150,11 @@ public class ReviewController {
 		prevMap.put("iNo", iNo);
 		prevMap.put("curPage", curPage);
 		
+		//업데이트할 하나의 리뷰를 가져옴
 		Map<String, Object> map = reviewService.reviewSelectOne(rNo);
 		
 		ReviewDto reviewDto = (ReviewDto)map.get("reviewDto");
-		logger.info("컨트롤러에 ReviewDto가 들어왔나? {} 확인", reviewDto);
+		
 		List<Map<String, Object>> fileList2	= (List<Map<String, Object>>) map.get("fileList2");
 		
 		System.out.println("update.do에서 " + rNo);
@@ -180,39 +162,40 @@ public class ReviewController {
 		model.addAttribute("reviewDto", reviewDto);
 		model.addAttribute("prevMap", prevMap);
 		model.addAttribute("fileList2", fileList2);
-//		if (fileList2.size() != 0) {
-//			model.addAttribute("Img", fileList2.get(0));
-//		}
 		
 		return "review/ReviewUpdate";
 	}
 	
+	// 업데이트 버튼
 	@RequestMapping(value="/review/updateCtr.do", method = RequestMethod.POST)
 	public String reviewUpdateCtr(HttpSession session
 			, int curPage
 			, ReviewDto reviewDto
 			,@RequestParam(value = "fileIdx", defaultValue = "-1") int imgNo
 			, MultipartHttpServletRequest mulRequest, Model model) {
-//		logger.info("컨트롤러 서비스로 curPage {} " , curPage);
-		logger.info("컨트롤러 서비스로 reviewDto {} " , reviewDto);
-		logger.info("컨트롤러 서비스로 fileIdx {} " , imgNo);
 		int iNo = reviewDto.getiNo();
 		
 		try {
 			reviewService.reviewUpdateOne(reviewDto, mulRequest, imgNo);
 			
 		} catch (Exception e) {
-			System.out.println("컨트롤 업데이트 예외 발생");
 			e.printStackTrace();
 		}
 		return "redirect:/review/list.do?iNo=" + iNo;
 	}
 	
+	/** 삭제버튼
+	 * 
+	 * @param rNo
+	 * @param iNo
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(value="/review/deleteOne.do", method = RequestMethod.GET)
 	public String reviewDelete(int rNo,int iNo, Model model) {
-		logger.info("삭제기능" + rNo);
+		
 			reviewService.reviewDeleteOne(rNo);
-		logger.info("삭제기능");
+			
 		return "redirect:/review/list.do?iNo=" + iNo;
 		
 	}

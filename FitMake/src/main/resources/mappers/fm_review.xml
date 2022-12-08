@@ -16,7 +16,8 @@
 			<result column="FM_REVIEW_MOD_DATE" property="rModDate" javaType="java.util.Date"/>
 			
 	</resultMap>
-<!--	Create -->
+	<!--	Create -->
+	<!-- 	review Info -->
 	<insert id="reviewInsert" parameterType="reviewDto" useGeneratedKeys="true" keyProperty="rNo"> 
 		<selectKey keyProperty="rNo" resultType="int" order="BEFORE">
 			SELECT SEQ_FM_REVIEW_NO.NEXTVAL
@@ -26,7 +27,7 @@
 			VALUE(FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT, FM_REVIEW_CRE_DATE, FM_REVIEW_MOD_DATE)
 			VALUES(${rNo}, ${iNo}, #{uNo}, #{rTitle}, #{rContent}, SYSDATE, SYSDATE)
 		</insert>
-	
+	<!-- 	review File -->
 	<insert id="insertFile" parameterType="map">
 		INSERT INTO FM_REVIEW_IMG
 		VALUE(FM_REVIEW_IMG_NO, FM_REVIEW_NO, FM_REVIEW_IMG_NAME, FM_REVIEW_STORED_NAME)
@@ -34,7 +35,13 @@
 	</insert>
 
 
-<!--	Read list -->
+	<!--	Read list -->
+	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
+		SELECT COUNT(*) as "rCount"
+		FROM FM_REVIEW
+		WHERE FM_ITEM_NO = ${value}
+	</select>
+	
 	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
 		SELECT r.FM_REVIEW_NO, r.FM_ITEM_NO, r.FM_USER_NO, r.FM_REVIEW_TITLE, r.FM_REVIEW_CONTENT
 			, r.FM_REVIEW_CRE_DATE
@@ -51,7 +58,7 @@
 	</select>
 	
 	
-<!-- 	Read One -->
+	<!-- 	Read One -->
 	<select id="reviewSelectOne" parameterType="int"
 		resultMap="reviewResultMap">
 		SELECT FM_REVIEW_NO, FM_ITEM_NO, FM_USER_NO, FM_REVIEW_TITLE, FM_REVIEW_CONTENT
@@ -67,32 +74,7 @@
 	</select>
 	
 	
-<!-- 	Update -->
-	<update id="reviewUpdateOne" parameterType="reviewDto">
-		UPDATE FM_REVIEW
-		<set>
-			<if test="rTitle != ''">FM_REVIEW_TITLE = #{rTitle},</if>
-			FM_REVIEW_CONTENT = #{rContent}
-		</set>
-		WHERE FM_REVIEW_NO = #{rNo}
-	</update>
 	
-<!-- 	Delete -->
-	<delete id="reviewDeleteOne" parameterType="int">
-		 DELETE FROM FM_REVIEW
-		 WHERE FM_REVIEW_NO = #{value}
-	</delete>
-	
-	<delete id="fileDelete" parameterType="int">
-		DELETE FROM FM_REVIEW_IMG
-		WHERE FM_REVIEW_IMG_NO = ${value}
-	</delete>
-	
-	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
-		SELECT COUNT(*) as "rCount"
-		FROM FM_REVIEW
-		WHERE FM_ITEM_NO = ${value}
-	</select>
 	
 	<select id="viewReviewList" resultType="map">
 		SELECT *
@@ -105,4 +87,28 @@
 						ORDER BY r.FM_REVIEW_CRE_DATE DESC))
 		WHERE ROWNUM <![CDATA[<=]]> 3
 	</select>
+	
+	<!-- 	Update -->
+	<update id="reviewUpdateOne" parameterType="reviewDto">
+		UPDATE FM_REVIEW
+		<set>
+<!-- 			if 안에 있는 것이 마지막이면 ,가 없더라도 마바티스에서 오류로 볼 수 있기 때문에 if문 없는 것을 무조건 마지막에 넣어야하고
+ 				if 문 안에 있는 것은 ,를 넣는 것을 추천 -->
+			<if test="rTitle != ''">FM_REVIEW_TITLE = #{rTitle},</if>
+			FM_REVIEW_CONTENT = #{rContent}
+		</set>
+		WHERE FM_REVIEW_NO = #{rNo}
+	</update>
+	
+	<!-- 	Delete -->
+	<delete id="reviewDeleteOne" parameterType="int">
+		 DELETE FROM FM_REVIEW
+		 WHERE FM_REVIEW_NO = #{value}
+	</delete>
+	
+	<delete id="fileDelete" parameterType="int">
+		DELETE FROM FM_REVIEW_IMG
+		WHERE FM_REVIEW_IMG_NO = ${value}
+	</delete>
+	
 </mapper>

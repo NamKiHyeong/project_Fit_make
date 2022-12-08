@@ -13,12 +13,11 @@ public interface ReviewService {
 	
 //	R
 	public int reviewSelectTotalReviewCount(int iNo);
-
 	public List<Map<String, Object>> reviewSelectList(int iNo, int start, int end);
 	public Map<String, Object> reviewSelectOne(int rNo);
-
+//	U
 	public int reviewUpdateOne(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest, int imgNo) throws Exception;
-
+//	D
 	public void reviewDeleteOne(int rNo);
 	
 }

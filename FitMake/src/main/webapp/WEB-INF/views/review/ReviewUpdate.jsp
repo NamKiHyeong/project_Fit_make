@@ -58,8 +58,8 @@ location.href="../review/add.do?rNo=" + rNo;
 function pageReviewListFnc(iNo){
 location.href="../review/list.do?iNo=" + iNo;
 }
-//-----------------------------------------------------
-
+//---------------------htmlStr을 사용하여 삭제하는 법
+// 
 // function deleteFileFnc(obj){
 // //	      위 -> 아래 
 // //	      아래 -> 위
@@ -120,6 +120,7 @@ function deleteReviewFnc(rNo, iNo){
 				<div class="diet_wrap">
 					<div class="frame">
 						<div id="imgInfo" class="sortImg sort1">
+			<!-- 				사진이 공백일때와 아닐 때를 나타내기 위한 코드 우리 프로젝트는 무조건 사진이 있어야 하므로 주석처리 -->
 			<%-- 				<c:choose> --%>
 			<%-- 					<c:when test="${empty img.FM_REVIEW_IMG_NO}"> --%>
 			<!-- 					<input name="originalName" id="imageId" type="file"> -->
@@ -148,7 +149,6 @@ function deleteReviewFnc(rNo, iNo){
 						<div class="sortImg sort2">
 							<h3>제목</h3>
 							<input type="text" class="reviewTitle" name="rTitle" value="${reviewDto.rTitle}"><br>
-<!-- 							<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> -->
 							<h3>내용</h3>
 							<textarea class="reviewInfo" rows="20" cols="80" name="rContent">${reviewDto.rContent}</textarea>
 							<div id="reviewUpdateBtnArea">

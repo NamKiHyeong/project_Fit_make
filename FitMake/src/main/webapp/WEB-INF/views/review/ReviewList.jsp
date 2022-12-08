@@ -54,7 +54,6 @@ function deleteReviewFnc(rNo, iNo){
 					<c:forEach var="review" items="${reviewList}">
 						<div class="frame">
 							<form id="reviewOneForm${review.reviewDto.rNo}" action="./one.do" method="get">
-				<%-- 					<input type="hidden" name="cNo" value="${paging.cNo}"> --%>
 								<input type="hidden" name="iNo" value="${review.reviewDto.iNo}">
 								<input type="hidden" name="rNo" value="${review.reviewDto.rNo}">
 								<input type="hidden" name="curPage" value="${pagingMap.reviewPaging.curPage}">
@@ -67,6 +66,7 @@ function deleteReviewFnc(rNo, iNo){
 											<a href="#" onclick="reviewOneFnc(${review.reviewDto.rNo});">
 												제목 ${review.reviewDto.rTitle}
 											</a>
+<!-- 										자신이 작성한 리뷰이면 삭제 버튼이 보임 -->
 											<c:if test="${review.reviewDto.uNo eq _userDto_.uNo}">
 												<input class="itemCtr" type="button" value="삭제" onclick='deleteReviewFnc(${review.reviewDto.rNo}, ${review.reviewDto.iNo});'><br>
 											</c:if>

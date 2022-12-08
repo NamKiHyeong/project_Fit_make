@@ -33,8 +33,6 @@
 				
 				<div class="sortImg sort2">
 					<h3>제목</h3><input type="text" class="reviewTitle"name="rTitle" value="${reviewDto.rTitle}" readonly="readonly"><br>
-					
-<!-- 					<p style="padding:20px 0 10px;font-size:18px;font-weight:bold;">내용</p> -->
 					<h3>내용</h3>
 					 <textarea class="reviewInfo" rows="20" cols="80" name="rContent" readonly="readonly">${reviewDto.rContent}</textarea>
 					

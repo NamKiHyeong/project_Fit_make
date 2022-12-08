@@ -35,13 +35,13 @@ public class ReviewServicempl implements ReviewService {
 	private FileUtils fileUtiles;
 	
 	/** Create
-	 * 
+	 *  
 	 */
 	@Override
 	public void reviewInsert(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest) throws Exception{
-		log.info("서비스mpl에서 {} 를 넣을 값임" , reviewDto);
+		
+//		Dao로 값을 보내기
 		reviewDao.reviewInsert(reviewDto);
-		log.info("서비스mpl에서 {} 를 넣은 값임" , reviewDto);
 		
 		Iterator<String> iterator = mulRequest.getFileNames();
 		MultipartFile multipartFile = null;
@@ -60,50 +60,45 @@ public class ReviewServicempl implements ReviewService {
 		}
 //		rNo 리뷰No
 		int parentSeq = reviewDto.getrNo();
-		log.info("서비스 mpl에서 사진 파일하기 위한 rNo? {}", parentSeq);
-//		리뷰 사진과 내용을 하나씩 리스트에 저장
+		
+//		리뷰 사진을 리스트에 저장하는데 다른 패키지의 메서드 fileUtile를 활용
 		List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(parentSeq, mulRequest);
 		
+//		for문을 이용하여 리스트에 저장된 review 한개씩 업로드
 		for(int i=0; i<list.size(); i++) {
 			reviewDao.insertFile(list.get(i));
 		}
 		
 	}
 	
-	/**Read
-	 * 
+	/** Read
+	 *  
 	 */
+	//item리스트에서 리뷰 수에 따라서 정렬을 변겅하기 위한 코드
 	@Override
 	public int reviewSelectTotalReviewCount(int iNo){
 		return reviewDao.reviewSelectTotalReviewCount(iNo);
 	}
-	
+	//모든 리뷰를 가져오기 위한 코드
 	@Override
-//	public List<Map<String, Object>> reviewSelectList(int iNo){
-		public List<Map<String, Object>> reviewSelectList(int iNo, int start, int end){
-//		public List<Map<String, Object>> reviewSelectList(int iNo, String keyword, int start, int end){
+	public List<Map<String, Object>> reviewSelectList(int iNo, int start, int end){
 		
-//		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo);
 		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo, start, end);
-//		List<ReviewDto> reviewList= reviewDao.reviewSelectList(iNo, keyword, start, end);
 		
 		List<Map<String, Object>> list = new ArrayList<>();
-		
+		// 리뷰 수 만큼 사진 리뷰와 사진을 매칭해서 리스트에 저장
 		for (ReviewDto reviewDto : reviewList) {
 			Map<String, Object> map = new HashMap<String, Object>();
 
 			int rNo = reviewDto.getrNo();
-			//파일을 못 받아오는 듯하다
-			log.info("리뷰 리스트에서 rNo= {}" , rNo);
+			
 			Map<String, Object> fileMap = reviewDao.fileSelectOne(rNo);
-			log.info("리뷰 리스트에서 fileMap= {}" , fileMap);
 			
 			map.put("fileMap", fileMap);
 			map.put("reviewDto", reviewDto);
 			
 			list.add(map);
 		}
-		
 		return list;
 	}
 	
@@ -112,17 +107,19 @@ public class ReviewServicempl implements ReviewService {
 		Map<String, Object> resultMap = new HashMap<String, Object>();
 		
 		ReviewDto reviewDto = reviewDao.reviewSelectOne(rNo);
-		log.info("서비스mpl에 reviewDto {}" , reviewDto);
 		resultMap.put("reviewDto", reviewDto);
-		
+		//item에서 fileList를 썼기 때문에 혹시 모를 버그를 위해서 변수명을 fileList2로 함
 		List<Map<String, Object>> fileList2 = reviewDao.fileSelectList(rNo);
-		log.info("서비스mpl에 fileList2 {}" , fileList2);
 		resultMap.put("fileList2", fileList2);
 		
 		return resultMap;
 		
 	}
 	
+	/** Update
+	 *  업데이트를 하기 위해서는 Info와 파일을 업데이트 해야 하는데 하나라도 실패할 경우
+	 *  롤백하기 위해서 Transactional을 사용함 
+	 */
 	@Transactional(rollbackFor = Exception.class)
 	@Override
 	public int reviewUpdateOne(ReviewDto reviewDto, MultipartHttpServletRequest mulRequest
@@ -132,18 +129,12 @@ public class ReviewServicempl implements ReviewService {
 
 		try {
 			resultNum = reviewDao.reviewUpdateOne(reviewDto);
-			log.info("서비스mpl에서 reviewDto는?? {}", reviewDto);
 			
-			log.info("서비스mpl에서 업데이트는 성공했나? {}",resultNum);
 			int rNo = reviewDto.getrNo();
 			
-//			
 			Map<String, Object> tempFileMap2 = reviewDao.fileSelectOne(rNo);
-			log.info("서비스mpl에서 파일 하나를 잘 찾아왔나? {}",tempFileMap2);
+			
 			List<Map<String, Object>> list = fileUtiles.parseInsertFileInfo(rNo, mulRequest);
-			
-			log.info("서비스mpl에서 list를 잘 찾아왔나? {}",list);
-			
 			
 			// 리스트가 존재 할 경우 수행			
 			if(list.isEmpty() == false) {
@@ -163,7 +154,6 @@ public class ReviewServicempl implements ReviewService {
 				}
 			// 이미지를 삭제해서 존재하지 않을 때
 			} else if(imgNo == -1){
-				log.debug("수정되는 것 확인4", reviewDto.getrTitle());
 				
 				if(tempFileMap2 != null){
 					//db에서 파일정보 삭제
@@ -171,16 +161,13 @@ public class ReviewServicempl implements ReviewService {
 					//실제 드라이브에 파일을 삭제
 					fileUtiles.parseUpdateFileInfo(tempFileMap2);
 					
-					log.debug("수정되는 것 확인5", reviewDto.getrTitle());
 				}
 			}
 			
 		} catch (Exception e) {
-			log.debug("서비스 mpl에서 예외 발생", reviewDto.getrTitle());
 			TransactionAspectSupport.currentTransactionStatus()
 			.setRollbackOnly();
 		}
-		log.debug("수정이 완료되었습니다. {}", reviewDto.getrTitle());
 		
 		return resultNum;
 	}
