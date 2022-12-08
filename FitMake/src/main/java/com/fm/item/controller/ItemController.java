@@ -186,8 +186,6 @@ public class ItemController {
 
 			List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
 
-			System.out.println("update.do에서 " + iNo);
-
 			model.addAttribute("itemDto", itemDto);
 			model.addAttribute("prevMap", prevMap);
 			if (fileList.size() != 0) {

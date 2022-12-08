@@ -375,7 +375,6 @@ public class OrderController {
 	public String orderConfirm(HttpSession session, @RequestParam(value="ctNo", defaultValue = "0") int[] ctNo
 			, @RequestParam int orderTotalPrice
 			, @RequestParam int oNo) {
-		logger.debug("Welcome orderConfirm");
 		
 		try {
 			

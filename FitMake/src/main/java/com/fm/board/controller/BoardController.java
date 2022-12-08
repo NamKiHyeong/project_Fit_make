@@ -173,7 +173,7 @@ public class BoardController {
 	@ResponseBody
 	@RequestMapping(value="/reply/add.do", method = RequestMethod.POST)
 	public int addReply(HttpSession session, ReplyDto replyDto) {
-		logger.debug("replyDto" + replyDto.getIrParentNo());
+		
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = (int) userDto.getuNo();
 		replyDto.setuNo(uNo);
