@@ -25,7 +25,10 @@
 
 .sortOrder:after {content:"";clear:both;display:block;}
 
-.sortOrder ul {position:absolute;text-align:right;right:0;}
+.sortOrder ul {
+	position:absolute;
+	right:0;
+	}
 
 
 .sortOrder li {float:left;padding-left:30px;}
@@ -104,6 +107,10 @@
 	cursor: pointer;
 	font-size: 14px;
 }
+.itemCtr:hover{
+	font-weight: bold;
+}
+
 #categoryPtitle{
 	margin: 0px;
     font-size: 30px;

@@ -47,6 +47,7 @@
 	}
 	#successBtn{
 		margin-top: 200px;
+		margin-bottom: 100px;
 	}
 	.orderSuccessBtn{
 		margin-left: 10px;

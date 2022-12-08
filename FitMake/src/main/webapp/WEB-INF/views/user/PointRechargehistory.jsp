@@ -78,9 +78,7 @@
 		</div>
 	</div>
 	<jsp:include page="../Footer.jsp" />
-
-
-
+	
 	<div id="pagingSection">
 		<form id="pagingForm" action="./pointHistory.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"

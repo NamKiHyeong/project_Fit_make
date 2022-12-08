@@ -17,12 +17,13 @@
 		<result column="FM_USER_SALT" property="salt" />
 	</resultMap>
 	<!-- //회원정보 페이징카운트 -->
-	<select id="getUserTotalCount" resultType="int">
-		SELECT
-		(SELECT COUNT(FM_USER_NO)
-			FROM FM_USER),(SELECT COUNT(FM_POINT_NO)
-				FROM FM_POINT)
-		FROM DUAL
+	<select id="getUserTotalCount" resultType="int" parameterType="map">
+		SELECT COUNT(u.FM_USER_NO)
+		FROM FM_USER u LEFT OUTER JOIN FM_POINT p
+		ON u.FM_USER_NO = p.FM_USER_NO
+		WHERE 1 = 1
+		<if test="uNo != 1">AND u.FM_USER_NO = #{uNo}</if>
+		
 	</select>
 	<!-- 회원정보 페이징카운트// -->
 

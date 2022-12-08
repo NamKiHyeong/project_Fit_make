@@ -162,9 +162,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int getUserTotalCount(int uNo) {
+		Map<String, Integer> inputMap = new HashMap<String, Integer>();
+		inputMap.put("uNo", uNo);
 		
-		
-		return sqlSession.selectOne(namespaceuser + "getUserTotalCount", uNo);
+		return sqlSession.selectOne(namespaceuser + "getUserTotalCount", inputMap);
 	}
 
 	@Override

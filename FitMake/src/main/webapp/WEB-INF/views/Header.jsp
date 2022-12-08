@@ -31,6 +31,11 @@
 			$("#ulDiv").stop().slideUp("slow");
 		});
 		
+		$('input[type=button]').hover(function() {
+			$(this).addClass('btnHover');
+		}, function() {
+			$(this).removeClass('btnHover');
+		});
 	});
 	
 </script>
@@ -38,7 +43,9 @@
 #bigUl {
 	position: relative;
 }
-
+.btnHover {
+    font-weight: bold;
+}
 #ulDiv {
 	position: absolute;
 	display: none;

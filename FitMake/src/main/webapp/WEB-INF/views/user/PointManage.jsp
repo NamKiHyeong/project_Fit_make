@@ -45,7 +45,7 @@
 				<tr>
 					<th>번호</th>
 					<th>닉네임</th>
-					<th>충전금액</th>
+					<th>충전/사용금액</th>
 					<th>보유금액</th>
 					<th>충전일</th>
 				</tr>
@@ -53,7 +53,7 @@
 					<tr>
 						<td><span>${pointMap.FM_POINT_NO}</span></td>
 						<td><span>${pointMap.FM_USER_NICKNAME }</span></td>
-						<td><span>+<fmt:formatNumber type="number"
+						<td><span><fmt:formatNumber type="number"
 									maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}" /></span></td>
 						<td><span><fmt:formatNumber type="number"
 									maxFractionDigits="3" value="${pointMap.FM_USER_POINT}" /></span></td>

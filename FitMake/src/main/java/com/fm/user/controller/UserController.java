@@ -27,7 +27,6 @@ import com.fm.util.PointAdd;
 //어노테이션 드리븐
 @Controller
 public class UserController {
-	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 
 	@Autowired
 	private UserService userService;
