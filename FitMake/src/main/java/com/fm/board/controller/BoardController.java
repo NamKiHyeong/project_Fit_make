@@ -39,34 +39,39 @@ public class BoardController {
 	@RequestMapping(value = "/inquiry/list.do", method = RequestMethod.GET)
 	public String viewBoardList(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage) {
 		
-		String viewUrl = "";
+		try {
+			String viewUrl = "";
+			
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			int totalCount = boardService.getBoardTotalCount(uNo);
+			
+			Paging iqPaging = new Paging(totalCount, curPage);
+			
+			int start = iqPaging.getPageBegin();
+			int end = iqPaging.getPageEnd();
+			
+			List<Map<String, Object>> inquiryMapList = boardService.viewBoardList(uNo, start, end);
+			
+			
+			Map<String, Object> iqPagingMap = new HashMap<String, Object>();
+			
+			iqPagingMap.put("iqPaging", iqPaging); 
+			iqPagingMap.put("totalCount",totalCount);
+			iqPagingMap.put("start", start);
+			iqPagingMap.put("end", end);
+			
+			model.addAttribute("inquiryMapList", inquiryMapList);
+			model.addAttribute("iqPagingMap", iqPagingMap);
+			
+			viewUrl = "/inquiry/InquiryBoardList";
+			
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		
-		int totalCount = boardService.getBoardTotalCount(uNo);
-		
-		Paging iqPaging = new Paging(totalCount, curPage);
-		
-		int start = iqPaging.getPageBegin();
-		int end = iqPaging.getPageEnd();
-		
-		List<Map<String, Object>> inquiryMapList = boardService.viewBoardList(uNo, start, end);
-		
-		
-		Map<String, Object> iqPagingMap = new HashMap<String, Object>();
-		
-		iqPagingMap.put("iqPaging", iqPaging); 
-		iqPagingMap.put("totalCount",totalCount);
-		iqPagingMap.put("start", start);
-		iqPagingMap.put("end", end);
-		
-		model.addAttribute("inquiryMapList", inquiryMapList);
-		model.addAttribute("iqPagingMap", iqPagingMap);
-		
-		viewUrl = "/inquiry/InquiryBoardList";
-		
-		return viewUrl;
 	}
 	
 	/**
@@ -77,23 +82,28 @@ public class BoardController {
 	 */
 	@RequestMapping(value = "/inquiry/add.do", method = {RequestMethod.GET,RequestMethod.POST})
 	public String addBoardDetail(HttpSession session, BoardDto boardDto) {
-		String viewUrl = "";
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		
-		boardDto.setuNo(uNo);
-		
-		if(boardDto.getbTitle().equals("")) {
-			viewUrl = "/inquiry/InquiryBoardAdd";
-		} else {
+		try {
+			String viewUrl = "";
 			
-			int result = boardService.addBoardDetail(boardDto);
-			viewUrl = "redirect:./list.do";
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
 			
+			boardDto.setuNo(uNo);
+			
+			if(boardDto.getbTitle().equals("")) {
+				viewUrl = "/inquiry/InquiryBoardAdd";
+			} else {
+				
+				int result = boardService.addBoardDetail(boardDto);
+				viewUrl = "redirect:./list.do";
+				
+			}
+			
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-		
-		return viewUrl;
 	}
 	
 	/**
@@ -106,18 +116,23 @@ public class BoardController {
 	@RequestMapping(value="/inquiry/detail.do", method = RequestMethod.GET)
 	public String viewBoardDetail(HttpSession session, Model model, @RequestParam int bNo) {
 		
-		String viewUrl = "";
+		try {
+			String viewUrl = "";
+			
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			Map<String, Object> inquiryMap = boardService.viewBoardDetail(uNo, bNo);
+			
+			model.addAttribute("inquiryMap", inquiryMap);
+			
+			viewUrl = "/inquiry/InquiryBoardDetail";
+			
+			return viewUrl;
+		}catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		
-		Map<String, Object> inquiryMap = boardService.viewBoardDetail(uNo, bNo);
-		
-		model.addAttribute("inquiryMap", inquiryMap);
-		
-		viewUrl = "/inquiry/InquiryBoardDetail";
-		
-		return viewUrl;
 	}
 	
 	/**
@@ -129,19 +144,24 @@ public class BoardController {
 	@RequestMapping(value="/inquiry/delete.do")
 	public String deleteBoardDetail(HttpSession session, BoardDto boardDto) {
 		
-		String viewUrl = "";
+		try {
+			String viewUrl = "";
+			
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			boardDto.setuNo(uNo);
+			
+			int result = boardService.deleteBoardDetail(boardDto);
+			
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
+			viewUrl = "redirect:./list.do";
+			
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
 		
-		boardDto.setuNo(uNo);
-		
-		int result = boardService.deleteBoardDetail(boardDto);
-		
-	
-		viewUrl = "redirect:./list.do";
-		
-		return viewUrl;
 	}
 	
 	/**

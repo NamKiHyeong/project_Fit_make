@@ -30,16 +30,42 @@
 			}
 		});
 		
-		$('#writeReviewBtn').on('click', function(){
-			var confirmWriteReview = confirm("리뷰 작성페이지로 이동하시겠습니까?");
-			
-			if(confirmWriteReview == true){
-				location.href='../review/list.do';
-			} else {
-				return false;
-			}
-		});
 	});
+	function writeReviewFnc(oNo){
+		var confirmWriteReview = confirm("리뷰 작성페이지로 이동하시겠습니까?");
+		
+		if(confirmWriteReview == true){
+			
+			$.ajax({
+				type : 'POST',
+				url : '../review/check.do',
+				dataType : 'json',
+				data : {
+					'oNo' : oNo},
+				error : function(request, status, error) {
+					alert('code:' + request.status + '\n' + 'message:'
+							+ request.responseText + '\n' + 'error:' + error);
+				},
+				success : function(data) {
+						
+					if(data == 0) {
+						alert('작성 가능한 리뷰가 없습니다.');
+						$('#writeReviewBtn'+oNo).attr('disabled', true);
+						$('#writeReviewBtn'+oNo).css('background', 'grey');
+						$('#writeReviewBtn'+oNo).css('border', '2px solid grey');
+						
+						return false;
+					} else {
+						location.href='../review/add.do?oNo='+oNo;
+					}
+				}
+			})
+			
+		} else {
+			return false;
+		}
+	}
+	
 	function orderUpdateFnc(oNo, oStatus){
 			
 		if(oStatus === '주문취소'){
@@ -169,7 +195,7 @@
 										<div class="orderStatuswWithBtn">
 											주문대기
 											<span>
-												<input class="orderDetailCancelBtn" type="button" value="주문취소">
+												<input class="orderDetailCancelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderDetailItem.FM_ORDER_NO}, this.value);">
 											</span>
 										</div>
 									</c:when>
@@ -177,10 +203,10 @@
 										<div class="orderStatuswWithBtn">
 											주문승인
 											<span>
-												<input class="orderDetailCancelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(this.value);">
+												<input class="orderDetailCancelBtn" type="button" value="주문취소" onclick="orderUpdateFnc(${orderDetailItem.FM_ORDER_NO}, this.value);">
 											</span>
 											<span>
-												<input class="orderDetailPixedBtn" type="button" value="구매확정" onclick="orderUpdateFnc(this.value);">
+												<input class="orderDetailPixedBtn" type="button" value="구매확정" onclick="orderUpdateFnc(${orderDetailItem.FM_ORDER_NO}, this.value);">
 											</span>
 										</div>
 									</c:when>
@@ -193,7 +219,7 @@
 										<div class="orderStatuswWithBtn">
 											구매확정
 											<span>
-												<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="location.href='../review/add.do?oNo=${orderDetailItem.FM_ORDER_NO}'">
+												<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="writeReviewFnc${orderDetailItem.FM_ORDER_NO}">
 											</span>
 										</div>
 									</c:otherwise>

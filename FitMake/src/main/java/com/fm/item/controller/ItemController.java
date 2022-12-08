@@ -36,25 +36,23 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemAdd(Model model, int cNo) {
-
-		model.addAttribute("cNo", cNo);
-		
-		return "/item/ItemAdd"; 
+		try {
+			model.addAttribute("cNo", cNo);
+			return "/item/ItemAdd"; 
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
 	}
 	//아이템 추가 버튼
 	@RequestMapping(value = "/item/addCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemAddCtr(ItemDto itemDto, Model model, MultipartHttpServletRequest mulRequest) {
-		logger.trace("제품 추가합니다!" + itemDto);
 		try {
 			itemService.itemInsertOne(itemDto, mulRequest);
+			return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 		} catch (Exception e) {
-			// TODO: handle exception
-			System.out.println("예외임");
-			e.printStackTrace();
+			return "redirect:/auth/login.do";
 		}
-		logger.info("카테고리 번호 있나?", itemDto.getcNo());
 
-		return "redirect:/item/list.do?cNo=" + itemDto.getcNo();
 	}
 
 	/** Read
@@ -72,61 +70,65 @@ public class ItemController {
 			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "0") int older
 			, Model model, HttpSession session) {
-		
-		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
-		int uNo = userDto.getuNo();
-		int cNo = itemDto.getcNo();
-		int totalItemCount = 0;
-		List<ItemDto> itemList = null;
-		Paging itemPaging = null;
-		
-		if(cNo > 2) {
+		try {
+			UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+			int uNo = userDto.getuNo();
+			int cNo = itemDto.getcNo();
+			int totalItemCount = 0;
+			List<ItemDto> itemList = null;
+			Paging itemPaging = null;
 			
-			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, 0);
+			if(cNo > 2) {
+				
+				totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, 0);
+				
+				itemPaging = new Paging(totalItemCount, curPage);
+				int start = itemPaging.getPageBegin();
+				int end = itemPaging.getPageEnd();
+				
+				itemList = itemService.itemSelectList(cNo, keyword, start, end, older, 0);
+				
+			} else if (cNo == 2) {
+				
+				totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, -1);
+				
+				itemPaging = new Paging(totalItemCount, curPage);
+				int start = itemPaging.getPageBegin();
+				int end = itemPaging.getPageEnd();
+				
+				itemList = itemService.viewBestItemList(cNo, keyword, start, end, older, -1);
+			} else {
+				
+				totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
+				
+				itemPaging = new Paging(totalItemCount, curPage);
+				int start = itemPaging.getPageBegin();
+				int end = itemPaging.getPageEnd();
+				
+				itemList = itemService.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
+				
+			}
 			
-			itemPaging = new Paging(totalItemCount, curPage);
-			int start = itemPaging.getPageBegin();
-			int end = itemPaging.getPageEnd();
+			String categoryName = itemService.getCategoryName(cNo);
 			
-			itemList = itemService.itemSelectList(cNo, keyword, start, end, older, 0);
+			Map<String, Object> searchMap = new HashMap<>();
+			searchMap.put("keyword", keyword);
 			
-		} else if (cNo == 2) {
+			Map<String, Object> pagingMap = new HashMap<>();
+			pagingMap.put("itemPaging", itemPaging);
+			pagingMap.put("totalItemCount", totalItemCount);
+			pagingMap.put("older", older);
+			pagingMap.put("cNo", cNo);
 			
-			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, -1);
-			
-			itemPaging = new Paging(totalItemCount, curPage);
-			int start = itemPaging.getPageBegin();
-			int end = itemPaging.getPageEnd();
-			
-			itemList = itemService.viewBestItemList(cNo, keyword, start, end, older, -1);
-		} else {
-			
-			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
-			
-			itemPaging = new Paging(totalItemCount, curPage);
-			int start = itemPaging.getPageBegin();
-			int end = itemPaging.getPageEnd();
-			
-			itemList = itemService.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
-			
+			model.addAttribute("itemList", itemList);
+			model.addAttribute("pagingMap", pagingMap);
+			model.addAttribute("searchMap", searchMap);
+			model.addAttribute("categoryName", categoryName);
+			return "/item/ItemList";
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
 		
-		String categoryName = itemService.getCategoryName(cNo);
-		
-		Map<String, Object> searchMap = new HashMap<>();
-		searchMap.put("keyword", keyword);
-		
-		Map<String, Object> pagingMap = new HashMap<>();
-		pagingMap.put("itemPaging", itemPaging);
-		pagingMap.put("totalItemCount", totalItemCount);
-		pagingMap.put("older", older);
-		pagingMap.put("cNo", cNo);
-		
-		model.addAttribute("itemList", itemList);
-		model.addAttribute("pagingMap", pagingMap);
-		model.addAttribute("searchMap", searchMap);
-		model.addAttribute("categoryName", categoryName);
-		return "/item/ItemList";
 	}
 	/**
 	 * one
@@ -139,22 +141,27 @@ public class ItemController {
 	@RequestMapping(value = "/item/one.do", method = RequestMethod.GET)
 	public String itemOne(@RequestParam(defaultValue = "0") int curPage, @RequestParam(defaultValue = "0") int cNo
 			, @RequestParam(defaultValue = "1") int iNo, Model model) {
+		
+		try {
+			Map<String, Object> prevMap = new HashMap<>();
+			prevMap.put("cNo", cNo);
+			prevMap.put("curPage", curPage);
 
-		Map<String, Object> prevMap = new HashMap<>();
-		prevMap.put("cNo", cNo);
-		prevMap.put("curPage", curPage);
+			Map<String, Object> map = itemService.itemSelectOne(iNo);
 
-		Map<String, Object> map = itemService.itemSelectOne(iNo);
+			ItemDto itemDto = (ItemDto) map.get("itemDto");
 
-		ItemDto itemDto = (ItemDto) map.get("itemDto");
+			List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
 
-		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
+			model.addAttribute("itemDto", itemDto);
+			model.addAttribute("fileList", fileList);
+			model.addAttribute("prevMap", prevMap);
 
-		model.addAttribute("itemDto", itemDto);
-		model.addAttribute("fileList", fileList);
-		model.addAttribute("prevMap", prevMap);
-
-		return "/item/ItemOne";
+			return "/item/ItemOne";
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
+		
 	}
 
 	/** Update
@@ -167,27 +174,31 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/update.do", method = RequestMethod.GET)
 	public String itemUpdate(int curPage, int cNo, int iNo, Model model) {
-		logger.trace("수정하는 DB에 접속" + curPage);
+		
+		try {
+			Map<String, Object> prevMap = new HashMap<>();
+			prevMap.put("cNo", cNo);
+			prevMap.put("curPage", curPage);
 
-		Map<String, Object> prevMap = new HashMap<>();
-		prevMap.put("cNo", cNo);
-		prevMap.put("curPage", curPage);
+			Map<String, Object> map = itemService.itemSelectOne(iNo);
 
-		Map<String, Object> map = itemService.itemSelectOne(iNo);
+			ItemDto itemDto = (ItemDto) map.get("itemDto");
 
-		ItemDto itemDto = (ItemDto) map.get("itemDto");
+			List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
 
-		List<Map<String, Object>> fileList = (List<Map<String, Object>>) map.get("fileList");
+			System.out.println("update.do에서 " + iNo);
 
-		System.out.println("update.do에서 " + iNo);
+			model.addAttribute("itemDto", itemDto);
+			model.addAttribute("prevMap", prevMap);
+			if (fileList.size() != 0) {
+				model.addAttribute("img", fileList.get(0));
+			}
 
-		model.addAttribute("itemDto", itemDto);
-		model.addAttribute("prevMap", prevMap);
-		if (fileList.size() != 0) {
-			model.addAttribute("img", fileList.get(0));
+			return "item/ItemUpdate";
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-
-		return "item/ItemUpdate";
+		
 	}
 
 	// 업데이트 버튼
@@ -200,10 +211,11 @@ public class ItemController {
 
 		try {
 			itemService.itemUpdateOne(itemDto, mulRequest, imgNo);
+			return "redirect:/item/list.do?cNo=" + cNo;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return "redirect:/auth/login.do";
 		}
-		return "redirect:/item/list.do?cNo=" + cNo;
 	}
 
 	/**
@@ -215,8 +227,11 @@ public class ItemController {
 	 */
 	@RequestMapping(value = "/item/deleteOne.do", method = RequestMethod.GET)
 	public String itemDelete(int iNo, int cNo, Model model) {
-		itemService.itemDeleteOne(iNo);
-		return "redirect:/item/list.do?cNo=" + cNo;
-
+		try {
+			itemService.itemDeleteOne(iNo);
+			return "redirect:/item/list.do?cNo=" + cNo;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
 	}
 }

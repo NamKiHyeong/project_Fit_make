@@ -42,14 +42,19 @@ public class OrderController {
 	@RequestMapping(value = "/cart/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String viewCartList(HttpSession session, Model model) {
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
+		try {
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
 
-		List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
+			List<Map<String, Object>> cartMapList = orderService.viewCartList(uNo);
+			
+			model.addAttribute("cartMapList", cartMapList);
+
+			return "cart/CartList";
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
+		}
 		
-		model.addAttribute("cartMapList", cartMapList);
-
-		return "cart/CartList";
 	}
 
 	/**
@@ -158,42 +163,46 @@ public class OrderController {
 			, @RequestParam(defaultValue = "user") String searchOption
 			, @RequestParam(defaultValue = "") String searchText) {
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		
-		String viewUrl = "";
-		
-		
-		int totalCount = orderService.getOrderTotalCount(uNo, searchOption, searchText);
-		
-		Paging orderPaging = new Paging(totalCount, curPage);
-		
-		int start = orderPaging.getPageBegin();
-		int end = orderPaging.getPageEnd();
-		
-		List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo, searchOption, searchText, start, end);
-		
-		Map<String, Object> oPagingMap = new HashMap<String, Object>();
-		oPagingMap.put("orderPaging", orderPaging); 
-		oPagingMap.put("totalCount",totalCount);
-		oPagingMap.put("start", start);
-		oPagingMap.put("end", end);
-		
-		Map<String, Object> searchMap = new HashMap<String, Object>();
-		searchMap.put("searchOption", searchOption);
-		searchMap.put("searchText", searchText);
-		
-		model.addAttribute("orderMapList", orderMapList);
-		model.addAttribute("searchMap", searchMap);
-		model.addAttribute("oPagingMap", oPagingMap);
-		
-		if(uNo == 1) {
-			viewUrl = "order/OrderManage";
-		} else {
-			viewUrl = "order/MyOrder";
+		try {
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			String viewUrl = "";
+			
+			
+			int totalCount = orderService.getOrderTotalCount(uNo, searchOption, searchText);
+			
+			Paging orderPaging = new Paging(totalCount, curPage);
+			
+			int start = orderPaging.getPageBegin();
+			int end = orderPaging.getPageEnd();
+			
+			List<Map<String, Object>> orderMapList = orderService.viewOrderList(uNo, searchOption, searchText, start, end);
+			
+			Map<String, Object> oPagingMap = new HashMap<String, Object>();
+			oPagingMap.put("orderPaging", orderPaging); 
+			oPagingMap.put("totalCount",totalCount);
+			oPagingMap.put("start", start);
+			oPagingMap.put("end", end);
+			
+			Map<String, Object> searchMap = new HashMap<String, Object>();
+			searchMap.put("searchOption", searchOption);
+			searchMap.put("searchText", searchText);
+			
+			model.addAttribute("orderMapList", orderMapList);
+			model.addAttribute("searchMap", searchMap);
+			model.addAttribute("oPagingMap", oPagingMap);
+			
+			if(uNo == 1) {
+				viewUrl = "order/OrderManage";
+			} else {
+				viewUrl = "order/MyOrder";
+			}
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
 		
-		return viewUrl;
 	}
 
 	/**
@@ -213,38 +222,41 @@ public class OrderController {
 			@RequestParam(defaultValue = "1") int[] ctCount, @RequestParam(defaultValue = "0") int[] iSellprice,
 			@RequestParam(defaultValue = "0") int[] ctNo) {
 		
-		String viewUrl = "";
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		int oNo = 0;
-		
-		if (ctNo[0] == 0) {
-
-			orderService.addOrder(uNo);
-			orderService.addOrderDetail(uNo, iNo[0], ctCount[0], iSellprice[0]);
-			oNo = orderService.viewOrderNo(uNo);
+		try {
+			String viewUrl = "";
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			int oNo = 0;
 			
-			redirect.addAttribute("oNo", oNo);
-			
-			viewUrl = "redirect:/order/check.do";
-		} else if (ctNo.length > 0) {
-
-			orderService.addOrder(uNo);
-			oNo = orderService.viewOrderNo(uNo);
-			
-			for (int i = 0; i < iNo.length; i++) {
-				orderService.addOrderDetail(uNo, iNo[i], ctCount[i], iSellprice[i]);
+			if (ctNo[0] == 0) {
+				
+				orderService.addOrder(uNo);
+				orderService.addOrderDetail(uNo, iNo[0], ctCount[0], iSellprice[0]);
+				oNo = orderService.viewOrderNo(uNo);
+				
+				redirect.addAttribute("oNo", oNo);
+				
+				viewUrl = "redirect:/order/check.do";
+			} else if (ctNo.length > 0) {
+				
+				orderService.addOrder(uNo);
+				oNo = orderService.viewOrderNo(uNo);
+				
+				for (int i = 0; i < iNo.length; i++) {
+					orderService.addOrderDetail(uNo, iNo[i], ctCount[i], iSellprice[i]);
+				}
+				
+				redirect.addAttribute("ctNo", ctNo);
+				redirect.addAttribute("oNo", oNo);
+				
+				viewUrl = "redirect:/order/check.do";
+			} else {
+				viewUrl = "/main/MainPage";
 			}
-			
-			redirect.addAttribute("ctNo", ctNo);
-			redirect.addAttribute("oNo", oNo);
-			
-			viewUrl = "redirect:/order/check.do";
-		} else {
-			viewUrl = "/main/MainPage";
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-
-		return viewUrl;
 	}
 
 	/**
@@ -259,21 +271,24 @@ public class OrderController {
 	public String updateOrder(HttpSession session, Model model, @RequestParam(defaultValue = "0") int[] oNoArr,
 			@RequestParam(defaultValue = "0") String[] oStatusArr) {
 		
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		Map<String, Object> refundMap= new HashMap<String, Object>();
-				
-		for(int i = 0; i < oNoArr.length ; i++) {
-			orderService.updateOrder(oNoArr[i], oStatusArr[i]);
-			if(oStatusArr[i].equals("cancel")) {
-				refundMap = orderService.getPointHistory(oNoArr[i], uNo);
-				orderService.updatePoint(uNo, Integer.parseInt(String.valueOf(refundMap.get("FM_POINT_HISTORY"))), oNoArr[i]);
-				orderService.addPointHistory(uNo, Integer.parseInt(String.valueOf(refundMap.get("FM_POINT_HISTORY"))), oNoArr[i]);
-				
+		try {
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			Map<String, Object> refundMap= new HashMap<String, Object>();
+			
+			for(int i = 0; i < oNoArr.length ; i++) {
+				orderService.updateOrder(oNoArr[i], oStatusArr[i]);
+				if(oStatusArr[i].equals("cancel")) {
+					refundMap = orderService.getPointHistory(oNoArr[i], uNo);
+					orderService.updatePoint(uNo, Integer.parseInt(String.valueOf(refundMap.get("FM_POINT_HISTORY"))), oNoArr[i]);
+					orderService.addPointHistory(uNo, Integer.parseInt(String.valueOf(refundMap.get("FM_POINT_HISTORY"))), oNoArr[i]);
+				}
 			}
+			
+			return "redirect:/order/list.do";
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-		
-		return "redirect:/order/list.do";
 	}
 
 	/**
@@ -286,25 +301,29 @@ public class OrderController {
 	@Transactional
 	@RequestMapping(value = "/order/detail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo) {
-
-		String viewUrl = "";
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-
-		if(uNo > 0) {
+		
+		try {
+			String viewUrl = "";
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
 			
-			List<Map<String, Object>> orderDetailItemList = orderService.viewOrderDetailItem(oNo);
-			Map<String, Object> orderDetailMyInfo = orderService.viewMyInfo(uNo);
-			
-			model.addAttribute("orderDetailItemList", orderDetailItemList);
-			model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
-			model.addAttribute("oNo", oNo);
-			
-			viewUrl = "/order/MyOrderDetail";
-		} else {
-			viewUrl = "redirect:/auth/login.do";
+			if(uNo > 0) {
+				
+				List<Map<String, Object>> orderDetailItemList = orderService.viewOrderDetailItem(oNo);
+				Map<String, Object> orderDetailMyInfo = orderService.viewMyInfo(uNo);
+				
+				model.addAttribute("orderDetailItemList", orderDetailItemList);
+				model.addAttribute("orderDetailMyInfo", orderDetailMyInfo);
+				model.addAttribute("oNo", oNo);
+				
+				viewUrl = "/order/MyOrderDetail";
+			} else {
+				viewUrl = "redirect:/auth/login.do";
+			}
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/login.do";
 		}
-		return viewUrl;
 	}
 	
 	/**
@@ -320,27 +339,27 @@ public class OrderController {
 	public String viewOrderConfirm(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo, 
 			@RequestParam(value="ctNo", defaultValue = "-1") int[] ctNo) {
 
-		String viewUrl = "";
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-
-		if (uNo > 0) {
-			oNo = orderService.viewOrderNo(uNo);
+		try {
+			String viewUrl = "";
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
 			
-			List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
-			Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
 			
-			model.addAttribute("orderConfirmItemList", orderConfirmItemList);
-			model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
-			model.addAttribute("ctNo", ctNo);
-			model.addAttribute("oNo", oNo);
-			
-			viewUrl = "/order/OrderConfirm";
-		
-		} else {
-			viewUrl = "redirect:../auth/Login.do";
+				oNo = orderService.viewOrderNo(uNo);
+				
+				List<Map<String, Object>> orderConfirmItemList = orderService.viewOrderConfirmItem(oNo);
+				Map<String, Object> orderConfirmMyInfo = orderService.viewMyInfo(uNo);
+				
+				model.addAttribute("orderConfirmItemList", orderConfirmItemList);
+				model.addAttribute("orderConfirmMyInfo", orderConfirmMyInfo);
+				model.addAttribute("ctNo", ctNo);
+				model.addAttribute("oNo", oNo);
+				
+				viewUrl = "/order/OrderConfirm";
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/Login.do";
 		}
-		return viewUrl;
 	}
 	
 	/**
@@ -358,24 +377,29 @@ public class OrderController {
 			, @RequestParam int oNo) {
 		logger.debug("Welcome orderConfirm");
 		
-		String viewUrl = "";
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
-		
-		orderService.updatePoint(uNo, orderTotalPrice, oNo);
-		orderService.addPointHistory(uNo, orderTotalPrice, oNo);
-		
-		if(ctNo[0] != 0) {
+		try {
 			
-			for (int i = 0; i < ctNo.length; i++) {
-				orderService.deleteCart(uNo, ctNo[i]);
+			String viewUrl = "";
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			orderService.updatePoint(uNo, orderTotalPrice, oNo);
+			orderService.addPointHistory(uNo, orderTotalPrice, oNo);
+			
+			if(ctNo[0] != 0) {
+				
+				for (int i = 0; i < ctNo.length; i++) {
+					orderService.deleteCart(uNo, ctNo[i]);
+				}
+				
+				viewUrl = "/order/OrderSuccess";
+			} else {
+				viewUrl = "/order/OrderSuccess";
 			}
-			
-			viewUrl = "/order/OrderSuccess";
-		} else {
-			viewUrl = "/order/OrderSuccess";
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/Login.do";
 		}
-		return viewUrl;
 	}
 	
 	/**
@@ -388,15 +412,20 @@ public class OrderController {
 	public String orderConfirmDelete(HttpSession session, Model model,
 			@RequestParam int oNo) {
 		
-		String viewUrl = "";
-		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
-		int uNo = (int) userDto.getuNo();
+		try {
+			String viewUrl = "";
+			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
+			int uNo = (int) userDto.getuNo();
+			
+			orderService.deleteOrder(uNo, oNo);
+			
+			viewUrl="redirect:../cart/list.do";
+			
+			return viewUrl;
+		} catch (Exception e) {
+			return "redirect:/auth/Login.do";
+		}
 		
-		orderService.deleteOrder(uNo, oNo);
-		
-		viewUrl="redirect:../cart/list.do";
-		
-		return viewUrl;
 	}
 	
 	/**
