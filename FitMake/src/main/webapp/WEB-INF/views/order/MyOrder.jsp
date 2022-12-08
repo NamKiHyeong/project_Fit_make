@@ -60,7 +60,6 @@
 	#orderRootDiv {
 		display: flex;
 		width : 1200px;
-		height : 100%;
 		margin: 0px auto;
 		justify-content: space-between;
 	}
@@ -70,6 +69,7 @@
 	}
 	#myOrderDiv{
 		width : 1000px;
+		margin-bottom: 300px;
 	}
 	#titleDiv{
 		position: relative;
