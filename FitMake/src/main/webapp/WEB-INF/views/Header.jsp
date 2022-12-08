@@ -13,6 +13,7 @@
 <script type="text/javascript">
 	// 세션에 contextPath를 추출하여 세팅함(js로 옮기지 말 것)
 	sessionStorage.setItem("contextpath", "${pageContext.request.contextPath}");
+	sessionStorage.setItem("uNo", "${_userDto_.getuNo()}");
 	
 	$(document).ready(function () {
 		
