@@ -57,6 +57,9 @@
 	});
 </script>
 <style type="text/css">
+	#inquiryReplyDiv{
+		margin-bottom: 100px;
+	}
 	#addReplyArea{
 		width: auto;
 		height: 75px;

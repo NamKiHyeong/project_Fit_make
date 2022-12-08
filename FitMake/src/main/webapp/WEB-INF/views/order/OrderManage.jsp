@@ -219,7 +219,9 @@
 		<jsp:include page="/WEB-INF/views/order/OrderPaging.jsp" />
 		</div>
 	</div>
-	
+	<!-- footer 시작 -->
+	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 	<div id="pagingSection">
 		<form id="pagingForm" action="./list.do" method="get">
 			<input type="hidden" id="curPage" name="curPage" value="${oPagingMap.orderPaging.curPage}">

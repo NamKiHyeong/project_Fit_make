@@ -78,7 +78,7 @@
 <body>
 
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
-	
+	<div style="height: 50px;"></div>
 	<div id="inquiryDetailRootDiv">
 	<jsp:include page="../MyPageLeft.jsp" />
 		<div id="inquiryDetail">
@@ -125,7 +125,6 @@
 									
 								</td>
 								<td id="inquiryDetailbtnArea">
-									<input type="button" class="inquiryBtn" value="수정">
 									<input type="button" class="inquiryBtn" value="삭제" onclick="location.href='./delete.do?bNo=${inquiryMap.FM_INQUIRY_NO}'">
 									<input type="button" class="inquiryBtn" value="목록" onclick="location.href='./list.do'">
 								</td>
@@ -137,5 +136,8 @@
 			<jsp:include page="/WEB-INF/views/inquiry/InquiryReply.jsp" />
 		</div>
 	</div>
+	<!-- footer 시작 -->
+	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 </body>
 </html>
