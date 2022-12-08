@@ -9,6 +9,12 @@
 		<when test="uNo == 0">
 			AND FM_CATEGORY_NO = #{cNo}
 		</when>
+		<when test="uNo > 0">
+			AND u.FM_USER_NO = ${uNo}
+		</when>
+		<when test="uNo == -1">
+			AND o.FM_ORDER_STATUS <![CDATA[<>]]> 'CANCEL'
+		</when>
 	</choose>
 	
 </sql>
@@ -140,20 +146,41 @@
 	<select id="itemSelectTotalItemCount" parameterType="map" resultType="int" >
 		SELECT COUNT(i.FM_ITEM_NO)
 		FROM FM_ITEM i
+		<choose>
+			<when test="uNo > 0">
+				INNER JOIN FM_USER_BMI ubi
+		        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
+		            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
+		        INNER JOIN FM_USER u
+	                ON u.FM_USER_NO = ubi.FM_USER_NO 
+			</when>
+			<when test="uNo == -1" >
+				INNER JOIN FM_ORDER_DETAIL od
+	                ON i.FM_ITEM_NO = od.FM_ITEM_NO
+	            INNER JOIN FM_ORDER o
+	                ON o.FM_ORDER_NO = od.FM_ORDER_NO
+	            LEFT OUTER JOIN FM_REVIEW r
+	            	ON r.FM_ITEM_NO = i.FM_ITEM_NO
+			</when>
+		</choose>
 		<include refid="search"></include>
+		<if test="uNo == -1">
+			group by i.fm_item_no
+		</if>
 	</select>
 	
-	<select id="selectRecommendItemCount" parameterType="map" resultType="int" >
-		SELECT COUNT(i.FM_ITEM_NO)
-		FROM FM_ITEM i
-			INNER JOIN FM_USER_BMI ubi
-	        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND
-	            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                   
-	        INNER JOIN FM_USER u
-                ON u.FM_USER_NO = ubi.FM_USER_NO
-		<include refid="search"></include>
-		AND u.FM_USER_NO = ${uNo}
-	</select>
+	<!-- 실험 중 지우지 말것 -->
+<!-- 	<select id="selectRecommendItemCount" parameterType="map" resultType="int" > -->
+<!-- 		SELECT COUNT(i.FM_ITEM_NO) -->
+<!-- 		FROM FM_ITEM i -->
+<!-- 			INNER JOIN FM_USER_BMI ubi -->
+<!-- 	        	ON (CEIL(ubi.FM_USER_GOAL_CALORY/100) &lt;= i.FM_CALORY_GRADE AND -->
+<!-- 	            	i.FM_CALORY_GRADE &lt; (CEIL(ubi.FM_USER_GOAL_CALORY/100)+1))                    -->
+<!-- 	        INNER JOIN FM_USER u -->
+<!--                 ON u.FM_USER_NO = ubi.FM_USER_NO -->
+<!-- 		<include refid="search"></include> -->
+<!-- 		AND u.FM_USER_NO = ${uNo} -->
+<!-- 	</select> -->
 	
 	<!-- 메인화면 추천 제품 목록 구성 -->
 	<select id="viewRecommendItemList" parameterType="map" resultMap="itemResultMap" >

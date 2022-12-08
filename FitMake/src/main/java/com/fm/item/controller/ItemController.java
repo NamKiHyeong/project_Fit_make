@@ -104,7 +104,7 @@ public class ItemController {
 			categoryName = itemService.getCategoryName(cNo);
 		} else {
 			
-			totalItemCount = itemService.selectRecommendItemCount(cNo, keyword, uNo);
+			totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
 			
 			itemPaging = new Paging(totalItemCount, curPage);
 			int start = itemPaging.getPageBegin();

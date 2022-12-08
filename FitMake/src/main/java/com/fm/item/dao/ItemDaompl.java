@@ -141,16 +141,17 @@ public class ItemDaompl implements ItemDao{
 		inputMap.put("keyword", keyword);
 		inputMap.put("start", start);
 		inputMap.put("end", end);
+		inputMap.put("older", older);
 		
 		
-		return sqlSession.selectList(namespace + "viewRecommendItemList", uNo);
+		return sqlSession.selectList(namespace + "viewRecommendItemList", inputMap);
 	}
 	@Override
 	public int selectRecommendItemCount(int cNo, String keyword, int uNo) {
 			Map<String, Object> inputMap = new HashMap<String, Object>();
 			inputMap.put("uNo", uNo);
 			inputMap.put("keyword", keyword);
-			inputMap.put("start", cNo);
+			inputMap.put("cNo", cNo);
 		return sqlSession.selectOne(namespace + "selectRecommendItemCount", inputMap);
 	}
 }
