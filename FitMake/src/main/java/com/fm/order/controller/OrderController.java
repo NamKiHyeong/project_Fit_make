@@ -284,7 +284,7 @@ public class OrderController {
 	 * @return			
 	 */
 	@Transactional
-	@RequestMapping(value = "/order/detail.do", method = { RequestMethod.POST})
+	@RequestMapping(value = "/order/detail.do", method = {RequestMethod.GET, RequestMethod.POST})
 	public String viewOrderDetail(HttpSession session, Model model, @RequestParam(defaultValue = "0") int oNo) {
 
 		String viewUrl = "";

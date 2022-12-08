@@ -11,6 +11,17 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$('#addInquiryBtn').on('click', function(){
+			
+			if($('#bTitle').val().length == 0){
+				alert('제목을 입력해 주세요');
+				return false;
+			} 
+			
+			if($('#bContent').val().length == 0){
+				alert('내용을 입력해 주세요');
+				return false;
+			}
+				
 			$('#inquiryAddForm').attr('action', './add.do');
 			$('#inquiryAddForm').attr('method', 'post');
 			$('#inquiryAddForm').submit();
@@ -25,6 +36,7 @@
 	#inquiryAddRootDiv {
 		display: flex;
 		width : 1200px;
+		height : 100%;
 		margin: 0px auto;
 		justify-content: space-between;
 	}
@@ -122,6 +134,8 @@
 			</form>
 		</div>
 	</div>
-	
+	<!-- footer 시작 -->
+	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 </body>
 </html>

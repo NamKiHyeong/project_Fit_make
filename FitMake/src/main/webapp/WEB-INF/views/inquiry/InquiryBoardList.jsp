@@ -15,6 +15,7 @@
 	#inquiryListRootDiv {
 		display: flex;
 		width : 1200px;
+		height : 100%;
 		margin: 0px auto;
 		justify-content: space-between;
 	}
@@ -156,6 +157,8 @@
 			<input type="hidden" id="curPage" name="curPage" value="${iqPagingMap.iqPaging.curPage}">
 		</form>
 	</div>
-	
+	<!-- footer 시작 -->
+	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 </body>
 </html>

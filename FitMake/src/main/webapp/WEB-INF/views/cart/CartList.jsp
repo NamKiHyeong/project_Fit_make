@@ -151,15 +151,15 @@
 </script>
 <style type="text/css">
 	#cartListRootDiv {
-		display: flex;
 		width : 1200px;
+		height: 100%;
 		margin: 0px auto;
-		justify-content: space-around;
-		flex-direction: column;
-		align-items: center;
 	}
 	#cartDiv{
 		width : 1200px;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
 	}
 	#titleDiv{
 		position: relative;
@@ -344,5 +344,8 @@
 		</div>		
 	</div>
 </div>
+<!-- footer 시작 -->
+<jsp:include page="../Footer.jsp" />
+<!-- footer 끝 -->
 </body>
 </html>
