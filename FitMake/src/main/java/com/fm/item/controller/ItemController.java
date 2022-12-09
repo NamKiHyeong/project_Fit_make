@@ -70,13 +70,15 @@ public class ItemController {
 			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "0") int older
 			, Model model, HttpSession session) {
+		
+		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
+		int uNo = userDto.getuNo();
+		int cNo = itemDto.getcNo();
+		int totalItemCount = 0;
+		List<ItemDto> itemList = null;
+		Paging itemPaging = null;
+		
 		try {
-			UserDto userDto = (UserDto)session.getAttribute("_userDto_");
-			int uNo = userDto.getuNo();
-			int cNo = itemDto.getcNo();
-			int totalItemCount = 0;
-			List<ItemDto> itemList = null;
-			Paging itemPaging = null;
 			
 			if(cNo > 2) {
 				
@@ -126,6 +128,7 @@ public class ItemController {
 			model.addAttribute("categoryName", categoryName);
 			return "/item/ItemList";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:/auth/login.do";
 		}
 		

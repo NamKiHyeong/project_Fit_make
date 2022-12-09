@@ -39,7 +39,7 @@
 	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
 		SELECT COUNT(*) AS "rCount"
 		FROM FM_REVIEW
-		WHERE FM_ITEM_NO = ${value}
+		WHERE FM_ITEM_NO = #{iNo}
 	</select>
 	
 	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
