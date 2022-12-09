@@ -183,7 +183,7 @@
 		</div>
 		<div id="reviewDiv">
 			<p class="titlePtag">
-				<a href="../review/list.do?cNo=1">리뷰</a>
+				<a href="../review/list.do?iNo=0">리뷰</a>
 			</p>
 			<div class="ItemArea">
 				<c:forEach var="mainReview" items="${mainReviewList}" begin="1"

@@ -20,17 +20,17 @@ nav > ul > li{
 	float: left;
 }
 
-nav > ul > li > a{
+nav > ul > li > .pagingBtn{
 	display: block;
 	color: white;
 	text-align: center;
 	padding: 16px;
 	text-decoration: none;
 }
-nav > ul > li > a:link{
+nav > ul > li > .pagingBtn:link{
 	color: white;
 }
-nav > ul > li > a:hover {
+nav > ul > li > .pagingBtn:hover {
 	color: white;
 	background-color: #a41d53;
 	font-weight: bold;
@@ -101,7 +101,7 @@ nav > ul > li > a:hover {
 			begin="${pagingMap.itemPaging.blockBegin}" 
 			end="${pagingMap.itemPaging.blockEnd}">
 			<li id='pageButton${num}'>
-				<a href="#" onclick="goPageFnc(${num});">
+				<a href="#" class="pagingBtn" onclick="goPageFnc(${num});">
 					<c:out value="${num}"/>
 				</a>
 			</li>

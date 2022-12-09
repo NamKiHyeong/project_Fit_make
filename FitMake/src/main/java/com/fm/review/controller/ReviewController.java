@@ -147,6 +147,7 @@ public class ReviewController {
 
 			return "/review/ReviewList";
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:/auth/login.do";
 		}
 

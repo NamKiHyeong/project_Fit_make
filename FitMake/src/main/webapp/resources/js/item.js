@@ -110,10 +110,7 @@ function pageMoveListFnc(cNo, curPage) {
 //------------------------------------------------------------------
 
 
-function pageReviewFnc(iNo){
-	location.href="../review/add.do?iNo=" + iNo;
-	
-}
+
 function pageReviewListFnc(iNo){
 	location.href="../review/list.do?iNo=" + iNo;
 }
