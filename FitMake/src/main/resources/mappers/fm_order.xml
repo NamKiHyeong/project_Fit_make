@@ -212,7 +212,7 @@
             WHERE u.FM_USER_NO = #{uNo}
             AND o.FM_ORDER_STATUS = 'pixed'
             AND o.FM_ORDER_NO = #{oNo}
-            AND r.FM_ORDER_NO IS NULL
+            AND r.FM_REVIEW_CONTENT IS NULL
             GROUP BY i.FM_ITEM_NO, i.FM_ITEM_NAME, o.FM_ORDER_NO, r.FM_ORDER_NO
 	</select>
 </mapper>

@@ -31,6 +31,7 @@
 		});
 		
 	});
+	
 	function writeReviewFnc(oNo){
 		var confirmWriteReview = confirm("리뷰 작성페이지로 이동하시겠습니까?");
 		
@@ -48,7 +49,7 @@
 				},
 				success : function(data) {
 						
-					if(data == 0) {
+					if(data < 0) {
 						alert('작성 가능한 리뷰가 없습니다.');
 						$('#writeReviewBtn'+oNo).attr('disabled', true);
 						$('#writeReviewBtn'+oNo).css('background', 'grey');
@@ -219,7 +220,7 @@
 										<div class="orderStatuswWithBtn">
 											구매확정
 											<span>
-												<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="writeReviewFnc${orderDetailItem.FM_ORDER_NO}">
+												<input id="writeReviewBtn" type="button" value="리뷰쓰기" onclick="writeReviewFnc(${orderDetailItem.FM_ORDER_NO})">
 											</span>
 										</div>
 									</c:otherwise>
