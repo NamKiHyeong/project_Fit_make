@@ -31,7 +31,7 @@
 		
 		<c:choose>
 			<c:when test="${empty itemList}">
-				<h4><a href="./add.do?cNo=${pagingMap.cNo}">제품을 등록해주세요</a></h4>
+				<h2><a href="./add.do?cNo=${pagingMap.cNo}">제품을 등록해주세요</a></h2>
 			</c:when>
 			
 			<c:otherwise>
