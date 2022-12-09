@@ -39,9 +39,7 @@
 	<select id="reviewSelectTotalReviewCount" parameterType="int" resultType="int" >
 		SELECT COUNT(*) AS "rCount"
 		FROM FM_REVIEW
-		<if test="iNo != 0">
-			WHERE FM_ITEM_NO = ${value}
-		</if>
+		WHERE FM_ITEM_NO = ${value}
 	</select>
 	
 	<select id="reviewSelect" parameterType="map" resultMap="reviewResultMap">
@@ -50,9 +48,6 @@
 		FROM FM_REVIEW r
     	INNER JOIN FM_ITEM i ON r.FM_ITEM_NO = i.FM_ITEM_NO
     	INNER JOIN FM_USER u ON r.FM_USER_NO = u.FM_USER_NO
-    	<if test="iNo != 0">
-			WHERE i.FM_ITEM_NO = #{iNo}
-		</if>
 	</select>
 
 	<select id="fileSelectOne" parameterType="int" resultType="map">
