@@ -11,12 +11,35 @@
 <link rel="stylesheet" href="/fitmake/resources/css/itemOne.css">
 <script type="text/javascript" src="/fitmake/resources/js/item.js"></script>
 
+<script type="text/javascript">
+	function itemFnc() {
+		var iNameObj = document.getElementById("iName"); 
+		var iSellpriceObj = document.getElementById("iSellprice");
+		var iCaloryObj = document.getElementById("iCalory");
+		var iCountObj = document.getElementById("iCount");
+		
+		if(iNameObj.value == ""){
+			alert("제품명이 없습니다.");
+		} else if(iSellpriceObj.value == ""){
+			alert("제품 금액이 없습니다.");
+		} else if(iCaloryObj.value == ""){
+			alert("제품 칼로리가 없습니다.");
+		} else if(iCountObj.value == ""){
+			alert("제품의 제고 수량이 없습니다.");
+		} else {
+			$("#itemForm").submit();
+		}
+			
+		
+		
+	}
+</script>
 </head>
 <body>
 	<jsp:include page="../Header.jsp"/>
 	<div id="itemOneDiv">
 		<div id="itemOneOuterWrap">
-			<form action="./addCtr.do" method="post" enctype="multipart/form-data">
+			<form id="itemForm" action="./addCtr.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" value="${cNo}" name="cNo">
 				<div class="diet_wrap">
 					<div class="frame">
@@ -29,9 +52,6 @@
 							</c:when>
 							<c:otherwise>
 								<div class="sortImg sort1">
-	<%-- 								<input type = "hidden" value="${img.FM_ITEM_IMG_NO}"> --%>
-	<%-- 								<input type = "hidden" value="${img.FM_ITEM_NO}"> --%>
-	<%-- 								<input type = "hidden" value="${img.FM_ITEM_IMG_NAME}"> --%>
 									
 									<img alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
 									<input type="file" id="file_${obj.index}" name="file_${obj.index}"> 
@@ -41,17 +61,15 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
-	<!-- 					<div class="sortImg sort1"> -->
-	<!-- 						파일:<input type="file" name="file"> -->
-	<!-- 					</div> -->
 						
 						<div class="sortImg sort2">
-							<p><span>제품명</span>		<input class="info" type="text" name="iName"></p>
-							<p><span>가 &nbsp; 격</span>	<input class="info" type="number" name="iSellprice"></p>
-							<p><span>칼로리</span>	 	<input class="info" type="number" name="iCalory"></p>
-							<p><span>재 &nbsp; 고</span>	<input class="info" type="number" name="iCount"></p>
+							<p><span>제품명</span>		<input id="iName" name="iName" class="info" type="text"></p>
+							<p><span>가 &nbsp; 격</span>	<input id="iSellprice" name="iSellprice" class="info" type="number"></p>
+							<p><span>칼로리</span>	 	<input id="iCalory" name="iCalory" class="info" type="number" name="iCalory"></p>
+							<p><span>재 &nbsp; 고</span>	<input id="iCount" name="iCount" class="info" type="number"></p>
 							
-							<input  class="itemCtr" type="submit" value="작성">
+							<input class="itemCtr" type="button" value="작성" onclick="itemFnc();">
+							
 							<input  class="itemCtr" type="button" onclick="pageMoveListFnc(${cNo});" value="이전페이지로">
 							
 						</div>
