@@ -111,7 +111,7 @@
 					var cartTotalPrice = new Intl.NumberFormat().format(data);
 					viewCartSummaryFnc();
 					$('#ctCount' + cartNo).val(ModifiedCtCount);
-					$('#cartTotalPrice').text(cartTotalPrice);
+					$('#cartTotalPrice').text(cartTotalPrice+'원');
 					getFocusFnc(cartNo);
 				}
 			});
