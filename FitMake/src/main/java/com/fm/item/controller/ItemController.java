@@ -35,9 +35,11 @@ public class ItemController {
 	 * @return
 	 */
 	@RequestMapping(value = "/item/add.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String itemAdd(Model model, int cNo) {
+	public String itemAdd(Model model, int cNo
+			,@RequestParam(defaultValue = "0") int curPage) {
 		try {
 			model.addAttribute("cNo", cNo);
+			model.addAttribute("curPage", curPage);
 			return "/item/ItemAdd"; 
 		} catch (Exception e) {
 			return "redirect:/auth/login.do";

@@ -37,7 +37,7 @@
 			<c:otherwise>
 				<div class="sortOrder">
 					<ul class="sortOrderbox">
-						<li><c:if test="${_userDto_.uNo == 1}"><a href="./add.do?cNo=${pagingMap.cNo}" class="sortOrdervv" style="color: aqua;">제품 추가</a></c:if></li>
+						<li><c:if test="${_userDto_.uNo == 1}"><a href="./add.do?cNo=${pagingMap.cNo}&curPage=${pagingMap.itemPaging.curPage}" class="sortOrdervv" style="color: aqua;">제품 추가</a></c:if></li>
 						<li><a href="./list.do?cNo=${pagingMap.cNo}&older=1" class="sortOrdervv" onclick="itemOneAsc();">낮은 가격순</a></li>
 						<li><a href="./list.do?cNo=${pagingMap.cNo}&older=2" class="sortOrdervv" onclick="itemOneAsc();">높은 리뷰순</a></li>
 					</ul>

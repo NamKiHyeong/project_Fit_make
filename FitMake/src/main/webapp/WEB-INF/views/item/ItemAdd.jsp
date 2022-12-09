@@ -63,6 +63,9 @@
 						</c:choose>
 						
 						<div class="sortImg sort2">
+						
+						<input type="text" value="${curPage}">
+						<input type="text" value="${cNo}">
 							<p><span>제품명</span>		<input id="iName" name="iName" class="info" type="text"></p>
 							<p><span>가 &nbsp; 격</span>	<input id="iSellprice" name="iSellprice" class="info" type="number"></p>
 							<p><span>칼로리</span>	 	<input id="iCalory" name="iCalory" class="info" type="number" name="iCalory"></p>
@@ -70,7 +73,7 @@
 							
 							<input class="itemCtr" type="button" value="작성" onclick="itemFnc();">
 							
-							<input  class="itemCtr" type="button" onclick="pageMoveListFnc(${cNo});" value="이전페이지로">
+							<input  class="itemCtr" type="button" onclick="pageMoveListFnc(${cNo},${curPage});" value="이전페이지로">
 							
 						</div>
 					</div>
