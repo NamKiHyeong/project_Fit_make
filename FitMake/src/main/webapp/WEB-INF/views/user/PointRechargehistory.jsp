@@ -74,7 +74,8 @@
 										[충전]
 									</c:otherwise>
 								</c:choose></td>
-							<td>${pointMap.FM_POINT_HISTORY}</td>
+							<td><fmt:formatNumber type="number"
+									maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}" /></td>
 							<td><fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"
 									value="${pointMap.FM_POINT_CRE_DATE}" /></td>
 						</tr>
