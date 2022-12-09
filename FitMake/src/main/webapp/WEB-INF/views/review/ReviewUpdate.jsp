@@ -150,7 +150,7 @@ function deleteReviewFnc(rNo, iNo){
 							<h3>제목</h3>
 							<input type="text" class="reviewTitle" name="rTitle" value="${reviewDto.rTitle}"><br>
 							<h3>내용</h3>
-							<textarea class="reviewInfo" rows="20" cols="80" name="rContent">${reviewDto.rContent}</textarea>
+							<textarea style="resize: none;" class="reviewInfo" rows="20" cols="80" name="rContent">${reviewDto.rContent}</textarea>
 							<div id="reviewUpdateBtnArea">
 								<input class="itemCtr" type="submit" value="수정완료">
 								

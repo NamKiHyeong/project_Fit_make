@@ -76,7 +76,7 @@ function deleteReviewFnc(rNo, iNo){
 											</c:if>
 										</p>
 										<p>내용</p>
-										<textarea class="listInfo" readonly="readonly">${review.reviewDto.rContent}</textarea>
+										<textarea style="resize: none;" class="listInfo" readonly="readonly">${review.reviewDto.rContent}</textarea>
 									</div>
 								</div>
 							</form>

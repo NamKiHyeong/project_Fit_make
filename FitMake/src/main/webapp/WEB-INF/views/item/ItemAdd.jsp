@@ -58,7 +58,7 @@
 					</div>
 					<div class="iteminfo">
 						<h3>제품상세정보</h3>
-						<textarea rows="20" cols="120" name="iOneDetail">이 제품의 장점은~</textarea>
+						<textarea style="resize: none;" rows="20" cols="120" name="iOneDetail">이 제품의 장점은~</textarea>
 					</div>
 				</div>
 			</form>

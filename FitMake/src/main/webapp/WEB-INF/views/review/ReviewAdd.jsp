@@ -72,7 +72,7 @@
 						<h3>제목</h3>
 						<input class="addInfo" type="text" name="rTitle">
 						<h3>내용</h3>
-						<textarea rows="20" cols="80" name="rContent"></textarea>
+						<textarea style="resize: none;" rows="20" cols="80" name="rContent"></textarea>
 						<div id="reviewAddBtnArea">
 							<input class="reviewCtr" type="submit" value="작성">
 						</div>

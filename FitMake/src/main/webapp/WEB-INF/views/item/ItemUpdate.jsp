@@ -105,7 +105,7 @@
 						</div>
 						<div class="iteminfo">
 							<h3>제품상세정보</h3>
-							<textarea rows="20" cols="120" id='iOneDetail' name="iOneDetail">${itemDto.iOneDetail}</textarea>
+							<textarea style="resize: none;" rows="20" cols="120" id='iOneDetail' name="iOneDetail">${itemDto.iOneDetail}</textarea>
 						</div>
 					</div>
 				</div>
