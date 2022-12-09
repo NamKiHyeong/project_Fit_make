@@ -69,7 +69,9 @@ public class ItemController {
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
 			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword
 			, @RequestParam(defaultValue = "0") int older
-			, Model model, HttpSession session) {
+			, Model model, HttpSession session
+			, @RequestParam(defaultValue = "1") int start
+			, @RequestParam(defaultValue = "6") int end) {
 		
 		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
 		int uNo = userDto.getuNo();
@@ -85,8 +87,8 @@ public class ItemController {
 				totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, 0);
 				
 				itemPaging = new Paging(totalItemCount, curPage);
-				int start = itemPaging.getPageBegin();
-				int end = itemPaging.getPageEnd();
+				start = itemPaging.getPageBegin();
+				end = itemPaging.getPageEnd();
 				
 				itemList = itemService.itemSelectList(cNo, keyword, start, end, older, 0);
 				
@@ -95,8 +97,8 @@ public class ItemController {
 				totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, -1);
 				
 				itemPaging = new Paging(totalItemCount, curPage);
-				int start = itemPaging.getPageBegin();
-				int end = itemPaging.getPageEnd();
+				start = itemPaging.getPageBegin();
+				end = itemPaging.getPageEnd();
 				
 				itemList = itemService.viewBestItemList(cNo, keyword, start, end, older, -1);
 			} else {
@@ -104,8 +106,8 @@ public class ItemController {
 				totalItemCount = itemService.itemSelectTotalItemCount(cNo, keyword, uNo);
 				
 				itemPaging = new Paging(totalItemCount, curPage);
-				int start = itemPaging.getPageBegin();
-				int end = itemPaging.getPageEnd();
+				start = itemPaging.getPageBegin();
+				end = itemPaging.getPageEnd();
 				
 				itemList = itemService.viewRecommendItemList(cNo, keyword, start, end, older, uNo);
 				
