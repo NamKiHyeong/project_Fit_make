@@ -1,0 +1,1 @@
+<Context docBase="C:/upload/" path="/fitmake/image" reloadable="true"/>

@@ -199,7 +199,7 @@
 	</select>
 	
 	<select id="getOrderList" parameterType="map" resultType="map">
-		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME, o.FM_ORDER_NO, r.FM_ORDER_NO 
+		SELECT i.FM_ITEM_NO, i.FM_ITEM_NAME, o.FM_ORDER_NO
 		FROM FM_USER u
 			INNER JOIN FM_ORDER o
 				ON u.FM_USER_NO = o.FM_USER_NO
