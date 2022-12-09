@@ -96,7 +96,7 @@
 	
 	<delete id="itemDeleteOne" parameterType="int">
 		 DELETE FROM FM_ITEM
-		 WHERE FM_ITEM_NO = #{value}
+		 WHERE FM_ITEM_NO = #{iNo}
 	</delete>
 	
 	
@@ -124,7 +124,7 @@
 	
 	<delete id="fileDelete" parameterType="int">
 		DELETE FROM FM_ITEM_IMG
-		WHERE FM_ITEM_NO = ${value}
+		WHERE FM_ITEM_NO = #{iNo}
 	</delete>
 	
 	<select id="itemSelectTotalItemCount" parameterType="map" resultType="int" >

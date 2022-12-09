@@ -68,6 +68,7 @@ public class ItemController {
 	@RequestMapping(value = "/item/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
 			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword
+			, @RequestParam(defaultValue = "1") int cNo
 			, @RequestParam(defaultValue = "0") int older
 			, Model model, HttpSession session
 			, @RequestParam(defaultValue = "1") int start
@@ -75,7 +76,7 @@ public class ItemController {
 		
 		UserDto userDto = (UserDto)session.getAttribute("_userDto_");
 		int uNo = userDto.getuNo();
-		int cNo = itemDto.getcNo();
+		cNo = itemDto.getcNo();
 		int totalItemCount = 0;
 		List<ItemDto> itemList = null;
 		Paging itemPaging = null;
@@ -234,6 +235,7 @@ public class ItemController {
 			itemService.itemDeleteOne(iNo);
 			return "redirect:/item/list.do?cNo=" + cNo;
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:/auth/login.do";
 		}
 	}

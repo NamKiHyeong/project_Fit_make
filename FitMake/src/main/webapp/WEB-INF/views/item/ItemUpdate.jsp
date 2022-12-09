@@ -101,7 +101,7 @@
 							<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveBefore(${prevMap.curPage}, ${prevMap.cNo}, ${itemDto.iNo});">
 							
 							<input class="itemCtr" type="button" value="제품목록으로 이동" onclick="pageMoveListFnc(${itemDto.cNo});">
-							<input class="itemCtr" type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo}, ${prevMap.cNo});'><br>
+<%-- 							<input class="itemCtr" type="button" value="삭제" onclick='deleteItemFnc(${itemDto.iNo}, ${prevMap.cNo});'><br> --%>
 						</div>
 						<div class="iteminfo">
 							<h3>제품상세정보</h3>

@@ -178,6 +178,7 @@ public class ItemServicempl implements ItemService {
 	 */
 	@Override
 	public void itemDeleteOne(int iNo) {
+//		itemDao.fileDelete(iNo);
 		itemDao.itemDeleteOne(iNo);
 	}
 	
