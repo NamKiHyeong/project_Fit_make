@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+/* Header CSS */
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
 .notosanskr * {
@@ -143,6 +144,42 @@ a:active {
 	display: inline-block;
 }
 
+
+.btnHover {
+	font-weight: bold;
+}
+
+#ulDiv {
+	position: absolute;
+	display: none;
+	width: 137px;
+	margin-top: 11px;
+	background-color: #FAFAFA;
+}
+
+.ulPtag {
+	padding-left: 12px;
+}
+
+#title {
+	margin: 0;
+}
+
+#testLi {
+	cursor: pointer;
+}
+
+#chickenTag, #cheezeTag, #milkTag {
+	font-size: 15px;
+	font-weight: normal;
+}
+
+#chickenTag:hover, #cheezeTag:hover, #milkTag:hover {
+	font-size: 16px;
+	font-weight: bold;
+}
+
+/* 헤더 장바구니 CSS */
 #cartList {
 	display: none;
 	position: absolute;
@@ -221,6 +258,7 @@ a:active {
 	border-bottom: 1px solid #e5e5e5;;
 }
 
+/* 여기서 부터 footer CSS */
 #footerArea {
 	border-top: 1px solid #e5e5e5;
 	width: 100%;

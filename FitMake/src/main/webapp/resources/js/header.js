@@ -1,6 +1,6 @@
 $(document).ready(function() {
-	myNickNameChk();
-	myPointChkFnc();
+	myNickNameChk(); // 회원정보 수정시 바뀐 닉네임으로 최신화
+	myPointChkFnc(); // 포인트 충전 혹은 사용시 충전된,차감된 포인트를 바로 나타냄
 	viewCartSummaryFnc();
 
 });

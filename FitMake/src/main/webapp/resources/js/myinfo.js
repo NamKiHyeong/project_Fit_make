@@ -36,7 +36,6 @@ $(document).ready(function() {
 	});
 
 	$("#new_user_pwd, #new_user_pwd_check").keyup(function() {
-		//비밀번호 정규식
 		var pwdChk = $("#new_user_pwd").val();
 		var new_user_pwd_check = $("#new_user_pwd_check").val();
 		// 비밀번호 정규식
@@ -81,6 +80,7 @@ $(document).ready(function() {
 
 });
 
+// 회원정보수정에서 비밀번호 변경 버튼 클릭 -> 신규 비밀번호 작성란 생성 
 function viewPwdChange() {
 	if ($("#trpwd1").is(':visible') == false) {
 		$("#trpwd1").show();
@@ -93,6 +93,7 @@ function viewPwdChange() {
 	}
 }
 
+// 충전 버튼 클릭 -> 팝업창 실행
 function showPopup() {
 	window.open("/fitmake/user/point.do", "point",
 		"width=500px, height=400px, left=100px, top=50px");

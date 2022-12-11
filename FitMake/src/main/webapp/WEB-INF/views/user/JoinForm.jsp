@@ -4,25 +4,25 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<script type="text/javascript" src="/fitmake/resources/js/jquery-3.6.1.js"></script>
+<script type="text/javascript"
+	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 
 
 <!-- CSS -->
 <link rel="stylesheet" href="/fitmake/resources/css/join.css">
 
-<!-- 기본 유효성검사 -->
-<script type="text/javascript" src="/fitmake/resources/js/join.js"></script>
-	
 <!-- 카카오 주소 API링크 -->
-<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	
-<!-- AJAX 유효성 검사 & 휴대폰 문자인증(이메일,닉네임 중복체크 & 휴대폰 번호 자동 하이픈) -->
-<script type="text/javascript" src="/fitmake/resources/js/jq_join.js"></script>
+<script
+	src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 
+<!-- 기본 유효성검사 & AJAX 유효성 검사 & 휴대폰 문자인증(이메일,닉네임 중복체크 & 휴대폰 번호 자동 하이픈) -->
+<script type="text/javascript" src="/fitmake/resources/js/jq_join.js"></script>
 <title>FitMake</title>
 </head>
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<!-- 헤더 시작 -->
+	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div id="container">
 		<div id="joinDiv">
 			<p class="join_Tag">회원가입</p>
@@ -85,9 +85,9 @@
 					<p class="join_P">
 						성별<em class="join_em_Cl">⭐</em>
 					</p>
-					<label><input type="radio" id="men" name="gender" value="M" checked/>남성</label>
-					<label><input type="radio" name="gender" id="women"
-						value="W" />여성</label> <span id="result_Check_gender"></span>
+					<label><input type="radio" id="men" name="gender" value="M"
+						checked />남성</label> <label><input type="radio" name="gender"
+						id="women" value="W" />여성</label> <span id="result_Check_gender"></span>
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
@@ -106,12 +106,13 @@
 						id="result_check_hei"></span>
 				</div>
 				<div>
-					<input type="button" value='회원가입' id="joinSubmit"
-						onclick="joinSunFnc();">
+					<input type="button" value='회원가입' id="joinSubmit">
 				</div>
 			</form>
 		</div>
 	</div>
+	<!-- footer 시작 -->
 	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 </body>
 </html>

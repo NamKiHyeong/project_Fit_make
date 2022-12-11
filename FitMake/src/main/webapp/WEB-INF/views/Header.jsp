@@ -17,13 +17,15 @@
 	
 	$(document).ready(function () {
 		
+		// 헤더 부분 회색 줄 회원정보가 있으면 나타냄
 		var headerDiv = $("#headerDiv");
 		if (${_userDto_.email != null}) {
 			headerDiv.css("background", "#ebebeb");
 		} else {
 			headerDiv.css("background", "#fff");
 		}
-
+		
+		//  전체 카테고리에 커서를 올리면 드롭다운이 됨
 		$("#testLi").on("mouseover", function() {
 			$("#ulDiv").stop().slideDown("slow");
 		});
@@ -32,6 +34,7 @@
 			$("#ulDiv").stop().slideUp("slow");
 		});
 		
+		// 헤더부분 버튼에 호버기능(헤더 CSS에 a:hover를 해놔서 강제로 설정함 a:hover수정하면 지워야함)
 		$('input[type=button]').hover(function() {
 			$(this).addClass('btnHover');
 		}, function() {
@@ -40,37 +43,6 @@
 	});
 	
 </script>
-<style type="text/css">
-.btnHover {
-    font-weight: bold;
-}
-#ulDiv {
-	position: absolute;
-	display: none;
-	width: 137px;
-	margin-top: 11px;
-	background-color: #FAFAFA;
-}
-.ulPtag{
-    padding-left: 12px;
-}
-#title {
-	margin: 0;
-}
-#testLi{
-	cursor: pointer;
-}
-
-#chickenTag, #cheezeTag, #milkTag {
-	font-size: 15px;
-     font-weight: normal;
-}
-
-#chickenTag:hover, #cheezeTag:hover, #milkTag:hover{
-	font-size: 16px;
-	font-weight: bold;
-}
-</style>
 </head>
 <body>
 	<div id="rootDiv">
@@ -143,13 +115,16 @@
 							</p>
 							<div id="ulDiv">
 								<p class="ulPtag">
-									<a id="chickenTag" href="${pageContext.request.contextPath}/item/list.do?cNo=4">닭가슴살</a>
+									<a id="chickenTag"
+										href="${pageContext.request.contextPath}/item/list.do?cNo=4">닭가슴살</a>
 								</p>
 								<p class="ulPtag">
-									<a id="cheezeTag" href="${pageContext.request.contextPath}/item/list.do?cNo=6">치즈</a>
+									<a id="cheezeTag"
+										href="${pageContext.request.contextPath}/item/list.do?cNo=6">치즈</a>
 								</p>
 								<p class="ulPtag">
-									<a id="milkTag" href="${pageContext.request.contextPath}/item/list.do?cNo=7">우유</a>
+									<a id="milkTag"
+										href="${pageContext.request.contextPath}/item/list.do?cNo=7">우유</a>
 								</p>
 							</div>
 						</li>
