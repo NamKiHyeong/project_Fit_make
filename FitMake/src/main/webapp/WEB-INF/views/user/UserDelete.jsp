@@ -97,7 +97,12 @@
 	$(document).ready(function() {
 
 		$("#deleteBtn").click(function() {
-
+			
+			if ($("#deletePwd").val() == null || $("#deletePwd").val() == '') {
+				alert("비밀번호를 입력해주세요");
+				return false;
+			}
+			
 			confirm("정말로 탈퇴하시겠습니까?");
 
 		});
@@ -110,12 +115,18 @@
 </head>
 
 <body>
+	<!-- 헤더 시작 -->
 	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div style="height: 50px;"></div>
 	<div id="deleteContainer">
+		<!-- LeftNav 시작 -->
 		<jsp:include page="../MyPageLeft.jsp" />
+		<!-- LeftNav 끝 -->
 		<div id="deleteDiv">
+			<!-- Order status 시작-->
 			<jsp:include page="../MyPageNav.jsp" />
+			<!-- Order status 끝-->
 			<p id="deletePtag">회원탈퇴</p>
 			<form action="../user/deleteCtr.do" method="post">
 				<div id="deleteTableDiv">
@@ -127,7 +138,7 @@
 						</tr>
 						<tr>
 							<th>비밀번호</th>
-							<td><input type="password" class="contentInput"
+							<td><input type="password" class="contentInput" id="deletePwd"
 								name="password" placeholder="비밀번호 입력"> <c:if
 									test="${msg == false}">
 									<span style="font-size: 12px;">· 비밀번호가 맞지 않습니다</span>

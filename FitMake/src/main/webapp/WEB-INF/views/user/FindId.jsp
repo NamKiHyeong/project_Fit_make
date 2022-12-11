@@ -11,6 +11,8 @@
 	$(document).ready(function() {
 		findIdFnc();
 		cancelBtnFnc();
+		
+		// 자동 하이픈
 		function autoHypenPhone(str) {
 			str = str.replace(/[^0-9]/g, '');
 			var tmp = '';
@@ -46,7 +48,8 @@
 			this.value = autoHypenPhone(_val);
 		}
 	});
-
+	
+	// 비동기(Ajax) 아이디 찾기
 	function findIdFnc() {
 		$("#submitInp").click(function() {
 			var phone = $("#phone").val();
@@ -71,7 +74,8 @@
 
 		});
 	}
-
+	
+	// 취소 버튼 누를시 -> 로그인 페이지 이동
 	function cancelBtnFnc() {
 		$("#cancelInp").click(function() {
 			location.href = "../auth/login.do";
@@ -177,7 +181,9 @@
 </head>
 
 <body>
+	<!-- 헤더 시작 -->
 	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div id="containerFid">
 		<p id="findId">아이디 찾기</p>
 		<div id="fidMainDiv">
@@ -192,7 +198,9 @@
 				type="button" id="cancelInp" value="취소">
 		</div>
 	</div>
+	<!-- footer 시작 -->
 	<jsp:include page="../Footer.jsp" />
+	<!-- footer 끝 -->
 </body>
 
 

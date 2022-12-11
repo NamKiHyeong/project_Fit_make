@@ -44,12 +44,18 @@
 <title>FitMake</title>
 </head>
 <body>
+	<!-- 헤더 시작 -->
 	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div style="height: 50px;"></div>
 	<div id="history_Container">
+		<!-- LeftNav 시작 -->
 		<jsp:include page="../MyPageLeft.jsp" />
+		<!-- LeftNav 끝 -->
 		<div id="historyDiv">
+			<!-- Order status 시작-->
 			<jsp:include page="../MyPageNav.jsp" />
+			<!-- Order status 끝-->
 			<p id="topupPtag">포인트내역</p>
 			<div id="historytableDiv">
 				<table>
@@ -90,9 +96,7 @@
 		</div>
 	</div>
 	<!-- footer 시작 -->
-
 	<jsp:include page="../Footer.jsp" />
-
 	<!-- footer 끝 -->
 
 	<div id="pagingSection">

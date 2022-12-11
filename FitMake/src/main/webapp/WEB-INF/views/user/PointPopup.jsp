@@ -8,18 +8,15 @@
 <style type="text/css">
 @import url(//fonts.googleapis.com/earlyaccess/notosanskr.css);
 
-.notosanskr * { 
- font-family: 'Noto Sans KR', sans-serif;
+.notosanskr * {
+	font-family: 'Noto Sans KR', sans-serif;
 }
 
-html, body{
+html, body {
 	font-family: 'Noto Sans KR', sans-serif;
 	margin: 0px;
 	padding: 0px;
 	height: 100%;
-}
-#selectContainer {
-	
 }
 
 #selectContainer li {
@@ -69,11 +66,23 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 	text-align: right;
 }
 
+#optionli:hover {
+	background: silver;
+	font-size: 14px;
+	font-weight: bold;
+}
+
 .optionli {
 	width: 100%;
 	height: 35px;
 	border: 1px solid #d6d6d6;
 	text-align: right;
+}
+
+.optionli:hover {
+	background: silver;
+	font-size: 14px;
+	font-weight: bold;
 }
 
 #ulDiv {
@@ -86,6 +95,28 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 
 .ulPtag {
 	font-size: 15px;
+}
+
+#pointAdd {
+	margin-left: 10px;
+	width: 70px;
+	background: #d7266d;
+	border: 1px solid #d7266d;
+	color: #fff;
+	text-align: center;
+	border-radius: 3px;
+	cursor: pointer;
+}
+
+#addCancel {
+	margin-left: 10px;
+	background: #fff;
+	width: 70px;
+	border: 1px solid #565656;
+	color: #565656;
+	text-align: center;
+	border-radius: 3px;
+	cursor: pointer;
 }
 </style>
 <script type="text/javascript"
@@ -120,7 +151,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 			$("#optionUl").hide();
 		});
 		
-		// 팝업창에서 충전 버튼을 누르면 ajax실행 금액 인풋에 담긴 밸류값을 전송하여 처리
+		// 팝업창에서 충전 버튼을 누르면 ajax실행 금액 인풋에 담긴 값을 전송하여 처리
 		$("#pointAdd").click(function() {
 			var priceSelect = parseInt($("#priceSelect").val());
 			if (!confirm("충전하시겠습니까?")) {
@@ -165,7 +196,7 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 		</div>
 		<div style="float: right;">
 			<input type="button" id="pointAdd" value="충전"> <input
-				type="button" value="취소" onclick="closeTabClick();">
+				type="button" id="addCancel" value="취소" onclick="closeTabClick();">
 		</div>
 	</div>
 </body>

@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>FitMake</title>
 
 <style type="text/css">
 #userContainerDiv {
@@ -53,7 +53,9 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<!-- 헤더 시작 -->
+	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div id="userContainerDiv">
 		<h2>회원관리</h2>
 		<div id="userTableDiv">
@@ -76,10 +78,10 @@
 						<td><span>${userMap.FM_USER_EMAIL }</span></td>
 						<td><span>${userMap.FM_USER_MOBILE }</span></td>
 						<td><span>${userMap.FM_USER_ADDRESS }</span></td>
-						<td><span><fmt:formatNumber type="number"
-									maxFractionDigits="3" value="${userMap.FM_USER_POINT}" /></span></td>
+						<td style="text-align: right;"><span><fmt:formatNumber type="number"
+									maxFractionDigits="3" value="${userMap.FM_USER_POINT}" />원</span></td>
 						<td><span class="userGender">${userMap.FM_USER_BMI_GENDER }</span></td>
-						<td><fmt:formatDate pattern="yyyy-MM-dd hh:mm:ss"
+						<td style="text-align: right;"><fmt:formatDate pattern="yyyy년MM월dd일 hh시mm분ss초"
 								value="${userMap.FM_USER_CRE_DATE}" /></td>
 					</tr>
 					</c:if>

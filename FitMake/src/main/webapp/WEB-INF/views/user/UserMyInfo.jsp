@@ -29,12 +29,18 @@
 </head>
 
 <body>
+	<!-- 헤더 시작 -->
 	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div style="height: 50px;"></div>
 	<div id="container">
+		<!-- LeftNav 시작 -->
 		<jsp:include page="../MyPageLeft.jsp" />
+		<!-- LeftNav 끝 -->
 		<div id="myInfoDiv">
+			<!-- Order status 시작-->
 			<jsp:include page="../MyPageNav.jsp" />
+			<!-- Order status 끝-->
 			<div id="updateDelete">
 				<p id="myInfoP">내정보 수정</p>
 				<a href="../user/userDelete.do"><span id="myInfoSpan">회원탈퇴</span></a>

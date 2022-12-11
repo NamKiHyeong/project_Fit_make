@@ -37,7 +37,9 @@
 </head>
 
 <body>
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<!-- 헤더 시작 -->
+	<jsp:include page="../Header.jsp" />
+	<!-- 헤더 끝 -->
 	<div id="userContainerDiv">
 		<h2>포인트관리</h2>
 		<div id="userTableDiv">
@@ -66,11 +68,14 @@
 										[충전]
 									</c:otherwise>
 								</c:choose></span></td>
-						<td><span><fmt:formatNumber type="number"
-									maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}" /></span></td>
-						<td><span><fmt:formatNumber type="number"
-									maxFractionDigits="3" value="${pointMap.FM_USER_POINT}" /></span></td>
-						<td><fmt:formatDate pattern="yyyy년MM월dd일 hh시mm분ss초"
+						<td style="text-align: right;"><span><fmt:formatNumber
+									type="number" maxFractionDigits="3"
+									value="${pointMap.FM_POINT_HISTORY}" />원</span></td>
+						<td style="text-align: right;"><span><fmt:formatNumber
+									type="number" maxFractionDigits="3"
+									value="${pointMap.FM_USER_POINT}" />원</span></td>
+						<td style="text-align: right;"><fmt:formatDate
+								pattern="yyyy년MM월dd일 hh시mm분ss초"
 								value="${pointMap.FM_POINT_CRE_DATE}" /></td>
 					</tr>
 				</c:forEach>
@@ -80,10 +85,10 @@
 	</div>
 
 	<!-- footer 시작 -->
-	
 	<jsp:include page="../Footer.jsp" />
-	
 	<!-- footer 끝 -->
+
+
 	<div id="pagingSection">
 		<form id="pagingForm" action="./pointHistory.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"
