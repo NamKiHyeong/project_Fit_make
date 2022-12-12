@@ -15,14 +15,14 @@ public class UserDto {
 	private String address = "";
 	private Date createDate = null;
 	private int point = 0; // 뽀인뜨
-	private int salt;
+	private long salt;
 
 	public UserDto() {
 		super();
 	}
 
 	public UserDto(int uNo, String nickName, String email, String password, String mobile, String zipCode,
-			String address, Date createDate, int point, int salt) {
+			String address, Date createDate, int point, long salt) {
 		super();
 		this.uNo = uNo;
 		this.nickName = nickName;
@@ -33,16 +33,15 @@ public class UserDto {
 		this.createDate = createDate;
 		this.point = point;
 		this.password = password;
-		
 		// 사용자가 입력한 비밀번호 salt화
 		this.salt = salt;
 	}
 	
 	//salt 로직(함수화)
-	public int addSalt() {
+	public long addSalt() {
 		Date today = new Date();
 
-		int randomSalt = (int) (Math.random() * today.getTime());
+		long randomSalt = (long) (Math.random() * today.getTime());
 
 		System.out.println(randomSalt);
 
@@ -50,7 +49,7 @@ public class UserDto {
 	}
 	
 	// SHA-256사용 16진수로 패스워드 해시화
-	public String setHashpwd(int salt, String password) {
+	public String setHashpwd(long salt, String password) {
 		StringBuffer sb = new StringBuffer();
 		try {
 			MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -140,11 +139,11 @@ public class UserDto {
 		this.point = point;
 	}
 
-	public int getSalt() {
+	public long getSalt() {
 		return salt;
 	}
 
-	public void setSalt(int salt) {
+	public void setSalt(long salt) {
 		this.salt = salt;
 	}
 

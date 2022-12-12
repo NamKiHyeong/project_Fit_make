@@ -15,6 +15,8 @@ public interface UserService {
 
 	public void userInsertOne(UserDto userDto, String address);
 
+	public void userBmiUpdate(UserDto userDto, double height, double weight);
+	
 	public void bmiInsertOne(BmiCalc bmiCalc);
 
 	public Map<String, Object> userSelectInfo(int uNo);
@@ -33,7 +35,7 @@ public interface UserService {
 
 	public void userDelete(UserDto userDto) throws Exception;
 
-	public void userUpdate(UserDto userDto, String nickName, String password, int salt);
+	public void userUpdate(UserDto userDto, String nickName, String changepassword, long salt);
 
 	public String myNickNameChk(String nickName);
 

@@ -135,10 +135,16 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void userUpdate(UserDto userDto, String nickName, String password, int salt) {
+	public void userUpdate(UserDto userDto, String nickName, String changepassword, long salt) {
 
-		userDao.userUpdate(userDto, nickName, password, salt);
+		userDao.userUpdate(userDto, nickName, changepassword, salt);
 
+	}
+	
+	@Override
+	public void userBmiUpdate(UserDto userDto, double height, double weight) {
+		
+		userDao.userBmiUpdate(userDto, height, weight);
 	}
 
 	@Override
@@ -230,6 +236,7 @@ public class UserServiceImpl implements UserService {
 		
 		return userDao.viewPointList(uNo, start, end);
 	}
+
 
 	
 

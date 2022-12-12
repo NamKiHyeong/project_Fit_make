@@ -180,7 +180,6 @@ input::-webkit-outer-spin-button, input::-webkit-inner-spin-button {
 </script>
 </head>
 <body>
-
 	<div id="selectContainer">
 		<p id="pTagId">포인트 충전</p>
 		<input type="number" id="priceSelect" placeholder="금액입력">

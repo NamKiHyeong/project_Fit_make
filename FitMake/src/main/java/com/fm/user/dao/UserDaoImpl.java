@@ -25,27 +25,26 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public List<Map<String, Object>> pointHistoryList(int uNo, int start, int end) {
-			
+
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", uNo);
 		inputMap.put("start", start);
 		inputMap.put("end", end);
 		inputMap.put("oNo", 0);
-		
+
 		return sqlSession.selectList(namespaceuser + "pointHistoryList", inputMap);
 	}
 
 	@Override
 	public UserDto userExist(String email, String password) {
-		
+
 		HashMap<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("email", email);
-		
+
 		UserDto userDto = sqlSession.selectOne(namespaceuser + "userExist", paramMap);
-		
+
 		String existPwd = userDto.setHashpwd(userDto.getSalt(), password);
 		if (existPwd.equals(userDto.getPassword())) {
-			
 			return userDto;
 		} else {
 			return null;
@@ -57,7 +56,6 @@ public class UserDaoImpl implements UserDao {
 	public int userInsertOne(UserDto userDto, String address) {
 
 		userDto.setAddress(address);
-		
 
 		return sqlSession.insert(namespaceuser + "userInsertOne", userDto);
 	}
@@ -87,9 +85,9 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public int addPoint(PointAdd pointAdd, int point) {
-		
+
 		pointAdd.setpHistory(point);
-		
+
 		return sqlSession.update(namespaceuser + "addPoint", pointAdd);
 	}
 
@@ -115,24 +113,39 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void userDelete(UserDto userDto) {
-		
+
 		sqlSession.delete(namespaceuser + "userDelete", userDto);
 	}
-	
+
 	@Override
 	public void userBmiDelete(UserDto userDto) {
-		
+
 		sqlSession.delete(namespaceuser + "userBmiDelete", userDto);
 	}
 
 	@Override
-	public void userUpdate(UserDto userDto, String nickName, String password, int salt) {
+	public void userUpdate(UserDto userDto, String nickName, String changepassword, long salt) {
 
-		userDto.setNickName(nickName);
-		userDto.setPassword(password);
-		userDto.setSalt(salt);
+			userDto.setNickName(nickName);
+			
+		if (changepassword != null || changepassword != "") {
+			userDto.setPassword(changepassword);
+			userDto.setSalt(salt);
+		}
 
 		sqlSession.update(namespaceuser + "userUpdate", userDto);
+	}
+
+	@Override
+	public void userBmiUpdate(UserDto userDto, double height, double weight) {
+
+		BmiCalc bmiCalc = new BmiCalc();
+
+		bmiCalc.setuNo(userDto.getuNo());
+		bmiCalc.setHeight(height);
+		bmiCalc.setWeight(weight);
+
+		sqlSession.update(namespaceuser + "userBmiUpdate", bmiCalc);
 	}
 
 	@Override
@@ -150,7 +163,7 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public String resultUserpwd(String userEmail) {
-		
+
 		return sqlSession.selectOne(namespaceuser + "resultUserpwd", userEmail);
 	}
 
@@ -159,79 +172,77 @@ public class UserDaoImpl implements UserDao {
 
 		sqlSession.insert(namespaceuser + "addRecommendItem", userDto);
 	}
-	
+
 	@Override
 	public int getUserInfoTotalCount() {
-		
+
 		return sqlSession.selectOne(namespaceuser + "getUserInfoTotalCount");
 	}
-	
+
 	@Override
 	public int getUserTotalCount(int uNo) {
 		Map<String, Integer> inputMap = new HashMap<String, Integer>();
 		inputMap.put("uNo", uNo);
-		
+
 		return sqlSession.selectOne(namespaceuser + "getUserTotalCount", inputMap);
 	}
 
 	@Override
 	public List<Map<String, Object>> viewUserList(int uNo, int start, int end) {
-		
+
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", uNo);
 		inputMap.put("start", start);
 		inputMap.put("end", end);
-		
+
 		return sqlSession.selectList(namespaceuser + "viewUserList", inputMap);
 	}
 
 	@Override
 	public List<ItemDto> viewRecommendItemList(int uNo) {
-		
+
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", uNo);
 		inputMap.put("start", 1);
 		inputMap.put("end", 4);
 		inputMap.put("keyword", "");
-		
+
 		return sqlSession.selectList("com.fm.item.viewRecommendItemList", inputMap);
 	}
 
 	@Override
 	public List<ItemDto> viewBestItemList() {
-		
+
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", -1);
 		inputMap.put("start", 1);
 		inputMap.put("end", 4);
 		inputMap.put("keyword", "");
-		
+
 		List<Integer> bestItemList = sqlSession.selectList("com.fm.item.viewBestItemNoList", inputMap);
 		List<ItemDto> newBestItemList = new ArrayList<ItemDto>();
-		for(int iNo : bestItemList) {
+		for (int iNo : bestItemList) {
 			newBestItemList.add(sqlSession.selectOne("com.fm.item.viewTotalBestItemList", iNo));
 		}
-		
+
 		return newBestItemList;
 	}
 
 	@Override
 	public List<Map<String, Object>> viewReviewList() {
-		
+
 		return sqlSession.selectList("com.fm.review.viewReviewList");
 	}
 
 	@Override
 	public List<Map<String, Object>> viewPointList(int uNo, int start, int end) {
-		
+
 		Map<String, Object> inputMap = new HashMap<String, Object>();
 		inputMap.put("uNo", uNo);
 		inputMap.put("start", start);
 		inputMap.put("end", end);
-		
+
 		return sqlSession.selectList(namespaceuser + "viewPointList", inputMap);
 	}
-
-	
 
 }

@@ -140,9 +140,8 @@
 </head>
 
 <body>
-	<!-- 헤더 시작 -->
+	<!-- 헤더 include -->
 	<jsp:include page="../Header.jsp" />
-	<!-- 헤더 끝 -->
 	<div id="containerFid">
 		<p id="findId">비밀번호 찾기</p>
 		<div id="fidMainDiv">
@@ -157,9 +156,8 @@
 				type="button" id="cancelInp" value="취소">
 		</div>
 	</div>
-	<!-- footer 시작 -->
+	<!-- footer include -->
 	<jsp:include page="../Footer.jsp" />
-	<!-- footer 끝 -->
 </body>
 
 

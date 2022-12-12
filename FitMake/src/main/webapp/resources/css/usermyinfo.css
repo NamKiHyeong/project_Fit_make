@@ -141,3 +141,9 @@
 	cursor: pointer;
 	border-radius: 3px;
 }
+
+/* 넘버 타입 인풋 업다운 박스 없앰 */
+.detailInp::-webkit-outer-spin-button, .detailInp::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+}

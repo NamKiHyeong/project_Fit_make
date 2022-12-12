@@ -44,18 +44,15 @@
 <title>FitMake</title>
 </head>
 <body>
-	<!-- 헤더 시작 -->
+	<!-- 헤더 include -->
 	<jsp:include page="../Header.jsp" />
-	<!-- 헤더 끝 -->
 	<div style="height: 50px;"></div>
 	<div id="history_Container">
-		<!-- LeftNav 시작 -->
+		<!-- LeftNav include -->
 		<jsp:include page="../MyPageLeft.jsp" />
-		<!-- LeftNav 끝 -->
 		<div id="historyDiv">
-			<!-- Order status 시작-->
+			<!-- Order status include-->
 			<jsp:include page="../MyPageNav.jsp" />
-			<!-- Order status 끝-->
 			<p id="topupPtag">포인트내역</p>
 			<div id="historytableDiv">
 				<table>
@@ -81,7 +78,7 @@
 									</c:otherwise>
 								</c:choose></td>
 							<td><fmt:formatNumber type="number"
-									maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}" /></td>
+									maxFractionDigits="3" value="${pointMap.FM_POINT_HISTORY}" />원</td>
 							<td><fmt:formatDate pattern="yyyy년 MM월 dd일 hh시 mm분 ss초"
 									value="${pointMap.FM_POINT_CRE_DATE}" /></td>
 						</tr>
@@ -95,9 +92,8 @@
 			<jsp:include page="../user/UserPaging.jsp" />
 		</div>
 	</div>
-	<!-- footer 시작 -->
+	<!-- footer include -->
 	<jsp:include page="../Footer.jsp" />
-	<!-- footer 끝 -->
 
 	<div id="pagingSection">
 		<form id="pagingForm" action="./pointHistory.do" method="get">

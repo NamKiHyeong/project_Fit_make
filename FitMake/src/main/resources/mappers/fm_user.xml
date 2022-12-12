@@ -102,7 +102,7 @@
 	</insert>
 
 
-	<insert id="bmiInsertOne" parameterType="com.fm.util.BmiCalc"
+	<insert id="bmiInsertOne" parameterType="bmiCalc"
 		keyProperty="uNo">
 
 		<selectKey keyProperty="bNo" resultType="int" order="BEFORE">
@@ -178,7 +178,15 @@
 		</set>
 		WHERE FM_USER_NO = #{uNo}
 	</update>
-
+	
+	<update id="userBmiUpdate" parameterType="bmiCalc">
+			UPDATE FM_USER_BMI
+			<set>
+				<if test="height != ''">FM_USER_BMI_HEIGHT = #{height},</if>
+				<if test="weight != ''">FM_USER_BMI_WEIGHT = #{weight},</if>
+			</set>
+			WHERE FM_USER_NO = #{uNo}
+	</update>
 	<!-- //이메일 중복체크 -->
 	<select id="checkEmail" parameterType="String" resultType="int">
 		SELECT COUNT(*)

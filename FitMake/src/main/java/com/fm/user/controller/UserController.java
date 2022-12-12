@@ -92,7 +92,7 @@ public class UserController {
 			String add_Detail) {
 
 		try {
-			int salt = userDto.addSalt();
+			long salt = userDto.addSalt();
 			String password = userDto.setHashpwd(salt, userDto.getPassword());
 			String address = add_1st + add_Extra + add_Detail;
 
@@ -152,7 +152,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/deleteCtr.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String userDelete(UserDto userDto, HttpSession session, RedirectAttributes ra) throws Exception {
-		
+
 		try {
 			UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
 
@@ -172,7 +172,7 @@ public class UserController {
 		} catch (Exception e) {
 			return "redirect:/auth/login.do";
 		}
-		
+
 	}
 
 	/**
@@ -205,7 +205,7 @@ public class UserController {
 		} catch (Exception e) {
 			return "redirect:/auth/login.do";
 		}
-		
+
 	}
 
 	/**
@@ -240,7 +240,7 @@ public class UserController {
 	@RequestMapping(value = "/user/emailCheck.do", method = RequestMethod.POST)
 	@ResponseBody
 	public String checkEmail(@RequestParam("emailChk") String email) {
-		
+
 		String result = "N";
 		int flag = userService.checkEmail(email);
 
@@ -372,7 +372,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/Info.do")
 	public String userInfo(Model model, HttpSession session, @RequestParam(defaultValue = "1") int curPage) {
-		
+
 		try {
 			UserDto userdto = new UserDto();
 
@@ -412,7 +412,7 @@ public class UserController {
 		} catch (Exception e) {
 			return "redirect:/auth/login.do";
 		}
-		
+
 	}
 
 	/**
@@ -423,30 +423,41 @@ public class UserController {
 	 * @return (사용자)회원 정보 수정 -> 회원이 입력한 기존비밀번호가 일치하면 회원정보를 수정함 일치하지 않을시 alert(msg)사용
 	 */
 	@RequestMapping(value = "/user/userUpdate.do", method = RequestMethod.POST)
-	public String userUpdate(UserDto userDto, Model model, HttpSession session, String nickName, String newpassword) {
-		
+	public String userUpdate(UserDto userDto, Model model, HttpSession session, String password, String nickName,
+			@RequestParam(defaultValue = "") String newpassword, double height, double weight) {
+
 		try {
 			UserDto uPwd = (UserDto) session.getAttribute("_userDto_");
-
 			String existingPwd = uPwd.getPassword();
-			String sessionPwd = userDto.getPassword();
+			String sessionPwd = userDto.setHashpwd(uPwd.getSalt(), password);
 
-			if (!(sessionPwd.equals(existingPwd))) {
+			String changepassword = "";
+			long salt = uPwd.getSalt();
+
+			if (!newpassword.equals("")) {
+				salt = userDto.addSalt();
+				changepassword = userDto.setHashpwd(salt, newpassword);
+			}
+
+			if (!sessionPwd.equals(existingPwd)) {
 				model.addAttribute("msg", "기존 비밀번호와 일치하지 않습니다.");
 				model.addAttribute("url", "../user/Info.do");
 
 				return "common/UpdateAlert";
+			} else {
+				userService.userUpdate(userDto, nickName, changepassword, salt);
+				userService.userBmiUpdate(userDto, height, weight);
+				session.invalidate();
+				model.addAttribute("msg", "회원정보가 수정되었습니다 다시 로그인 해주세요.");
+				model.addAttribute("url", "../auth/login.do");
+				
+				return "common/Updatesuccess";
 			}
-			int salt = userDto.addSalt();
-			String password = userDto.setHashpwd(salt, newpassword);
 
-			userService.userUpdate(userDto, nickName, password, salt);
-
-			return "redirect:/user/Info.do";
 		} catch (Exception e) {
 			return "redirect:/auth/login.do";
 		}
-		
+
 	}
 
 	/**
@@ -487,7 +498,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/pointHistory.do")
 	public String viewHistory(HttpSession session, Model model, @RequestParam(defaultValue = "1") int curPage) {
-		
+
 		try {
 			UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 			int uNo = (int) userDto.getuNo();
@@ -530,7 +541,6 @@ public class UserController {
 		} catch (Exception e) {
 			return "redirect:/auth/login.do";
 		}
-		
 
 	}
 

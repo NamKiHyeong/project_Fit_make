@@ -20,9 +20,8 @@
 <title>FitMake</title>
 </head>
 <body>
-	<!-- 헤더 시작 -->
+	<!-- 헤더 include -->
 	<jsp:include page="../Header.jsp" />
-	<!-- 헤더 끝 -->
 	<div id="container">
 		<div id="joinDiv">
 			<p class="join_Tag">회원가입</p>
@@ -91,19 +90,19 @@
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						몸무게<em class="join_em_Cl">⭐</em>
+						키<em class="join_em_Cl">⭐</em>
 					</p>
-					<input type="text" name="weight" id="weightChk" class="input_Css"
+					<input type="number" name="height" id="heightChk" class="input_Css"
 						placeholder="숫자만 입력(소수점까지 기입가능)"> <span
-						id="result_check_wei"></span>
+						id="result_check_hei"></span>
 				</div>
 				<div class="input_p_Css">
 					<p class="join_P">
-						키<em class="join_em_Cl">⭐</em>
+						몸무게<em class="join_em_Cl">⭐</em>
 					</p>
-					<input type="text" name="height" id="heightChk" class="input_Css"
+					<input type="number" name="weight" id="weightChk" class="input_Css"
 						placeholder="숫자만 입력(소수점까지 기입가능)"> <span
-						id="result_check_hei"></span>
+						id="result_check_wei"></span>
 				</div>
 				<div>
 					<input type="button" value='회원가입' id="joinSubmit">
@@ -111,8 +110,7 @@
 			</form>
 		</div>
 	</div>
-	<!-- footer 시작 -->
+	<!-- footer include -->
 	<jsp:include page="../Footer.jsp" />
-	<!-- footer 끝 -->
 </body>
 </html>

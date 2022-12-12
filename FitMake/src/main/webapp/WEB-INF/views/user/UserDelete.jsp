@@ -115,18 +115,15 @@
 </head>
 
 <body>
-	<!-- 헤더 시작 -->
+	<!-- 헤더 include -->
 	<jsp:include page="../Header.jsp" />
-	<!-- 헤더 끝 -->
 	<div style="height: 50px;"></div>
 	<div id="deleteContainer">
-		<!-- LeftNav 시작 -->
+		<!-- LeftNav include -->
 		<jsp:include page="../MyPageLeft.jsp" />
-		<!-- LeftNav 끝 -->
 		<div id="deleteDiv">
-			<!-- Order status 시작-->
+			<!-- Order status include-->
 			<jsp:include page="../MyPageNav.jsp" />
-			<!-- Order status 끝-->
 			<p id="deletePtag">회원탈퇴</p>
 			<form action="../user/deleteCtr.do" method="post">
 				<div id="deleteTableDiv">
@@ -154,11 +151,9 @@
 			</form>
 		</div>
 	</div>
-	<!-- footer 시작 -->
-	
+	<!-- footer include -->
 	<jsp:include page="../Footer.jsp" />
 	
-	<!-- footer 끝 -->
 </body>
 
 

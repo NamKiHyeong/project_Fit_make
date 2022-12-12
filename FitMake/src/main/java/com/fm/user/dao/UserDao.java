@@ -34,7 +34,9 @@ public interface UserDao {
 
 	public void userDelete(UserDto userDto) throws Exception;
 
-	public void userUpdate(UserDto userDto, String nickName, String password, int salt);
+	public void userUpdate(UserDto userDto, String nickName, String changepassword, long salt);
+	
+	public void userBmiUpdate(UserDto userDto, double height, double weight);
 
 	public String myNickNameChk(String nickName);
 
@@ -60,6 +62,5 @@ public interface UserDao {
 
 	public List<Map<String, Object>> viewPointList(int uNo, int start, int end);
 
-	
 
 }

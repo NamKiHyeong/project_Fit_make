@@ -53,9 +53,8 @@
 </head>
 
 <body>
-	<!-- 헤더 시작 -->
+	<!-- 헤더 include -->
 	<jsp:include page="../Header.jsp" />
-	<!-- 헤더 끝 -->
 	<div id="userContainerDiv">
 		<h2>회원관리</h2>
 		<div id="userTableDiv">
@@ -92,11 +91,9 @@
 	</div>
 
 
-	<!-- footer 시작 -->
-	
+	<!-- footer include -->
 	<jsp:include page="../Footer.jsp" />
 	
-	<!-- footer 끝 -->
 	<div id="pagingSection">
 		<form id="pagingForm" action="./Info.do" method="get">
 			<input type="hidden" id="curPage" name="curPage"

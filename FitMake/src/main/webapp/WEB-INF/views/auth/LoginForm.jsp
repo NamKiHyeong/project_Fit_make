@@ -72,11 +72,11 @@ em {
 <script type="text/javascript"
 	src="/fitmake/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript"></script>
-<title>로그인 페이지</title>
+<title>FitMake</title>
 </head>
 <body>
-
-	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<!-- 헤더 include -->
+	<jsp:include page="../Header.jsp" />
 	<div id="login_Root_Div">
 		<div id="loginDiv">
 			<p class="login_fir_Tag">로그인</p>
@@ -101,6 +101,7 @@ em {
 			</p>
 		</div>
 	</div>
+	<!-- footer include -->
 	<jsp:include page="../Footer.jsp" />
 </body>
 </html>

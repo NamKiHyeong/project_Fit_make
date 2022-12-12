@@ -49,8 +49,8 @@
 	border: 1px solid #d7266d
 }
 
-#pwdChk{
-	margin-bottom: 10px;	
+#pwdChk {
+	margin-bottom: 10px;
 }
 
 .doubleChk {
@@ -90,7 +90,6 @@
 	text-indent: 12px;
 }
 
-
 .zipCode {
 	width: 260px;
 	padding: 15px 0px;
@@ -129,6 +128,7 @@
 	text-indent: 12px;
 	margin-bottom: 10px;
 }
+
 .add_Detail {
 	width: 140px;
 	padding: 15px 0px;
@@ -142,7 +142,7 @@
 	margin-bottom: 10px;
 }
 
-.add_Extra{
+.add_Extra {
 	width: 250px;
 	padding: 15px 0px;
 	background: #fff;
@@ -155,9 +155,11 @@
 	margin-bottom: 10px;
 }
 
-
-
-
+/* 넘버 타입 인풋 업다운 박스 없앰 */
+.input_Css::-webkit-outer-spin-button, .input_Css::-webkit-inner-spin-button
+	{
+	-webkit-appearance: none;
+}
 
 #joinSubmit {
 	width: 400px;

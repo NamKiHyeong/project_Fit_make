@@ -13,12 +13,18 @@
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#submitInp").click(function() {
-			confirm("회원정보를 수정하시겠습니까?");
-			if ($("#existingPwd").val() == null || $("#existingPwd").val() == '') {
-				alert("비밀번호를 입력해주세요")
-				return false;
-			}
-			$("#updateForm").submit();
+			if (!confirm("회원정보를 수정하시겠습니까?")) {
+		        // 취소(아니오) 버튼 클릭 시 이벤트
+		        return false;
+		    } else {
+		        // 확인(예) 버튼 클릭 시 이벤트
+		    	if ($("#existingPwd").val() == null || $("#existingPwd").val() == '') {
+					alert("비밀번호를 입력해주세요")
+					return false;
+				}
+				$("#updateForm").submit();
+		    }
+			
 		});
 		
 		$("#cancelInp").click(function () {
@@ -34,13 +40,11 @@
 	<!-- 헤더 끝 -->
 	<div style="height: 50px;"></div>
 	<div id="container">
-		<!-- LeftNav 시작 -->
+		<!-- LeftNav include -->
 		<jsp:include page="../MyPageLeft.jsp" />
-		<!-- LeftNav 끝 -->
 		<div id="myInfoDiv">
-			<!-- Order status 시작-->
+			<!-- Order status include-->
 			<jsp:include page="../MyPageNav.jsp" />
-			<!-- Order status 끝-->
 			<div id="updateDelete">
 				<p id="myInfoP">내정보 수정</p>
 				<a href="../user/userDelete.do"><span id="myInfoSpan">회원탈퇴</span></a>
@@ -90,10 +94,10 @@
 						<th>상세 정보</th>
 						<td>성별 <input type="text" id="infoGender" class="detailInp"
 							value="${myInfomap.FM_USER_BMI_GENDER}" readonly> 키 <input
-							type="text" class="detailInp"
-							value="${myInfomap.FM_USER_BMI_HEIGHT}" readonly> 몸무게 <input
-							type="text" class="detailInp"
-							value="${myInfomap.FM_USER_BMI_WEIGHT}" readonly></td>
+							type="number" name="height" class="detailInp"
+							value="${myInfomap.FM_USER_BMI_HEIGHT}"> 몸무게 <input
+							type="number" name="weight" class="detailInp"
+							value="${myInfomap.FM_USER_BMI_WEIGHT}"></td>
 					</tr>
 				</table>
 				<div id="infoBtn">
@@ -105,11 +109,8 @@
 			</form>
 		</div>
 	</div>
-		<!-- footer 시작 -->
-	
+		<!-- footer include -->
 		<jsp:include page="../Footer.jsp" />
-	
-		<!-- footer 끝 -->
 </body>
 
 </html>
