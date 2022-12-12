@@ -17,7 +17,7 @@
  ## 2022-09-08 프로젝트 ppt 컨펌
  
   - [조졌조_220908.pptx](https://github.com/NamKiHyeong/project_Fit_make/files/9793840/_220908.pptx)
-
+  
  ## 2022-09-13 프로젝트 ppt 발표(1차)
 
   - [조졌조_220913.pptx](https://github.com/NamKiHyeong/project_Fit_make/files/9792517/_220913.pptx)
@@ -51,3 +51,16 @@
 - [팀프로젝트 - UI 컨펌 ver(1013).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802626/-.UI.ver.1013.docx)
 - [팀프로젝트 - UI 컨펌(1018).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9802645/-.UI.1018.docx)
 - [팀프로젝트 - UI컨펌 ver(1027).docx](https://github.com/NamKiHyeong/project_Fit_make/files/9878907/-.UI.ver.1027.docx)
+
+ % 팀프로젝트 문서 최종
+- [Fit Make.pptx](https://github.com/NamKiHyeong/project_Fit_make/files/10207650/Fit.Make.pptx)
+- [FitMake_Mockup.pdf](https://github.com/NamKiHyeong/project_Fit_make/files/10207659/FitMake_Mockup.pdf)
+- [FitMake_종합.docx](https://github.com/NamKiHyeong/project_Fit_make/files/10207660/FitMake_.docx)
+- [FitMake_주제선정발표피드백.docx](https://github.com/NamKiHyeong/project_Fit_make/files/10207661/FitMake_.docx)
+- [FitMake_UI피드백.docx](https://github.com/NamKiHyeong/project_Fit_make/files/10207662/FitMake_UI.docx)
+- [FitMake_역할.docx](https://github.com/NamKiHyeong/project_Fit_make/files/10207663/FitMake_.docx)
+- [개발일정표.xls](https://github.com/NamKiHyeong/project_Fit_make/files/10207666/default.xls)
+- ![FitMakeERD](https://user-images.githubusercontent.com/109198744/207039242-744ce778-4016-4d0d-baa2-a2ca1e6255ac.png)
+- [Dummy_Img.zip](https://github.com/NamKiHyeong/project_Fit_make/files/10207681/Dummy_Img.zip)
+
+
