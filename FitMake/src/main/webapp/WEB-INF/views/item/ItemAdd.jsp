@@ -17,7 +17,7 @@
 		var iSellpriceObj = document.getElementById("iSellprice");
 		var iCaloryObj = document.getElementById("iCalory");
 		var iCountObj = document.getElementById("iCount");
-		
+		var iFileObj = document.getElementById("iFile");
 		if(iNameObj.value == ""){
 			alert("제품명이 없습니다.");
 		} else if(iSellpriceObj.value == ""){
@@ -26,6 +26,8 @@
 			alert("제품 칼로리가 없습니다.");
 		} else if(iCountObj.value == ""){
 			alert("제품의 제고 수량이 없습니다.");
+		} else if(iFileObj.files.length == 0){
+			alert("이미지가 없습니다.");
 		} else {
 			$("#itemForm").submit();
 		}
@@ -54,7 +56,7 @@
 								<div class="sortImg sort1">
 									
 									<img alt="image not fount" src="<c:url value='/image/${img.FM_ITEM_STORED_IMG_NAME}'/>"/><br>
-									<input type="file" id="file_${obj.index}" name="file_${obj.index}"> 
+									<input id="iFile" type="file" id="file_${obj.index}" name="file_${obj.index}"> 
 		<!-- 							type="file"가 파일 선택임 -->
 									<a href="#this" onclick="deleteFileFnc()">삭제</a><br>
 									<a href="#this" id="delete_${img.FM_ITEM_IMG_NO}">삭제</a>
