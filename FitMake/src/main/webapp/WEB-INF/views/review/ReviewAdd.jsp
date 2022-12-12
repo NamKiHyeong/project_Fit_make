@@ -50,7 +50,7 @@
 		var rTitleObj = document.getElementById("rTitle");
 		var rCountObj = document.getElementById("rCount");
 		
-		rFileObj = document.getElementById('rFile');
+		var rFileObj = document.getElementById('rFile');
 		
 		if (rTitleObj.value == "") {
 			alert("제목이 없습니다.");
@@ -58,7 +58,7 @@
 			alert("내용이 없습니다.");
 		} else if(rFileObj.files.length == 0){
 			alert("이미지가 없습니다.");
-		}else{
+		} else{
 			$("#reviewCtrForm").submit();
 		}
 	}
