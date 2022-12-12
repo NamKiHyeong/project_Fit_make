@@ -29,7 +29,8 @@
 							</c:forEach>
 						</div>
 						<div class="sortImg sort2">
-							<p><span>제품명</span>	 <input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly" disabled="disabled"><br></p>
+							<p><span>제품명</span>
+								<input class="info" type="text" name="iName" id="iName" value="${itemDto.iName}" readonly="readonly" disabled="disabled"><br></p>
 							<p><span>가 &nbsp; 격</span>	 
 								<input class="info" type="text" value="<fmt:formatNumber value="${itemDto.iSellprice}" />" readonly="readonly" disabled="disabled">
 								<input type="hidden" name="iSellprice" value="${itemDto.iSellprice}">
@@ -47,9 +48,18 @@
 									<p><span>개 &nbsp; 수</span>	 <input class="info" type="number" name="ctCount" id="ctCountInput" value="1"></p>
 								</c:otherwise>
 							</c:choose>
-								<input type="text" value="${prevMap.cNo}">
-								<input type="text" value="${prevMap.curPage}">
-								<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${prevMap.cNo},${prevMap.curPage});">
+							
+								<input type="hidden" value="${prevMap.cNo}">
+								<input type="hidden" value="${prevMap.curPage}">
+								
+<!-- 								제품 리스트에서 아이템 하나를 클릭했을때 -->
+								<c:if test="${prevMap.cNo!=0&&prevMap.curPage!=0}">
+									<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${prevMap.cNo},${prevMap.curPage});">
+								</c:if>
+<!-- 								메인에서 아이템 하나를 클릭했을 때 -->
+								<c:if test="${prevMap.cNo==0||prevMap.curPage==0}">
+									<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveMainFnc();">
+								</c:if>
 							<c:if test="${_userDto_.uNo != 1}">
 								<input class="itemCtr" type="button" id="addCartBtn" value="장바구니">
 								<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">

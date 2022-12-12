@@ -70,9 +70,9 @@ public class ItemController {
 	@RequestMapping(value = "/item/list.do", method = { RequestMethod.GET, RequestMethod.POST })
 	public String itemList(@RequestParam(defaultValue = "1") int curPage
 			, ItemDto itemDto, @RequestParam(defaultValue = "") String keyword
+			, Model model, HttpSession session
 			, @RequestParam(defaultValue = "1") int cNo
 			, @RequestParam(defaultValue = "0") int older
-			, Model model, HttpSession session
 			, @RequestParam(defaultValue = "1") int start
 			, @RequestParam(defaultValue = "6") int end) {
 		

@@ -47,12 +47,14 @@
 					<c:forEach var="item" items = "${itemList}">
 						<div class="CategoryItem">
 							<form id="itemOneForm${item.getiNo()}" action="./one.do" method="get">
+								<input type="hidden" name="iNo" value="${item.getiNo()}">
+<%-- 									<input type="text" name="cNo" value="cNo = ${item.getcNo()}"> --%>
+								<input type="hidden" name="cNo" value="${pagingMap.cNo}">	
+								<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
+								<input type="hidden" name="keyword" value="${searchMap.keyword}">
+								
 								<div style="text-align: left">
 									<input class="itemListCB" type="checkbox" name="iCkBox" value="${item.getiNo()}">
-									<input type="hidden" name="iNo" value="${item.getiNo()}">
-									<input type="hidden" name="cNo" value="${item.getcNo()}">
-									<input type="hidden" name="curPage" value="${pagingMap.itemPaging.curPage}">
-									<input type="hidden" name="keyword" value="${searchMap.keyword}">
 								</div>
 								<div class="sortImg">
 									<a class="iImgATag" href=# onclick="itemOneFnc(${item.getiNo()});" >

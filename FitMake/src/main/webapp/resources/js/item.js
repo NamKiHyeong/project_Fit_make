@@ -105,7 +105,9 @@ function pageMoveListFnc(cNo, curPage) {
 	
 }
 	
-	
+function pageMoveMainFnc(){
+	location.href='../main/main.do';
+}
 	
 	
 //------------------------------------------------------------------
