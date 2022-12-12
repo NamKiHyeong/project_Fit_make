@@ -56,7 +56,6 @@
 		WHERE FM_REVIEW_NO = #{rNo}
 	</select>
 	
-	
 	<!-- 	Read One -->
 	<select id="reviewSelectOne" parameterType="int"
 		resultMap="reviewResultMap">
@@ -71,9 +70,6 @@
 		FROM FM_REVIEW_IMG
 		WHERE FM_REVIEW_NO = #{rNo}
 	</select>
-	
-	
-	
 	
 	<select id="viewReviewList" resultType="map">
 		SELECT *
@@ -110,10 +106,4 @@
 		WHERE FM_REVIEW_IMG_NO = ${value}
 	</delete>
 	
-	<select id="getCountReviewList" parameterType="map" resultType="int">
-		SELECT count(FM_USER_NO)
-		FROM FM_REVIEW
-		WHERE FM_USER_NO = #{uNo}
-		AND FM_ORDER_NO = #{oNo}
-	</select>
 </mapper>

@@ -92,6 +92,7 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/views/Header.jsp" />
+	<div style="height: 50px;"></div>
 	<div id="inquiryAddRootDiv">
 		<jsp:include page="../MyPageLeft.jsp" />
 		<div id="inquiryAdd">

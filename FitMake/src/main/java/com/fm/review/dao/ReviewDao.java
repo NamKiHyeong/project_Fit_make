@@ -27,5 +27,4 @@ public interface ReviewDao {
 	
 	public List<Map<String, Object>> getOrderList(int uNo, int oNo);
 	
-	public int getCountReviewList(int uNo, int oNo);
 }

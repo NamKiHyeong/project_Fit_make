@@ -81,10 +81,9 @@ public class ReviewController {
 		UserDto userDto = (UserDto) session.getAttribute("_userDto_");
 		int uNo = userDto.getuNo();
 
-		int myRCount = reviewService.getCountReviewList(uNo, oNo);
 		List<Map<String, Object>> myReviewOrderItemList = reviewService.getOrderList(uNo, oNo);
 		int result = myReviewOrderItemList.size();
-		System.out.println(result);
+		
 		return result;
 	}
 

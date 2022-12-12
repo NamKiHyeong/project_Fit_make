@@ -183,12 +183,6 @@ public class ReviewServicempl implements ReviewService {
 		return reviewDao.getOrderList(uNo, oNo);
 	}
 
-	@Override
-	public int getCountReviewList(int uNo, int oNo) {
-		
-		return reviewDao.getCountReviewList(uNo, oNo);
-	}
-
 	
 	
 }

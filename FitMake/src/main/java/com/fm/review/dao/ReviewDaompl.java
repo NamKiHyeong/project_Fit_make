@@ -90,13 +90,6 @@ public class ReviewDaompl implements ReviewDao {
 		
 		return sqlSession.selectList("com.fm.order.getOrderList", inputMap);
 	}
-	@Override
-	public int getCountReviewList(int uNo, int oNo) {
-		Map<String, Object> inputMap = new HashMap<String, Object>();
-		inputMap.put("uNo", uNo);
-		inputMap.put("oNo", oNo);
-		return sqlSession.selectOne(namespace + "getCountReviewList", inputMap);
-	}
 	
 	
 }

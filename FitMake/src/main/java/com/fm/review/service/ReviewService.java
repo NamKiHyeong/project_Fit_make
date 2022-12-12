@@ -22,7 +22,6 @@ public interface ReviewService {
 
 	public List<Map<String, Object>> getOrderList(int uNo, int oNo);
 
-	public int getCountReviewList(int uNo, int oNo);
 
 	
 }
