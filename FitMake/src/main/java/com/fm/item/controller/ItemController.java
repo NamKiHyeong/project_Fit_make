@@ -152,8 +152,17 @@ public class ItemController {
 		
 		try {
 			Map<String, Object> prevMap = new HashMap<>();
+			System.out.println("cNo 값이 들어오나?" + cNo);
+			logger.debug("cNo의 값은{}",cNo);
+			logger.debug("curPage의 값은{}", curPage);
 			prevMap.put("cNo", cNo);
+			logger.debug("prevMap.cNo {}", prevMap);
+			
 			prevMap.put("curPage", curPage);
+			logger.debug("prevMap.curPage {}", prevMap);
+
+//			prevMap.put("cNo", cNo);
+//			prevMap.put("curPage", curPage);
 
 			Map<String, Object> map = itemService.itemSelectOne(iNo);
 

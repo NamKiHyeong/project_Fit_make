@@ -47,11 +47,12 @@
 									<p><span>개 &nbsp; 수</span>	 <input class="info" type="number" name="ctCount" id="ctCountInput" value="1"></p>
 								</c:otherwise>
 							</c:choose>
-<%-- 							<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${itemDto.cNo},${prevMap.curPage});"> --%>
+								<input type="text" value="${prevMap.cNo}">
+								<input type="text" value="${prevMap.curPage}">
+								<input class="itemCtr" type="button" value="뒤로가기" onclick="pageMoveListFnc(${prevMap.cNo},${prevMap.curPage});">
 							<c:if test="${_userDto_.uNo != 1}">
 								<input class="itemCtr" type="button" id="addCartBtn" value="장바구니">
 								<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">
-								<input class="itemCtr" type="button" value="리뷰목록" onclick="pageReviewListFnc(${itemDto.iNo});">
 							</c:if>
 					
 							<c:if test="${_userDto_.uNo == 1}">

@@ -88,6 +88,7 @@ function itemOneFnc(iNo){
 	var idStr = 'itemOneForm' + iNo;
 	var itemOneFormObj = document.getElementById(idStr);
 	
+	
 	itemOneFormObj.submit();
 	
 }
