@@ -49,11 +49,11 @@
 				},
 				success : function(data) {
 					
-					if(data <= 0) {
+					if(data == 0) {
 						alert('작성 가능한 리뷰가 없습니다.');
-						$('#writeReviewBtn'+oNo).attr('disabled', true);
-						$('#writeReviewBtn'+oNo).css('background', 'grey');
-						$('#writeReviewBtn'+oNo).css('border', '2px solid grey');
+						$('#writeReviewBtn').attr('disabled', true);
+						$('#writeReviewBtn').css('background', 'grey');
+						$('#writeReviewBtn').css('border', '2px solid grey');
 						
 						return false;
 					} else {

@@ -83,8 +83,8 @@ public class ReviewController {
 
 		int myRCount = reviewService.getCountReviewList(uNo, oNo);
 		List<Map<String, Object>> myReviewOrderItemList = reviewService.getOrderList(uNo, oNo);
-
-		int result = (myReviewOrderItemList.size() - myRCount);
+		int result = myReviewOrderItemList.size();
+		System.out.println(result);
 		return result;
 	}
 
