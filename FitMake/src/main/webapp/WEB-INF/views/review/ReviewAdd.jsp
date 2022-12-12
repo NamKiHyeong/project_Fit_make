@@ -45,6 +45,23 @@
 			}
 		});
 	}
+	
+	function reviewCtrFnc(){
+		var rTitleObj = document.getElementById("rTitle");
+		var rCountObj = document.getElementById("rCount");
+		
+		rFileObj = document.getElementById('rFile');
+		
+		if (rTitleObj.value == "") {
+			alert("제목이 없습니다.");
+		} else if(rCountObj.value == ""){
+			alert("내용이 없습니다.");
+		} else if(rFileObj.files.length == 0){
+			alert("이미지가 없습니다.");
+		}else{
+			$("#reviewCtrForm").submit();
+		}
+	}
 </script>
 <style type="text/css">
 #raContainerDiv{
@@ -56,13 +73,13 @@
 	<jsp:include page="../Header.jsp" />
 	<div style="height: 50px;"></div>
 	<div id="raContainerDiv">
-		<form action="./addCtr.do" method="post" enctype="multipart/form-data" style="height: 1000px;">
+		<form id="reviewCtrForm" action="./addCtr.do" method="post" enctype="multipart/form-data" style="height: 1000px;">
 			<input type="hidden" name="uNo" value="${_userDto_.uNo}">
 			<input type="hidden" name="oNo" id="oNo" value="${oNo}">
 			<div class="diet_wrap">
 				<div class="frame">
 					<div class="sortImg sort1">
-						파일 <input type="file" name="file">
+						파일 <input id='rFile' type="file" name="file">
 					</div>
 
 					<div class="sortImg sort2">
@@ -70,11 +87,11 @@
 						<select name="iNo" id="myOrderItem">
 						</select>
 						<h3>제목</h3>
-						<input class="addInfo" type="text" name="rTitle">
+						<input class="addInfo" type="text" id="rTitle" name="rTitle">
 						<h3>내용</h3>
-						<textarea style="resize: none;" rows="20" cols="80" name="rContent"></textarea>
+						<textarea style="resize: none;" rows="20" cols="80" id="rCount" name="rContent"></textarea>
 						<div id="reviewAddBtnArea">
-							<input class="reviewCtr" type="submit" value="작성">
+							<input class="reviewCtr" id="reviewCtr" type="button" onclick="reviewCtrFnc();" value="작성">
 						</div>
 					</div>
 				</div>

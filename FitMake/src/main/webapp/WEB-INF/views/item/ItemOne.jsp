@@ -18,8 +18,8 @@
 		<div id="itemOneOuterWrap">
 			<form id="itemOneForm" action="./update.do" method="get">
 				<input type="hidden" name="iNo"	id="iNoInput" value="${itemDto.iNo}"><br>
-				<input type="hidden" name="cNo"	value="${itemDto.cNo}"><br>
-				<input type="hidden" name="curPage" value="${prevMap.curPage}">
+				<input type="hidden" value="${prevMap.cNo}">
+				<input type="hidden" value="${prevMap.curPage}">
 				
 				<div class="diet_wrap">
 					<div class="frame">
@@ -49,8 +49,7 @@
 								</c:otherwise>
 							</c:choose>
 							
-								<input type="hidden" value="${prevMap.cNo}">
-								<input type="hidden" value="${prevMap.curPage}">
+								
 								
 <!-- 								제품 리스트에서 아이템 하나를 클릭했을때 -->
 								<c:if test="${prevMap.cNo!=0&&prevMap.curPage!=0}">
@@ -63,6 +62,7 @@
 							<c:if test="${_userDto_.uNo != 1}">
 								<input class="itemCtr" type="button" id="addCartBtn" value="장바구니">
 								<input class="itemCtr" type="button" id="addOrderBtn" value="구매하기">
+								<input class="itemCtr" type="button" id="addOrderBtn" onclick="pageReviewListFnc(${itemDto.iNo});" value="리뷰보기">
 							</c:if>
 					
 							<c:if test="${_userDto_.uNo == 1}">

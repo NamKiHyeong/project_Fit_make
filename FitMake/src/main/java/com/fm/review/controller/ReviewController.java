@@ -103,6 +103,7 @@ public class ReviewController {
 			reviewService.reviewInsert(reviewDto, mulRequest);
 			return "redirect:/review/list.do?iNo=" + reviewDto.getiNo();
 		} catch (Exception e) {
+			e.printStackTrace();
 			return "redirect:/auth/login.do";
 		}
 
