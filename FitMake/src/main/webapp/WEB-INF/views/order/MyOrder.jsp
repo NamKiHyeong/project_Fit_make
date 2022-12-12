@@ -36,8 +36,8 @@
 							+ request.responseText + '\n' + 'error:' + error);
 				},
 				success : function(data) {
-						
-					if(data < 0) {
+					
+					if(data <= 0) {
 						alert('작성 가능한 리뷰가 없습니다.');
 						$('#writeReviewBtn'+oNo).attr('disabled', true);
 						$('#writeReviewBtn'+oNo).css('background', 'grey');
@@ -148,7 +148,14 @@
 	.myOrderImg, .myOrderImg > img{
 		width : 300px;
 		height: 200px;
+		
 	}
+	.myOrderImg > img{
+		border: 1px solid #ddd;
+		border-radius: 10px;
+		object-fit: cover;
+	}
+	
 	.myOrderCacelBtn, .myOrderPixedBtn {
 		margin-left: 10px;
 		width: auto;

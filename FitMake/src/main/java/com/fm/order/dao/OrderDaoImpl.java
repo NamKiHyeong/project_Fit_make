@@ -194,12 +194,6 @@ public class OrderDaoImpl implements OrderDao {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewCartFileList(int uNo) {
-		
-		return sqlSession.selectList(namespace + "viewCartFileList", uNo);
-	}
-
-	@Override
 	public Object countMyOrderStatus(int uNo, String oStatus) {
 		
 		Map<String, Object> inputMap = new HashMap<String, Object>();

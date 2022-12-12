@@ -64,19 +64,6 @@
 		AND FM_USER_NO = #{uNo}
 	</select>
 	
-	<!-- 장바구니 사진 리스트 -->
-	<select id="viewCartFileList" parameterType="int" resultType="map">
-		SELECT ig.FM_ITEM_IMG_NO, ig.FM_ITEM_NO, ig.FM_ITEM_IMG_NAME, ig.FM_ITEM_STORED_IMG_NAME
-		FROM FM_CART c
-		    INNER JOIN FM_ITEM i
-		        ON c.FM_ITEM_NO = i.FM_ITEM_NO
-		    INNER JOIN FM_ITEM_IMG ig
-		        ON i.FM_ITEM_NO = ig.FM_ITEM_NO
-		WHERE c.FM_USER_NO = #{uNo}
-		ORDER BY c.FM_CART_NO DESC
-	</select>
-	
-	
 	<!-- @@@ 주문 기능 @@@ -->
 	
 	<!-- 주문리스트 확인 -->
@@ -213,6 +200,5 @@
             AND o.FM_ORDER_STATUS = 'pixed'
             AND o.FM_ORDER_NO = #{oNo}
             AND r.FM_REVIEW_CONTENT IS NULL
-            GROUP BY i.FM_ITEM_NO, i.FM_ITEM_NAME, o.FM_ORDER_NO, r.FM_ORDER_NO
 	</select>
 </mapper>

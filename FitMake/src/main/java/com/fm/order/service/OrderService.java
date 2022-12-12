@@ -41,8 +41,6 @@ public interface OrderService {
 
 	public int checkCart(int uNo, int iNo);
 
-	public List<Map<String, Object>> viewCartFileList(int uNo);
-
 	public Map<String, Object> countMyOrderStatus(int uNo);
 
 	public int getTotalCartPrice(int uNo);

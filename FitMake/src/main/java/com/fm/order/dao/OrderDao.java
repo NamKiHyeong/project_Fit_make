@@ -39,8 +39,6 @@ public interface OrderDao {
 
 	public int checkCart(int uNo, int iNo);
 
-	public List<Map<String, Object>> viewCartFileList(int uNo);
-
 	public Object countMyOrderStatus(int uNo, String oStatus);
 
 	public List<Map<String, Object>> viewOrderDetailItem(int oNo);

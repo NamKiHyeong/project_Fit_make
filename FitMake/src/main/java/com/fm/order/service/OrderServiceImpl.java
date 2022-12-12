@@ -112,12 +112,6 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Map<String, Object>> viewCartFileList(int uNo) {
-		
-		return orderDao.viewCartFileList(uNo);
-	}
-
-	@Override
 	public Map<String, Object> countMyOrderStatus(int uNo) {
 		
 		
