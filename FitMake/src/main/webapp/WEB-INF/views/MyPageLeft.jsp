@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -63,14 +64,14 @@
 		</div>
 		<div>
 			<ol>
-				<li><strong>활동 관리</strong></li>
+				<li><strong>활동관리</strong></li>
 				<li><a class="nabAtag" href="../review/list.do">리뷰목록</a></li>
 				<li><a class="nabAtag" href="../inquiry/list.do">1:1 문의</a></li>
 			</ol>
 		</div>
 		<div>
 			<ol>
-				<li><strong>정보 관리</strong></li>
+				<li><strong>정보관리</strong></li>
 				<li><a class="nabAtag" href="../user/Info.do">내정보 수정</a></li>
 				<li><a class="nabAtag" href="../user/pointHistory.do">포인트내역</a></li>
 			</ol>

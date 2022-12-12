@@ -16,6 +16,23 @@
 	margin: 0px auto;
 }
 
+#managerconDiv {
+	display: flex; width : 1200px;
+	min-height: 100%;
+	margin: 0px auto;
+	width: 1200px;
+}
+
+#managermain {
+	margin: 0px auto;
+}
+
+#managerPtag {
+	margin-top: 158px;
+	font-size: 44px;
+	font-weight: bold;
+}
+
 .paddingPtag {
 	padding-top: 40px;
 }
@@ -117,88 +134,100 @@
 </head>
 <body>
 	<jsp:include page="../Header.jsp" />
-	<div id="containerImg">
-		<img class="mainImg" src="/fitmake/resources/image/salad.jpg" /> <img
-			class="mainImg" src="/fitmake/resources/image/dietMeat.jpg" /> <img
-			class="mainImg" src="/fitmake/resources/image/sweetpotato.jpg" />
-	</div>
-	<div id="containerMainDiv">
-		<div>
-			<c:if test="${_userDto_.getuNo() > 1}">
+	<c:if test="${_userDto_.uNo == 1}">
+		<div style="margin-top: 100px;"></div>
+		<div id="managerconDiv">
+			<!-- LeftNav include -->
+			<jsp:include page="../MyPageLeft.jsp" />
+			<div id="managermain">
+				<p id="managerPtag">어서오세요 관리자님!</p>
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${_userDto_.uNo != 1}">
+		<div id="containerImg">
+			<img class="mainImg" src="/fitmake/resources/image/salad.jpg" /> <img
+				class="mainImg" src="/fitmake/resources/image/dietMeat.jpg" /> <img
+				class="mainImg" src="/fitmake/resources/image/sweetpotato.jpg" />
+		</div>
+		<div id="containerMainDiv">
+			<div>
+				<c:if test="${_userDto_.getuNo() > 1}">
+					<p class="titlePtag">
+						<a href="../item/list.do?cNo=1">추천상품</a>
+					</p>
+				</c:if>
+				<div class="ItemArea">
+					<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}"
+						begin="1" end="3">
+						<c:if test="${_userDto_.getuNo() > 1}">
+							<div class="ItemDiv">
+								<a href="../item/one.do?iNo=${mainRecommendItem.getiNo()}">
+									<img class="ItemImg" alt="image not found"
+									src="<c:url value='/image/${mainRecommendItem.getiImgStoredName()}' />" />
+								</a>
+								<p class="pTitle">${mainRecommendItem.getiName()}</p>
+								<p class="pPrice">
+									<fmt:formatNumber type="number" maxFractionDigits="3"
+										value="${mainRecommendItem.getiSellprice()}" />
+									원
+								</p>
+							</div>
+						</c:if>
+					</c:forEach>
+				</div>
+				<c:if test="${mainRecommendItem.size() < 1}">
+					<div>
+						<h2>상품을 등록해주세요</h2>
+					</div>
+				</c:if>
+			</div>
+			<div>
 				<p class="titlePtag">
-					<a href="../item/list.do?cNo=1">추천상품</a>
+					<a href="../item/list.do?cNo=2">베스트</a>
 				</p>
-			</c:if>
-			<div class="ItemArea">
-				<c:forEach var="mainRecommendItem" items="${mainRecommendItemList}"
-					begin="1" end="3">
-					<c:if test="${_userDto_.getuNo() > 1}">
+				<div class="ItemArea">
+					<c:forEach var="mainBestItem" items="${mainBestItemList}" begin="1"
+						end="3">
 						<div class="ItemDiv">
-							<a href="../item/one.do?iNo=${mainRecommendItem.getiNo()}"> <img
+							<a href="../item/one.do?iNo=${mainBestItem.getiNo()}"> <img
 								class="ItemImg" alt="image not found"
-								src="<c:url value='/image/${mainRecommendItem.getiImgStoredName()}' />" />
+								src="<c:url value='/image/${mainBestItem.getiImgStoredName()}' />" />
 							</a>
-							<p class="pTitle">${mainRecommendItem.getiName()}</p>
+							<p class="pTitle">${mainBestItem.getiName()}</p>
 							<p class="pPrice">
 								<fmt:formatNumber type="number" maxFractionDigits="3"
-									value="${mainRecommendItem.getiSellprice()}" />
+									value="${mainBestItem.getiSellprice()}" />
 								원
 							</p>
 						</div>
-					</c:if>
-				</c:forEach>
-			</div>
-			<c:if test="${mainRecommendItem.size() < 1}">
-				<div>
-					<h2>상품을 등록해주세요</h2>
+					</c:forEach>
 				</div>
-			</c:if>
-		</div>
-		<div>
-			<p class="titlePtag">
-				<a href="../item/list.do?cNo=2">베스트</a>
-			</p>
-			<div class="ItemArea">
-				<c:forEach var="mainBestItem" items="${mainBestItemList}" begin="1"
-					end="3">
-					<div class="ItemDiv">
-						<a href="../item/one.do?iNo=${mainBestItem.getiNo()}"> <img
-							class="ItemImg" alt="image not found"
-							src="<c:url value='/image/${mainBestItem.getiImgStoredName()}' />" />
-						</a>
-						<p class="pTitle">${mainBestItem.getiName()}</p>
-						<p class="pPrice">
-							<fmt:formatNumber type="number" maxFractionDigits="3"
-								value="${mainBestItem.getiSellprice()}" />
-							원
-						</p>
+				<c:if test="${mainRecommendItem.size() < 1}">
+					<div>
+						<h2>상품을 등록해주세요</h2>
 					</div>
-				</c:forEach>
+				</c:if>
 			</div>
-			<c:if test="${mainRecommendItem.size() < 1}">
-				<div>
-					<h2>상품을 등록해주세요</h2>
-				</div>
-			</c:if>
-		</div>
-		<div id="reviewDiv">
-			<p class="titlePtag">
-				<a href="../review/list.do?iNo=0">리뷰</a>
-			</p>
-			<div class="ItemArea">
-				<c:forEach var="mainReview" items="${mainReviewList}" begin="1"
-					end="3">
-					<div class="ItemDiv">
-						<img class="ItemImg" alt="image not found"
-							src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />" />
+			<div id="reviewDiv">
+				<p class="titlePtag">
+					<a href="../review/list.do?iNo=0">리뷰</a>
+				</p>
+				<div class="ItemArea">
+					<c:forEach var="mainReview" items="${mainReviewList}" begin="1"
+						end="3">
+						<div class="ItemDiv">
+							<img class="ItemImg" alt="image not found"
+								src="<c:url value='/image/${mainReview.FM_REVIEW_STORED_NAME}' />" />
 
-						<p class="pTitle">${mainReview.FM_REVIEW_TITLE}</p>
-						<p id="reviewContent">${mainReview.FM_REVIEW_CONTENT}</p>
-					</div>
-				</c:forEach>
+							<p class="pTitle">${mainReview.FM_REVIEW_TITLE}</p>
+							<p id="reviewContent">${mainReview.FM_REVIEW_CONTENT}</p>
+						</div>
+					</c:forEach>
+				</div>
 			</div>
 		</div>
-	</div>
+	</c:if>
 	<!-- footer 시작 -->
 	<jsp:include page="../Footer.jsp" />
 	<!-- footer 끝 -->
